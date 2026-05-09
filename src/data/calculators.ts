@@ -239,18 +239,124 @@ export const calculators: Calculator[] = [
     cta: 'Screen now →',
     phase: 2,
   },
+
+  // ──── Phase 3 ────
+
+  {
+    slug: 'exercise-timing-calculator',
+    title: 'Exercise Timing',
+    description:
+      'Best time to work out for better sleep? Chronotype-aware scheduler with optimal, acceptable, and avoid windows.',
+    tag: { label: 'New', class: 'tag-new' },
+    color: 'c-coral',
+    iconColor: 'coral',
+    iconPath:
+      '<path d="M18 5v4M6 5v4"/><path d="M2 9h20"/><path d="M4 9v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9"/><path d="M12 13v-2"/>',
+    meta: '30 sec · Stutz et al., 2019',
+    cta: 'Calculate →',
+    phase: 3,
+  },
+  {
+    slug: 'pregnancy-sleep-calculator',
+    title: 'Pregnancy Sleep',
+    description:
+      'Trimester-specific sleep positions, pillow arrangements, and duration recommendations. Safety alerts included.',
+    tag: { label: 'Parenting', class: 'tag-pop' },
+    color: 'c-rose',
+    iconColor: 'rose',
+    iconPath:
+      '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>',
+    meta: '1 min · Stacey et al., 2011',
+    cta: 'Get your guide →',
+    phase: 3,
+  },
+  {
+    slug: 'sleep-latency-calculator',
+    title: 'Sleep Latency Test',
+    description:
+      'How long should it take to fall asleep? Clinical benchmarking — flags both insomnia and sleep deprivation.',
+    tag: { label: 'Clinical', class: 'tag-cbt' },
+    color: 'c-primary',
+    iconColor: 'primary',
+    iconPath:
+      '<circle cx="12" cy="12" r="10"/><path d="M12 6v6"/><path d="M16.24 16.24l-4.24-4.24"/>',
+    meta: '30 sec · Carskadon & Dement, 1982',
+    cta: 'Test now →',
+    phase: 3,
+  },
+  {
+    slug: 'sleep-score-calculator',
+    title: 'Sleep Quality Score',
+    description:
+      'PSQI-based sleep quality assessment — no wearable needed. Get a 0-21 score with component breakdown.',
+    tag: { label: 'Science', class: 'tag-sci' },
+    color: 'c-amber',
+    iconColor: 'amber',
+    iconPath:
+      '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+    meta: '3 min · Buysse et al., 1989',
+    cta: 'Score my sleep →',
+    phase: 3,
+  },
+  {
+    slug: 'sleep-hygiene-calculator',
+    title: 'Sleep Hygiene Audit',
+    description:
+      'Interactive 20-item checklist scored across 5 categories. Radar chart, priority improvements, and cross-tool links.',
+    tag: { label: 'Popular', class: 'tag-pop' },
+    color: 'c-mint',
+    iconColor: 'mint',
+    iconPath:
+      '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+    meta: '2 min · Irish et al., 2015',
+    cta: 'Audit now →',
+    phase: 3,
+  },
+  {
+    slug: 'light-exposure-calculator',
+    title: 'Light Exposure Guide',
+    description:
+      'Sunrise-aware light therapy timing. Solar math calculates your windows — no API, works offline.',
+    tag: { label: 'Science', class: 'tag-sci' },
+    color: 'c-amber',
+    iconColor: 'amber',
+    iconPath:
+      '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>',
+    meta: '30 sec · Wright et al., 2013',
+    cta: 'Calculate →',
+    phase: 3,
+  },
+  {
+    slug: 'sleep-regression-calculator',
+    title: 'Baby Sleep Regression',
+    description:
+      'Age-based regression predictor with 6 windows mapped on a visual timeline. Survival guides for each stage.',
+    tag: { label: 'Parenting', class: 'tag-pop' },
+    color: 'c-sky',
+    iconColor: 'sky',
+    iconPath:
+      '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    meta: '30 sec · Mindell et al., 2006',
+    cta: 'Predict regressions →',
+    phase: 3,
+  },
+  {
+    slug: 'social-jet-lag-calculator',
+    title: 'Social Jet Lag',
+    description:
+      "Roenneberg's formula: compare weekday vs weekend sleep. See how schedule inconsistency affects your health.",
+    tag: { label: 'Niche', class: 'tag-cbt' },
+    color: 'c-coral',
+    iconColor: 'coral',
+    iconPath:
+      '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    meta: '30 sec · Roenneberg et al., 2012',
+    cta: 'Calculate →',
+    phase: 3,
+  },
 ];
 
-export const roadmapItems = [
-  'Exercise Timing',
-  'Pregnancy Sleep',
-  'Sleep Latency Test',
-  'Sleep Quality Score',
-  'Sleep Hygiene Audit',
-  'Light Exposure Guide',
-  'Baby Sleep Regression',
-  'Social Jet Lag',
-];
+export const roadmapItems: string[] = [];
 
 export const papers = [
   {

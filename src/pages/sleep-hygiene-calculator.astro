@@ -1,0 +1,1110 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is sleep hygiene and why does it matter?',
+    answer: `<p><strong>Sleep hygiene</strong> refers to a set of behavioral and environmental practices that promote consistent, high-quality sleep. The term encompasses everything from bedroom conditions and light exposure to caffeine timing, exercise habits, and pre-sleep routines. Unlike sleep disorders, which often require medical intervention, poor sleep hygiene is largely modifiable through deliberate habit change — making it the first-line intervention recommended by sleep medicine clinicians for most adults with insomnia or insufficient sleep.</p>
+<p>A landmark systematic review by <strong>Irish et al. (2015)</strong>, published in <em>Sleep Medicine Reviews</em>, examined evidence across 11 sleep hygiene components and found consistent associations between multiple hygiene behaviors and both objective and subjective sleep quality in general adult populations. Poor sleep hygiene is estimated to contribute to daytime impairment, mood dysregulation, reduced cognitive performance, and elevated cardiovascular risk — underscoring why tracking your <strong>sleep hygiene score</strong> and addressing gaps systematically matters far beyond simply feeling rested.</p>`,
+  },
+  {
+    question: 'What does a good sleep hygiene checklist include?',
+    answer: `<p>A comprehensive <strong>sleep hygiene checklist</strong> spans five domains: environment, timing, substances, daytime behaviors, and pre-sleep routines. Environmental factors include a dark, cool (65–68 °F / 18–20 °C), quiet bedroom with a comfortable mattress. Timing elements include a consistent sleep-wake schedule seven days a week, a 30–60 minute wind-down buffer, and avoiding naps after 3 pm. Substance rules center on a caffeine cutoff 6–8 hours before bed, limiting alcohol to 1–2 drinks and finishing 3+ hours before sleep, and avoiding nicotine in the evening. Behavioral items address screen-light exposure before bed, reserving the bed exclusively for sleep and sex, exercising regularly but not within 2–3 hours of bedtime, and actively managing stress.</p>
+<p><strong>Stepanski & Wyatt (2003)</strong>, writing in <em>Sleep Medicine</em>, proposed a structured sleep hygiene education model that groups recommendations by mechanism — circadian, arousal, and homeostatic — noting that interventions are most effective when patients understand the rationale behind each rule rather than viewing the checklist as an arbitrary set of dos and don'ts. Pre-sleep rituals such as progressive muscle relaxation, a worry journal, and a warm shower 1–2 hours before bed exploit the body's temperature drop mechanism to hasten sleep onset and are the most evidence-backed behavioral additions to a basic hygiene program.</p>`,
+  },
+  {
+    question: 'Does sleep hygiene actually work — what does the research say?',
+    answer: `<p>The evidence base for sleep hygiene is substantial but nuanced. <strong>Irish et al. (2015)</strong> found consistent cross-sectional and longitudinal associations between individual hygiene behaviors — particularly consistent scheduling, caffeine management, and pre-sleep arousal reduction — and improved sleep outcomes. However, they also noted that multicomponent hygiene education alone (without behavioral therapy) shows modest effect sizes for clinical insomnia, where cognitive behavioral therapy for insomnia (CBT-I) remains the gold standard. The practical implication: sleep hygiene works best as a foundation and as a maintenance strategy, and is highly effective for people with subclinical sleep complaints and poor habits rather than established insomnia disorder.</p>
+<p>For the broader population — adults who sleep poorly without a diagnosable sleep disorder — addressing <strong>sleep hygiene tips</strong> systematically produces meaningful improvements. Studies consistently show that consistent wake times and caffeine cutoffs alone can shift sleep efficiency by 10–20 percentage points in people with irregular schedules or high caffeine use. The audit approach used in this calculator is designed to identify your personal highest-leverage changes, since not everyone has equal deficits across all five domains. Targeting the two or three weakest areas first produces faster, more noticeable results than attempting to overhaul everything at once.</p>`,
+  },
+  {
+    question: 'What are the most important sleep hygiene habits to establish first?',
+    answer: `<p>When asked to rank <strong>sleep hygiene tips</strong> by impact, sleep researchers consistently place <strong>consistent sleep-wake timing</strong> at the top. Wake time, in particular, is the primary anchor for the circadian system — maintaining the same wake time even after poor sleep prevents the drift and fragmentation that sustains sleep difficulties. The second most impactful domain is <strong>caffeine timing</strong>: caffeine has a half-life of 5–7 hours and a quarter-life of 10–12 hours, meaning a 200 mg coffee at 2 pm still leaves 50 mg circulating at midnight. Many people underestimate how much afternoon caffeine degrades deep sleep even when they feel no subjective alerting effect. Third is the <strong>bed-sleep association</strong>: using the bedroom for work, screens, or stress collapses the conditioned arousal response the bed is supposed to trigger.</p>
+<p><strong>Stepanski & Wyatt (2003)</strong> emphasize that behavioral components — schedule consistency and stimulus control (bed = sleep only) — have more robust experimental support than environmental modifications alone, though environment matters more for people with noise, light, or temperature sensitivity. If you are starting from scratch on your <strong>sleep hygiene quiz</strong> results, a practical sequence is: (1) lock your wake time, (2) move your caffeine cutoff to 1–2 pm, (3) stop using devices in bed, (4) add a 30-minute wind-down, and (5) optimize bedroom conditions. Each step builds on the last and reinforces sleep pressure and circadian alignment simultaneously.</p>`,
+  },
+  {
+    question: 'Is poor sleep hygiene the same as a sleep disorder?',
+    answer: `<p>No — poor sleep hygiene and sleep disorders are distinct, though they often co-occur and can compound each other. Sleep hygiene refers to controllable behavioral and environmental habits; sleep disorders are medical conditions with specific diagnostic criteria, pathophysiology, and often requiring clinical treatment. <strong>Obstructive sleep apnea</strong>, for example, is caused by airway anatomy and muscle tone — no amount of improved hygiene will resolve it, though hygiene improvements may reduce daytime sleepiness. <strong>Insomnia disorder</strong> (as defined in the DSM-5 and ICSD-3) involves a combination of sleep difficulty, sufficient sleep opportunity, and daytime impairment persisting for at least three months — and has cognitive-behavioral and often neurobiological components that go well beyond habits.</p>
+<p>The clinical distinction matters because a low <strong>sleep hygiene score</strong> in someone with adequate sleep suggests habit gaps are the primary problem — solvable through behavioral change. But someone who implements good hygiene consistently for six or more weeks and still experiences significant insomnia, excessive sleepiness, or symptoms like snoring and gasping should seek evaluation for an underlying disorder. This <strong>sleep hygiene quiz</strong> is a behavioral audit, not a clinical diagnostic tool. If you score well on hygiene but sleep remains poor, consider screening for sleep apnea, restless legs syndrome, or circadian rhythm disorders — and consult a sleep-specialized clinician for a comprehensive evaluation.</p>`,
+  },
+  {
+    question: 'How do I improve sleep hygiene step by step?',
+    answer: `<p>The most effective approach to <strong>improving sleep hygiene</strong> is systematic and graduated rather than attempting a complete overnight overhaul. Start by auditing your current habits across all five domains — environment, timing, substances, behavior, and pre-sleep — and identify your lowest-scoring category. Research on habit formation suggests that anchoring a new behavior to an existing routine (implementation intentions) dramatically improves follow-through: for example, "After I put my phone on charge at 9:30 pm, I will do five minutes of diaphragmatic breathing" is far more likely to become habitual than a general intention to "relax before bed." Give each change at least 2–3 weeks before evaluating its impact on your sleep, since circadian and homeostatic systems require time to recalibrate.</p>
+<p><strong>Irish et al. (2015)</strong> note that multi-component hygiene programs that address timing, substances, and pre-sleep arousal simultaneously outperform single-element interventions — but only when the individual has sufficient motivation and capacity to implement multiple changes at once. If compliance is uncertain, serial implementation (one or two changes per fortnight) produces steadier, more durable improvements. Track your results: a simple sleep log noting bedtime, wake time, estimated sleep onset latency, and morning energy rating will make improvements visible and maintain motivation. This calculator's priority output is designed to give you a personalized, ranked starting point so you are working on the changes most likely to move your overall <strong>sleep hygiene score</strong> quickly.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Hygiene Calculator — Score & Audit Your Sleep Habits | The Sleep Math"
+  description="Free interactive sleep hygiene checklist. Score your sleep environment, timing, substances, and routines across 5 categories. Get personalized improvement priorities."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Sleep Hygiene Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <!-- Checklist / clipboard icon in primary purple -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+          <rect x="9" y="3" width="6" height="4" rx="2"/>
+          <line x1="9" y1="12" x2="15" y2="12"/>
+          <line x1="9" y1="16" x2="13" y2="16"/>
+          <polyline points="9 12 9 12"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Hygiene Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Audit 20 evidence-backed sleep habits across five categories. Get an instant hygiene score, a radar chart breakdown, and your top three personalized improvement priorities.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        4 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        20 habits audited
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Irish et al. 2015 evidence base
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR LAYOUT -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Sleep Hygiene Checklist</h2>
+      <p class="panel-hint">Tap each habit to mark it Yes, Sometimes, or No. All 20 items update your score in real time.</p>
+
+      <!-- CATEGORY: ENVIRONMENT -->
+      <div class="cat-header">
+        <div class="cat-dot" style="background:#7c6aff;"></div>
+        <span>Environment</span>
+        <span class="cat-score" id="cat-score-env">—</span>
+      </div>
+
+      <div class="hygiene-item" data-item="dark" data-cat="env" data-weight="2">
+        <div class="item-icon" style="background:#edeaff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Bedroom is fully dark</div>
+          <div class="item-note">Blackout curtains or eye mask; no standby lights</div>
+        </div>
+        <div class="three-toggle" data-item="dark">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="cool" data-cat="env" data-weight="2">
+        <div class="item-icon" style="background:#eaf6ff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h20M19.07 4.93l-4.24 4.24M9.17 14.83l-4.24 4.24"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Bedroom is kept cool (65–68 °F / 18–20 °C)</div>
+          <div class="item-note">Core body temperature must drop to initiate sleep</div>
+        </div>
+        <div class="three-toggle" data-item="cool">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="quiet" data-cat="env" data-weight="1">
+        <div class="item-icon" style="background:#edeaff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Bedroom is quiet (or white noise used)</div>
+          <div class="item-note">Traffic, partner snoring, or irregular sounds disrupt slow-wave sleep</div>
+        </div>
+        <div class="three-toggle" data-item="quiet">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="comfortable" data-cat="env" data-weight="1">
+        <div class="item-icon" style="background:#ecfdf5;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Mattress and pillow are comfortable</div>
+          <div class="item-note">Physical discomfort causes micro-arousals throughout the night</div>
+        </div>
+        <div class="three-toggle" data-item="comfortable">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <!-- CATEGORY: TIMING -->
+      <div class="cat-header">
+        <div class="cat-dot" style="background:#10b981;"></div>
+        <span>Timing</span>
+        <span class="cat-score" id="cat-score-timing">—</span>
+      </div>
+
+      <div class="hygiene-item" data-item="schedule" data-cat="timing" data-weight="3">
+        <div class="item-icon" style="background:#ecfdf5;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Consistent sleep-wake schedule (7 days/week)</div>
+          <div class="item-note">Wake time variation &gt;1 hour across days disrupts your circadian rhythm</div>
+        </div>
+        <div class="three-toggle" data-item="schedule">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="winddown" data-cat="timing" data-weight="2">
+        <div class="item-icon" style="background:#ecfdf5;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">30–60 minute wind-down buffer before bed</div>
+          <div class="item-note">Transition time lets cortisol fall and melatonin rise naturally</div>
+        </div>
+        <div class="three-toggle" data-item="winddown">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="naps" data-cat="timing" data-weight="2">
+        <div class="item-icon" style="background:#ecfdf5;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a5 5 0 0 0-10 0"/><line x1="12" y1="9" x2="12" y2="2"/><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"/><line x1="1" y1="18" x2="3" y2="18"/><line x1="21" y1="18" x2="23" y2="18"/><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">No naps after 3 pm (or naps kept under 20 min)</div>
+          <div class="item-note">Late or long naps drain sleep pressure and delay sleep onset</div>
+        </div>
+        <div class="three-toggle" data-item="naps">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <!-- CATEGORY: SUBSTANCES -->
+      <div class="cat-header">
+        <div class="cat-dot" style="background:#ff6b52;"></div>
+        <span>Substances</span>
+        <span class="cat-score" id="cat-score-substances">—</span>
+      </div>
+
+      <div class="hygiene-item" data-item="caffeine" data-cat="substances" data-weight="3">
+        <div class="item-icon" style="background:#fff0ed;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Last caffeine 6+ hours before bed</div>
+          <div class="item-note">Caffeine's half-life is 5–7 hrs; quarter-life is 10–12 hrs</div>
+        </div>
+        <div class="three-toggle" data-item="caffeine">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="alcohol" data-cat="substances" data-weight="2">
+        <div class="item-icon" style="background:#fff0ed;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M17 2L7 2l1 8h8l1-8z"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Alcohol stopped 3+ hours before bed</div>
+          <div class="item-note">Alcohol fragments REM sleep and causes rebound arousals in the second half of the night</div>
+        </div>
+        <div class="three-toggle" data-item="alcohol">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="nicotine" data-cat="substances" data-weight="1">
+        <div class="item-icon" style="background:#fff0ed;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="16" x2="22" y2="16"/><line x1="17" y1="8" x2="17" y2="12"/><line x1="13" y1="6" x2="13" y2="12"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">No nicotine in the 2 hours before bed</div>
+          <div class="item-note">Nicotine is a stimulant that increases sleep latency and reduces total sleep time</div>
+        </div>
+        <div class="three-toggle" data-item="nicotine">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <!-- CATEGORY: BEHAVIOR -->
+      <div class="cat-header">
+        <div class="cat-dot" style="background:#38b6ff;"></div>
+        <span>Daytime Behavior</span>
+        <span class="cat-score" id="cat-score-behavior">—</span>
+      </div>
+
+      <div class="hygiene-item" data-item="screens" data-cat="behavior" data-weight="2">
+        <div class="item-icon" style="background:#eaf6ff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Screen use stopped 30+ min before bed</div>
+          <div class="item-note">Blue light suppresses melatonin; stimulating content raises cortisol</div>
+        </div>
+        <div class="three-toggle" data-item="screens">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="bedsleep" data-cat="behavior" data-weight="2">
+        <div class="item-icon" style="background:#eaf6ff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Bed used only for sleep and sex</div>
+          <div class="item-note">Stimulus control: working or watching TV in bed weakens the sleep-bed association</div>
+        </div>
+        <div class="three-toggle" data-item="bedsleep">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="exercise" data-cat="behavior" data-weight="2">
+        <div class="item-icon" style="background:#eaf6ff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Regular exercise (but not within 3 hrs of bed)</div>
+          <div class="item-note">Moderate aerobic exercise increases slow-wave sleep; late vigorous exercise raises core temp and cortisol</div>
+        </div>
+        <div class="three-toggle" data-item="exercise">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="stress" data-cat="behavior" data-weight="2">
+        <div class="item-icon" style="background:#eaf6ff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Active daytime stress management practice</div>
+          <div class="item-note">Mindfulness, breathing, or journaling reduces pre-sleep cortisol load</div>
+        </div>
+        <div class="three-toggle" data-item="stress">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <!-- CATEGORY: PRE-SLEEP -->
+      <div class="cat-header">
+        <div class="cat-dot" style="background:#f59e0b;"></div>
+        <span>Pre-Sleep Routine</span>
+        <span class="cat-score" id="cat-score-presleep">—</span>
+      </div>
+
+      <div class="hygiene-item" data-item="relaxation" data-cat="presleep" data-weight="2">
+        <div class="item-icon" style="background:#fffbeb;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Relaxation technique used before sleep</div>
+          <div class="item-note">Progressive muscle relaxation, 4-7-8 breathing, or body scan meditation</div>
+        </div>
+        <div class="three-toggle" data-item="relaxation">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="journal" data-cat="presleep" data-weight="2">
+        <div class="item-icon" style="background:#fffbeb;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Worry or to-do journal used before bed</div>
+          <div class="item-note">Externalizing thoughts reduces cognitive arousal and pre-sleep rumination</div>
+        </div>
+        <div class="three-toggle" data-item="journal">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="shower" data-cat="presleep" data-weight="1">
+        <div class="item-icon" style="background:#fffbeb;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h1a3 3 0 0 1 3 3v1a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2v-1a3 3 0 0 1 3-3h1"/><path d="M4 6h16M4 9h16"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Warm shower or bath 1–2 hours before bed</div>
+          <div class="item-note">Rapid skin cooling after a warm bath accelerates core temperature drop</div>
+        </div>
+        <div class="three-toggle" data-item="shower">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+      <div class="hygiene-item" data-item="reading" data-cat="presleep" data-weight="1">
+        <div class="item-icon" style="background:#fffbeb;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="item-body">
+          <div class="item-label">Calming pre-sleep activity (reading, light stretching)</div>
+          <div class="item-note">Replaces screens with a low-arousal alternative that aids sleep onset</div>
+        </div>
+        <div class="three-toggle" data-item="reading">
+          <button class="tt-btn" data-val="yes">Yes</button>
+          <button class="tt-btn" data-val="sometimes">Sometimes</button>
+          <button class="tt-btn active-no" data-val="no">No</button>
+        </div>
+      </div>
+
+    </div>
+    <!-- END INPUT PANEL -->
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- SCORE HERO -->
+      <div class="score-hero" id="score-hero">
+        <div class="score-badge-wrap">
+          <div class="score-ring-outer">
+            <svg class="score-ring-svg" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="var(--border)" stroke-width="10"/>
+              <circle id="score-ring-fill" cx="60" cy="60" r="52" fill="none"
+                stroke="#7c6aff" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="326.73" stroke-dashoffset="326.73"
+                transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="score-ring-inner">
+              <div class="score-num" id="score-num">0</div>
+              <div class="score-denom">/ 100</div>
+            </div>
+          </div>
+        </div>
+        <div class="score-grade" id="score-grade">Not started</div>
+        <div class="score-desc" id="score-desc">Answer the checklist to see your sleep hygiene score and personalized priorities.</div>
+      </div>
+
+      <!-- RADAR CHART -->
+      <div class="chart-card">
+        <h3>Category breakdown</h3>
+        <div class="radar-wrap">
+          <canvas id="radar-canvas" width="300" height="240"></canvas>
+        </div>
+        <div class="cat-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#7c6aff;"></span>Environment</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#10b981;"></span>Timing</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#ff6b52;"></span>Substances</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#38b6ff;"></span>Behavior</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span>Pre-Sleep</div>
+        </div>
+      </div>
+
+      <!-- PRIORITY IMPROVEMENTS -->
+      <div class="priorities-card">
+        <h3>Your top improvement priorities</h3>
+        <p class="priorities-hint" id="priorities-hint">Complete the checklist above to reveal your personalized priorities.</p>
+        <div class="priority-list" id="priority-list"></div>
+      </div>
+
+      <!-- CROSS-CALC LINKS -->
+      <div class="crosslinks-card">
+        <h3>Go deeper with related calculators</h3>
+        <div class="crosslinks-list">
+          <a class="crosslink-item" href="/caffeine-cutoff-calculator">
+            <div class="cl-icon" style="background:#fff0ed;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div>
+              <div class="cl-title">Caffeine Cutoff Calculator</div>
+              <div class="cl-desc">Find your exact last-safe-coffee time based on your bedtime and sensitivity</div>
+            </div>
+            <svg class="cl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a class="crosslink-item" href="/sleep-apnea-risk-calculator">
+            <div class="cl-icon" style="background:#edeaff;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+              <div class="cl-title">Sleep Apnea Risk Calculator</div>
+              <div class="cl-desc">Rule out OSA if hygiene is good but sleep quality remains poor</div>
+            </div>
+            <svg class="cl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <a class="crosslink-item" href="/chronotype-calculator">
+            <div class="cl-icon" style="background:#ecfdf5;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </div>
+            <div>
+              <div class="cl-title">Chronotype Calculator</div>
+              <div class="cl-desc">Optimize your schedule timing to your biological clock type</div>
+            </div>
+            <svg class="cl-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+    <!-- END RESULTS PANEL -->
+
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind sleep hygiene</h2>
+      <p>
+        Sleep hygiene as a clinical concept emerged from behavioral sleep medicine in the 1970s and was systematized throughout the 1990s. A comprehensive systematic review by <strong>Irish et al. (2015)</strong>, published in <em>Sleep Medicine Reviews</em>, evaluated evidence across 11 hygiene components in general adult populations and found consistent associations between sleep hygiene adherence and both self-reported and objectively measured sleep quality. The strongest individual predictors were consistent scheduling, caffeine management, and pre-sleep arousal reduction — the very items that carry the highest weights in this calculator's scoring algorithm.
+      </p>
+      <p>
+        <strong>Stepanski & Wyatt (2003)</strong> proposed a mechanistic framework for sleep hygiene interventions, organizing recommendations by the three systems they target: the <strong>circadian system</strong> (light exposure, schedule consistency), the <strong>homeostatic sleep drive</strong> (nap avoidance, exercise timing), and the <strong>arousal system</strong> (caffeine, alcohol, nicotine, stress, and pre-sleep stimulation). Understanding which mechanism each habit addresses helps explain why some rules matter more than others and why hygiene education is most effective when patients understand the rationale, not just the rule list.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Hygiene Score = Σ(item points) ÷ max possible points × 100</div>
+        <div class="formula-desc">Yes = full weight &nbsp;·&nbsp; Sometimes = half weight &nbsp;·&nbsp; No = 0 &nbsp;·&nbsp; Weights 1–3 by evidence strength</div>
+      </div>
+      <p>
+        The five-category structure used here aligns with clinical sleep hygiene education protocols. Environment and pre-sleep rituals address arousal and temperature; timing and behavior address circadian and homeostatic regulation; substances affect all three systems simultaneously. This is why substance habits — especially caffeine and alcohol — carry the highest weights: their mechanisms are biochemically direct and their effects are detectable on polysomnography even when users report feeling unaffected.
+      </p>
+      <div class="citation">
+        Irish, L. A., Kline, C. E., Gunia, B. C., Hall, M. H., Buysse, D. J., &amp; Hale, L. (2015). The role of sleep hygiene in promoting public health: A review of empirical evidence. <em>Sleep Medicine Reviews, 22,</em> 23–36.
+      </div>
+      <div class="citation" style="margin-top:0.6rem;">
+        Stepanski, E. J., &amp; Wyatt, J. K. (2003). Use of sleep hygiene in the treatment of insomnia. <em>Sleep Medicine Reviews, 7(3),</em> 215–225.
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS CUSTOM PROPERTIES ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: var(--primary-soft); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 640px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 360px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.25rem 1rem;
+    position: sticky; top: 80px;
+    max-height: calc(100vh - 100px); overflow-y: auto;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .panel-hint { font-size: 0.74rem; color: var(--text-soft); margin-bottom: 1rem; line-height: 1.45; }
+
+  /* Category headers */
+  .cat-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-soft);
+    margin: 1rem 0 0.5rem; padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .cat-score {
+    margin-left: auto; font-size: 0.72rem; font-weight: 800;
+    color: var(--text-mid); background: var(--bg-tint);
+    padding: 0.1rem 0.45rem; border-radius: 20px; min-width: 34px; text-align: center;
+  }
+
+  /* Hygiene item rows */
+  .hygiene-item {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    padding: 0.65rem 0.6rem; border-radius: var(--radius-sm);
+    border: 1.5px solid transparent;
+    margin-bottom: 0.4rem; transition: background 0.15s, border-color 0.15s;
+    background: var(--bg);
+  }
+  .hygiene-item.state-yes { background: #f0fdf8; border-color: #a7f3d0; }
+  .hygiene-item.state-sometimes { background: #fffbeb; border-color: #fde68a; }
+  .hygiene-item.state-no { background: #fff6f4; border-color: #ffd0c8; }
+
+  .item-icon {
+    width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .item-icon svg { width: 14px; height: 14px; }
+
+  .item-body { flex: 1; min-width: 0; }
+  .item-label { font-size: 0.78rem; font-weight: 600; color: var(--text); line-height: 1.35; margin-bottom: 0.1rem; }
+  .item-note { font-size: 0.67rem; color: var(--text-soft); line-height: 1.4; }
+
+  /* Three-state toggle */
+  .three-toggle {
+    display: flex; flex-direction: column; gap: 0.2rem; flex-shrink: 0;
+  }
+  .tt-btn {
+    padding: 0.18rem 0.55rem; border-radius: 6px;
+    font-family: inherit; font-size: 0.65rem; font-weight: 700;
+    cursor: pointer; transition: all 0.13s; white-space: nowrap;
+    background: var(--card); border: 1.5px solid var(--border);
+    color: var(--text-soft);
+  }
+  .tt-btn:hover { border-color: var(--primary); color: var(--primary); }
+  .tt-btn.active-yes { background: #ecfdf5; border-color: #6ee7b7; color: #065f46; }
+  .tt-btn.active-sometimes { background: #fffbeb; border-color: #fcd34d; color: #78350f; }
+  .tt-btn.active-no { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Score hero */
+  .score-hero {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem 1.5rem 1.25rem;
+    text-align: center; transition: border-color 0.35s, background 0.35s;
+  }
+  .score-hero.grade-poor { border-color: var(--coral); background: #fff6f4; }
+  .score-hero.grade-fair { border-color: var(--amber); background: #fffbeb; }
+  .score-hero.grade-good { border-color: #60a5fa; background: #eff6ff; }
+  .score-hero.grade-great { border-color: var(--mint); background: #f0fdf8; }
+
+  .score-badge-wrap { display: flex; justify-content: center; margin-bottom: 0.75rem; }
+  .score-ring-outer {
+    position: relative; width: 120px; height: 120px;
+  }
+  .score-ring-svg { width: 120px; height: 120px; }
+  .score-ring-inner {
+    position: absolute; inset: 0; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 0;
+  }
+  .score-num {
+    font-size: 2.4rem; font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1; color: var(--text);
+    font-family: 'Space Grotesk', monospace;
+  }
+  .score-hero.grade-poor .score-num { color: var(--coral); }
+  .score-hero.grade-fair .score-num { color: var(--amber); }
+  .score-hero.grade-good .score-num { color: #3b82f6; }
+  .score-hero.grade-great .score-num { color: var(--mint); }
+  .score-denom { font-size: 0.72rem; font-weight: 700; color: var(--text-soft); }
+
+  .score-grade {
+    font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.3rem;
+    color: var(--text-mid);
+  }
+  .score-hero.grade-poor .score-grade { color: var(--coral); }
+  .score-hero.grade-fair .score-grade { color: var(--amber); }
+  .score-hero.grade-good .score-grade { color: #3b82f6; }
+  .score-hero.grade-great .score-grade { color: var(--mint); }
+  .score-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.55; }
+
+  /* Radar / chart card */
+  .chart-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .chart-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .radar-wrap { display: flex; justify-content: center; margin-bottom: 0.75rem; }
+  #radar-canvas { display: block; }
+  .cat-legend {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+    justify-content: center;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 0.3rem;
+    font-size: 0.72rem; color: var(--text-soft); font-weight: 500;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Priorities card */
+  .priorities-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .priorities-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .priorities-hint { font-size: 0.78rem; color: var(--text-soft); margin-bottom: 0.75rem; }
+  .priority-list { display: flex; flex-direction: column; gap: 0.65rem; }
+
+  .priority-card {
+    border-radius: 10px; border: 1.5px solid; padding: 0.85rem;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .priority-rank {
+    width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 800;
+  }
+  .priority-body { flex: 1; }
+  .priority-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .priority-action { font-size: 0.76rem; color: var(--text-mid); line-height: 1.5; }
+  .priority-link {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.72rem; font-weight: 600; margin-top: 0.4rem;
+    text-decoration: none; transition: opacity 0.15s;
+  }
+  .priority-link:hover { opacity: 0.75; }
+  .priority-link svg { width: 12px; height: 12px; }
+
+  /* Cross-calc links */
+  .crosslinks-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .crosslinks-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .crosslinks-list { display: flex; flex-direction: column; gap: 0; }
+  .crosslink-item {
+    display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border); text-decoration: none;
+    transition: background 0.15s; border-radius: 0; cursor: pointer;
+  }
+  .crosslink-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .crosslink-item:hover .cl-title { color: var(--primary); }
+  .cl-icon {
+    width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cl-icon svg { width: 16px; height: 16px; }
+  .cl-title { font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 0.1rem; transition: color 0.15s; }
+  .cl-desc { font-size: 0.72rem; color: var(--text-soft); line-height: 1.4; }
+  .cl-arrow { width: 16px; height: 16px; color: var(--text-soft); margin-left: auto; flex-shrink: 0; }
+
+  /* ===== SCIENCE SECTION ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.73rem; color: #a8a3be; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.55;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; max-height: none; }
+    .science-section { padding: 0 1.25rem 2rem; }
+  }
+  @media (max-width: 480px) {
+    .tt-btn { padding: 0.15rem 0.4rem; font-size: 0.62rem; }
+    .three-toggle { gap: 0.15rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  // ── Item definitions ────────────────────────────────────────────────────────
+  // weight: 1–3 (higher = more impact on score)
+  // cat: category key
+  var ITEMS = [
+    // Environment
+    { id: 'dark',        cat: 'env',       weight: 2, label: 'Fully dark bedroom',           action: 'Install blackout curtains or use a sleep mask. Even small LED lights suppress melatonin.', link: null },
+    { id: 'cool',        cat: 'env',       weight: 2, label: 'Bedroom temperature 65–68 °F', action: 'Set your thermostat or use a fan. Core temperature must drop 1–2 °F for deep sleep to begin.', link: null },
+    { id: 'quiet',       cat: 'env',       weight: 1, label: 'Quiet sleep environment',      action: 'Use a white noise machine or earplugs. Irregular sounds (not constant ones) cause the most arousals.', link: null },
+    { id: 'comfortable', cat: 'env',       weight: 1, label: 'Comfortable mattress/pillow',  action: 'Assess whether your mattress is causing morning pain or stiffness — these signal poor pressure relief.', link: null },
+    // Timing
+    { id: 'schedule',    cat: 'timing',    weight: 3, label: 'Consistent sleep-wake timing', action: 'Fix your wake time first — even on weekends. A stable wake anchor resets your circadian rhythm within days.', link: null },
+    { id: 'winddown',    cat: 'timing',    weight: 2, label: '30–60 min wind-down buffer',   action: 'Treat bed as a destination, not a crash landing. Start dimming lights and slowing down 45 min before sleep.', link: null },
+    { id: 'naps',        cat: 'timing',    weight: 2, label: 'No late or long naps',         action: 'Keep naps under 20 min and before 2 pm. Late naps drain the sleep pressure that makes falling asleep effortless.', link: null },
+    // Substances
+    { id: 'caffeine',    cat: 'substances',weight: 3, label: 'Caffeine cutoff 6+ hrs before bed', action: 'Move your last coffee to 1–2 pm for a 9–10 pm bedtime. Even if you feel unaffected, caffeine measurably reduces deep sleep.', link: '/caffeine-cutoff-calculator' },
+    { id: 'alcohol',     cat: 'substances',weight: 2, label: 'Alcohol stopped 3+ hrs before bed', action: 'Alcohol fragments REM sleep and causes second-half arousals. If you drink, finish by 7 pm for a 10 pm bedtime.', link: null },
+    { id: 'nicotine',    cat: 'substances',weight: 1, label: 'No nicotine in 2 hrs before bed',   action: 'Nicotine is a stimulant. Switch to morning use or use nicotine replacement to avoid evening intake.', link: null },
+    // Behavior
+    { id: 'screens',     cat: 'behavior',  weight: 2, label: 'Screens off 30+ min before bed',action: 'Replace evening phone time with reading, stretching, or a warm shower. Use Night Shift / night mode if you must use screens.', link: null },
+    { id: 'bedsleep',    cat: 'behavior',  weight: 2, label: 'Bed used only for sleep and sex', action: 'Stop working, watching TV, or scrolling in bed. Within 2 weeks this rebuilds the sleep-bed conditioned response.', link: null },
+    { id: 'exercise',    cat: 'behavior',  weight: 2, label: 'Regular exercise (not late)',    action: 'Even 20–30 min of moderate walking 5 days a week increases slow-wave sleep. Move workouts to morning or midday.', link: null },
+    { id: 'stress',      cat: 'behavior',  weight: 2, label: 'Daytime stress management',     action: 'A brief midday breathing practice or short walk cuts evening cortisol. Stress unaddressed by day becomes pre-sleep rumination.', link: null },
+    // Pre-sleep
+    { id: 'relaxation',  cat: 'presleep',  weight: 2, label: 'Pre-sleep relaxation technique', action: 'Try 4-7-8 breathing (inhale 4 s, hold 7 s, exhale 8 s) or a 10-minute body scan. Even 5 minutes meaningfully reduces sleep onset time.', link: null },
+    { id: 'journal',     cat: 'presleep',  weight: 2, label: 'Worry or to-do journal used',   action: 'Write tomorrow\'s tasks and any worries on paper before bed. This "cognitive offloading" reduces nighttime mind racing.', link: null },
+    { id: 'shower',      cat: 'presleep',  weight: 1, label: 'Warm shower 1–2 hrs before bed', action: 'A warm (not hot) bath or shower 1–2 hrs before bed accelerates skin cooling, which triggers rapid sleep onset.', link: null },
+    { id: 'reading',     cat: 'presleep',  weight: 1, label: 'Calming pre-sleep activity',    action: 'Physical book reading or light stretching provides a low-arousal wind-down that screens cannot replicate.', link: null },
+  ];
+
+  var CAT_META = {
+    env:       { label: 'Environment', color: '#7c6aff', scoreId: 'cat-score-env' },
+    timing:    { label: 'Timing',      color: '#10b981', scoreId: 'cat-score-timing' },
+    substances:{ label: 'Substances',  color: '#ff6b52', scoreId: 'cat-score-substances' },
+    behavior:  { label: 'Behavior',    color: '#38b6ff', scoreId: 'cat-score-behavior' },
+    presleep:  { label: 'Pre-Sleep',   color: '#f59e0b', scoreId: 'cat-score-presleep' },
+  };
+
+  var CAT_ORDER = ['env', 'timing', 'substances', 'behavior', 'presleep'];
+
+  // State: each item starts as 'no' (all toggles default to No / active-no)
+  var state = {};
+  ITEMS.forEach(function(item) { state[item.id] = 'no'; });
+
+  // ── Scoring helpers ──────────────────────────────────────────────────────────
+  function itemPoints(val, weight) {
+    if (val === 'yes') return weight;
+    if (val === 'sometimes') return weight * 0.5;
+    return 0;
+  }
+
+  function catMaxPoints(catKey) {
+    return ITEMS.filter(function(i) { return i.cat === catKey; })
+                .reduce(function(sum, i) { return sum + i.weight; }, 0);
+  }
+
+  function catScore(catKey) {
+    var earned = ITEMS.filter(function(i) { return i.cat === catKey; })
+                      .reduce(function(sum, i) { return sum + itemPoints(state[i.id], i.weight); }, 0);
+    var max = catMaxPoints(catKey);
+    return max > 0 ? Math.round((earned / max) * 100) : 0;
+  }
+
+  function overallScore() {
+    var totalEarned = ITEMS.reduce(function(sum, i) { return sum + itemPoints(state[i.id], i.weight); }, 0);
+    var totalMax = ITEMS.reduce(function(sum, i) { return sum + i.weight; }, 0);
+    return Math.round((totalEarned / totalMax) * 100);
+  }
+
+  // ── Grade thresholds ──────────────────────────────────────────────────────
+  function gradeData(score) {
+    if (score < 40) return { cls: 'grade-poor', label: 'Needs Work', desc: 'Several high-impact habits are missing. Start with the top priorities below — even two changes can meaningfully improve your sleep within two weeks.' };
+    if (score < 60) return { cls: 'grade-fair', label: 'Fair',       desc: 'You have some good habits but key gaps remain. Your priorities below identify the highest-leverage improvements available.' };
+    if (score < 80) return { cls: 'grade-good', label: 'Good',       desc: 'Solid sleep hygiene with room to improve. Targeting your weakest category will unlock the next level of sleep quality.' };
+    return { cls: 'grade-great', label: 'Excellent', desc: 'Outstanding sleep hygiene. Maintain consistency — your habits are aligned with the best practices from sleep medicine research.' };
+  }
+
+  // ── Priority items (top 3 lowest-scoring by deficit) ──────────────────────
+  function getPriorities() {
+    var deficits = ITEMS.map(function(item) {
+      var maxPts = item.weight;
+      var earnedPts = itemPoints(state[item.id], item.weight);
+      return { item: item, deficit: maxPts - earnedPts };
+    });
+    deficits.sort(function(a, b) { return b.deficit - a.deficit; });
+    // Return top 3 with non-zero deficit
+    return deficits.filter(function(d) { return d.deficit > 0; }).slice(0, 3);
+  }
+
+  // Priority card colors (rank 1, 2, 3)
+  var PRIORITY_COLORS = [
+    { border: '#ffd0c8', bg: '#fff6f4', rankBg: '#ff6b52', rankColor: '#fff' },
+    { border: '#fde68a', bg: '#fffbeb', rankBg: '#f59e0b', rankColor: '#fff' },
+    { border: '#bfdbfe', bg: '#eff6ff', rankBg: '#3b82f6', rankColor: '#fff' },
+  ];
+
+  // ── Radar chart (plain canvas, no libraries) ──────────────────────────────
+  function drawRadar(scores) {
+    var canvas = document.getElementById('radar-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var W = canvas.width;
+    var H = canvas.height;
+    ctx.clearRect(0, 0, W, H);
+
+    var cx = W / 2;
+    var cy = H / 2 + 10;
+    var r = Math.min(W, H) * 0.38;
+    var n = CAT_ORDER.length;
+    var angleStep = (2 * Math.PI) / n;
+    var startAngle = -Math.PI / 2; // top
+
+    // Draw grid rings
+    var rings = [0.25, 0.5, 0.75, 1];
+    rings.forEach(function(frac) {
+      ctx.beginPath();
+      for (var i = 0; i <= n; i++) {
+        var angle = startAngle + i * angleStep;
+        var px = cx + Math.cos(angle) * r * frac;
+        var py = cy + Math.sin(angle) * r * frac;
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = '#e4e1ec';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // Draw spokes
+    for (var i = 0; i < n; i++) {
+      var angle = startAngle + i * angleStep;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
+      ctx.strokeStyle = '#e4e1ec';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Draw filled area
+    ctx.beginPath();
+    for (var i = 0; i < n; i++) {
+      var cat = CAT_ORDER[i];
+      var angle = startAngle + i * angleStep;
+      var frac = scores[cat] / 100;
+      var px = cx + Math.cos(angle) * r * frac;
+      var py = cy + Math.sin(angle) * r * frac;
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(124, 106, 255, 0.15)';
+    ctx.fill();
+    ctx.strokeStyle = '#7c6aff';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Draw vertex dots
+    for (var i = 0; i < n; i++) {
+      var cat = CAT_ORDER[i];
+      var angle = startAngle + i * angleStep;
+      var frac = scores[cat] / 100;
+      var px = cx + Math.cos(angle) * r * frac;
+      var py = cy + Math.sin(angle) * r * frac;
+      ctx.beginPath();
+      ctx.arc(px, py, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = CAT_META[cat].color;
+      ctx.fill();
+    }
+
+    // Draw axis labels
+    ctx.font = '600 10px Sora, sans-serif';
+    ctx.textAlign = 'center';
+    for (var i = 0; i < n; i++) {
+      var cat = CAT_ORDER[i];
+      var angle = startAngle + i * angleStep;
+      var labelR = r + 22;
+      var lx = cx + Math.cos(angle) * labelR;
+      var ly = cy + Math.sin(angle) * labelR;
+      var sc = scores[cat];
+      ctx.fillStyle = CAT_META[cat].color;
+      ctx.fillText(sc + '%', lx, ly + 4);
+    }
+  }
+
+  // ── Score ring update ─────────────────────────────────────────────────────
+  var RING_CIRCUM = 2 * Math.PI * 52; // ~326.73
+
+  function updateRing(score) {
+    var fill = document.getElementById('score-ring-fill');
+    if (!fill) return;
+    var frac = score / 100;
+    var drawn = frac * RING_CIRCUM;
+    var offset = RING_CIRCUM - drawn;
+    fill.setAttribute('stroke-dasharray', RING_CIRCUM.toFixed(2));
+    fill.setAttribute('stroke-dashoffset', offset.toFixed(2));
+    var color = score < 40 ? '#ff6b52' : score < 60 ? '#f59e0b' : score < 80 ? '#3b82f6' : '#10b981';
+    fill.setAttribute('stroke', color);
+  }
+
+  // ── Priority card HTML ────────────────────────────────────────────────────
+  function buildPriorityCards(priorities) {
+    if (!priorities.length) {
+      return '<p style="font-size:0.8rem;color:var(--text-soft);">All habits are in great shape — keep it up!</p>';
+    }
+    return priorities.map(function(d, idx) {
+      var c = PRIORITY_COLORS[idx] || PRIORITY_COLORS[2];
+      var item = d.item;
+      var catMeta = CAT_META[item.cat];
+      var linkHtml = '';
+      if (item.link) {
+        linkHtml = '<a class="priority-link" href="' + item.link + '" style="color:' + c.rankBg + ';">' +
+          'Try the related calculator' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>' +
+          '</a>';
+      }
+      return '<div class="priority-card" style="border-color:' + c.border + ';background:' + c.bg + ';">' +
+        '<div class="priority-rank" style="background:' + c.rankBg + ';color:' + c.rankColor + ';">' + (idx + 1) + '</div>' +
+        '<div class="priority-body">' +
+          '<div class="priority-title">' + item.label + '</div>' +
+          '<div class="priority-action">' + item.action + '</div>' +
+          '<div style="display:flex;align-items:center;gap:0.4rem;margin-top:0.35rem;">' +
+            '<span style="font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:' + catMeta.color + ';">' + catMeta.label + '</span>' +
+            linkHtml +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // ── Main calculate function ───────────────────────────────────────────────
+  function calculate() {
+    var overall = overallScore();
+
+    // Category scores
+    var catScores = {};
+    CAT_ORDER.forEach(function(cat) { catScores[cat] = catScore(cat); });
+
+    // Score ring
+    updateRing(overall);
+
+    // Score hero
+    var hero = document.getElementById('score-hero');
+    var scoreNumEl = document.getElementById('score-num');
+    var scoreGradeEl = document.getElementById('score-grade');
+    var scoreDescEl = document.getElementById('score-desc');
+    var grade = gradeData(overall);
+    if (hero) { hero.className = 'score-hero ' + grade.cls; }
+    if (scoreNumEl) { scoreNumEl.textContent = overall; }
+    if (scoreGradeEl) { scoreGradeEl.textContent = grade.label; }
+    if (scoreDescEl) { scoreDescEl.textContent = grade.desc; }
+
+    // Cat score badges
+    CAT_ORDER.forEach(function(cat) {
+      var el = document.getElementById(CAT_META[cat].scoreId);
+      if (el) { el.textContent = catScores[cat] + '%'; }
+    });
+
+    // Radar
+    drawRadar(catScores);
+
+    // Priorities
+    var priorities = getPriorities();
+    var priorityListEl = document.getElementById('priority-list');
+    var prioritiesHintEl = document.getElementById('priorities-hint');
+    if (priorityListEl) {
+      priorityListEl.innerHTML = buildPriorityCards(priorities);
+    }
+    if (prioritiesHintEl) {
+      prioritiesHintEl.style.display = priorities.length ? 'none' : 'block';
+    }
+
+    // Item row highlighting
+    ITEMS.forEach(function(item) {
+      var el = document.querySelector('.hygiene-item[data-item="' + item.id + '"]');
+      if (!el) return;
+      el.classList.remove('state-yes', 'state-sometimes', 'state-no');
+      el.classList.add('state-' + state[item.id]);
+    });
+  }
+
+  // ── Toggle interaction ────────────────────────────────────────────────────
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.tt-btn');
+    if (!btn) return;
+
+    var toggleGroup = btn.closest('.three-toggle');
+    if (!toggleGroup) return;
+
+    var itemId = toggleGroup.getAttribute('data-item');
+    var val = btn.getAttribute('data-val');
+    if (!itemId || !val) return;
+
+    // Clear all active classes in group
+    toggleGroup.querySelectorAll('.tt-btn').forEach(function(b) {
+      b.classList.remove('active-yes', 'active-sometimes', 'active-no');
+    });
+
+    // Apply correct active class
+    btn.classList.add('active-' + val);
+
+    state[itemId] = val;
+    calculate();
+  });
+
+  // ── Initial render ────────────────────────────────────────────────────────
+  calculate();
+
+})();
+</script>

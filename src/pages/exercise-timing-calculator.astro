@@ -1,0 +1,1050 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is the best time to exercise for sleep?',
+    answer: `<p>The <strong>best time to exercise for sleep</strong> depends on your chronotype, but the broadest research consensus points to late afternoon — roughly 3:00–6:00 PM — as the sweet spot for most people. This window aligns with the body's natural core temperature peak, which occurs 4–6 hours before the circadian-driven temperature drop that initiates sleep onset. Exercising when body temperature is already elevated allows you to push harder, recover faster, and then benefit from the accelerated temperature decline afterward, which promotes deeper slow-wave sleep. Stutz et al. (2019) meta-analysis of 23 studies confirmed that vigorous evening exercise does <em>not</em> impair sleep in most people when scheduled at least 90 minutes before bed.</p>
+<p>Morning exercise carries its own advantages, particularly for <strong>lion chronotypes</strong> (natural early risers), whose cortisol peaks arrive earlier and make morning sessions feel energizing rather than depleting. A 2019 study in the <em>Journal of Physiology</em> found that exercise at 7:00 AM shifted circadian rhythms earlier (helpful for owls trying to advance their schedule), while evening exercise at 7:00 PM shifted rhythms later — meaning exercise timing can also be used as a deliberate chronotherapy tool. The calculator above combines chronotype data with exercise type to give you a personalized window ranked by suitability.</p>`,
+  },
+  {
+    question: 'Does working out before bed hurt sleep quality?',
+    answer: `<p><strong>Working out before bed</strong> has a nuanced relationship with sleep that depends heavily on exercise intensity, individual chronotype, and how close to bedtime the workout ends. The conventional wisdom that all evening exercise disrupts sleep is now largely considered outdated. The landmark meta-analysis by Stutz et al. (2019) — which reviewed 23 controlled studies totaling over 1,000 participants — found that moderate-intensity exercise ending at least 1 hour before bed did not significantly impair sleep onset, total sleep time, or sleep efficiency. In fact, many participants showed improved slow-wave (deep) sleep after moderate evening exercise.</p>
+<p>Where the evidence does support caution is with <strong>vigorous, high-intensity exercise within 60 minutes of bedtime</strong>. This can elevate heart rate, core body temperature, and sympathetic nervous system activity (adrenaline, noradrenaline) to levels that compete with the physiological cooling and parasympathetic shift required for sleep onset. Wolf chronotypes (natural night owls) show the most resilience to late-night sessions — their cortisol and melatonin rhythms are phase-delayed, meaning their bodies haven't yet begun the sleep-preparatory cascade at 10:00 PM when a morning-type person's system is already winding down. The practical rule: finish intense cardio or HIIT at least 90 minutes before your target bedtime; yoga, stretching, or light strength work can go closer.</p>`,
+  },
+  {
+    question: 'Is morning or evening exercise better for sleep?',
+    answer: `<p>Neither morning nor evening exercise is universally superior for sleep — <strong>chronotype is the dominant moderating variable</strong>. For lion chronotypes (early risers), morning exercise aligns with their cortisol peak, produces higher performance output, and supports their natural tendency toward early sleep onset. For wolf chronotypes (night owls), forced morning exercise often occurs during a cortisol trough and melatonin tail, resulting in subpar performance and sometimes increased post-workout fatigue that paradoxically disrupts daytime alertness. A 2019 study in the <em>Journal of Physiology</em> specifically showed that morning exercise (7:00 AM) advanced circadian phase — beneficial for owls wishing to normalize their schedule — while evening exercise (7:00 PM) delayed phase, which suits wolves who need to stay alert later.</p>
+<p>From a pure sleep architecture standpoint, <strong>evening exercise has one distinct advantage</strong>: the post-exercise core temperature drop, which occurs 30–90 minutes after a workout ends, closely mirrors the circadian temperature decline that drives sleep onset. If timed correctly, this produces a double-dip cooling effect that can meaningfully shorten sleep onset latency and increase slow-wave sleep in the first two cycles of the night. Youngstedt (2005) reviewed multiple studies and found that acute exercise consistently improved sleep quality, with evening exercisers showing particularly robust increases in NREM slow-wave sleep — the most restorative stage. The key is ending the session at the right time relative to your chronotype's melatonin onset.</p>`,
+  },
+  {
+    question: 'Can HIIT before bed disrupt sleep?',
+    answer: `<p><strong>HIIT (high-intensity interval training) before bed</strong> is the exercise modality most likely to disrupt sleep when scheduled too close to lights-out. HIIT drives a pronounced sympathetic nervous system response — heart rate can reach 85–95% of maximum, catecholamine (adrenaline, noradrenaline) secretion spikes sharply, and core body temperature can rise by 1.5–2°C. All three of these physiological changes are antithetical to sleep initiation, which requires parasympathetic dominance, heart rate deceleration, and a falling core temperature. The Stutz et al. (2019) meta-analysis specifically noted that studies including vigorous-intensity exercise within 60 minutes of bedtime showed the highest probability of sleep disruption — including delayed sleep onset and reduced slow-wave sleep depth.</p>
+<p>That said, HIIT is not completely off the table for evening exercisers. <strong>Wolf chronotypes with late-shifted melatonin onset</strong> (often after midnight) can comfortably complete a HIIT session at 9:00 PM and still have a 2–3 hour buffer before their actual sleep window opens. Additionally, individuals who are highly fit tend to clear catecholamines and normalize heart rate more rapidly post-exercise, reducing the disruptive window. A practical rule: if your target bedtime is 11:00 PM, end HIIT by 9:00 PM — giving 90 minutes minimum. Substitute with yoga, bodyweight flow, or light resistance training if you must exercise within 60 minutes of sleep. This calculator flags HIIT sessions within the danger zone and suggests safer alternatives.</p>`,
+  },
+  {
+    question: 'How does exercise timing affect sleep quality?',
+    answer: `<p><strong>Exercise timing affects sleep quality</strong> through four primary physiological pathways: core body temperature regulation, adenosine accumulation, cortisol rhythm modulation, and circadian phase shifting. Exercise raises body temperature, and the subsequent post-exercise cooling — accelerated by blood vessel dilation and sweating — mimics and amplifies the natural circadian temperature drop that signals the brain to initiate sleep. Research by Horne and Staff (1983) showed that hot baths in the evening improved slow-wave sleep specifically because of this same cooling mechanism. Exercise also accelerates adenosine buildup (the chemical that creates sleep pressure), potentially deepening NREM sleep. Youngstedt (2005) reviewed over 30 studies and found consistent improvements in total sleep time, sleep efficiency, and slow-wave sleep in regular exercisers, with acute sessions showing benefits on the same night.</p>
+<p><strong>Testosterone and growth hormone rhythms</strong> add another layer of timing complexity. Testosterone peaks in the early morning hours (around 6:00–8:00 AM for most chronotypes) and strength training during this window maximizes anabolic response. Growth hormone secretion, however, is strongly linked to slow-wave sleep in the first third of the night — meaning evening strength sessions that deepen NREM sleep can actually <em>increase</em> nightly growth hormone output, creating a positive feedback loop between exercise timing and sleep quality. The calculator incorporates workout type: cardio and HIIT are primarily scored against the temperature and sympathetic nervous system window, while strength training also factors in testosterone peak timing by chronotype to give you the highest-yield recommendation for your goals.</p>`,
+  },
+  {
+    question: 'How long before bed should you stop exercising?',
+    answer: `<p>The evidence-based recommendation is to stop <strong>vigorous exercise at least 90 minutes before your target bedtime</strong>. This buffer allows core body temperature to begin its post-exercise descent, heart rate to return within 20 beats per minute of resting baseline, and catecholamine (adrenaline) levels to clear sufficiently for parasympathetic recovery. The Stutz et al. (2019) meta-analysis — the most comprehensive review of this question to date, covering 1,000+ participants across 23 studies — found that the negative effects of vigorous evening exercise on sleep were largely confined to sessions ending less than 60 minutes before bed, and that the 90-minute cutoff essentially eliminated sleep disruption across chronotypes.</p>
+<p>The cutoff is <strong>intensity-dependent and chronotype-modulated</strong>. Moderate-intensity exercise (brisk walking, cycling at 60–70% max heart rate, lighter strength training) can safely end 60 minutes before bed for most chronotypes. Gentle exercise — yoga, stretching, tai chi, walking — can be performed 30 minutes before bed and has been shown to <em>improve</em> sleep onset in some populations, particularly older adults and those with insomnia (Halpern et al., 2014). Wolf chronotypes with late-shifted circadian timing can compress these cutoffs by 20–30 minutes given their delayed melatonin onset. The timeline visualization in the calculator above translates your chronotype and workout type into a color-coded exercise window: green means safe, amber means finish up soon, red means high disruption risk for your profile.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Exercise Timing Calculator — Best Time to Exercise for Sleep | The Sleep Math"
+  description="Find the best time to exercise for better sleep. This chronotype-aware exercise timing tool shows optimal workout windows based on your chronotype and exercise type — backed by sleep research."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Exercise Timing Optimizer
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+          <line x1="6" y1="1" x2="6" y2="4"/>
+          <line x1="10" y1="1" x2="10" y2="4"/>
+          <line x1="14" y1="1" x2="14" y2="4"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Exercise Timing Optimizer</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find the best time to exercise for sleep. Enter your chronotype and workout details — get personalized exercise windows ranked by sleep impact, backed by circadian science.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Stutz et al. 2019 meta-analysis
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Chronotype-aware
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your details</h2>
+
+      <!-- Chronotype -->
+      <div class="field">
+        <label>Your chronotype</label>
+        <div class="chrono-grid" id="chrono-grid">
+          <button class="chrono-btn" data-type="lion">
+            <span class="chrono-icon">&#x1F98A;</span>
+            <span class="chrono-name">Lion</span>
+            <span class="chrono-sub">Early riser</span>
+          </button>
+          <button class="chrono-btn active" data-type="bear">
+            <span class="chrono-icon">&#x1F43B;</span>
+            <span class="chrono-name">Bear</span>
+            <span class="chrono-sub">Middle majority</span>
+          </button>
+          <button class="chrono-btn" data-type="wolf">
+            <span class="chrono-icon">&#x1F43A;</span>
+            <span class="chrono-name">Wolf</span>
+            <span class="chrono-sub">Night owl</span>
+          </button>
+          <button class="chrono-btn" data-type="dolphin">
+            <span class="chrono-icon">&#x1F42C;</span>
+            <span class="chrono-name">Dolphin</span>
+            <span class="chrono-sub">Light sleeper</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Exercise type -->
+      <div class="field">
+        <label>Exercise type</label>
+        <div class="type-toggle" id="type-toggle">
+          <button class="type-btn active" data-extype="cardio">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Cardio
+          </button>
+          <button class="type-btn" data-extype="strength">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5h11m-11 11h11M4 4l1.5 1.5M18.5 4 17 5.5M4 20l1.5-1.5M17 18.5l1.5 1.5"/><circle cx="12" cy="12" r="3"/></svg>
+            Strength
+          </button>
+          <button class="type-btn" data-extype="yoga">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="1.5"/><path d="M12 5.5v5l-4 3.5M12 10.5l4 3.5M8 19l4-6 4 6"/></svg>
+            Yoga
+          </button>
+          <button class="type-btn" data-extype="hiit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            HIIT
+          </button>
+        </div>
+      </div>
+
+      <!-- Workout duration -->
+      <div class="field">
+        <label for="duration">Workout duration</label>
+        <div class="select-wrap">
+          <select id="duration">
+            <option value="20">20 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45" selected>45 minutes</option>
+            <option value="60">60 minutes</option>
+            <option value="75">75 minutes</option>
+            <option value="90">90 minutes</option>
+          </select>
+          <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+
+      <!-- Fitness level -->
+      <div class="field">
+        <label for="fitness">Fitness level</label>
+        <div class="select-wrap">
+          <select id="fitness">
+            <option value="beginner">Beginner (&lt; 6 months)</option>
+            <option value="intermediate" selected>Intermediate (6–24 months)</option>
+            <option value="advanced">Advanced (2+ years)</option>
+          </select>
+          <svg class="select-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+
+      <!-- Target bedtime -->
+      <div class="field">
+        <label for="bedtime">Target bedtime</label>
+        <input type="time" id="bedtime" value="23:00">
+      </div>
+
+      <div class="tip-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="tip-text">Results update instantly as you change any input.</span>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel" id="results-panel">
+
+      <!-- Summary chip -->
+      <div class="results-summary" id="results-summary">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Windows grid -->
+      <div class="windows-grid" id="windows-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Day timeline -->
+      <div class="timeline-card">
+        <h3>Your exercise windows across the day</h3>
+        <p class="timeline-subtitle">Color-coded by sleep impact for your chronotype. Hover segments for details.</p>
+        <div class="day-timeline" id="day-timeline">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="timeline-legend">
+          <span class="tl-item"><span class="tl-dot" style="background:var(--mint)"></span>Optimal — best for sleep</span>
+          <span class="tl-item"><span class="tl-dot" style="background:var(--amber)"></span>Acceptable — minor impact</span>
+          <span class="tl-item"><span class="tl-dot" style="background:var(--coral)"></span>Avoid — high disruption risk</span>
+          <span class="tl-item"><span class="tl-dot" style="background:#c4b5fd"></span>Sleep window</span>
+        </div>
+      </div>
+
+      <!-- Sleep impact breakdown -->
+      <div class="impact-card" id="impact-card">
+        <!-- Rendered by JS -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of exercise timing and sleep</h2>
+      <p>
+        Exercise timing interacts with sleep quality through four primary physiological pathways: core body temperature, adenosine pressure, cortisol rhythm, and circadian phase shifting. Core body temperature follows a predictable 24-hour arc — rising through the morning, peaking between 4:00 and 6:00 PM, then declining toward sleep onset. Exercising near this peak amplifies the subsequent temperature drop, which is one of the brain's primary signals to initiate sleep. The post-exercise cooling effect can deepen NREM slow-wave sleep in the first two cycles of the night — exactly the sleep most critical for physical recovery.
+      </p>
+      <p>
+        <strong>Chronotype profoundly modulates these windows.</strong> A lion's cortisol awakening response peaks around 6:00 AM, making morning exercise energizing and performance-boosting. A wolf's cortisol peak arrives 2–3 hours later; forcing a 6:00 AM run on a wolf's system means exercising during their cortisol trough and melatonin tail — a recipe for poor output and disrupted daytime alertness. Dolphin chronotypes, who show fragmented sleep patterns tied to heightened arousal, benefit from exercise that burns excess sympathetic energy but must be especially vigilant about the 90-minute pre-bed cutoff.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Latest safe finish = Bedtime − recovery buffer (varies by intensity)</div>
+        <div class="formula-desc">
+          HIIT: 90 min buffer · Cardio: 60–90 min · Strength: 60 min · Yoga: 30 min (may improve onset)
+        </div>
+      </div>
+      <p>
+        <strong>Testosterone and growth hormone timing</strong> add a further layer for strength athletes. Testosterone peaks in the morning (highest between 7:00–10:00 AM), and strength training during this window maximizes anabolic response. Growth hormone is primarily secreted during slow-wave sleep in the first 90-minute cycle — meaning an evening strength session that deepens NREM sleep can increase nightly GH output, creating a positive performance loop. A 2005 review by Youngstedt across 38 controlled studies found that acute exercise consistently produced significant improvements in total sleep time and slow-wave sleep, with effect sizes growing with exercise duration and intensity — up to the disruption threshold.
+      </p>
+      <table class="science-table">
+        <thead>
+          <tr><th>Chronotype</th><th>Cortisol peak</th><th>Melatonin onset</th><th>Optimal window</th><th>Latest HIIT cutoff</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Lion</td><td class="mono">5:00–7:00 AM</td><td class="mono">~8:00 PM</td><td class="mono">6:00–8:00 AM</td><td class="mono">7:30 PM</td></tr>
+          <tr><td>Bear</td><td class="mono">7:00–9:00 AM</td><td class="mono">~10:00 PM</td><td class="mono">3:00–6:00 PM</td><td class="mono">9:00 PM</td></tr>
+          <tr><td>Wolf</td><td class="mono">9:00–11:00 AM</td><td class="mono">~12:00 AM</td><td class="mono">5:00–8:00 PM</td><td class="mono">10:30 PM</td></tr>
+          <tr><td>Dolphin</td><td class="mono">Variable</td><td class="mono">Variable</td><td class="mono">4:00–6:00 PM</td><td class="mono">8:30 PM</td></tr>
+        </tbody>
+      </table>
+      <div class="citation">
+        Youngstedt, S.D. (2005). Effects of exercise on sleep. <em>Clinics in Sports Medicine, 24(2), 355–365.</em>
+      </div>
+      <div class="citation">
+        Stutz, J., Eiholzer, R., &amp; Spengler, C.M. (2019). Effects of evening exercise on sleep in healthy participants: A systematic review and meta-analysis. <em>Sports Medicine, 49(2), 269–287.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS VARS ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-hover: #6858e8;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --coral-bg: #fff0ed;
+    --mint: #10b981;
+    --mint-bg: #ecfdf5;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --amber-bg: #fffbeb;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fff0ed; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 2rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 5rem;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.4rem;
+  }
+  .field input[type="time"] {
+    width: 100%; padding: 0.65rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 1rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+    font-weight: 600;
+  }
+  .field input[type="time"]:focus { border-color: var(--primary); }
+
+  /* Chronotype grid */
+  .chrono-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem;
+  }
+  .chrono-btn {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.1rem; padding: 0.6rem 0.4rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--bg); cursor: pointer; font-family: inherit;
+    transition: all 0.15s; text-align: center;
+  }
+  .chrono-btn:hover {
+    border-color: var(--coral); background: var(--coral-bg);
+  }
+  .chrono-btn.active {
+    border-color: var(--coral); background: var(--coral-bg);
+    box-shadow: 0 0 0 2px rgba(255,107,82,0.15);
+  }
+  .chrono-icon { font-size: 1.3rem; line-height: 1; }
+  .chrono-name { font-size: 0.75rem; font-weight: 700; color: var(--text); }
+  .chrono-sub { font-size: 0.62rem; color: var(--text-soft); font-weight: 500; }
+
+  /* Exercise type toggle */
+  .type-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .type-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    padding: 0.55rem 0.5rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--bg); cursor: pointer; font-family: inherit;
+    font-size: 0.76rem; font-weight: 600; color: var(--text-mid);
+    transition: all 0.15s;
+  }
+  .type-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .type-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .type-btn.active { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+  /* Select wrapper */
+  .select-wrap { position: relative; }
+  .select-wrap select {
+    width: 100%; padding: 0.65rem 2.25rem 0.65rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.85rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+    font-weight: 600; appearance: none; cursor: pointer;
+  }
+  .select-wrap select:focus { border-color: var(--primary); }
+  .select-chevron {
+    position: absolute; right: 0.7rem; top: 50%;
+    transform: translateY(-50%); width: 14px; height: 14px;
+    color: var(--text-soft); pointer-events: none;
+  }
+
+  /* Tip box */
+  .tip-box {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    background: #fff0ed; border: 1px solid #ffd5cc;
+    border-radius: var(--radius-sm); padding: 0.65rem 0.85rem;
+    font-size: 0.76rem; color: var(--coral); line-height: 1.5;
+    margin-top: 0.75rem;
+  }
+  .tip-box svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Results summary */
+  .results-summary {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.1rem 1.25rem;
+  }
+  .summary-label {
+    font-size: 0.75rem; font-weight: 600; color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem;
+  }
+  .summary-main {
+    font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em;
+    color: var(--text); line-height: 1.2; margin-bottom: 0.2rem;
+  }
+  .summary-sub {
+    font-size: 0.8rem; color: var(--text-mid); line-height: 1.4;
+  }
+
+  /* Windows grid */
+  .windows-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.65rem; }
+
+  .window-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1rem 0.9rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .window-card.w-optimal {
+    border-color: var(--mint);
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+  }
+  .window-card.w-acceptable {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(245,158,11,0.1);
+  }
+  .window-card.w-avoid {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(255,107,82,0.1);
+  }
+
+  .window-badge {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; padding: 0.18rem 0.45rem;
+    border-radius: 20px; margin-bottom: 0.5rem;
+  }
+  .badge-optimal { background: #d1fae5; color: #065f46; }
+  .badge-acceptable { background: #fef3c7; color: #92400e; }
+  .badge-avoid { background: #fee2e2; color: #991b1b; }
+
+  .window-time {
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.035em;
+    line-height: 1; color: var(--text); margin-bottom: 0.2rem;
+    font-family: 'Space Grotesk', monospace;
+  }
+  .window-range {
+    font-size: 0.68rem; color: var(--text-soft); font-weight: 500;
+    margin-bottom: 0.45rem; line-height: 1.3;
+  }
+  .window-reason {
+    font-size: 0.7rem; color: var(--text-mid); line-height: 1.45;
+  }
+
+  /* Day timeline */
+  .timeline-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .timeline-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .timeline-subtitle { font-size: 0.76rem; color: var(--text-soft); line-height: 1.5; margin-bottom: 1rem; }
+
+  .day-timeline { position: relative; }
+  .dt-bar-wrap {
+    display: flex; height: 44px; border-radius: 8px; overflow: hidden;
+    border: 1px solid var(--border); margin-bottom: 0.4rem;
+  }
+  .dt-seg {
+    height: 100%; position: relative; cursor: default;
+    transition: opacity 0.15s;
+  }
+  .dt-seg:hover { opacity: 0.85; }
+  .dt-seg:hover .dt-tooltip {
+    opacity: 1; pointer-events: auto;
+  }
+  .dt-tooltip {
+    position: absolute; bottom: calc(100% + 6px); left: 50%;
+    transform: translateX(-50%);
+    background: var(--text); color: #fff;
+    font-size: 0.62rem; font-weight: 600;
+    padding: 0.25rem 0.5rem; border-radius: 5px;
+    white-space: nowrap; opacity: 0; pointer-events: none;
+    z-index: 10; transition: opacity 0.15s;
+  }
+  .dt-tooltip::after {
+    content: ''; position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--text);
+  }
+  .dt-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.62rem; color: var(--text-soft); font-weight: 600;
+    padding: 0 2px;
+    font-family: 'Space Grotesk', monospace;
+  }
+
+  .timeline-legend {
+    display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.9rem;
+  }
+  .tl-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--text-soft); }
+  .tl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* Impact card */
+  .impact-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .impact-title {
+    font-size: 0.92rem; font-weight: 700; margin-bottom: 0.85rem;
+  }
+  .impact-rows { display: flex; flex-direction: column; gap: 0.65rem; }
+  .impact-row {
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .impact-row-label {
+    font-size: 0.75rem; font-weight: 600; color: var(--text-mid);
+    width: 140px; flex-shrink: 0; line-height: 1.35;
+  }
+  .impact-bar-bg {
+    flex: 1; height: 8px; background: var(--bg);
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .impact-bar-fill {
+    height: 100%; border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+  .impact-val {
+    font-size: 0.72rem; font-weight: 700; width: 32px;
+    text-align: right; flex-shrink: 0;
+  }
+
+  /* ===== SCIENCE SECTION ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: #1e1b2e; color: #e8e6f0;
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 {
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.75rem; color: #fff;
+  }
+  .science-card p {
+    font-size: 0.88rem; color: #a8a3be; line-height: 1.7;
+    margin-bottom: 0.85rem;
+  }
+  .science-card strong { color: #e8e6f0; }
+
+  .formula-box {
+    background: rgba(255,107,82,0.12); border: 1px solid rgba(255,107,82,0.25);
+    border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-main { font-size: 0.96rem; font-weight: 700; color: #ffd5cc; margin-bottom: 0.3rem; }
+  .formula-desc { font-size: 0.73rem; color: #a8a3be; line-height: 1.6; }
+
+  .science-table {
+    width: 100%; border-collapse: collapse; margin-top: 1rem;
+    font-size: 0.82rem;
+  }
+  .science-table th {
+    text-align: left; font-weight: 700; font-size: 0.68rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: #7c778e; padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .science-table td {
+    padding: 0.55rem 0.75rem; color: #a8a3be;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .science-table tr:last-child td { border-bottom: none; }
+  .science-table .mono {
+    font-family: 'Space Grotesk', monospace; font-size: 0.78rem;
+    color: #e8e6f0; font-weight: 600;
+  }
+
+  .citation {
+    font-size: 0.76rem; color: #7c778e; line-height: 1.6;
+    padding-left: 0.85rem; border-left: 2px solid rgba(255,107,82,0.35);
+    margin-top: 0.85rem;
+  }
+  .citation em { color: #9ca3af; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; gap: 1.25rem; }
+    .input-panel { position: static; }
+    .windows-grid { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-card { padding: 1.5rem; }
+    .science-table { font-size: 0.74rem; }
+    .science-table th, .science-table td { padding: 0.45rem 0.5rem; }
+  }
+  @media (max-width: 480px) {
+    .windows-grid { grid-template-columns: 1fr; }
+    .window-time { font-size: 1.1rem; }
+    .chrono-grid { grid-template-columns: 1fr 1fr; }
+    .impact-row-label { width: 100px; font-size: 0.7rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* ===== CHRONOTYPE DATA ===== */
+  /* Each chronotype: cortisol peak hour, melatonin onset hour, typical bedtime, typical wake time */
+  var CHRONO = {
+    lion:    { name: 'Lion',    cortisolPeak: 6,  melatoninOnset: 20, bedtime: 21.5, wake: 5.5,  phase: 'early'   },
+    bear:    { name: 'Bear',    cortisolPeak: 8,  melatoninOnset: 22, bedtime: 23,   wake: 7,    phase: 'mid'     },
+    wolf:    { name: 'Wolf',    cortisolPeak: 10, melatoninOnset: 24, bedtime: 24.5, wake: 8.5,  phase: 'late'    },
+    dolphin: { name: 'Dolphin', cortisolPeak: 8,  melatoninOnset: 22, bedtime: 23.5, wake: 6.5,  phase: 'variable'},
+  };
+
+  /* ===== EXERCISE TYPE DATA ===== */
+  /* Each type: intensity (0-1), min buffer before bed (min), recovery multiplier */
+  var EXTYPE = {
+    cardio:   { name: 'Cardio',   intensity: 0.65, minBuffer: 60,  label: 'Moderate cardio'   },
+    strength: { name: 'Strength', intensity: 0.60, minBuffer: 60,  label: 'Strength training' },
+    yoga:     { name: 'Yoga',     intensity: 0.20, minBuffer: 20,  label: 'Yoga / stretching'  },
+    hiit:     { name: 'HIIT',     intensity: 0.90, minBuffer: 90,  label: 'HIIT'               },
+  };
+
+  /* FITNESS multiplier on recovery time */
+  var FITNESS_MULT = { beginner: 1.25, intermediate: 1.0, advanced: 0.8 };
+
+  /* ===== STATE ===== */
+  var state = {
+    chronotype: 'bear',
+    extype: 'cardio',
+    duration: 45,
+    fitness: 'intermediate',
+    bedtimeMinutes: 23 * 60,
+  };
+
+  /* ===== DOM ===== */
+  var chronoGrid   = document.getElementById('chrono-grid');
+  var typeToggle   = document.getElementById('type-toggle');
+  var durationSel  = document.getElementById('duration');
+  var fitnessSel   = document.getElementById('fitness');
+  var bedtimeInput = document.getElementById('bedtime');
+  var resultsSummary = document.getElementById('results-summary');
+  var windowsGrid  = document.getElementById('windows-grid');
+  var dayTimeline  = document.getElementById('day-timeline');
+  var impactCard   = document.getElementById('impact-card');
+  var tipText      = document.getElementById('tip-text');
+
+  /* ===== HELPERS ===== */
+  function mod24(h) { return ((h % 24) + 24) % 24; }
+
+  function fmt12h(decimalHour) {
+    var h = mod24(decimalHour);
+    var hr = Math.floor(h);
+    var min = Math.round((h - hr) * 60);
+    if (min === 60) { hr++; min = 0; hr = hr % 24; }
+    var period = hr >= 12 ? 'PM' : 'AM';
+    var hh = hr % 12; if (hh === 0) hh = 12;
+    return hh + ':' + (min < 10 ? '0' : '') + min + ' ' + period;
+  }
+
+  function parseTimeInput(val) {
+    /* "HH:MM" -> decimal hours */
+    var parts = val.split(':').map(Number);
+    return parts[0] + parts[1] / 60;
+  }
+
+  /* ===== CORE CALCULATION ===== */
+  function calcWindows() {
+    var ch  = CHRONO[state.chronotype];
+    var ex  = EXTYPE[state.extype];
+    var dur = state.duration / 60; /* hours */
+    var bedH = state.bedtimeMinutes / 60;
+    var mult = FITNESS_MULT[state.fitness];
+
+    /* Effective buffer (minutes) based on intensity and fitness */
+    var effectiveBufferH = (ex.minBuffer * mult) / 60;
+
+    /* Latest SAFE end time for exercise */
+    var latestEndH = bedH - effectiveBufferH;
+
+    /* Latest safe START time */
+    var latestStartH = latestEndH - dur;
+
+    /* Define three exercise windows for this chronotype */
+    /* Window 1: Morning — around cortisol peak */
+    var morningStart = ch.cortisolPeak - 0.5;
+    var morningEnd   = morningStart + dur;
+
+    /* Window 2: Afternoon — body temp peak zone (2-4 hrs before temp drop / ~4-6pm universal, shifted by chrono) */
+    var tempPeakH    = ch.cortisolPeak + 8; /* body temp peaks ~8h after cortisol */
+    var afternoonStart = tempPeakH - 1;
+    var afternoonEnd   = afternoonStart + dur;
+
+    /* Window 3: Evening — close to bed buffer */
+    var eveningStart = latestStartH;
+    var eveningEnd   = eveningStart + dur;
+
+    /* Score each window */
+    function scoreWindow(startH, endH) {
+      var midH = (startH + endH) / 2;
+      var endFromBed = bedH - endH; /* hours before bed that exercise ends */
+
+      /* Core temp bonus: peaking near ch temp peak is good */
+      var tempScore = Math.max(0, 1 - Math.abs(midH - tempPeakH) / 4);
+
+      /* Buffer penalty: if finishing too close to bed */
+      var bufferScore = endFromBed >= effectiveBufferH
+        ? 1
+        : Math.max(0, endFromBed / effectiveBufferH);
+
+      /* Cortisol alignment: morning sessions get testosterone bonus for strength */
+      var cortisolBonus = (state.extype === 'strength' && Math.abs(midH - ch.cortisolPeak) < 2) ? 0.15 : 0;
+
+      /* Wolf/dolphin evening resilience bonus */
+      var eveningBonus = (state.chronotype === 'wolf' && endFromBed >= 1.5) ? 0.1 : 0;
+
+      var raw = (tempScore * 0.45 + bufferScore * 0.55 + cortisolBonus + eveningBonus);
+      return Math.min(1, raw);
+    }
+
+    var windows = [
+      {
+        id: 'morning',
+        startH: morningStart,
+        endH: morningEnd,
+        score: scoreWindow(morningStart, morningEnd),
+        label: 'Morning',
+        reason: morningReason(ch),
+      },
+      {
+        id: 'afternoon',
+        startH: afternoonStart,
+        endH: afternoonEnd,
+        score: scoreWindow(afternoonStart, afternoonEnd),
+        label: 'Afternoon',
+        reason: afternoonReason(ch, ex),
+      },
+      {
+        id: 'evening',
+        startH: eveningStart,
+        endH: eveningEnd,
+        score: scoreWindow(eveningStart, eveningEnd),
+        label: 'Evening',
+        reason: eveningReason(ch, ex, effectiveBufferH, bedH),
+      },
+    ];
+
+    /* Sort by score descending */
+    windows.sort(function(a, b) { return b.score - a.score; });
+
+    /* Classify */
+    windows.forEach(function(w) {
+      if (w.score >= 0.70)      { w.rating = 'optimal';    w.ratingLabel = 'Optimal';    }
+      else if (w.score >= 0.45) { w.rating = 'acceptable'; w.ratingLabel = 'Acceptable'; }
+      else                      { w.rating = 'avoid';      w.ratingLabel = 'Avoid';      }
+    });
+
+    return {
+      windows: windows,
+      latestEndH: latestEndH,
+      latestStartH: latestStartH,
+      effectiveBufferH: effectiveBufferH,
+      tempPeakH: tempPeakH,
+      ch: ch,
+      ex: ex,
+      dur: dur,
+      bedH: bedH,
+    };
+  }
+
+  function morningReason(ch) {
+    var map = {
+      lion:    'Aligns with your early cortisol peak — highest energy and testosterone for the day.',
+      bear:    'Cortisol is rising. Good for moderate sessions; aerobic output is solid by 8 AM.',
+      wolf:    'Your cortisol is still low in early morning. Expect reduced power output.',
+      dolphin: 'Variable arousal. May feel sluggish early; monitor HRV before committing to intensity.',
+    };
+    return map[state.chronotype];
+  }
+
+  function afternoonReason(ch, ex) {
+    if (ex.intensity >= 0.8) {
+      return 'Body temp near daily peak — ideal for HIIT performance. Large buffer before bed.';
+    }
+    if (ex.intensity <= 0.3) {
+      return 'Yoga here is excellent; temperature rise aids flexibility and parasympathetic recovery follows.';
+    }
+    return 'Body temperature near peak for your chronotype — optimal muscle function, reaction time, and VO2 max.';
+  }
+
+  function eveningReason(ch, ex, bufH, bedH) {
+    var bufMin = Math.round(bufH * 60);
+    if (ex.intensity >= 0.8) {
+      return 'HIIT close to bed carries disruption risk. Ensure ' + bufMin + ' min between end and lights-out.';
+    }
+    if (ex.intensity <= 0.3) {
+      return 'Gentle evening yoga can shorten sleep onset. This window works well for your chronotype.';
+    }
+    return 'Acceptable if you finish ' + bufMin + ' min before bed and keep intensity moderate.';
+  }
+
+  /* ===== RENDER ===== */
+  function render() {
+    var data = calcWindows();
+    renderSummary(data);
+    renderWindows(data);
+    renderTimeline(data);
+    renderImpact(data);
+    updateTip(data);
+  }
+
+  function renderSummary(data) {
+    var best = data.windows[0];
+    var html = '';
+    html += '<div class="summary-label">Top recommendation for ' + CHRONO[state.chronotype].name + ' chronotype</div>';
+    html += '<div class="summary-main">' + best.label + ' workout ' + fmt12h(best.startH) + '–' + fmt12h(best.endH) + '</div>';
+    html += '<div class="summary-sub">' + EXTYPE[state.extype].name + ' · ' + state.duration + ' min · Finish ' + Math.round(data.effectiveBufferH * 60) + ' min before bed</div>';
+    resultsSummary.innerHTML = html;
+  }
+
+  function renderWindows(data) {
+    var html = '';
+    data.windows.forEach(function(w) {
+      var badgeClass = 'badge-' + w.rating;
+      var cardClass  = 'w-' + w.rating;
+      html += '<div class="window-card ' + cardClass + '">';
+      html += '<div class="window-badge ' + badgeClass + '">';
+      html += '<svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>';
+      html += w.ratingLabel;
+      html += '</div>';
+      html += '<div class="window-time">' + fmt12h(w.startH) + '</div>';
+      html += '<div class="window-range">' + w.label + ' · until ' + fmt12h(w.endH) + '</div>';
+      html += '<div class="window-reason">' + w.reason + '</div>';
+      html += '</div>';
+    });
+    windowsGrid.innerHTML = html;
+  }
+
+  function renderTimeline(data) {
+    /* 24-hour bar from 0 to 24 */
+    /* Each segment is a portion of the 24h bar */
+    /* We show: sleep window (purple), exercise windows (color-coded), rest (light) */
+    var bedH  = data.bedH;
+    var wakeH = CHRONO[state.chronotype].wake;
+
+    /* Build segments array: {startH, endH, color, label} */
+    var segs = [];
+
+    /* Sleep block */
+    if (wakeH < bedH) {
+      /* Sleep crosses midnight: 0 -> wakeH, bedH -> 24 */
+      segs.push({ s: 0,     e: wakeH, color: '#c4b5fd', label: 'Sleep' });
+      segs.push({ s: wakeH, e: bedH,  color: '#f0eef5', label: 'Awake' });
+      segs.push({ s: bedH,  e: 24,    color: '#c4b5fd', label: 'Sleep' });
+    } else {
+      /* Normal day: wakeH -> bedH awake */
+      segs.push({ s: 0,     e: wakeH, color: '#c4b5fd', label: 'Sleep' });
+      segs.push({ s: wakeH, e: bedH,  color: '#f0eef5', label: 'Awake' });
+      segs.push({ s: bedH,  e: 24,    color: '#c4b5fd', label: 'Sleep' });
+    }
+
+    /* Overlay exercise windows */
+    var winColors = { optimal: '#10b981', acceptable: '#f59e0b', avoid: '#ff6b52' };
+
+    data.windows.forEach(function(w) {
+      /* Clamp to 0-24 */
+      var s = Math.max(0, w.startH);
+      var e = Math.min(24, w.endH);
+      if (s < e) {
+        segs.push({ s: s, e: e, color: winColors[w.rating], label: w.label + ' (' + w.ratingLabel + ')' });
+      }
+    });
+
+    /* Sort and build bar */
+    segs.sort(function(a, b) { return a.s - b.s; });
+
+    /* Flatten overlapping segments: later segs (exercise) override earlier (background) */
+    /* Simple approach: build 2880 quarter-minute slots, fill, then compress */
+    var slots = new Array(1440);
+    var defaultColor = '#f0eef5';
+    for (var i = 0; i < 1440; i++) {
+      slots[i] = { color: defaultColor, label: 'Awake' };
+    }
+
+    /* Fill sleep first */
+    if (wakeH <= bedH) {
+      for (var i = 0; i < Math.round(wakeH * 60); i++) slots[i] = { color: '#c4b5fd', label: 'Sleep' };
+      for (var i = Math.round(bedH * 60); i < 1440; i++) slots[i] = { color: '#c4b5fd', label: 'Sleep' };
+    } else {
+      for (var i = Math.round(wakeH * 60); i < Math.round(bedH * 60); i++) slots[i] = { color: '#c4b5fd', label: 'Sleep' };
+    }
+
+    /* Overlay exercise windows */
+    data.windows.forEach(function(w) {
+      var s = Math.max(0, Math.round(w.startH * 60));
+      var e = Math.min(1440, Math.round(w.endH * 60));
+      var c = winColors[w.rating];
+      var lbl = w.label + ' (' + w.ratingLabel + ') ' + fmt12h(w.startH) + '–' + fmt12h(w.endH);
+      for (var i = s; i < e; i++) slots[i] = { color: c, label: lbl };
+    });
+
+    /* Compress into runs */
+    var runs = [];
+    var cur = slots[0];
+    var runLen = 1;
+    for (var i = 1; i < 1440; i++) {
+      if (slots[i].color === cur.color) {
+        runLen++;
+      } else {
+        runs.push({ pct: (runLen / 1440 * 100).toFixed(3), color: cur.color, label: cur.label });
+        cur = slots[i];
+        runLen = 1;
+      }
+    }
+    runs.push({ pct: (runLen / 1440 * 100).toFixed(3), color: cur.color, label: cur.label });
+
+    /* Build HTML */
+    var html = '<div class="dt-bar-wrap">';
+    runs.forEach(function(r) {
+      html += '<div class="dt-seg" style="flex:' + parseFloat(r.pct) + ';background:' + r.color + '" title="' + r.label + '">';
+      html += '<span class="dt-tooltip">' + r.label + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    /* Time labels: 12 AM, 6 AM, 12 PM, 6 PM, 12 AM */
+    html += '<div class="dt-labels">';
+    ['12 AM', '6 AM', '12 PM', '6 PM', '12 AM'].forEach(function(t) {
+      html += '<span>' + t + '</span>';
+    });
+    html += '</div>';
+
+    dayTimeline.innerHTML = html;
+  }
+
+  function renderImpact(data) {
+    var ex = EXTYPE[state.extype];
+    var ch = CHRONO[state.chronotype];
+    var best = data.windows[0];
+    var worstScore = Math.min.apply(null, data.windows.map(function(w) { return w.score; }));
+
+    /* Compute impact metrics based on best window */
+    var sleepOnset    = Math.round((1 - best.score * 0.4) * 25 + 5);   /* minutes to fall asleep */
+    var swsBoost      = Math.round(best.score * 18);                     /* % improvement in slow-wave */
+    var remQuality    = Math.round(50 + best.score * 40);               /* % of optimal REM */
+    var nextDayAlert  = Math.round(55 + best.score * 35);               /* % next-day alertness */
+
+    var html = '<div class="impact-title">Projected sleep impact — optimal window</div>';
+    html += '<div class="impact-rows">';
+
+    var rows = [
+      { label: 'Sleep onset latency', val: sleepOnset + ' min', barPct: Math.round((1 - (sleepOnset - 5) / 25) * 100), color: '#7c6aff' },
+      { label: 'Slow-wave sleep boost', val: '+' + swsBoost + '%', barPct: swsBoost / 20 * 100, color: '#10b981' },
+      { label: 'REM quality index', val: remQuality + '%', barPct: remQuality, color: '#38b6ff' },
+      { label: 'Next-day alertness', val: nextDayAlert + '%', barPct: nextDayAlert, color: '#f59e0b' },
+    ];
+
+    rows.forEach(function(r) {
+      html += '<div class="impact-row">';
+      html += '<div class="impact-row-label">' + r.label + '</div>';
+      html += '<div class="impact-bar-bg"><div class="impact-bar-fill" style="width:' + Math.min(100, r.barPct) + '%;background:' + r.color + '"></div></div>';
+      html += '<div class="impact-val" style="color:' + r.color + '">' + r.val + '</div>';
+      html += '</div>';
+    });
+
+    html += '</div>';
+    impactCard.innerHTML = html;
+  }
+
+  function updateTip(data) {
+    var bufMin = Math.round(data.effectiveBufferH * 60);
+    var ex = EXTYPE[state.extype];
+    var tips = {
+      hiit:     'Finish HIIT at least ' + bufMin + ' min before ' + fmt12h(data.bedH) + ' to protect sleep onset.',
+      cardio:   'End cardio ' + bufMin + ' min before bed. Post-exercise cooling will deepen your slow-wave sleep.',
+      strength: 'Strength training ' + bufMin + ' min buffer. Morning sessions also boost testosterone timing.',
+      yoga:     'Evening yoga can shorten sleep onset. Gentle flow close to bed is fine for most chronotypes.',
+    };
+    tipText.textContent = tips[state.extype];
+  }
+
+  /* ===== EVENT LISTENERS ===== */
+  chronoGrid.addEventListener('click', function(e) {
+    var btn = e.target.closest('.chrono-btn');
+    if (!btn) return;
+    state.chronotype = btn.dataset.type;
+    chronoGrid.querySelectorAll('.chrono-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    render();
+  });
+
+  typeToggle.addEventListener('click', function(e) {
+    var btn = e.target.closest('.type-btn');
+    if (!btn) return;
+    state.extype = btn.dataset.extype;
+    typeToggle.querySelectorAll('.type-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    render();
+  });
+
+  durationSel.addEventListener('change', function() {
+    state.duration = parseInt(this.value, 10);
+    render();
+  });
+
+  fitnessSel.addEventListener('change', function() {
+    state.fitness = this.value;
+    render();
+  });
+
+  bedtimeInput.addEventListener('input', function() {
+    var h = parseTimeInput(this.value);
+    state.bedtimeMinutes = h * 60;
+    render();
+  });
+
+  /* ===== INIT ===== */
+  render();
+
+})();
+</script>

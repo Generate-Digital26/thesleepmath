@@ -10,7 +10,7 @@ import { calculators, iconStrokeColors } from '@/data/calculators';
     </div>
 
     <div class="calc-grid">
-      {calculators.filter(c => c.phase <= 2).map((calc) => (
+      {calculators.map((calc) => (
         <a href={`/${calc.slug}`} class={`calc-card ${calc.color}`}>
           <div class="calc-card-head">
             <div class={`calc-icon ${calc.iconColor}`}>

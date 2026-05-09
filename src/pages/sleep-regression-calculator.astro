@@ -1,0 +1,1061 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is a baby sleep regression?',
+    answer: `<p>A <strong>sleep regression</strong> is a period — typically lasting two to six weeks — during which a baby who was previously sleeping well suddenly begins waking more frequently at night, resisting naps, or taking longer to fall asleep. These disruptions are not random; they correspond closely to major developmental leaps in motor, cognitive, or emotional maturity. Research by <strong>Mindell et al. (2006)</strong> documented that night wakings increase significantly at predictable developmental intervals across the first two years of life, confirming that regressions have a biological basis rather than being purely behavioral.</p><p>Understanding the cause can make regressions feel less alarming. At the <strong>4-month mark</strong>, the sleep architecture itself permanently matures — sleep cycles lengthen and lighten, and babies must learn to connect cycles without fully waking. At 8–10 months, rapid motor development (crawling, pulling to stand) and a surge in separation anxiety drive overnight wakings. At 18 months, the push for toddler independence makes bedtime resistance especially common. Each regression is a sign that your baby's brain is growing.</p>`,
+  },
+  {
+    question: 'How do I survive the 4-month sleep regression?',
+    answer: `<p>The <strong>4-month sleep regression</strong> is considered the most significant of all regressions because it reflects a permanent change in sleep architecture — babies shift from two sleep stages (active and quiet) to four adult-like stages including lighter NREM and REM cycles. This means they now surface into light sleep every 45–50 minutes and must learn to resettle independently. <strong>Henderson et al. (2010)</strong> found that infants who had developed some capacity for self-settling before this stage experienced shorter and less disruptive regressions.</p><p>Practical survival strategies include: putting your baby down <strong>drowsy but awake</strong> at naps and bedtime so they learn to fall asleep without being fully rocked or fed to sleep; maintaining a consistent, calm bedtime routine of 20–30 minutes; and temporarily shortening wake windows by 15–20 minutes, as overtired babies have a harder time self-settling. Offer comfort without immediately reverting to all prior sleep props, and know that for most babies this regression resolves within four to six weeks as the new sleep architecture consolidates.</p>`,
+  },
+  {
+    question: 'How long do sleep regressions last?',
+    answer: `<p>Most sleep regressions last <strong>two to six weeks</strong>, with shorter durations common when parents maintain consistent sleep habits and do not introduce new sleep associations that will need to be unlearned later. The 4-month regression tends to last the longest — often four to six weeks — because it involves a fundamental and permanent change in sleep structure. Shorter regressions tied to specific motor milestones (like pulling to stand at 8–10 months) often resolve within two to three weeks once the skill is mastered. <strong>Galland et al. (2012)</strong>, in a systematic review of infant sleep, confirmed that developmental disruptions in sleep are time-limited and typically resolve without intervention.</p><p>Several factors influence duration: whether sleep associations (feeding or rocking to sleep) are reinforced during the regression, the consistency of the schedule and sleep environment, and the individual baby's temperament. Regressions that appear to last longer than six to eight weeks are worth evaluating with a pediatrician, as persistent fragmented sleep can sometimes indicate an underlying issue such as reflux, a new food sensitivity, or environmental discomfort rather than developmental disruption alone.</p>`,
+  },
+  {
+    question: 'How do I know if it\'s a sleep regression or illness?',
+    answer: `<p>Distinguishing a <strong>sleep regression</strong> from illness-related sleep disruption comes down to accompanying symptoms and timing. A true sleep regression typically arrives predictably near a known developmental window (4 months, 6 months, 8–10 months, 12 months, 18 months, 24 months), with the primary symptom being increased night waking and nap resistance in an otherwise healthy, alert, and normally feeding baby. The baby is engaged and content during wake windows but fights sleep harder than usual. <strong>Developmental signs</strong> — such as suddenly rolling, babbling more, or attempting to pull up — often appear simultaneously.</p><p>Illness disruption, by contrast, is usually accompanied by <strong>fever, runny nose, ear pulling, changes in appetite, unusual crying during wake time, or diarrhea</strong>. Teething (which overlaps with the 6-month regression) can cause drooling, gum swelling, and mild fussiness, but research suggests true teething pain rarely disrupts sleep as dramatically as parents expect — major sleep disruption attributed to teething is more often a regression. If your baby seems unwell, is not feeding normally, or you notice physical symptoms, consult your pediatrician to rule out infection or other medical causes before assuming a developmental regression.</p>`,
+  },
+  {
+    question: 'Should I sleep train during a sleep regression?',
+    answer: `<p><strong>Sleep training</strong> during an active regression is generally not recommended as a starting point, because your baby is experiencing genuine neurological or developmental stress that makes the timing less effective. Most pediatric sleep experts suggest waiting until the acute phase of the regression has passed — typically two to four weeks — before beginning or resuming a sleep training approach. That said, <strong>maintaining whatever boundaries and routines you had before the regression is important</strong>: avoid introducing significant new sleep props (like feeding to sleep when you had not been doing so) that will need to be removed again later.</p><p><strong>Mindell et al. (2006)</strong> found that behavioral sleep interventions are effective across a broad age range but yield better outcomes when the child is not acutely unwell or in a period of major developmental transition. The exception is the <strong>4-month regression</strong>, which marks the earliest developmentally appropriate window for many sleep training methods — some families find this is actually the right time to begin, since the new sleep architecture is now in place and the baby is at an age where gentle self-settling skills can be introduced. Consult with your pediatrician to determine the right approach and timing for your family.</p>`,
+  },
+  {
+    question: 'What is the sleep regression ages timeline?',
+    answer: `<p>The <strong>sleep regression ages</strong> that are most widely documented in pediatric sleep literature are: <strong>4 months</strong> (sleep cycle maturation, the most universal regression), <strong>6 months</strong> (separation anxiety onset, teething, increased motor activity), <strong>8–10 months</strong> (crawling, pulling to stand, intensified separation anxiety), <strong>12 months</strong> (walking and associated neurodevelopmental leap), <strong>18 months</strong> (toddler independence drive, vocabulary explosion), and <strong>24 months</strong> (big life transitions, increased awareness, possible nap resistance). <strong>Galland et al. (2012)</strong> confirmed in their systematic review that normative infant sleep patterns show predictable disruption peaks at these age windows.</p><p>Not every baby will experience every regression with equal intensity — some sail through the 12-month window while struggling significantly at 18 months, and vice versa. Individual temperament, the consistency of sleep habits, and environmental factors all modulate severity. It is also worth noting that some commonly cited regressions like the <strong>"3-week" or "6-week" newborn cluster</strong> represent feeding and growth spurts rather than true sleep architecture regressions. <strong>Henderson et al. (2010)</strong> distinguished between developmental sleep disruptions (regression) and feeding-driven wakings, both of which are normal but require different management approaches.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Baby Sleep Regression Calculator — The Sleep Math"
+  description="Predict when your baby's next sleep regression will hit. Enter your baby's birth date to see all regression windows, survival strategies, and duration estimates by stage."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Baby Sleep Regression Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Baby Sleep Regression Predictor</h1>
+      </div>
+    </div>
+    <p class="subtitle">Enter your baby's birth date to see every sleep regression window on a visual timeline — with typical duration, developmental cause, and a survival guide for each stage.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Mindell, Henderson, Galland
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Pediatric sleep research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your baby's details</h2>
+
+      <div class="field">
+        <label for="birth-date">Baby's birth date</label>
+        <input type="date" id="birth-date" />
+        <div class="field-hint">Used to calculate age and locate regression windows</div>
+      </div>
+
+      <div class="field">
+        <label>Current sleep issues <span class="optional">(select all that apply)</span></label>
+        <div class="checklist" id="sleep-issues">
+          <label class="check-item">
+            <input type="checkbox" value="waking" /> Waking more often at night
+          </label>
+          <label class="check-item">
+            <input type="checkbox" value="fighting-naps" /> Fighting naps
+          </label>
+          <label class="check-item">
+            <input type="checkbox" value="short-naps" /> Shorter naps than usual
+          </label>
+          <label class="check-item">
+            <input type="checkbox" value="bedtime-crying" /> Crying at bedtime
+          </label>
+          <label class="check-item">
+            <input type="checkbox" value="early-waking" /> Early morning waking
+          </label>
+        </div>
+      </div>
+
+      <div id="symptom-score-wrap" class="symptom-score-wrap" style="display:none;">
+        <div class="symptom-bar-label">
+          <span>Regression likelihood</span>
+          <span id="symptom-pct">0%</span>
+        </div>
+        <div class="symptom-bar-track">
+          <div class="symptom-bar-fill" id="symptom-bar-fill"></div>
+        </div>
+        <div class="symptom-note" id="symptom-note"></div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel" id="results-panel">
+
+      <!-- PLACEHOLDER -->
+      <div class="placeholder-card" id="placeholder-card">
+        <div class="placeholder-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <p>Enter your baby's birth date to generate a personalised regression timeline.</p>
+      </div>
+
+      <!-- AGE SUMMARY (hidden until date entered) -->
+      <div class="age-summary-card" id="age-summary-card" style="display:none;">
+        <div class="age-summary-inner">
+          <div class="age-chip" id="age-chip"></div>
+          <div class="age-meta" id="age-meta"></div>
+        </div>
+        <div class="stage-badge-wrap" id="stage-badge-wrap"></div>
+      </div>
+
+      <!-- REGRESSION TIMELINE (hidden until date entered) -->
+      <div class="regression-timeline-card" id="regression-timeline-card" style="display:none;">
+        <h3>Regression timeline</h3>
+        <p class="timeline-sub">Click any window for survival strategies and details.</p>
+        <div class="reg-timeline-wrap" id="reg-timeline-wrap">
+          <!-- rendered by JS -->
+        </div>
+        <div class="reg-legend">
+          <span class="reg-leg-item"><span class="reg-leg-dot past"></span>Past</span>
+          <span class="reg-leg-item"><span class="reg-leg-dot current"></span>Current (active)</span>
+          <span class="reg-leg-item"><span class="reg-leg-dot upcoming"></span>Upcoming</span>
+          <span class="reg-leg-item"><span class="reg-leg-dot future"></span>Far future</span>
+        </div>
+      </div>
+
+      <!-- DETAIL CARD (hidden until regression clicked) -->
+      <div class="reg-detail-card" id="reg-detail-card" style="display:none;">
+        <div class="reg-detail-header" id="reg-detail-header">
+          <div class="reg-detail-icon" id="reg-detail-icon"></div>
+          <div>
+            <div class="reg-detail-title" id="reg-detail-title"></div>
+            <div class="reg-detail-subtitle" id="reg-detail-subtitle"></div>
+          </div>
+        </div>
+        <div class="reg-detail-body">
+          <div class="reg-stat-row">
+            <div class="reg-stat">
+              <div class="reg-stat-label">Typical duration</div>
+              <div class="reg-stat-val" id="reg-stat-duration"></div>
+            </div>
+            <div class="reg-stat">
+              <div class="reg-stat-label">Developmental cause</div>
+              <div class="reg-stat-val" id="reg-stat-cause"></div>
+            </div>
+          </div>
+          <div class="reg-section">
+            <div class="reg-section-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Survival strategies
+            </div>
+            <ul class="reg-strategy-list" id="reg-strategy-list"></ul>
+          </div>
+          <div class="reg-section">
+            <div class="reg-section-title warn-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              When to worry
+            </div>
+            <p class="reg-when-worry" id="reg-when-worry"></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of sleep regressions</h2>
+      <p>
+        Sleep regressions are not arbitrary — they are tightly coupled to neurodevelopmental milestones documented in longitudinal pediatric sleep research. The brain undergoes rapid structural changes in the first two years of life, and each change temporarily destabilises the sleep architecture that had become routine. The most dramatic example is the <strong>4-month regression</strong>, which marks the permanent transition from neonatal two-stage sleep to adult-like four-stage sleep, including lighter NREM stages 1 and 2 alongside deep slow-wave sleep and REM.
+      </p>
+      <p>
+        Later regressions are driven by a different mechanism: <strong>heightened arousal and cognitive processing</strong> associated with motor and language acquisition. When a baby is actively mastering a new skill — crawling, standing, walking, or language — the brain continues to process and rehearse that skill during sleep, increasing cortical arousal and the likelihood of surfacing from light sleep. This is why regressions so consistently accompany new abilities rather than appearing randomly.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Regression risk ∝ Developmental velocity × Sleep cycle frequency</div>
+        <div class="formula-desc">
+          Rapid developmental change increases cortical arousal during light-sleep transitions · Effect is transient (2–6 weeks) as the new skill consolidates
+        </div>
+      </div>
+      <table class="sleep-table">
+        <thead>
+          <tr><th>Age window</th><th>Developmental driver</th><th>Typical duration</th><th>Night wakings</th><th>Nap impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>4 months</td><td>Sleep cycle maturation</td><td class="highlight">4–6 weeks</td><td>High</td><td>Moderate</td></tr>
+          <tr><td>6 months</td><td>Separation anxiety + teething</td><td class="highlight">2–4 weeks</td><td>Moderate</td><td>Moderate</td></tr>
+          <tr><td>8–10 months</td><td>Crawling, standing, anxiety peak</td><td class="highlight">2–4 weeks</td><td>High</td><td>High</td></tr>
+          <tr><td>12 months</td><td>Walking milestone</td><td class="highlight">1–3 weeks</td><td>Moderate</td><td>Low</td></tr>
+          <tr><td>18 months</td><td>Toddler independence drive</td><td class="highlight">2–4 weeks</td><td>Moderate</td><td>High</td></tr>
+          <tr><td>24 months</td><td>Language leap, big transitions</td><td class="highlight">2–6 weeks</td><td>Moderate</td><td>High</td></tr>
+        </tbody>
+      </table>
+      <div class="citations">
+        <div class="citation">
+          Mindell, J.A., Kuhn, B., Lewin, D.S., Meltzer, L.J., &amp; Sadeh, A. (2006). Behavioral treatment of bedtime problems and night wakings in infants and young children. <em>Sleep, 29(10), 1263–1276.</em>
+        </div>
+        <div class="citation">
+          Henderson, J.M.T., France, K.G., Owens, J.L., &amp; Blampied, N.M. (2010). Sleeping through the night: the consolidation of self-regulated sleep across the first year of life. <em>Pediatrics, 126(5), e1081–e1087.</em>
+        </div>
+        <div class="citation">
+          Galland, B.C., Taylor, B.J., Elder, D.E., &amp; Herbison, P. (2012). Normal sleep patterns in infants and children: a systematic review of observational studies. <em>Sleep Medicine Reviews, 16(3), 213–222.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS VARS ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --coral-bg: #fff0ed;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fff0ed; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 640px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 300px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .optional { font-weight: 400; color: var(--text-soft); }
+  .field-hint { font-size: 0.7rem; color: var(--text-soft); margin-top: 0.25rem; line-height: 1.4; }
+  .field input[type="date"] {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input[type="date"]:focus { border-color: var(--coral); }
+
+  /* Checklist */
+  .checklist { display: flex; flex-direction: column; gap: 0.45rem; }
+  .check-item {
+    display: flex; align-items: center; gap: 0.55rem;
+    font-size: 0.8rem; color: var(--text-mid); cursor: pointer;
+    padding: 0.45rem 0.6rem; border-radius: var(--radius-sm);
+    border: 1.5px solid transparent; transition: all 0.15s;
+  }
+  .check-item:hover { background: var(--bg); border-color: var(--border); }
+  .check-item input[type="checkbox"] {
+    width: 15px; height: 15px; flex-shrink: 0;
+    accent-color: var(--coral); cursor: pointer;
+  }
+
+  /* Symptom score bar */
+  .symptom-score-wrap { margin-top: 0.85rem; padding-top: 0.85rem; border-top: 1px solid var(--border); }
+  .symptom-bar-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.72rem; font-weight: 600; color: var(--text-mid);
+    margin-bottom: 0.35rem;
+  }
+  .symptom-bar-track {
+    height: 7px; background: var(--bg); border-radius: 99px;
+    overflow: hidden; border: 1px solid var(--border);
+  }
+  .symptom-bar-fill {
+    height: 100%; border-radius: 99px;
+    background: linear-gradient(90deg, var(--amber), var(--coral));
+    transition: width 0.35s ease;
+    width: 0%;
+  }
+  .symptom-note { font-size: 0.7rem; color: var(--text-soft); margin-top: 0.4rem; line-height: 1.4; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Placeholder */
+  .placeholder-card {
+    background: var(--card); border: 1.5px dashed var(--border);
+    border-radius: var(--radius); padding: 2.5rem 1.5rem;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 0.85rem; text-align: center;
+  }
+  .placeholder-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--primary-soft); display: flex;
+    align-items: center; justify-content: center;
+  }
+  .placeholder-icon svg { width: 24px; height: 24px; }
+  .placeholder-card p { font-size: 0.85rem; color: var(--text-soft); max-width: 280px; line-height: 1.55; }
+
+  /* Age summary */
+  .age-summary-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1rem 1.25rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .age-summary-inner { display: flex; align-items: center; gap: 0.75rem; }
+  .age-chip {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; padding: 0.25rem 0.65rem;
+    border-radius: 99px; background: var(--primary-soft); color: var(--primary);
+    white-space: nowrap;
+  }
+  .age-meta { font-size: 0.82rem; color: var(--text-mid); }
+  .stage-badge-wrap { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+  /* Regression timeline */
+  .regression-timeline-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .regression-timeline-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .timeline-sub { font-size: 0.75rem; color: var(--text-soft); margin-bottom: 1.1rem; }
+
+  .reg-timeline-wrap {
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+
+  /* The horizontal track */
+  .reg-track {
+    position: relative;
+    height: 8px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    margin: 0.5rem 0 0;
+  }
+
+  /* Age marker line */
+  .age-marker {
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: 28px;
+    background: var(--primary);
+    border-radius: 1px;
+    transform: translateX(-50%);
+    z-index: 5;
+  }
+  .age-marker::after {
+    content: 'Today';
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--primary);
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Regression segments on the track */
+  .reg-seg {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.15s;
+  }
+  .reg-seg:hover { opacity: 0.8; transform: scaleY(1.5); }
+  .reg-seg.past { background: #c4bfe0; }
+  .reg-seg.current { background: var(--coral); }
+  .reg-seg.upcoming { background: var(--amber); }
+  .reg-seg.future { background: #d4eeff; }
+
+  /* Regression labels below track */
+  .reg-labels-row {
+    position: relative;
+    height: 52px;
+    margin-top: 6px;
+  }
+  .reg-label {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+  }
+  .reg-label-tick {
+    width: 1px;
+    height: 6px;
+    background: var(--border);
+  }
+  .reg-label-age {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    white-space: nowrap;
+  }
+  .reg-label-name {
+    font-size: 0.58rem;
+    color: var(--text-soft);
+    white-space: nowrap;
+    opacity: 0.8;
+  }
+  .reg-label.current .reg-label-age { color: var(--coral); }
+  .reg-label.upcoming .reg-label-age { color: var(--amber); }
+  .reg-label.past .reg-label-age { color: #9990b8; }
+
+  /* Legend */
+  .reg-legend {
+    display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 0.5rem;
+  }
+  .reg-leg-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--text-soft); }
+  .reg-leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .reg-leg-dot.past { background: #c4bfe0; }
+  .reg-leg-dot.current { background: var(--coral); }
+  .reg-leg-dot.upcoming { background: var(--amber); }
+  .reg-leg-dot.future { background: #d4eeff; }
+
+  /* Pulsing current dot on timeline */
+  @keyframes pulse-coral {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .reg-seg.current { animation: pulse-coral 2s ease-in-out infinite; }
+
+  /* Regression detail card */
+  .reg-detail-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .reg-detail-header {
+    display: flex; align-items: flex-start; gap: 0.85rem;
+    padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--border);
+  }
+  .reg-detail-icon {
+    width: 42px; height: 42px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 1.4rem;
+  }
+  .reg-detail-title { font-size: 1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+  .reg-detail-subtitle { font-size: 0.78rem; color: var(--text-soft); margin-top: 0.15rem; }
+  .reg-detail-body { padding: 1.1rem 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
+
+  .reg-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .reg-stat {
+    background: var(--bg); border-radius: var(--radius-sm);
+    padding: 0.65rem 0.85rem;
+  }
+  .reg-stat-label {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--text-soft); margin-bottom: 0.2rem;
+  }
+  .reg-stat-val { font-size: 0.85rem; font-weight: 600; color: var(--text); line-height: 1.35; }
+
+  .reg-section { display: flex; flex-direction: column; gap: 0.5rem; }
+  .reg-section-title {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.78rem; font-weight: 700; color: var(--text);
+  }
+  .reg-section-title svg { width: 15px; height: 15px; color: var(--mint); }
+  .warn-title { color: var(--text-mid); }
+  .warn-title svg { color: var(--amber); }
+
+  .reg-strategy-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+  .reg-strategy-list li {
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.5;
+    padding-left: 1.1rem; position: relative;
+  }
+  .reg-strategy-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.45rem;
+    width: 5px; height: 5px; border-radius: 50%; background: var(--mint);
+  }
+  .reg-when-worry { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; }
+
+  /* ===== SCIENCE SECTION ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.72rem; color: #a8a3be; line-height: 1.5; }
+  .sleep-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .sleep-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .sleep-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .sleep-table tr:last-child td { border-bottom: none; }
+  .sleep-table .highlight { font-weight: 700; color: var(--text); font-family: 'Space Grotesk', monospace; }
+  .citations { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .sleep-table { font-size: 0.75rem; }
+    .sleep-table th, .sleep-table td { padding: 0.4rem 0.5rem; }
+    .reg-stat-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .age-summary-card { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* =============================================
+     REGRESSION DATA
+     ============================================= */
+  var REGRESSIONS = [
+    {
+      id: 'r4m',
+      label: '4-month',
+      ageMo: 4,
+      windowMo: [3.5, 5],
+      emoji: '🌱',
+      color: '#ff6b52',
+      bgColor: '#fff0ed',
+      duration: '4–6 weeks',
+      cause: 'Sleep cycle maturation (2-stage → 4-stage adult sleep architecture)',
+      strategies: [
+        'Put baby down drowsy but awake at every sleep — this is the most high-leverage habit to build now.',
+        'Temporarily shorten wake windows by 10–15 minutes — overtired babies take longer to fall back asleep.',
+        'Maintain a consistent, calming bedtime routine (bath, feed, song, dark room).',
+        'Use a consistent sleep space with white noise at 65–70 dB to mask environmental sounds.',
+        'Avoid introducing new sleep associations (rocking to deep sleep, bed-sharing) that you will need to undo later.',
+        'Expect 4–6 weeks of disruption — this is the longest regression and the only one driven by permanent architectural change.',
+      ],
+      whenToWorry: 'See your paediatrician if your baby is not gaining weight normally, shows signs of pain or discomfort beyond fussiness, has fever, or if sleep disruption extends well beyond 6 weeks with no improvement.',
+    },
+    {
+      id: 'r6m',
+      label: '6-month',
+      ageMo: 6,
+      windowMo: [5.5, 7.5],
+      emoji: '🦷',
+      color: '#f59e0b',
+      bgColor: '#fffbeb',
+      duration: '2–4 weeks',
+      cause: 'Separation anxiety onset, early teething discomfort, increased motor awareness',
+      strategies: [
+        'Play peek-a-boo and hide-and-seek during wake windows — these games teach object permanence and reduce separation anxiety.',
+        'Brief check-in intervals at night (1–2 minutes) reassure without fully re-triggering sleep cycles.',
+        'A consistent pre-nap and pre-bed routine helps signal safety and predictability.',
+        'If teething: offer a chilled teething toy before sleep, and confirm with your GP whether infant paracetamol is appropriate.',
+        'Ensure the bedroom is dark and cool — sensory sensitivity increases during this period.',
+        'Maintain the two-nap schedule firmly; the regression is not a sign to drop to one nap yet.',
+      ],
+      whenToWorry: 'Consult your GP if your baby has a fever above 38°C, is refusing feeds, has significant ear pulling (possible ear infection), or seems to be in persistent pain unrelated to teething.',
+    },
+    {
+      id: 'r8m',
+      label: '8–10-month',
+      ageMo: 9,
+      windowMo: [7.5, 10.5],
+      emoji: '🧗',
+      color: '#7c6aff',
+      bgColor: '#edeaff',
+      duration: '2–4 weeks',
+      cause: 'Crawling and pulling to stand; peak separation anxiety; brain rehearsing motor skills during sleep',
+      strategies: [
+        'Give your baby ample floor time to practise new motor skills during wake windows — this reduces overnight "practice" arousal.',
+        'If your baby stands in the cot and cannot get down, teach the descent during the day so it is automatic at night.',
+        'Do not rush into the room at the first sound — pause 2–3 minutes to allow self-settling.',
+        'Maintain a firm, loving goodbye ritual at sleep times to address separation anxiety head-on.',
+        'An earlier bedtime (15–30 minutes) can compensate for the increased energy expenditure of new motor activity.',
+        'Avoid stimulating activities in the final hour before bed — motor learning is exciting and hard to wind down from.',
+      ],
+      whenToWorry: 'Seek advice if night wakings are more than 5–6 times per night beyond 4 weeks, if your baby seems to be in pain rather than merely seeking comfort, or if daytime development seems delayed.',
+    },
+    {
+      id: 'r12m',
+      label: '12-month',
+      ageMo: 12,
+      windowMo: [11, 13.5],
+      emoji: '👣',
+      color: '#10b981',
+      bgColor: '#ecfdf5',
+      duration: '1–3 weeks',
+      cause: 'Walking milestone; transition to one nap may begin; cognitive leap in object and social understanding',
+      strategies: [
+        'Do not drop to one nap too quickly — many babies are not genuinely ready until 14–18 months.',
+        'Keep the schedule predictable even if nap durations are variable during the regression.',
+        'First birthday celebrations and visitors can overload sensory input — protect quiet wind-down time.',
+        'Offer comfort and presence at bedtime without re-establishing rocking to sleep.',
+        'Physical exhaustion from walking practice is real — an earlier bedtime by 15 minutes may help.',
+        'Avoid increasing feed-to-sleep associations; this age is appropriate to support independent settling.',
+      ],
+      whenToWorry: 'Discuss with your paediatrician if your baby is not attempting to walk or pull to stand by 15 months, or if there is a significant regression in previously mastered skills (e.g., losing words already gained).',
+    },
+    {
+      id: 'r18m',
+      label: '18-month',
+      ageMo: 18,
+      windowMo: [17, 20],
+      emoji: '🙅',
+      color: '#ec4899',
+      bgColor: '#fdf2f8',
+      duration: '2–4 weeks',
+      cause: 'Toddler independence drive; vocabulary explosion; separation anxiety resurges; nap resistance may signal genuine nap drop readiness',
+      strategies: [
+        'Hold firm on boundaries with empathy — consistent limits reduce bedtime protest more than relaxing them.',
+        'Give the toddler limited choices at bedtime (which pyjamas, which book) to satisfy the autonomy drive.',
+        'Toddler clocks (colour-coded wake time indicators) start being effective from this age.',
+        'Do not drop the nap at the first sign of resistance — try the nap 30 minutes later before eliminating it.',
+        'Brief check-ins at set intervals (the "Ferber" interval approach) are particularly effective at this age.',
+        'Acknowledge feelings explicitly: "I know you want to stay up. It is sleep time now. I love you."',
+      ],
+      whenToWorry: 'Speak to your GP or health visitor if your toddler is having more than 2–3 prolonged night terrors per week, or if bedtime protest involves breath-holding or significant breath-holding spells.',
+    },
+    {
+      id: 'r24m',
+      label: '24-month',
+      ageMo: 24,
+      windowMo: [22, 26],
+      emoji: '🔄',
+      color: '#38b6ff',
+      bgColor: '#eaf6ff',
+      duration: '2–6 weeks',
+      cause: 'Major life transitions (new sibling, room change, potty training); language and imagination leap; nighttime fears emerge',
+      strategies: [
+        'Maintain absolute schedule consistency during transitions — predictability is the anchor.',
+        'Introduce a "worry monster" or similar tool for nighttime fears; validate fears without reinforcing avoidance.',
+        'A dim nightlight is now developmentally appropriate and can reduce bedtime anxiety.',
+        'Avoid screen time in the 90 minutes before bed — imagination is already vivid and stimulation prolongs settling.',
+        'Use a visual bedtime routine chart with pictures — toddlers at this age respond well to clear, predictable sequences.',
+        'If a new sibling has arrived, extra one-on-one daytime connection reduces overnight attention-seeking.',
+      ],
+      whenToWorry: 'Consult your paediatrician if nighttime fears are so severe that your toddler cannot sleep in their own room at all after 4–6 weeks of consistent reassurance, or if they are showing signs of anxiety during the day as well.',
+    },
+  ];
+
+  /* =============================================
+     DOM REFS
+     ============================================= */
+  var birthInput       = document.getElementById('birth-date');
+  var issuesWrap       = document.getElementById('sleep-issues');
+  var symptomWrap      = document.getElementById('symptom-score-wrap');
+  var symptomBarFill   = document.getElementById('symptom-bar-fill');
+  var symptomPct       = document.getElementById('symptom-pct');
+  var symptomNote      = document.getElementById('symptom-note');
+  var placeholderCard  = document.getElementById('placeholder-card');
+  var ageSummaryCard   = document.getElementById('age-summary-card');
+  var ageChip          = document.getElementById('age-chip');
+  var ageMeta          = document.getElementById('age-meta');
+  var stageBadgeWrap   = document.getElementById('stage-badge-wrap');
+  var regTimelineCard  = document.getElementById('regression-timeline-card');
+  var regTimelineWrap  = document.getElementById('reg-timeline-wrap');
+  var regDetailCard    = document.getElementById('reg-detail-card');
+  var regDetailHeader  = document.getElementById('reg-detail-header');
+  var regDetailIcon    = document.getElementById('reg-detail-icon');
+  var regDetailTitle   = document.getElementById('reg-detail-title');
+  var regDetailSubtitle = document.getElementById('reg-detail-subtitle');
+  var regStatDuration  = document.getElementById('reg-stat-duration');
+  var regStatCause     = document.getElementById('reg-stat-cause');
+  var regStrategyList  = document.getElementById('reg-strategy-list');
+  var regWhenWorry     = document.getElementById('reg-when-worry');
+
+  var selectedRegId = null;
+
+  /* =============================================
+     HELPERS
+     ============================================= */
+  function getAgeMonths(birthDate) {
+    var now = new Date();
+    var bd  = new Date(birthDate);
+    var diffMs = now - bd;
+    return diffMs / (1000 * 60 * 60 * 24 * 30.44);
+  }
+
+  function fmtAge(mo) {
+    if (mo < 1) return Math.round(mo * 4) + ' weeks';
+    if (mo < 12) {
+      var w = Math.round((mo % 1) * 4.33);
+      var m = Math.floor(mo);
+      return m + ' month' + (m !== 1 ? 's' : '') + (w > 0 ? ' ' + w + 'w' : '');
+    }
+    var yr = Math.floor(mo / 12);
+    var rem = Math.round(mo % 12);
+    var yStr = yr + ' year' + (yr !== 1 ? 's' : '');
+    return rem > 0 ? yStr + ' ' + rem + 'mo' : yStr;
+  }
+
+  function classifyRegression(reg, ageMo) {
+    var center = reg.ageMo;
+    var lo = reg.windowMo[0];
+    var hi = reg.windowMo[1];
+    if (ageMo >= lo && ageMo <= hi) return 'current';
+    if (ageMo > hi) return 'past';
+    if (ageMo < lo && (lo - ageMo) <= 3) return 'upcoming';
+    return 'future';
+  }
+
+  function getIssueCount() {
+    var boxes = issuesWrap.querySelectorAll('input[type="checkbox"]');
+    var count = 0;
+    boxes.forEach(function(b) { if (b.checked) count++; });
+    return count;
+  }
+
+  /* =============================================
+     RENDER TIMELINE
+     ============================================= */
+  function renderTimeline(ageMo) {
+    /* Timeline spans 0–30 months for visibility */
+    var MAX_MO = 30;
+
+    /* Build track */
+    var html = '<div class="reg-track">';
+
+    /* Age marker */
+    var agePct = Math.min(Math.max(ageMo / MAX_MO * 100, 0), 100).toFixed(2);
+    html += '<div class="age-marker" style="left:' + agePct + '%;"></div>';
+
+    /* Regression segments */
+    REGRESSIONS.forEach(function(reg) {
+      var loP = (reg.windowMo[0] / MAX_MO * 100).toFixed(2);
+      var hiP = (reg.windowMo[1] / MAX_MO * 100).toFixed(2);
+      var wP  = (hiP - loP).toFixed(2);
+      var cls = classifyRegression(reg, ageMo);
+      html += '<div class="reg-seg ' + cls + '"';
+      html += ' style="left:' + loP + '%;width:' + wP + '%;"';
+      html += ' data-reg-id="' + reg.id + '" title="' + reg.label + ' regression">';
+      html += '</div>';
+    });
+
+    html += '</div>'; /* end .reg-track */
+
+    /* Labels row */
+    html += '<div class="reg-labels-row">';
+    REGRESSIONS.forEach(function(reg) {
+      var centerP = (reg.ageMo / MAX_MO * 100).toFixed(2);
+      var cls = classifyRegression(reg, ageMo);
+      html += '<div class="reg-label ' + cls + '" style="left:' + centerP + '%;" data-reg-id="' + reg.id + '">';
+      html += '<div class="reg-label-tick"></div>';
+      html += '<div class="reg-label-age">' + reg.label + '</div>';
+      html += '</div>';
+    });
+    html += '</div>'; /* end .reg-labels-row */
+
+    regTimelineWrap.innerHTML = html;
+
+    /* Attach click handlers */
+    regTimelineWrap.querySelectorAll('[data-reg-id]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        var id = el.getAttribute('data-reg-id');
+        openRegDetail(id, ageMo);
+      });
+    });
+  }
+
+  /* =============================================
+     RENDER DETAIL CARD
+     ============================================= */
+  function openRegDetail(id, ageMo) {
+    var reg = REGRESSIONS.find(function(r) { return r.id === id; });
+    if (!reg) return;
+
+    selectedRegId = id;
+    var cls = classifyRegression(reg, ageMo);
+
+    /* Header */
+    regDetailIcon.style.background = reg.bgColor;
+    regDetailIcon.textContent = reg.emoji;
+    regDetailTitle.textContent = reg.label.charAt(0).toUpperCase() + reg.label.slice(1) + ' sleep regression';
+    var statusLabel = cls === 'current' ? 'Currently active' : cls === 'past' ? 'Already passed' : cls === 'upcoming' ? 'Coming up soon' : 'Future window';
+    regDetailSubtitle.textContent = statusLabel + ' · Window: ' + reg.windowMo[0] + '–' + reg.windowMo[1] + ' months';
+
+    /* Stats */
+    regStatDuration.textContent = reg.duration;
+    regStatCause.textContent = reg.cause;
+
+    /* Strategies */
+    var stratHtml = '';
+    reg.strategies.forEach(function(s) {
+      stratHtml += '<li>' + s + '</li>';
+    });
+    regStrategyList.innerHTML = stratHtml;
+
+    /* When to worry */
+    regWhenWorry.textContent = reg.whenToWorry;
+
+    /* Show card */
+    regDetailCard.style.display = 'block';
+
+    /* Scroll into view smoothly */
+    regDetailCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* =============================================
+     RENDER AGE SUMMARY
+     ============================================= */
+  function renderAgeSummary(ageMo) {
+    ageChip.textContent = fmtAge(ageMo) + ' old';
+
+    /* Find current and next regressions */
+    var currentReg = null;
+    var nextReg    = null;
+    var minFutureDiff = Infinity;
+
+    REGRESSIONS.forEach(function(reg) {
+      var cls = classifyRegression(reg, ageMo);
+      if (cls === 'current' && !currentReg) currentReg = reg;
+      if ((cls === 'upcoming' || cls === 'future') && reg.ageMo > ageMo) {
+        var diff = reg.ageMo - ageMo;
+        if (diff < minFutureDiff) {
+          minFutureDiff = diff;
+          nextReg = reg;
+        }
+      }
+    });
+
+    if (currentReg) {
+      ageMeta.textContent = 'Currently in the ' + currentReg.label + ' regression window';
+    } else if (nextReg) {
+      var moUntil = (nextReg.windowMo[0] - ageMo).toFixed(1);
+      ageMeta.textContent = 'Next regression (~' + nextReg.label + ') in about ' + moUntil + ' months';
+    } else {
+      ageMeta.textContent = 'All major regression windows are in the past — well done!';
+    }
+
+    /* Badges */
+    var badgeHtml = '';
+    if (currentReg) {
+      badgeHtml += '<span style="font-size:0.68rem;font-weight:700;padding:0.2rem 0.55rem;border-radius:99px;background:#fff0ed;color:#ff6b52;">Active regression</span>';
+    }
+    var issueCount = getIssueCount();
+    if (issueCount >= 3) {
+      badgeHtml += '<span style="font-size:0.68rem;font-weight:700;padding:0.2rem 0.55rem;border-radius:99px;background:#fffbeb;color:#f59e0b;">' + issueCount + '/5 signs present</span>';
+    }
+    stageBadgeWrap.innerHTML = badgeHtml;
+  }
+
+  /* =============================================
+     RENDER SYMPTOM SCORE
+     ============================================= */
+  function renderSymptomScore(ageMo) {
+    var count = getIssueCount();
+    if (count === 0) {
+      symptomWrap.style.display = 'none';
+      return;
+    }
+    symptomWrap.style.display = 'block';
+
+    /* Find if near a regression */
+    var nearReg = REGRESSIONS.find(function(r) {
+      return classifyRegression(r, ageMo) === 'current';
+    });
+
+    var baseScore = count / 5;
+    var nearBoost = nearReg ? 0.15 : 0;
+    var score = Math.min(baseScore + nearBoost, 1);
+    var pctVal = Math.round(score * 100);
+
+    symptomBarFill.style.width = pctVal + '%';
+    symptomPct.textContent = pctVal + '%';
+
+    if (pctVal >= 75) {
+      symptomNote.textContent = 'Strong match with regression pattern — ' + (nearReg ? 'aligns with the ' + nearReg.label + ' window' : 'consider tracking for a week');
+    } else if (pctVal >= 40) {
+      symptomNote.textContent = 'Moderate regression likelihood — check the timeline for nearby windows';
+    } else {
+      symptomNote.textContent = 'A few signs present — could be developmental or environmental disruption';
+    }
+  }
+
+  /* =============================================
+     MAIN UPDATE FUNCTION
+     ============================================= */
+  function update() {
+    var val = birthInput.value;
+    if (!val) {
+      placeholderCard.style.display = 'flex';
+      ageSummaryCard.style.display = 'none';
+      regTimelineCard.style.display = 'none';
+      regDetailCard.style.display = 'none';
+      symptomWrap.style.display = 'none';
+      return;
+    }
+
+    var ageMo = getAgeMonths(val);
+
+    if (ageMo < 0 || ageMo > 60) {
+      placeholderCard.style.display = 'flex';
+      ageSummaryCard.style.display = 'none';
+      regTimelineCard.style.display = 'none';
+      regDetailCard.style.display = 'none';
+      return;
+    }
+
+    placeholderCard.style.display = 'none';
+    ageSummaryCard.style.display = 'flex';
+    regTimelineCard.style.display = 'block';
+
+    renderAgeSummary(ageMo);
+    renderTimeline(ageMo);
+    renderSymptomScore(ageMo);
+
+    /* Auto-open current or next regression detail */
+    if (!selectedRegId) {
+      var autoReg = REGRESSIONS.find(function(r) { return classifyRegression(r, ageMo) === 'current'; });
+      if (!autoReg) {
+        var minDiff = Infinity;
+        REGRESSIONS.forEach(function(r) {
+          var d = r.ageMo - ageMo;
+          if (d > 0 && d < minDiff) { minDiff = d; autoReg = r; }
+        });
+      }
+      if (autoReg) openRegDetail(autoReg.id, ageMo);
+    } else {
+      openRegDetail(selectedRegId, ageMo);
+    }
+  }
+
+  /* =============================================
+     SET DEFAULT DATE (today minus 4 months for demo)
+     ============================================= */
+  (function setDefaultDate() {
+    var d = new Date();
+    d.setMonth(d.getMonth() - 4);
+    var yyyy = d.getFullYear();
+    var mm   = String(d.getMonth() + 1).padStart(2, '0');
+    var dd   = String(d.getDate()).padStart(2, '0');
+    birthInput.value = yyyy + '-' + mm + '-' + dd;
+  })();
+
+  /* =============================================
+     EVENT LISTENERS
+     ============================================= */
+  birthInput.addEventListener('input', function() {
+    selectedRegId = null;
+    update();
+  });
+
+  issuesWrap.addEventListener('change', function() {
+    var ageMo = birthInput.value ? getAgeMonths(birthInput.value) : null;
+    if (ageMo !== null) {
+      renderAgeSummary(ageMo);
+      renderSymptomScore(ageMo);
+    }
+  });
+
+  /* =============================================
+     INIT
+     ============================================= */
+  update();
+
+})();
+</script>

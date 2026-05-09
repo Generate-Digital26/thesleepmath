@@ -2,17 +2,19 @@
 import { roadmapItems } from '@/data/calculators';
 ---
 
-<section class="roadmap-section">
-  <div class="container">
-    <h2>Coming next</h2>
-    <p>New tools shipping regularly. Here's what's on the roadmap.</p>
-    <div class="roadmap-grid">
-      {roadmapItems.map((item) => (
-        <span class="roadmap-chip">{item}</span>
-      ))}
+{roadmapItems.length > 0 && (
+  <section class="roadmap-section">
+    <div class="container">
+      <h2>Coming next</h2>
+      <p>New tools shipping regularly. Here's what's on the roadmap.</p>
+      <div class="roadmap-grid">
+        {roadmapItems.map((item) => (
+          <span class="roadmap-chip">{item}</span>
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
   .roadmap-section {

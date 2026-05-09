@@ -1,0 +1,889 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is social jet lag?',
+    answer: `<p><strong>Social jet lag</strong> is the discrepancy between your biological sleep timing (governed by your circadian clock) and your socially imposed sleep schedule on workdays. The term was coined by chronobiologist Till Roenneberg at Ludwig Maximilian University Munich, who quantified it as the difference between the midpoint of sleep on free days (MSF) and the midpoint of sleep on workdays (MSW). A person who sleeps 11 PM–7 AM on workdays but 1 AM–9 AM on weekends has a social jet lag of approximately two hours.</p>
+<p>The phenomenon is widespread: Roenneberg et al. (2012) analyzed sleep timing data from over 65,000 participants and found that more than two-thirds of the population experiences at least one hour of social jet lag, with a third experiencing two or more hours. It is fundamentally different from poor sleep hygiene — it is a mismatch between a societally imposed schedule and an individual's chronotype. Night owls bear the greatest burden because standard 9-to-5 schedules are calibrated to earlier chronotypes, forcing late chronotypes into chronic circadian misalignment.</p>`,
+  },
+  {
+    question: 'What are the health effects of social jet lag?',
+    answer: `<p>The health consequences of social jet lag extend well beyond tiredness. <strong>Wittmann et al. (2006)</strong> demonstrated that each hour of social jet lag was associated with roughly a 33% increased likelihood of being overweight or obese, a relationship that held independent of sleep duration. The mechanism involves disruption of metabolic hormones: misaligned circadian timing impairs leptin and ghrelin regulation, promotes cortisol dysregulation, and reduces insulin sensitivity — all of which contribute to fat accumulation and metabolic syndrome over time.</p>
+<p>Beyond metabolic effects, <strong>Parsons et al. (2015)</strong> showed that higher social jet lag was independently associated with increased depression and anxiety scores, poorer mood, and greater daytime sleepiness even after controlling for sleep duration and sleep quality. Cardiovascular risk markers including blood pressure and inflammatory cytokines also worsen with social jet lag magnitude. The biological pathway is similar to shift-work disorder: the master circadian clock in the suprachiasmatic nucleus becomes desynchronized from peripheral clocks in the liver, pancreas, and heart, impeding coordinated metabolic timing. Chronic exposure at two or more hours of social jet lag is associated with measurably elevated disease risk across multiple organ systems.</p>`,
+  },
+  {
+    question: 'How can I reduce social jet lag?',
+    answer: `<p>The most effective strategy is <strong>gradual schedule shifting</strong> rather than abrupt changes. Move your workday bedtime 15 minutes earlier every two to three days until the gap between your workday and free-day midpoints narrows to under an hour. Simultaneously, resist the urge to sleep in more than one hour on weekends — this is the single largest controllable driver of social jet lag magnitude. Maintaining a consistent anchor time (typically wake time) across all seven days is more protective than trying to synchronize both sleep and wake times simultaneously.</p>
+<p>Light exposure is the most powerful non-pharmacological tool for shifting circadian phase. Getting bright light (ideally sunlight, or a 10,000-lux light box) within 30 minutes of your target wake time advances the circadian clock and makes earlier waking feel natural rather than forced. Conversely, avoiding bright light in the two hours before your target bedtime — especially blue-spectrum screens — slows the suppression of melatonin onset. Roenneberg et al. (2012) also found that outdoor work was associated with earlier chronotypes, likely because natural light cycles entrain the clock more effectively than indoor artificial lighting, suggesting that more outdoor time can provide a cumulative phase-advancing effect over weeks.</p>`,
+  },
+  {
+    question: 'Is sleeping in on weekends actually harmful?',
+    answer: `<p>Weekend sleep extension is a double-edged situation. On the one hand, sleeping longer on free days can partially repay acute sleep debt accumulated during the workweek — a phenomenon sometimes called "recovery sleep." Short-term studies show some restoration of performance and mood after a recovery night. However, the circadian disruption caused by the delayed sleep timing on weekends persists beyond the weekend itself: shifting your sleep two hours later on Saturday and Sunday effectively moves your internal clock backward by one to two time zones, and re-aligning to the workday schedule on Monday causes acute sleep deprivation and impaired cognitive performance well into Tuesday.</p>
+<p>The key distinction is between <strong>sleep quantity recovery</strong> (which has some benefit) and <strong>circadian phase disruption</strong> (which has clear costs). Sleeping in one hour on weekends is unlikely to cause meaningful harm and may reduce sleep debt without significant circadian disruption. Sleeping in two or more hours shifts the internal clock enough to produce measurable social jet lag and its associated health effects. The practical recommendation from Roenneberg and colleagues is to prioritize adequate sleep every night rather than banking sleep debt for weekend recovery, and to keep weekend wake times within one hour of weekday wake times even if you extend sleep by going to bed earlier rather than waking later.</p>`,
+  },
+  {
+    question: 'How is social jet lag different from real jet lag?',
+    answer: `<p>Real (travel) jet lag is an acute, transient circadian disruption caused by rapidly crossing time zones — the external light-dark cycle suddenly shifts by multiple hours relative to the internal clock, causing misalignment between the suprachiasmatic nucleus and local environmental cues. It is self-resolving: the circadian system re-entrains to the new time zone at roughly one hour per day, so most people adapt within a week. Social jet lag, by contrast, is <strong>chronic and self-inflicted on a weekly cycle</strong>. The body never gets an opportunity to fully adapt because the "time zone shift" reverses every Monday, creating perpetual oscillation between two misaligned schedules.</p>
+<p>The physiological consequences overlap substantially — both cause cognitive impairment, mood disruption, gastrointestinal symptoms, and metabolic dysregulation — but social jet lag is more insidious because its weekly recurrence prevents recovery. Travel jet lag is universally recognized and accommodated socially; social jet lag is invisible and largely unacknowledged despite affecting the majority of working adults. A further distinction: the direction of travel jet lag alternates depending on destination, while social jet lag almost always shifts in the same direction (later on weekends), constituting a chronic weekly westward equivalent that systematically pushes night owls further out of alignment with conventional schedules.</p>`,
+  },
+  {
+    question: 'Who is most affected by social jet lag?',
+    answer: `<p><strong>Late chronotypes — evening-preference individuals colloquially called "night owls" — are disproportionately affected</strong> by social jet lag. Roenneberg et al. (2012) found a clear chronotype distribution across the population, with chronotype (measured as corrected MSF, or MSFsc) following a roughly normal distribution that peaks around a sleep midpoint near 4 AM. Later chronotypes have biological clocks that naturally drift toward later timing, but standard work and school schedules force early wake times that are incompatible with this biology. The result is that a person with a chronotype midpoint of 5 AM forced to rise at 6:30 AM on workdays will accumulate severe social jet lag that a 4 AM chronotype never experiences on the same schedule.</p>
+<p>Adolescents and young adults (roughly ages 15–25) experience the most extreme late chronotype shift due to developmental changes in the circadian system, making early school start times a public health issue with measurable cognitive and emotional consequences. Men tend to have slightly later chronotypes than women on average until their mid-40s, after which the gap narrows. Genetic factors explain roughly 50% of chronotype variance, suggesting that social jet lag is not simply a lifestyle choice but a biological vulnerability for a large segment of the population. Shift workers experience a related but distinct form of misalignment — their schedules may align with some nights but conflict severely with others, and their social and familial obligations rarely shift to match their work schedules.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Social Jet Lag Calculator — The Sleep Math"
+  description="Calculate your social jet lag score using Roenneberg's formula. Compare workday vs weekend sleep midpoints to quantify your sleep schedule misalignment and its health implications."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Social Jet Lag Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+          <path d="M5 3l-.5 2.5"/>
+          <path d="M19 3l.5 2.5"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Social Jet Lag Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Compare your weekday and weekend sleep patterns to calculate your social jet lag score using Roenneberg's validated formula — and see exactly what that gap is costing your health.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Roenneberg's formula
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Chronobiology research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your sleep schedule</h2>
+
+      <!-- Workday section -->
+      <div class="input-section-label">
+        <span class="dot dot-workday"></span>
+        Workdays
+      </div>
+
+      <div class="field">
+        <label for="work-sleep">Sleep time (workdays)</label>
+        <input type="time" id="work-sleep" value="23:00">
+      </div>
+      <div class="field">
+        <label for="work-wake">Wake time (workdays)</label>
+        <input type="time" id="work-wake" value="07:00">
+      </div>
+
+      <!-- Free day section -->
+      <div class="input-section-label" style="margin-top: 0.5rem;">
+        <span class="dot dot-freeday"></span>
+        Free days (weekends)
+      </div>
+
+      <div class="field">
+        <label for="free-sleep">Sleep time (free days)</label>
+        <input type="time" id="free-sleep" value="00:30">
+      </div>
+      <div class="field">
+        <label for="free-wake">Wake time (free days)</label>
+        <input type="time" id="free-wake" value="09:30">
+      </div>
+
+      <!-- Workdays per week -->
+      <div class="field">
+        <label for="workdays-count">Workdays per week</label>
+        <div class="stepper-row">
+          <button class="stepper-btn" id="workdays-dec" aria-label="Decrease workdays">−</button>
+          <span class="stepper-val" id="workdays-display">5</span>
+          <button class="stepper-btn" id="workdays-inc" aria-label="Increase workdays">+</button>
+          <span class="stepper-unit">days</span>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Social jet lag = |midpoint of free-day sleep − midpoint of workday sleep| (Roenneberg et al. 2012)</span>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel" id="results-panel">
+
+      <!-- Score card -->
+      <div class="score-card" id="score-card">
+        <div class="score-top">
+          <div class="score-left">
+            <div class="score-label">Your social jet lag</div>
+            <div class="score-value" id="score-value">—</div>
+            <div class="score-unit">hours</div>
+          </div>
+          <div class="severity-badge" id="severity-badge">
+            <span id="severity-label">Calculating…</span>
+          </div>
+        </div>
+        <div class="score-divider"></div>
+        <div class="score-stats" id="score-stats">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Timeline visualization -->
+      <div class="timeline-card">
+        <h3>Sleep window comparison</h3>
+        <p class="timeline-subtitle">Your workday and free-day sleep windows plotted on a 24-hour clock. The horizontal shift between them is your social jet lag.</p>
+        <div class="clock-container" id="clock-container">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="timeline-legend">
+          <span class="leg-item"><span class="leg-swatch swatch-work"></span>Workday sleep</span>
+          <span class="leg-item"><span class="leg-swatch swatch-free"></span>Free-day sleep</span>
+          <span class="leg-item"><span class="leg-swatch swatch-mid"></span>Sleep midpoints</span>
+        </div>
+      </div>
+
+      <!-- Health implications card -->
+      <div class="health-card" id="health-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Health implications
+        </h3>
+        <div class="health-items" id="health-items">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Recommendations card -->
+      <div class="reco-card" id="reco-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          How to reduce your social jet lag
+        </h3>
+        <div class="reco-items" id="reco-items">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of social jet lag</h2>
+      <p>
+        Social jet lag was defined and quantified by Till Roenneberg, Thomas Kantermann, and colleagues at Ludwig Maximilian University Munich. Their foundational framework, published in <em>Current Biology</em> (Roenneberg et al., 2012), used self-reported sleep timing data from over 65,000 individuals across Europe to establish that chronotype — an individual's intrinsic preference for earlier or later sleep timing — follows a normal distribution in the population, and that most people's chronotype is mismatched to standard social schedules.
+      </p>
+      <p>
+        The key measurement is the <strong>midpoint of sleep</strong> — the exact halfway point between falling asleep and waking up. On workdays (MSW), sleep midpoint is constrained by alarm times; on free days (MSF), sleep midpoint reflects the biological clock more freely. The difference between these two midpoints is the social jet lag score. Roenneberg's team introduced a correction factor — the corrected free-day sleep midpoint (MSFsc) — that adjusts for sleep debt accumulated during the workweek, which causes free-day sleep extension beyond what the circadian clock alone would produce.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">SJL = |MSF − MSW|</div>
+        <div class="formula-desc">
+          MSW = (workday sleep time + workday duration / 2) · MSF = (free-day sleep time + free-day duration / 2) · Corrected MSFsc = MSF − (free-day duration − avg duration) / 2
+        </div>
+      </div>
+      <p>
+        The metabolic consequences of social jet lag were established by <strong>Wittmann et al. (2006)</strong> in a study of 500 participants that found each hour of social jet lag correlated with a 33% increased odds of being overweight, independent of sleep duration. The mechanisms operate through disruption of circadian-regulated hormones: ghrelin (appetite stimulant), leptin (satiety signal), cortisol (metabolic regulation), and insulin sensitivity all follow circadian patterns that are disrupted by weekly phase-shifting. <strong>Parsons et al. (2015)</strong> extended these findings to mental health outcomes, demonstrating associations with depression, anxiety, and reduced life satisfaction in a large UK cohort.
+      </p>
+      <table class="science-table">
+        <thead>
+          <tr><th>SJL Score</th><th>Severity</th><th>Population prevalence</th><th>Primary risks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 1 hour</td><td class="mono">Low</td><td class="mono">~33%</td><td>Minimal — well-aligned schedule</td></tr>
+          <tr><td>1–2 hours</td><td class="mono">Moderate</td><td class="mono">~40%</td><td>Elevated fatigue, mild metabolic effects</td></tr>
+          <tr><td>&gt; 2 hours</td><td class="mono">Severe</td><td class="mono">~27%</td><td>Higher BMI, depression risk, metabolic syndrome</td></tr>
+        </tbody>
+      </table>
+      <div class="citation">
+        Roenneberg, T., Allebrandt, K.V., Merrow, M., &amp; Vetter, C. (2012). Social jetlag and obesity. <em>Current Biology, 22(10), 939–943.</em>
+      </div>
+      <div class="citation">
+        Wittmann, M., Dinich, J., Merrow, M., &amp; Roenneberg, T. (2006). Social jetlag: Misalignment of biological and social time. <em>Chronobiology International, 23(1–2), 497–509.</em>
+      </div>
+      <div class="citation">
+        Parsons, M.J., Moffitt, T.E., Gregory, A.M., et al. (2015). Social jetlag, obesity and metabolic disorder: Investigation in a cohort study. <em>International Journal of Obesity, 39(5), 842–848.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS VARS ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-hover: #6858e8;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--coral); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fff0ed; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 640px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 310px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.1rem; }
+
+  .input-section-label {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-soft); margin-bottom: 0.65rem;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-workday { background: var(--coral); }
+  .dot-freeday { background: var(--sky); }
+
+  .field { margin-bottom: 0.85rem; }
+  .field label {
+    display: block; font-size: 0.76rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.3rem;
+  }
+  .field input[type="time"] {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.98rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+    font-weight: 600;
+  }
+  .field input[type="time"]:focus { border-color: var(--coral); }
+
+  /* Stepper */
+  .stepper-row {
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .stepper-btn {
+    width: 32px; height: 32px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border); background: var(--bg);
+    cursor: pointer; font-family: inherit; font-size: 1.1rem;
+    font-weight: 600; color: var(--text-mid);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; flex-shrink: 0;
+  }
+  .stepper-btn:hover { border-color: var(--coral); color: var(--coral); background: #fff0ed; }
+  .stepper-val {
+    font-size: 1.1rem; font-weight: 800; color: var(--text);
+    min-width: 1.2rem; text-align: center;
+    font-family: 'Space Grotesk', monospace;
+  }
+  .stepper-unit { font-size: 0.76rem; color: var(--text-soft); font-weight: 500; }
+
+  /* Tip box */
+  .tip-box {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    background: #fff0ed; border: 1px solid #ffd5cc;
+    border-radius: var(--radius-sm); padding: 0.65rem 0.85rem;
+    font-size: 0.73rem; color: var(--coral); line-height: 1.5;
+    margin-top: 0.85rem;
+  }
+  .tip-box svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Score card */
+  .score-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.4rem;
+  }
+  .score-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .score-left { flex: 1; }
+  .score-label { font-size: 0.75rem; font-weight: 600; color: var(--text-soft); margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .score-value {
+    font-size: 3rem; font-weight: 800; letter-spacing: -0.05em;
+    line-height: 1; color: var(--text);
+    font-family: 'Space Grotesk', monospace;
+  }
+  .score-unit { font-size: 0.78rem; color: var(--text-soft); font-weight: 500; margin-top: 0.15rem; }
+
+  .severity-badge {
+    padding: 0.45rem 1rem; border-radius: 20px;
+    font-size: 0.76rem; font-weight: 700;
+    flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .sev-low { background: #d1fae5; color: #065f46; }
+  .sev-moderate { background: #fef3c7; color: #92400e; }
+  .sev-severe { background: #fee2e2; color: #991b1b; }
+
+  .score-divider { height: 1px; background: var(--border); margin: 1rem 0; }
+
+  .score-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+  .stat-item { }
+  .stat-label { font-size: 0.68rem; font-weight: 600; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.2rem; }
+  .stat-value { font-size: 1rem; font-weight: 700; color: var(--text); font-family: 'Space Grotesk', monospace; }
+  .stat-sub { font-size: 0.67rem; color: var(--text-soft); margin-top: 0.05rem; }
+
+  /* Timeline card */
+  .timeline-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .timeline-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .timeline-subtitle { font-size: 0.76rem; color: var(--text-soft); line-height: 1.5; margin-bottom: 1rem; }
+
+  /* 24-hour timeline visualization */
+  .clock-container { position: relative; }
+
+  .timeline-track-wrap { position: relative; padding: 0.35rem 0; }
+
+  .timeline-hours {
+    display: flex; justify-content: space-between;
+    font-size: 0.6rem; color: var(--text-soft); font-weight: 600;
+    font-family: 'Space Grotesk', monospace;
+    margin-bottom: 0.3rem; padding: 0 0;
+  }
+
+  .timeline-bar-row { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.55rem; }
+  .timeline-row-label {
+    font-size: 0.66rem; font-weight: 700; color: var(--text-soft);
+    width: 60px; flex-shrink: 0; text-align: right;
+  }
+  .timeline-bar {
+    flex: 1; height: 22px; background: var(--bg);
+    border-radius: 6px; position: relative;
+    border: 1px solid var(--border); overflow: visible;
+  }
+  .timeline-sleep-block {
+    position: absolute; top: 0; height: 100%;
+    border-radius: 5px; opacity: 0.85;
+  }
+  .timeline-midpoint {
+    position: absolute; top: -4px; bottom: -4px;
+    width: 3px; border-radius: 2px;
+    transform: translateX(-50%);
+  }
+  .block-work { background: var(--coral); }
+  .block-free { background: var(--sky); }
+  .mid-work { background: #c0392b; }
+  .mid-free { background: #0a74c9; }
+
+  .timeline-gap-label {
+    text-align: center; font-size: 0.72rem; color: var(--text-soft);
+    font-weight: 600; margin-top: 0.35rem;
+    font-family: 'Space Grotesk', monospace;
+  }
+
+  .timeline-legend {
+    display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 0.85rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--text-soft); }
+  .leg-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+  .swatch-work { background: var(--coral); }
+  .swatch-free { background: var(--sky); }
+  .swatch-mid { background: #888; width: 3px; height: 14px; border-radius: 2px; }
+
+  /* Health card */
+  .health-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .health-card h3 {
+    font-size: 0.92rem; font-weight: 700; margin-bottom: 0.85rem;
+    display: flex; align-items: center; gap: 0.45rem; color: var(--text);
+  }
+  .health-card h3 svg { width: 16px; height: 16px; color: var(--coral); flex-shrink: 0; }
+  .health-items { display: flex; flex-direction: column; gap: 0.5rem; }
+  .health-item {
+    display: flex; align-items: flex-start; gap: 0.65rem;
+    padding: 0.65rem 0.85rem; border-radius: var(--radius-sm);
+    font-size: 0.8rem; line-height: 1.5;
+  }
+  .health-item svg { width: 15px; height: 15px; flex-shrink: 0; margin-top: 0.1rem; }
+  .hi-warn { background: #fff8f0; color: #92400e; }
+  .hi-alert { background: #fef2f2; color: #991b1b; }
+  .hi-ok { background: #f0fdf4; color: #065f46; }
+  .health-item strong { font-weight: 700; }
+
+  /* Recommendations card */
+  .reco-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .reco-card h3 {
+    font-size: 0.92rem; font-weight: 700; margin-bottom: 0.85rem;
+    display: flex; align-items: center; gap: 0.45rem; color: var(--text);
+  }
+  .reco-card h3 svg { width: 16px; height: 16px; color: var(--mint); flex-shrink: 0; }
+  .reco-items { display: flex; flex-direction: column; gap: 0.5rem; }
+  .reco-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    padding: 0.7rem 0.85rem; border-radius: var(--radius-sm);
+    background: var(--bg); border: 1px solid var(--border);
+    font-size: 0.8rem; line-height: 1.5; color: var(--text-mid);
+  }
+  .reco-num {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary-soft); color: var(--primary);
+    font-size: 0.65rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 0.05rem;
+  }
+  .reco-item strong { color: var(--text); font-weight: 700; }
+
+  /* ===== SCIENCE SECTION ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: #1e1b2e; color: #e8e6f0;
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 {
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.75rem; color: #fff;
+  }
+  .science-card p {
+    font-size: 0.88rem; color: #a8a3be; line-height: 1.7;
+    margin-bottom: 0.85rem;
+  }
+  .science-card em { color: #9ca3af; font-style: italic; }
+  .science-card strong { color: #e8e6f0; }
+
+  .formula-box {
+    background: rgba(255,107,82,0.12); border: 1px solid rgba(255,107,82,0.28);
+    border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.05rem; font-weight: 700; color: #ffb8a8; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.71rem; color: #a8a3be; line-height: 1.7; }
+
+  .science-table {
+    width: 100%; border-collapse: collapse; margin-top: 1rem;
+    font-size: 0.82rem;
+  }
+  .science-table th {
+    text-align: left; font-weight: 700; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: #7c778e; padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .science-table td {
+    padding: 0.55rem 0.75rem; color: #a8a3be;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .science-table tr:last-child td { border-bottom: none; }
+  .science-table .mono {
+    font-family: 'Space Grotesk', monospace; font-size: 0.78rem;
+    color: #e8e6f0; font-weight: 600;
+  }
+
+  .citation {
+    font-size: 0.76rem; color: #7c778e; line-height: 1.6;
+    padding-left: 0.85rem; border-left: 2px solid rgba(255,107,82,0.35);
+    margin-top: 0.85rem;
+  }
+  .citation em { color: #9ca3af; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .score-stats { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-card { padding: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .score-value { font-size: 2.4rem; }
+    .score-stats { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  /* ---- DOM refs ---- */
+  var workSleepIn  = document.getElementById('work-sleep');
+  var workWakeIn   = document.getElementById('work-wake');
+  var freeSleepIn  = document.getElementById('free-sleep');
+  var freeWakeIn   = document.getElementById('free-wake');
+  var workdaysDec  = document.getElementById('workdays-dec');
+  var workdaysInc  = document.getElementById('workdays-inc');
+  var workdaysDisp = document.getElementById('workdays-display');
+  var scoreValue   = document.getElementById('score-value');
+  var scoreUnit    = document.querySelector('.score-unit');
+  var severityBadge= document.getElementById('severity-badge');
+  var severityLabel= document.getElementById('severity-label');
+  var scoreStats   = document.getElementById('score-stats');
+  var clockContainer = document.getElementById('clock-container');
+  var healthItems  = document.getElementById('health-items');
+  var recoItems    = document.getElementById('reco-items');
+
+  var workdays = 5;
+
+  /* ---- Helpers ---- */
+  function parseTime(val) {
+    /* Returns minutes since midnight */
+    var parts = val.split(':').map(Number);
+    return parts[0] * 60 + parts[1];
+  }
+
+  function mod1440(m) {
+    return ((m % 1440) + 1440) % 1440;
+  }
+
+  function fmt12(totalMinutes) {
+    var m = mod1440(Math.round(totalMinutes));
+    var h = Math.floor(m / 60) % 24;
+    var min = m % 60;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = h % 12; if (hh === 0) hh = 12;
+    return hh + ':' + (min < 10 ? '0' : '') + min + ' ' + period;
+  }
+
+  function fmtHours(decimalHours) {
+    var abs = Math.abs(decimalHours);
+    var h = Math.floor(abs);
+    var m = Math.round((abs - h) * 60);
+    if (m === 60) { h++; m = 0; }
+    if (h === 0) return m + 'min';
+    if (m === 0) return h + 'h';
+    return h + 'h ' + m + 'min';
+  }
+
+  /* Compute midpoint of sleep.
+   * sleepMinutes: minutes past midnight when lights-out
+   * wakeMinutes: minutes past midnight when alarm rings
+   * Returns the midpoint in minutes past midnight (handles midnight crossing)
+   */
+  function sleepMidpoint(sleepMin, wakeMin) {
+    var dur;
+    if (wakeMin >= sleepMin) {
+      dur = wakeMin - sleepMin;
+    } else {
+      /* crosses midnight */
+      dur = (1440 - sleepMin) + wakeMin;
+    }
+    return mod1440(sleepMin + dur / 2);
+  }
+
+  function sleepDuration(sleepMin, wakeMin) {
+    if (wakeMin >= sleepMin) return wakeMin - sleepMin;
+    return (1440 - sleepMin) + wakeMin;
+  }
+
+  /* MSFsc corrected free-day midpoint (adjusts for sleep debt recovery)
+   * MSFsc = MSF - (SDf - SDavg) / 2
+   * SDf = free-day sleep duration, SDavg = weighted average sleep duration
+   */
+  function computeMSFsc(msf, sdWork, sdFree, workdays) {
+    var freeDays = 7 - workdays;
+    var sdAvg = (sdWork * workdays + sdFree * freeDays) / 7;
+    return mod1440(msf - (sdFree - sdAvg) / 2);
+  }
+
+  /* Midpoint difference (handles circular clock arithmetic) */
+  function clockDiff(a, b) {
+    /* Returns b - a in minutes, shortest path around 24h clock */
+    var diff = mod1440(b - a);
+    if (diff > 720) diff -= 1440;
+    return diff;
+  }
+
+  /* ---- Severity classification ---- */
+  function getSeverity(sjlHours) {
+    if (sjlHours < 1) return { label: 'Low', cls: 'sev-low' };
+    if (sjlHours <= 2) return { label: 'Moderate', cls: 'sev-moderate' };
+    return { label: 'Severe', cls: 'sev-severe' };
+  }
+
+  /* ---- Health implications ---- */
+  function getHealthItems(sjlHours) {
+    var items = [];
+    if (sjlHours < 1) {
+      items.push({ cls: 'hi-ok', icon: 'check', text: '<strong>Well-aligned schedule.</strong> Your biological clock and social schedule are closely matched. Circadian disruption risk is low.' });
+      items.push({ cls: 'hi-ok', icon: 'check', text: '<strong>Metabolic health.</strong> At under 1 hour of social jet lag, BMI and metabolic syndrome risk are not meaningfully elevated (Wittmann et al. 2006).' });
+      items.push({ cls: 'hi-ok', icon: 'check', text: '<strong>Mental health.</strong> Low social jet lag is associated with better mood, lower depression scores, and improved daytime alertness (Parsons et al. 2015).' });
+    } else if (sjlHours <= 2) {
+      items.push({ cls: 'hi-warn', icon: 'alert', text: '<strong>Elevated fatigue risk.</strong> 1–2 hours of social jet lag is linked to increased daytime sleepiness, reduced reaction time, and impaired cognitive performance, especially Monday–Tuesday.' });
+      items.push({ cls: 'hi-warn', icon: 'alert', text: '<strong>Metabolic effects.</strong> Each hour of social jet lag is associated with ~33% increased odds of being overweight, independent of sleep duration (Wittmann et al. 2006).' });
+      items.push({ cls: 'hi-warn', icon: 'alert', text: '<strong>Mood impact.</strong> Moderate social jet lag correlates with elevated anxiety and lower life satisfaction scores. The weekly circadian reset impairs emotional regulation (Parsons et al. 2015).' });
+    } else {
+      items.push({ cls: 'hi-alert', icon: 'alert', text: '<strong>High metabolic risk.</strong> Over 2 hours of social jet lag is linked to significantly higher BMI, increased insulin resistance, and elevated triglycerides — effects comparable to mild shift-work disorder (Roenneberg et al. 2012).' });
+      items.push({ cls: 'hi-alert', icon: 'alert', text: '<strong>Cardiovascular &amp; depression risk.</strong> Severe social jet lag is associated with elevated inflammatory markers, higher blood pressure, and substantially increased risk of clinical depression (Parsons et al. 2015).' });
+      items.push({ cls: 'hi-alert', icon: 'alert', text: '<strong>Chronic circadian misalignment.</strong> At this level, the weekly phase shift is equivalent to repeatedly flying across 2+ time zones. The body never fully re-entrains before the next weekend reversal.' });
+    }
+    return items;
+  }
+
+  function iconSvg(type) {
+    if (type === 'check') {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    }
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+  }
+
+  /* ---- Recommendations ---- */
+  function getRecoItems(sjlHours, workSleep, workWake, freeSleep, freeWake) {
+    var recos = [];
+    var shift15 = fmtHours(15);
+
+    if (sjlHours < 1) {
+      recos.push('<strong>Maintain your schedule.</strong> Your workday and free-day sleep timing are closely aligned. Continue prioritizing a consistent bedtime across the week.');
+      recos.push('<strong>Light anchoring.</strong> Keep getting bright light within 30 minutes of your workday wake time to maintain circadian stability and prevent drift.');
+      recos.push('<strong>Watch for drift.</strong> Social activities, travel, or stress can shift your schedule. Aim to keep your free-day wake time within 60 minutes of your workday wake time.');
+    } else if (sjlHours <= 2) {
+      recos.push('<strong>Shift bedtime earlier gradually.</strong> Move your free-day bedtime 15 minutes earlier every 2–3 days until the gap narrows. Abrupt changes are harder to sustain and less effective.');
+      recos.push('<strong>Cap weekend lie-ins at 1 hour.</strong> Sleeping in more than 60 minutes delays your circadian clock. If you need extra sleep, go to bed earlier rather than waking later.');
+      recos.push('<strong>Morning light exposure.</strong> Get 10–15 minutes of bright natural light within 30 minutes of your workday wake time. This is the strongest signal your circadian clock uses to set its daily phase.');
+      recos.push('<strong>Avoid bright screens 90 minutes before target bedtime.</strong> Blue-spectrum light suppresses melatonin onset and makes falling asleep earlier harder. Use night mode or warm lighting in the evening.');
+    } else {
+      recos.push('<strong>Gradual workday bedtime advance.</strong> Move your workday bedtime 15 minutes earlier every 2 days. At the same time, bring your free-day wake time 15 minutes earlier on the same schedule. Target: close the gap to under 1 hour over 3–4 weeks.');
+      recos.push('<strong>Light therapy on workday mornings.</strong> A 10,000-lux light box for 20–30 minutes immediately after your workday wake time will phase-advance your circadian clock over 1–2 weeks, making earlier bedtimes feel natural.');
+      recos.push('<strong>Strict free-day wake anchor.</strong> Set an alarm on weekends no more than 60–90 minutes after your workday wake time. Even if you sleep less initially, this re-synchronizes your clock faster than any other intervention.');
+      recos.push('<strong>Evening light avoidance.</strong> Dim all indoor lighting and switch devices to night mode 2 hours before your target free-day bedtime. This allows melatonin to rise earlier and shifts your circadian phase forward.');
+      recos.push('<strong>Consider chronotype-friendly scheduling.</strong> If possible, negotiate a later workday start time, or use flex scheduling to better match your biological timing. Roenneberg et al. (2012) found outdoor workers had earlier chronotypes — more outdoor time can cumulatively shift your phase.');
+    }
+    return recos;
+  }
+
+  /* ---- Render 24-hour timeline ---- */
+  function renderTimeline(workSleepMin, workWakeMin, freeSleepMin, freeWakeMin, mswMin, msfMin) {
+    /* We display a 24-hour bar from 12PM to 12PM (noon wrap) so sleep windows are always visible */
+    /* Origin = 18:00 (6 PM) gives best visibility for typical sleep windows */
+    var ORIGIN = 18 * 60; /* 6 PM = 1080 min */
+    var SPAN = 1440; /* full 24h */
+
+    function toPercent(min) {
+      /* position as % of 24h bar, with ORIGIN at 0% */
+      return (mod1440(min - ORIGIN) / SPAN) * 100;
+    }
+
+    function blockWidth(startMin, endMin) {
+      /* duration as percent */
+      var dur;
+      if (endMin >= startMin) dur = endMin - startMin;
+      else dur = (1440 - startMin) + endMin;
+      return (dur / SPAN) * 100;
+    }
+
+    /* Hour labels to show */
+    var hourLabels = [18, 20, 22, 0, 2, 4, 6, 8, 10, 12];
+    var hourLabelHtml = '<div class="timeline-hours">';
+    hourLabels.forEach(function(h) {
+      var label = h === 0 ? '12A' : h === 12 ? '12P' : (h > 12 ? (h - 12) + 'P' : h + (h < 12 ? 'A' : 'P'));
+      hourLabelHtml += '<span>' + label + '</span>';
+    });
+    hourLabelHtml += '</div>';
+
+    function buildBar(sleepMin, wakeMin, blockClass, midMin, midClass, rowLabel) {
+      var leftPct = toPercent(sleepMin).toFixed(2);
+      var widthPct = blockWidth(sleepMin, wakeMin).toFixed(2);
+      var midPct = toPercent(midMin).toFixed(2);
+
+      /* Handle wrap-around: if sleep block crosses the right edge, we clip.
+       * For simplicity, just use the modular percentage — CSS overflow: visible handles midpoint marker. */
+      var html = '<div class="timeline-bar-row">';
+      html += '<div class="timeline-row-label">' + rowLabel + '</div>';
+      html += '<div class="timeline-bar">';
+      /* sleep block */
+      html += '<div class="timeline-sleep-block ' + blockClass + '" style="left:' + leftPct + '%;width:' + widthPct + '%;"></div>';
+      /* midpoint marker */
+      html += '<div class="timeline-midpoint ' + midClass + '" style="left:' + midPct + '%;"></div>';
+      html += '</div>';
+      html += '</div>';
+      return html;
+    }
+
+    var sjlDiff = Math.abs(clockDiff(mswMin, msfMin));
+    var sjlHrs = (sjlDiff / 60).toFixed(2);
+
+    var html = '<div class="timeline-track-wrap">';
+    html += hourLabelHtml;
+    html += buildBar(workSleepMin, workWakeMin, 'block-work', mswMin, 'mid-work', 'Workday');
+    html += buildBar(freeSleepMin, freeWakeMin, 'block-free', msfMin, 'mid-free', 'Free day');
+    html += '</div>';
+    html += '<div class="timeline-gap-label">Midpoint gap: ' + fmtHours(sjlDiff) + '</div>';
+
+    clockContainer.innerHTML = html;
+  }
+
+  /* ---- Main calculate function ---- */
+  function calculate() {
+    var workSleepMin = parseTime(workSleepIn.value);
+    var workWakeMin  = parseTime(workWakeIn.value);
+    var freeSleepMin = parseTime(freeSleepIn.value);
+    var freeWakeMin  = parseTime(freeWakeIn.value);
+
+    var sdWork = sleepDuration(workSleepMin, workWakeMin); /* minutes */
+    var sdFree = sleepDuration(freeSleepMin, freeWakeMin);
+
+    var mswMin = sleepMidpoint(workSleepMin, workWakeMin);
+    var msfMin = sleepMidpoint(freeSleepMin, freeWakeMin);
+
+    /* MSFsc: free-day midpoint corrected for sleep debt */
+    var msfscMin = computeMSFsc(msfMin, sdWork, sdFree, workdays);
+
+    /* Social jet lag = |MSF - MSW| (absolute difference) */
+    var sjlMinutes = Math.abs(clockDiff(mswMin, msfMin));
+    var sjlHours   = sjlMinutes / 60;
+
+    /* Sleep duration difference */
+    var sdDiffMin = sdFree - sdWork;
+
+    /* ---- Update score ---- */
+    scoreValue.textContent = sjlHours.toFixed(1);
+
+    var sev = getSeverity(sjlHours);
+    severityBadge.className = 'severity-badge ' + sev.cls;
+    severityLabel.textContent = sev.label;
+
+    /* ---- Update stats ---- */
+    var freeDays = 7 - workdays;
+    var statsHtml = '';
+
+    statsHtml += '<div class="stat-item">';
+    statsHtml += '<div class="stat-label">Workday midpoint</div>';
+    statsHtml += '<div class="stat-value">' + fmt12(mswMin) + '</div>';
+    statsHtml += '<div class="stat-sub">' + fmtHours(sdWork) + ' sleep</div>';
+    statsHtml += '</div>';
+
+    statsHtml += '<div class="stat-item">';
+    statsHtml += '<div class="stat-label">Free-day midpoint</div>';
+    statsHtml += '<div class="stat-value">' + fmt12(msfMin) + '</div>';
+    statsHtml += '<div class="stat-sub">' + fmtHours(sdFree) + ' sleep</div>';
+    statsHtml += '</div>';
+
+    statsHtml += '<div class="stat-item">';
+    statsHtml += '<div class="stat-label">Corrected MSFsc</div>';
+    statsHtml += '<div class="stat-value">' + fmt12(msfscMin) + '</div>';
+    statsHtml += '<div class="stat-sub">Your chronotype</div>';
+    statsHtml += '</div>';
+
+    scoreStats.innerHTML = statsHtml;
+
+    /* ---- Render timeline ---- */
+    renderTimeline(workSleepMin, workWakeMin, freeSleepMin, freeWakeMin, mswMin, msfMin);
+
+    /* ---- Health items ---- */
+    var hiData = getHealthItems(sjlHours);
+    var hiHtml = '';
+    hiData.forEach(function(item) {
+      hiHtml += '<div class="health-item ' + item.cls + '">';
+      hiHtml += iconSvg(item.icon);
+      hiHtml += '<span>' + item.text + '</span>';
+      hiHtml += '</div>';
+    });
+    healthItems.innerHTML = hiHtml;
+
+    /* ---- Recommendations ---- */
+    var recoData = getRecoItems(sjlHours, workSleepMin, workWakeMin, freeSleepMin, freeWakeMin);
+    var recoHtml = '';
+    recoData.forEach(function(text, i) {
+      recoHtml += '<div class="reco-item">';
+      recoHtml += '<div class="reco-num">' + (i + 1) + '</div>';
+      recoHtml += '<span>' + text + '</span>';
+      recoHtml += '</div>';
+    });
+    recoItems.innerHTML = recoHtml;
+  }
+
+  /* ---- Workday stepper ---- */
+  workdaysDec.addEventListener('click', function() {
+    if (workdays > 1) { workdays--; workdaysDisp.textContent = workdays; calculate(); }
+  });
+  workdaysInc.addEventListener('click', function() {
+    if (workdays < 7) { workdays++; workdaysDisp.textContent = workdays; calculate(); }
+  });
+
+  /* ---- Input listeners ---- */
+  [workSleepIn, workWakeIn, freeSleepIn, freeWakeIn].forEach(function(el) {
+    el.addEventListener('input', calculate);
+  });
+
+  /* ---- Init ---- */
+  calculate();
+})();
+</script>

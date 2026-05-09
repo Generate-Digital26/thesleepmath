@@ -1,0 +1,1268 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is the Pittsburgh Sleep Quality Index (PSQI)?',
+    answer: `<p>The <strong>Pittsburgh Sleep Quality Index (PSQI)</strong> is a validated, self-rated questionnaire developed by Buysse et al. (1989) at the University of Pittsburgh to measure sleep quality and disturbances over a one-month interval. It assesses seven component domains: subjective sleep quality, sleep latency, sleep duration, habitual sleep efficiency, sleep disturbances, use of sleeping medication, and daytime dysfunction. Each component is scored 0–3, yielding a global score of 0–21.</p>
+<p>A global PSQI score greater than 5 distinguishes poor sleepers from good sleepers with a sensitivity of 89.6% and specificity of 86.5% (Buysse et al., 1989). The index has been translated into more than 50 languages and is one of the most widely cited sleep assessment instruments in clinical and research settings. A comprehensive review by <strong>Mollayeva et al. (2016)</strong> confirmed its strong psychometric properties across diverse populations including traumatic brain injury, cancer, and chronic pain patients.</p>`,
+  },
+  {
+    question: 'What is the difference between sleep quality and sleep quantity?',
+    answer: `<p><strong>Sleep quantity</strong> refers simply to the total number of hours you sleep — a single, easily measured number. <strong>Sleep quality</strong> is a multidimensional construct that encompasses how restorative your sleep actually is: how quickly you fall asleep, how continuously you stay asleep, how efficiently your time in bed translates to true sleep, and how functional you are the following day. It is entirely possible to spend nine hours in bed and wake up feeling exhausted because the quality was poor.</p>
+<p>Research consistently shows that subjective sleep quality is at least as important as duration for next-day cognitive function, mood, and metabolic health. The PSQI specifically captures this distinction — its <em>subjective quality</em> component asks how you rate your own sleep, independent of how many hours you logged. Adults who score favorably on sleep quality measures but sleep only 6.5 hours often report better daytime functioning than those who sleep 8 hours with fragmented, non-restorative sleep.</p>`,
+  },
+  {
+    question: 'How can I improve my sleep quality score?',
+    answer: `<p>Because the PSQI captures seven separate dimensions, improving your score requires targeting your weakest components rather than making generic changes. <strong>Sleep latency</strong> (trouble falling asleep) responds well to stimulus control therapy — reserving the bed only for sleep and sex, getting out of bed if awake more than 20 minutes, and avoiding screens for 60 minutes before bed. <strong>Sleep disturbances</strong> (frequent awakenings) are often driven by noise, light, temperature, or underlying conditions like sleep apnea or restless legs syndrome. <strong>Daytime dysfunction</strong> is frequently worsened by inconsistent wake times, which disrupt circadian rhythm.</p>
+<p>The most evidence-based intervention for improving overall sleep quality is <strong>Cognitive Behavioral Therapy for Insomnia (CBT-I)</strong>, endorsed by the American Academy of Sleep Medicine as the first-line treatment for chronic insomnia. CBT-I addresses maladaptive sleep thoughts and behaviors and produces durable improvements in PSQI scores — often superior to sleep medications and without side effects. Sleep restriction therapy, a core CBT-I component, builds homeostatic sleep pressure by temporarily limiting time in bed, consolidating sleep, and raising efficiency. Even modest improvements in sleep hygiene (consistent schedules, cooler room temperature, reduced caffeine after noon) reliably move PSQI component scores in the right direction.</p>`,
+  },
+  {
+    question: 'What does my sleep quality score actually mean?',
+    answer: `<p>This calculator produces a simplified PSQI-style global score from 0 to 21, where <strong>lower is better</strong>. A score of 0–5 indicates good sleep quality, 6–10 indicates fair sleep quality with some areas for improvement, and 11–21 indicates poor sleep quality that may warrant further evaluation. These thresholds are derived from the clinical cutoff established by <strong>Buysse et al. (1989)</strong>, who showed that a global score above 5 reliably identifies clinically significant sleep impairment.</p>
+<p>Equally important are the seven component scores shown in the breakdown. A global score of 8 driven entirely by sleep latency and daytime dysfunction tells a very different story than the same score driven by short duration and high disturbance frequency — and each pattern points to different interventions. The component breakdown is where the real clinical value lies. Note that this online tool is a consumer-adapted version of the validated instrument; for a formal PSQI assessment, contact a sleep specialist or healthcare provider who can administer and interpret the full questionnaire in clinical context.</p>`,
+  },
+  {
+    question: 'Are wearable sleep trackers as accurate as questionnaires for measuring sleep quality?',
+    answer: `<p>Consumer wearables (smartwatches, fitness trackers) measure sleep primarily through actigraphy — detecting movement and, increasingly, heart rate variability and skin temperature to infer sleep stages. Studies comparing wearable-derived sleep metrics against polysomnography (the clinical gold standard) show that while wearables are reasonably accurate for total sleep time and distinguishing sleep from wakefulness, they <strong>overestimate deep sleep, misclassify REM sleep at rates of 30–40%, and are generally poor at detecting short awakenings</strong>. Accuracy also varies substantially between device brands and individual users.</p>
+<p>Validated questionnaires like the PSQI capture something wearables cannot easily measure: the <strong>subjective experience</strong> of sleep — how rested you feel, how much effort falling asleep requires, and how your sleep affects daytime functioning. A systematic review by <strong>Mollayeva et al. (2016)</strong> found that PSQI scores correlate meaningfully with clinical outcomes and quality-of-life measures in ways that objective actigraphy data alone does not predict. The most complete picture of sleep health combines both: objective data from a device and subjective assessment via a validated questionnaire. Neither alone tells the full story.</p>`,
+  },
+  {
+    question: 'When does a poor sleep quality score indicate a medical problem?',
+    answer: `<p>A persistently elevated PSQI score — particularly one that does not improve after 4–6 weeks of consistent sleep hygiene changes — warrants medical evaluation. Specific patterns that raise clinical concern include: <strong>very high sleep disturbance scores</strong> accompanied by witnessed breathing pauses or loud snoring (suggesting obstructive sleep apnea); <strong>high daytime dysfunction scores</strong> with irresistible urge to sleep in inappropriate situations (suggesting narcolepsy or severe OSA); <strong>abnormal leg sensations at night</strong> causing awakenings (suggesting restless legs syndrome); and <strong>extremely delayed sleep timing</strong> (unable to fall asleep before 2–4 AM) that persists regardless of effort (suggesting Circadian Rhythm Sleep-Wake Disorder).</p>
+<p>Chronic poor sleep quality also raises cardiovascular and metabolic risk. Large epidemiological studies have linked PSQI scores above 8 with significantly elevated risks of hypertension, type 2 diabetes, depression, and all-cause mortality. If your score falls in the poor range (above 10) and has been elevated for more than a month, or if you have any of the specific symptom patterns above, the appropriate next step is a consultation with your primary care provider who can rule out underlying sleep disorders, assess comorbidities, and refer you to a sleep specialist or CBT-I therapist if indicated.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Quality Score Calculator — PSQI-Based Assessment | The Sleep Math"
+  description="Free PSQI-style sleep quality score calculator. Answer 7 evidence-based questions to get your sleep quality score, component breakdown, and personalized recommendations. No wearable needed."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Sleep Quality Score
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <!-- Star / quality icon in primary -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a5 5 0 0 1 0 10A5 5 0 0 1 12 2z" opacity="0"/>
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Quality Score Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Rate your sleep with a PSQI-style assessment — no wearable required. Get your sleep quality score, a seven-component breakdown, and personalized recommendations in under 3 minutes.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        3 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        PSQI-adapted
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Buysse et al. 1989
+      </span>
+    </div>
+  </div>
+
+  <!-- MEDICAL DISCLAIMER -->
+  <div class="disclaimer-banner">
+    <div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span><strong>Self-assessment tool — not a clinical diagnosis.</strong> This calculator is adapted from the validated PSQI for consumer education. It is not a substitute for professional evaluation. If you suspect a sleep disorder, consult a licensed healthcare provider.</span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR LAYOUT -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Sleep Quality Quiz</h2>
+      <p class="panel-hint">Answer each question about your sleep over the <strong>past month</strong>.</p>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+        <span class="progress-label" id="progress-label">Section 1 of 7</span>
+      </div>
+
+      <!-- SECTION 1: Subjective Quality -->
+      <div class="section-card active" id="sec-1" data-section="1">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#edeaff;color:#7c6aff;">1</div>
+          <div class="sec-title">
+            <span>Subjective Quality</span>
+            <span class="sec-hint">How you rate your own sleep</span>
+          </div>
+        </div>
+        <p class="sec-q">Overall, how would you rate your <strong>sleep quality</strong> over the past month?</p>
+        <div class="option-group" data-comp="quality">
+          <button class="option-btn" data-comp="quality" data-val="0">Very good</button>
+          <button class="option-btn" data-comp="quality" data-val="1">Fairly good</button>
+          <button class="option-btn" data-comp="quality" data-val="2">Fairly bad</button>
+          <button class="option-btn" data-comp="quality" data-val="3">Very bad</button>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Sleep Latency -->
+      <div class="section-card" id="sec-2" data-section="2">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#fff0ed;color:#ff6b52;">2</div>
+          <div class="sec-title">
+            <span>Sleep Latency</span>
+            <span class="sec-hint">Time to fall asleep</span>
+          </div>
+        </div>
+        <p class="sec-q">How long does it usually take you to <strong>fall asleep</strong> each night?</p>
+        <div class="option-group" data-comp="latency">
+          <button class="option-btn" data-comp="latency" data-val="0">≤ 15 minutes</button>
+          <button class="option-btn" data-comp="latency" data-val="1">16 – 30 minutes</button>
+          <button class="option-btn" data-comp="latency" data-val="2">31 – 60 minutes</button>
+          <button class="option-btn" data-comp="latency" data-val="3">More than 60 minutes</button>
+        </div>
+        <p class="sec-q-sub">How often did you have <strong>trouble falling asleep within 30 minutes</strong>?</p>
+        <div class="option-group" data-comp="latency2">
+          <button class="option-btn" data-comp="latency2" data-val="0">Not during the past month</button>
+          <button class="option-btn" data-comp="latency2" data-val="1">Less than once a week</button>
+          <button class="option-btn" data-comp="latency2" data-val="2">Once or twice a week</button>
+          <button class="option-btn" data-comp="latency2" data-val="3">Three or more times a week</button>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Sleep Duration -->
+      <div class="section-card" id="sec-3" data-section="3">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#ecfdf5;color:#10b981;">3</div>
+          <div class="sec-title">
+            <span>Sleep Duration</span>
+            <span class="sec-hint">Total hours of actual sleep</span>
+          </div>
+        </div>
+        <p class="sec-q">How many <strong>hours of actual sleep</strong> do you typically get each night? (Not time in bed — actual sleep)</p>
+        <div class="option-group" data-comp="duration">
+          <button class="option-btn" data-comp="duration" data-val="0">7 hours or more</button>
+          <button class="option-btn" data-comp="duration" data-val="1">6 – 7 hours</button>
+          <button class="option-btn" data-comp="duration" data-val="2">5 – 6 hours</button>
+          <button class="option-btn" data-comp="duration" data-val="3">Less than 5 hours</button>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Sleep Efficiency -->
+      <div class="section-card" id="sec-4" data-section="4">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#eaf6ff;color:#38b6ff;">4</div>
+          <div class="sec-title">
+            <span>Sleep Efficiency</span>
+            <span class="sec-hint">Sleep vs. time in bed</span>
+          </div>
+        </div>
+        <p class="sec-q">What time do you usually <strong>get into bed</strong> at night?</p>
+        <div class="time-input-row">
+          <input type="number" id="bedtime-h" min="0" max="23" placeholder="HH" aria-label="Bedtime hour" maxlength="2">
+          <span class="time-sep">:</span>
+          <input type="number" id="bedtime-m" min="0" max="59" placeholder="MM" aria-label="Bedtime minute" maxlength="2">
+          <span class="time-unit">24 h</span>
+          <span class="efficiency-hint" id="efficiency-hint"></span>
+        </div>
+        <p class="sec-q-sub">What time do you usually <strong>get out of bed</strong> in the morning?</p>
+        <div class="time-input-row">
+          <input type="number" id="waketime-h" min="0" max="23" placeholder="HH" aria-label="Wake time hour" maxlength="2">
+          <span class="time-sep">:</span>
+          <input type="number" id="waketime-m" min="0" max="59" placeholder="MM" aria-label="Wake time minute" maxlength="2">
+          <span class="time-unit">24 h</span>
+        </div>
+        <div class="efficiency-display" id="efficiency-display">Enter times above to calculate efficiency</div>
+        <input type="hidden" id="eff-comp-val" value="0">
+      </div>
+
+      <!-- SECTION 5: Sleep Disturbances -->
+      <div class="section-card" id="sec-5" data-section="5">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#fffbeb;color:#f59e0b;">5</div>
+          <div class="sec-title">
+            <span>Sleep Disturbances</span>
+            <span class="sec-hint">Things that wake or disrupt you</span>
+          </div>
+        </div>
+        <p class="sec-q">How often have you had <strong>trouble sleeping</strong> because of the following? Rate each:</p>
+        <div class="disturbance-list" id="disturbance-list">
+          <div class="dist-item">
+            <div class="dist-label">Cannot get to sleep within 30 min</div>
+            <div class="dist-options" data-dist="d1">
+              <button class="dist-btn" data-dist="d1" data-val="0">Never</button>
+              <button class="dist-btn" data-dist="d1" data-val="1">&lt;1×/wk</button>
+              <button class="dist-btn" data-dist="d1" data-val="2">1–2×/wk</button>
+              <button class="dist-btn" data-dist="d1" data-val="3">≥3×/wk</button>
+            </div>
+          </div>
+          <div class="dist-item">
+            <div class="dist-label">Wake up in the middle of the night</div>
+            <div class="dist-options" data-dist="d2">
+              <button class="dist-btn" data-dist="d2" data-val="0">Never</button>
+              <button class="dist-btn" data-dist="d2" data-val="1">&lt;1×/wk</button>
+              <button class="dist-btn" data-dist="d2" data-val="2">1–2×/wk</button>
+              <button class="dist-btn" data-dist="d2" data-val="3">≥3×/wk</button>
+            </div>
+          </div>
+          <div class="dist-item">
+            <div class="dist-label">Wake up too early and can't go back to sleep</div>
+            <div class="dist-options" data-dist="d3">
+              <button class="dist-btn" data-dist="d3" data-val="0">Never</button>
+              <button class="dist-btn" data-dist="d3" data-val="1">&lt;1×/wk</button>
+              <button class="dist-btn" data-dist="d3" data-val="2">1–2×/wk</button>
+              <button class="dist-btn" data-dist="d3" data-val="3">≥3×/wk</button>
+            </div>
+          </div>
+          <div class="dist-item">
+            <div class="dist-label">Cannot breathe comfortably or snoring</div>
+            <div class="dist-options" data-dist="d4">
+              <button class="dist-btn" data-dist="d4" data-val="0">Never</button>
+              <button class="dist-btn" data-dist="d4" data-val="1">&lt;1×/wk</button>
+              <button class="dist-btn" data-dist="d4" data-val="2">1–2×/wk</button>
+              <button class="dist-btn" data-dist="d4" data-val="3">≥3×/wk</button>
+            </div>
+          </div>
+          <div class="dist-item">
+            <div class="dist-label">Cough, snore loudly, or feel too cold/hot</div>
+            <div class="dist-options" data-dist="d5">
+              <button class="dist-btn" data-dist="d5" data-val="0">Never</button>
+              <button class="dist-btn" data-dist="d5" data-val="1">&lt;1×/wk</button>
+              <button class="dist-btn" data-dist="d5" data-val="2">1–2×/wk</button>
+              <button class="dist-btn" data-dist="d5" data-val="3">≥3×/wk</button>
+            </div>
+          </div>
+          <div class="dist-item">
+            <div class="dist-label">Have bad dreams or pain</div>
+            <div class="dist-options" data-dist="d6">
+              <button class="dist-btn" data-dist="d6" data-val="0">Never</button>
+              <button class="dist-btn" data-dist="d6" data-val="1">&lt;1×/wk</button>
+              <button class="dist-btn" data-dist="d6" data-val="2">1–2×/wk</button>
+              <button class="dist-btn" data-dist="d6" data-val="3">≥3×/wk</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: Sleep Medication -->
+      <div class="section-card" id="sec-6" data-section="6">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#fdf2f8;color:#ec4899;">6</div>
+          <div class="sec-title">
+            <span>Sleep Medication</span>
+            <span class="sec-hint">Prescribed or over-the-counter</span>
+          </div>
+        </div>
+        <p class="sec-q">How often have you taken <strong>medication to help you sleep</strong> (prescribed or over-the-counter) in the past month?</p>
+        <div class="option-group" data-comp="medication">
+          <button class="option-btn" data-comp="medication" data-val="0">Not during the past month</button>
+          <button class="option-btn" data-comp="medication" data-val="1">Less than once a week</button>
+          <button class="option-btn" data-comp="medication" data-val="2">Once or twice a week</button>
+          <button class="option-btn" data-comp="medication" data-val="3">Three or more times a week</button>
+        </div>
+      </div>
+
+      <!-- SECTION 7: Daytime Dysfunction -->
+      <div class="section-card" id="sec-7" data-section="7">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#fff0ed;color:#ff6b52;">7</div>
+          <div class="sec-title">
+            <span>Daytime Dysfunction</span>
+            <span class="sec-hint">Impact on your waking hours</span>
+          </div>
+        </div>
+        <p class="sec-q">How often have you had <strong>trouble staying awake</strong> while driving, eating meals, or engaging in social activity?</p>
+        <div class="option-group" data-comp="dysfunction1">
+          <button class="option-btn" data-comp="dysfunction1" data-val="0">Not during the past month</button>
+          <button class="option-btn" data-comp="dysfunction1" data-val="1">Less than once a week</button>
+          <button class="option-btn" data-comp="dysfunction1" data-val="2">Once or twice a week</button>
+          <button class="option-btn" data-comp="dysfunction1" data-val="3">Three or more times a week</button>
+        </div>
+        <p class="sec-q-sub">How much of a <strong>problem has it been to keep up enthusiasm</strong> to get things done?</p>
+        <div class="option-group" data-comp="dysfunction2">
+          <button class="option-btn" data-comp="dysfunction2" data-val="0">No problem at all</button>
+          <button class="option-btn" data-comp="dysfunction2" data-val="1">Only a very slight problem</button>
+          <button class="option-btn" data-comp="dysfunction2" data-val="2">Somewhat of a problem</button>
+          <button class="option-btn" data-comp="dysfunction2" data-val="3">A very big problem</button>
+        </div>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="nav-buttons">
+        <button class="nav-btn nav-prev" id="btn-prev" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Previous
+        </button>
+        <button class="nav-btn nav-next" id="btn-next">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+    </div>
+    <!-- END INPUT PANEL -->
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- Score hero with circular gauge -->
+      <div class="score-hero" id="score-hero">
+        <div class="gauge-wrap">
+          <svg class="gauge-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Track circle -->
+            <circle cx="100" cy="100" r="78" fill="none" stroke="#e4e1ec" stroke-width="14" stroke-dasharray="434.96" stroke-dashoffset="108.74" stroke-linecap="round" transform="rotate(135 100 100)"/>
+            <!-- Colored arc — drawn by JS -->
+            <circle id="gauge-arc" cx="100" cy="100" r="78" fill="none" stroke="#10b981" stroke-width="14" stroke-dasharray="434.96" stroke-dashoffset="434.96" stroke-linecap="round" transform="rotate(135 100 100)"/>
+          </svg>
+          <div class="gauge-center">
+            <div class="gauge-score" id="gauge-score">0</div>
+            <div class="gauge-denom">/ 21</div>
+            <div class="gauge-label-inner" id="gauge-label-inner">Good</div>
+          </div>
+        </div>
+        <div class="quality-label" id="quality-label">Good Sleep Quality</div>
+        <div class="quality-sub" id="quality-sub">Score 0–5: Your sleep quality appears healthy. Keep it up!</div>
+        <div class="threshold-row">
+          <span class="thresh-chip thresh-good">0–5 Good</span>
+          <span class="thresh-chip thresh-fair">6–10 Fair</span>
+          <span class="thresh-chip thresh-poor">11–21 Poor</span>
+        </div>
+      </div>
+
+      <!-- Component breakdown -->
+      <div class="breakdown-card" id="breakdown-card">
+        <h3>7-component breakdown</h3>
+        <div class="comp-list" id="comp-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- Personalized recommendations -->
+      <div class="recs-card" id="recs-card">
+        <h3>Personalized recommendations</h3>
+        <div class="recs-list" id="recs-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- Clinical thresholds info -->
+      <div class="info-card">
+        <h3>Understanding your score</h3>
+        <div class="threshold-table">
+          <div class="thresh-row thresh-row-head">
+            <div>Score</div><div>Rating</div><div>Clinical meaning</div>
+          </div>
+          <div class="thresh-row thresh-row-good">
+            <div class="thresh-range">0 – 5</div>
+            <div class="thresh-rating">Good</div>
+            <div class="thresh-desc">Consistent with a good sleeper. Maintain current habits.</div>
+          </div>
+          <div class="thresh-row thresh-row-fair">
+            <div class="thresh-range">6 – 10</div>
+            <div class="thresh-rating">Fair</div>
+            <div class="thresh-desc">Some sleep impairment present. Targeted improvements can help.</div>
+          </div>
+          <div class="thresh-row thresh-row-poor">
+            <div class="thresh-range">11 – 21</div>
+            <div class="thresh-rating">Poor</div>
+            <div class="thresh-desc">Significant sleep impairment. Consider CBT-I or medical evaluation.</div>
+          </div>
+        </div>
+        <p class="info-cite">Cutoff &gt;5 from Buysse et al. (1989). Sensitivity 89.6%, specificity 86.5%.</p>
+      </div>
+
+    </div>
+    <!-- END RESULTS PANEL -->
+
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind sleep quality measurement</h2>
+      <p>
+        The <strong>Pittsburgh Sleep Quality Index (PSQI)</strong> was developed by <strong>Buysse, Reynolds, Monk, Berman, and Kupfer (1989)</strong> at the University of Pittsburgh Sleep Medicine Institute. Their landmark study — involving 148 clinical patients and 52 healthy controls — established that sleep quality is a multidimensional construct that cannot be reduced to a single number like hours slept. The resulting seven-component instrument demonstrated a global score &gt;5 as the optimal clinical cutoff, with sensitivity of 89.6% and specificity of 86.5% for distinguishing poor sleepers from good sleepers.
+      </p>
+      <p>
+        Three decades of subsequent research have validated the PSQI across populations including chronic pain, cancer, psychiatric disorders, cardiovascular disease, and healthy aging adults. A comprehensive 2016 systematic review and meta-analysis by <strong>Mollayeva et al.</strong> confirmed robust psychometric properties across 20 languages and noted the PSQI's particular strength in capturing subjective sleep quality — the dimension most strongly linked to daytime functioning and quality of life outcomes.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">PSQI Global Score = C1 + C2 + C3 + C4 + C5 + C6 + C7 &nbsp;(0–21)</div>
+        <div class="formula-desc">C1: Subjective quality &nbsp;·&nbsp; C2: Latency &nbsp;·&nbsp; C3: Duration &nbsp;·&nbsp; C4: Efficiency &nbsp;·&nbsp; C5: Disturbances &nbsp;·&nbsp; C6: Medication &nbsp;·&nbsp; C7: Daytime dysfunction</div>
+      </div>
+      <p>
+        Importantly, the PSQI captures what wearable devices cannot: the <em>subjective experience</em> of sleep. While actigraphy and consumer trackers estimate movement-based proxies for sleep stages, the PSQI asks how you actually feel — whether you feel rested, whether sleep problems are affecting your ability to function. Research consistently finds that self-reported sleep quality predicts health outcomes independently of objective sleep duration measures, making questionnaire-based assessment a complementary and often more clinically predictive tool than device data alone.
+      </p>
+      <div class="citation">
+        Buysse, D. J., Reynolds, C. F., Monk, T. H., Berman, S. R., &amp; Kupfer, D. J. (1989). The Pittsburgh Sleep Quality Index: A new instrument for psychiatric practice and research.
+        <em>Psychiatry Research, 28(2), 193–213.</em>
+      </div>
+      <div class="citation" style="margin-top:0.6rem;">
+        Mollayeva, T., Thurairajah, P., Burton, K., Mollayeva, S., Shapiro, C. M., &amp; Colantonio, A. (2016). The Pittsburgh Sleep Quality Index as a screening tool for sleep dysfunction in clinical and non-clinical samples: A systematic review and meta-analysis.
+        <em>Sleep Medicine Reviews, 25, 52–73.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS CUSTOM PROPERTIES ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 960px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== DISCLAIMER BANNER ===== */
+  .disclaimer-banner {
+    max-width: 960px; margin: 1rem auto 0; padding: 0 2rem;
+  }
+  .disclaimer-banner > div {
+    background: #fffbeb; border: 1.5px solid #fde68a;
+    border-radius: 10px; padding: 0.75rem 1rem;
+    font-size: 0.8rem; color: #78350f; line-height: 1.55;
+    display: flex; align-items: flex-start; gap: 0.65rem;
+  }
+  .disclaimer-banner svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 960px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: var(--primary-soft); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 960px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 380px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+    max-height: calc(100vh - 100px); overflow-y: auto;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .panel-hint { font-size: 0.75rem; color: var(--text-soft); margin-bottom: 0.85rem; line-height: 1.4; }
+
+  /* Progress bar */
+  .progress-wrap {
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem;
+  }
+  .progress-track {
+    flex: 1; height: 5px; background: var(--border); border-radius: 99px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--primary); border-radius: 99px;
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .progress-label {
+    font-size: 0.7rem; font-weight: 700; color: var(--text-soft);
+    white-space: nowrap;
+  }
+
+  /* Section cards */
+  .section-card {
+    display: none; animation: fadeIn 0.25s ease;
+  }
+  .section-card.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .sec-header {
+    display: flex; gap: 0.65rem; align-items: flex-start; margin-bottom: 0.85rem;
+  }
+  .sec-badge {
+    width: 26px; height: 26px; border-radius: 6px;
+    font-size: 0.82rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sec-title {
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .sec-title > span:first-child { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+  .sec-hint { font-size: 0.72rem; color: var(--text-soft); }
+  .sec-q {
+    font-size: 0.83rem; color: var(--text); line-height: 1.5;
+    margin-bottom: 0.6rem; font-weight: 500;
+  }
+  .sec-q-sub {
+    font-size: 0.83rem; color: var(--text); line-height: 1.5;
+    margin: 0.75rem 0 0.6rem; font-weight: 500;
+    padding-top: 0.75rem; border-top: 1px solid var(--border);
+  }
+
+  /* Option buttons */
+  .option-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.5rem; }
+  .option-btn {
+    width: 100%; padding: 0.5rem 0.75rem; text-align: left;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.8rem; font-weight: 500; color: var(--text-mid);
+    cursor: pointer; transition: all 0.15s;
+  }
+  .option-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .option-btn.selected { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); font-weight: 700; }
+
+  /* Disturbance list */
+  .disturbance-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .dist-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .dist-label { font-size: 0.75rem; font-weight: 600; color: var(--text); }
+  .dist-options { display: flex; gap: 0.3rem; }
+  .dist-btn {
+    flex: 1; padding: 0.35rem 0.25rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 7px; font-family: inherit;
+    font-size: 0.68rem; font-weight: 600; color: var(--text-soft);
+    cursor: pointer; transition: all 0.15s; text-align: center;
+  }
+  .dist-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .dist-btn.selected { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+
+  /* Time inputs */
+  .time-input-row {
+    display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;
+  }
+  .time-input-row input {
+    width: 55px; padding: 0.38rem 0.45rem;
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 7px; font-family: inherit;
+    font-size: 0.85rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; text-align: center;
+    -moz-appearance: textfield;
+  }
+  .time-input-row input::-webkit-outer-spin-button,
+  .time-input-row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .time-input-row input:focus { border-color: var(--primary); }
+  .time-sep { font-size: 1rem; font-weight: 700; color: var(--text-soft); }
+  .time-unit { font-size: 0.72rem; color: var(--text-soft); font-weight: 600; }
+  .efficiency-hint { font-size: 0.7rem; color: var(--text-soft); }
+  .efficiency-display {
+    font-size: 0.77rem; font-weight: 600; color: var(--text-soft);
+    padding: 0.45rem 0.65rem; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 8px;
+    text-align: center; margin-top: 0.4rem;
+    transition: all 0.2s;
+  }
+  .efficiency-display.eff-good { color: var(--mint); border-color: #a7f3d0; background: #f0fdf8; }
+  .efficiency-display.eff-fair { color: var(--amber); border-color: #fde68a; background: #fffbeb; }
+  .efficiency-display.eff-poor { color: var(--coral); border-color: #ffd0c8; background: #fff6f4; }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex; gap: 0.5rem; margin-top: 1.1rem; padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    gap: 0.3rem; padding: 0.55rem 1rem;
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
+    border: 1.5px solid var(--border); background: var(--bg); color: var(--text-mid);
+  }
+  .nav-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .nav-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .nav-next {
+    background: var(--primary); border-color: var(--primary);
+    color: #fff;
+  }
+  .nav-next:hover:not(:disabled) { background: #6858e8; border-color: #6858e8; color: #fff; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Score hero with circular gauge */
+  .score-hero {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem 1.5rem 1.25rem;
+    text-align: center; transition: border-color 0.3s, background 0.3s;
+  }
+  .score-hero.sq-good { border-color: var(--mint); background: #f0fdf8; }
+  .score-hero.sq-fair { border-color: var(--amber); background: #fffbeb; }
+  .score-hero.sq-poor { border-color: var(--coral); background: #fff6f4; }
+
+  .gauge-wrap {
+    position: relative; width: 180px; height: 180px;
+    margin: 0 auto 0.85rem;
+  }
+  .gauge-svg { width: 180px; height: 180px; }
+  .gauge-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0;
+  }
+  .gauge-score {
+    font-size: 2.8rem; font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1; font-family: 'Space Grotesk', monospace;
+    color: var(--text);
+  }
+  .score-hero.sq-good .gauge-score { color: var(--mint); }
+  .score-hero.sq-fair .gauge-score { color: var(--amber); }
+  .score-hero.sq-poor .gauge-score { color: var(--coral); }
+  .gauge-denom { font-size: 0.9rem; font-weight: 700; color: var(--text-soft); }
+  .gauge-label-inner {
+    font-size: 0.7rem; font-weight: 700; margin-top: 0.15rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-soft);
+  }
+  .score-hero.sq-good .gauge-label-inner { color: var(--mint); }
+  .score-hero.sq-fair .gauge-label-inner { color: var(--amber); }
+  .score-hero.sq-poor .gauge-label-inner { color: var(--coral); }
+
+  .quality-label {
+    font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+  }
+  .score-hero.sq-good .quality-label { color: var(--mint); }
+  .score-hero.sq-fair .quality-label { color: var(--amber); }
+  .score-hero.sq-poor .quality-label { color: var(--coral); }
+  .quality-sub { font-size: 0.8rem; color: var(--text-mid); line-height: 1.5; margin-bottom: 0.85rem; }
+
+  .threshold-row {
+    display: flex; gap: 0.4rem; justify-content: center; flex-wrap: wrap;
+  }
+  .thresh-chip {
+    font-size: 0.68rem; font-weight: 700;
+    padding: 0.2rem 0.6rem; border-radius: 99px;
+  }
+  .thresh-good { background: #dcfce7; color: #065f46; }
+  .thresh-fair { background: #fef9c3; color: #78350f; }
+  .thresh-poor { background: #ffe4de; color: #9a1c10; }
+
+  /* Component breakdown */
+  .breakdown-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .breakdown-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .comp-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .comp-item {
+    display: flex; flex-direction: column; gap: 0.25rem;
+  }
+  .comp-top {
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .comp-name {
+    font-size: 0.78rem; font-weight: 600; color: var(--text); flex: 1;
+  }
+  .comp-score-badge {
+    font-size: 0.7rem; font-weight: 800; padding: 0.1rem 0.45rem;
+    border-radius: 99px; flex-shrink: 0;
+  }
+  .comp-score-badge.s0 { background: #dcfce7; color: #065f46; }
+  .comp-score-badge.s1 { background: #ecfdf5; color: #047857; }
+  .comp-score-badge.s2 { background: #fef9c3; color: #78350f; }
+  .comp-score-badge.s3 { background: #ffe4de; color: #9a1c10; }
+  .comp-bar-track {
+    height: 5px; background: var(--border); border-radius: 99px; overflow: hidden;
+  }
+  .comp-bar-fill {
+    height: 100%; border-radius: 99px;
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .comp-bar-fill.s0 { background: var(--mint); }
+  .comp-bar-fill.s1 { background: var(--mint); opacity: 0.7; }
+  .comp-bar-fill.s2 { background: var(--amber); }
+  .comp-bar-fill.s3 { background: var(--coral); }
+
+  /* Recommendations card */
+  .recs-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .recs-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .recs-list { display: flex; flex-direction: column; gap: 0.65rem; }
+  .rec-item {
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    padding: 0.85rem; border-radius: var(--radius-sm); border: 1.5px solid;
+  }
+  .rec-item.rec-good { border-color: #a7f3d0; background: #f0fdf8; }
+  .rec-item.rec-fair { border-color: #fde68a; background: #fffbeb; }
+  .rec-item.rec-poor { border-color: #ffd0c8; background: #fff6f4; }
+  .rec-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .rec-icon svg { width: 16px; height: 16px; }
+  .rec-good .rec-icon { background: #dcfce7; }
+  .rec-fair .rec-icon { background: #fef9c3; }
+  .rec-poor .rec-icon { background: #ffe4de; }
+  .rec-title { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .rec-good .rec-title { color: #065f46; }
+  .rec-fair .rec-title { color: #78350f; }
+  .rec-poor .rec-title { color: #9a1c10; }
+  .rec-desc { font-size: 0.75rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Info card / threshold table */
+  .info-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .info-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .threshold-table { display: flex; flex-direction: column; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .thresh-row { display: grid; grid-template-columns: 60px 70px 1fr; gap: 0; padding: 0.55rem 0.75rem; font-size: 0.75rem; }
+  .thresh-row-head { background: var(--bg-tint); font-weight: 700; color: var(--text-soft); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .thresh-row-good { background: #f0fdf8; border-top: 1px solid var(--border); }
+  .thresh-row-fair { background: #fffbeb; border-top: 1px solid var(--border); }
+  .thresh-row-poor { background: #fff6f4; border-top: 1px solid var(--border); }
+  .thresh-range { font-weight: 700; }
+  .thresh-row-good .thresh-range { color: var(--mint); }
+  .thresh-row-fair .thresh-range { color: var(--amber); }
+  .thresh-row-poor .thresh-range { color: var(--coral); }
+  .thresh-rating { font-weight: 600; color: var(--text-mid); }
+  .thresh-desc { color: var(--text-soft); line-height: 1.45; }
+  .info-cite { font-size: 0.68rem; color: var(--text-soft); margin-top: 0.6rem; font-style: italic; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.72rem; color: #a8a3be; line-height: 1.6; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.55;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .disclaimer-banner { padding: 0 1.25rem; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; gap: 1.25rem; }
+    .input-panel { position: static; max-height: none; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .thresh-row { grid-template-columns: 55px 60px 1fr; font-size: 0.7rem; }
+  }
+  @media (max-width: 480px) {
+    .option-btn { font-size: 0.77rem; }
+    .dist-btn { font-size: 0.62rem; }
+    .gauge-wrap { width: 160px; height: 160px; }
+    .gauge-svg { width: 160px; height: 160px; }
+    .gauge-score { font-size: 2.3rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  // =====================
+  //   STATE
+  // =====================
+  var state = {
+    quality:     -1,  // 0-3
+    latency:     -1,  // 0-3 (time to fall asleep)
+    latency2:    -1,  // 0-3 (freq trouble falling asleep within 30 min)
+    duration:    -1,  // 0-3
+    effComp:     -1,  // 0-3 (computed from time inputs)
+    distItems:   { d1: -1, d2: -1, d3: -1, d4: -1, d5: -1, d6: -1 },
+    medication:  -1,  // 0-3
+    dysfunction1: -1, // 0-3
+    dysfunction2: -1, // 0-3
+  };
+
+  var currentSection = 1;
+  var TOTAL_SECTIONS = 7;
+
+  // =====================
+  //   COMPONENT SCORING
+  // =====================
+  // C1: Subjective quality — direct from quality
+  function scoreC1() { return state.quality < 0 ? 0 : state.quality; }
+
+  // C2: Latency — sum of latency + latency2, map to 0-3
+  function scoreC2() {
+    var s1 = state.latency < 0 ? 0 : state.latency;
+    var s2 = state.latency2 < 0 ? 0 : state.latency2;
+    var sum = s1 + s2;
+    if (sum === 0) return 0;
+    if (sum <= 2) return 1;
+    if (sum <= 4) return 2;
+    return 3;
+  }
+
+  // C3: Duration — direct
+  function scoreC3() { return state.duration < 0 ? 0 : state.duration; }
+
+  // C4: Efficiency — from effComp
+  function scoreC4() { return state.effComp < 0 ? 0 : state.effComp; }
+
+  // C5: Disturbances — sum of 6 items mapped to 0-3
+  function scoreC5() {
+    var keys = ['d1','d2','d3','d4','d5','d6'];
+    var sum = 0;
+    for (var i = 0; i < keys.length; i++) {
+      var v = state.distItems[keys[i]];
+      sum += v < 0 ? 0 : v;
+    }
+    if (sum === 0) return 0;
+    if (sum <= 9) return 1;
+    if (sum <= 18) return 2;
+    return 3;
+  }
+
+  // C6: Medication — direct
+  function scoreC6() { return state.medication < 0 ? 0 : state.medication; }
+
+  // C7: Daytime dysfunction — sum mapped to 0-3
+  function scoreC7() {
+    var s1 = state.dysfunction1 < 0 ? 0 : state.dysfunction1;
+    var s2 = state.dysfunction2 < 0 ? 0 : state.dysfunction2;
+    var sum = s1 + s2;
+    if (sum === 0) return 0;
+    if (sum <= 2) return 1;
+    if (sum <= 4) return 2;
+    return 3;
+  }
+
+  function getComponents() {
+    return [
+      { name: 'Subjective Quality',   score: scoreC1(), key: 'c1' },
+      { name: 'Sleep Latency',        score: scoreC2(), key: 'c2' },
+      { name: 'Sleep Duration',       score: scoreC3(), key: 'c3' },
+      { name: 'Sleep Efficiency',     score: scoreC4(), key: 'c4' },
+      { name: 'Sleep Disturbances',   score: scoreC5(), key: 'c5' },
+      { name: 'Sleep Medication',     score: scoreC6(), key: 'c6' },
+      { name: 'Daytime Dysfunction',  score: scoreC7(), key: 'c7' },
+    ];
+  }
+
+  function globalScore() {
+    var comps = getComponents();
+    var total = 0;
+    for (var i = 0; i < comps.length; i++) total += comps[i].score;
+    return total;
+  }
+
+  // =====================
+  //   GAUGE (circular SVG arc)
+  // =====================
+  // Circle r=78, circumference = 2*PI*78 = 490.09
+  // We use 270° of the circle (3/4). The arc is rotated 135°.
+  // Active portion = 490.09 * 0.75 = 367.57 (for 270° sweep)
+  // We drive dashoffset to hide the inactive portion.
+  // Total dash = full circumference 490.09, offset for full circle = 490.09 * 0.25 = 122.52 (the 90° gap)
+  // For score s on scale 0-21: drawn length = (s/21) * 367.57
+  // offset = 490.09 - drawn_length = hides rest
+  var CIRC = 2 * Math.PI * 78; // 490.09
+  var ARC_SWEEP = CIRC * 0.75; // 367.57 — 270° of ring we use
+
+  function setGaugeArc(score) {
+    var arc = document.getElementById('gauge-arc');
+    if (!arc) return;
+    var frac = Math.min(1, Math.max(0, score / 21));
+    var drawn = frac * ARC_SWEEP;
+    // dasharray = full circumference; dashoffset hides the unused portion
+    var offset = CIRC - drawn;
+    arc.setAttribute('stroke-dasharray', CIRC.toFixed(2));
+    arc.setAttribute('stroke-dashoffset', offset.toFixed(2));
+    var color = score <= 5 ? '#10b981' : score <= 10 ? '#f59e0b' : '#ff6b52';
+    arc.setAttribute('stroke', color);
+  }
+
+  function getSQData(score) {
+    if (score <= 5) {
+      return { cls: 'sq-good', label: 'Good Sleep Quality', sub: 'Score 0–5: Your sleep quality appears healthy. Keep it up!', inner: 'Good' };
+    } else if (score <= 10) {
+      return { cls: 'sq-fair', label: 'Fair Sleep Quality', sub: 'Score 6–10: Some sleep impairment. Targeted changes can improve your score.', inner: 'Fair' };
+    } else {
+      return { cls: 'sq-poor', label: 'Poor Sleep Quality', sub: 'Score 11–21: Significant sleep impairment. Consider CBT-I or professional evaluation.', inner: 'Poor' };
+    }
+  }
+
+  // =====================
+  //   COMPONENT LIST
+  // =====================
+  function buildCompList(comps) {
+    var html = '';
+    for (var i = 0; i < comps.length; i++) {
+      var c = comps[i];
+      var s = c.score;
+      var pct = (s / 3) * 100;
+      var scoreLabel = ['0 — Good', '1 — Fair', '2 — Poor', '3 — Poor'][s] || s;
+      html += '<div class="comp-item">' +
+        '<div class="comp-top">' +
+          '<span class="comp-name">' + c.name + '</span>' +
+          '<span class="comp-score-badge s' + s + '">' + scoreLabel + '</span>' +
+        '</div>' +
+        '<div class="comp-bar-track">' +
+          '<div class="comp-bar-fill s' + s + '" style="width:' + pct.toFixed(1) + '%"></div>' +
+        '</div>' +
+      '</div>';
+    }
+    return html;
+  }
+
+  // =====================
+  //   RECOMMENDATIONS
+  // =====================
+  var recTemplates = {
+    c1: {
+      0: null,
+      1: { level: 'good', title: 'Maintain your sleep routine', desc: 'Your subjective sleep quality is fairly good. Keep a consistent bedtime and wake time, even on weekends, to sustain your circadian rhythm.' },
+      2: { level: 'fair', title: 'Improve sleep hygiene', desc: 'You rate your sleep as fairly bad. Try dimming lights 90 min before bed, keeping the room cool (65–68°F / 18–20°C), and avoiding screens at least 60 min before sleep.' },
+      3: { level: 'poor', title: 'Consider CBT-I for poor sleep quality', desc: 'You rate your sleep as very bad. Cognitive Behavioral Therapy for Insomnia (CBT-I) is the gold-standard first-line treatment — more effective than sleep medications and without side effects. Ask your doctor for a referral.' },
+    },
+    c2: {
+      0: null,
+      1: { level: 'good', title: 'Minor latency — try a wind-down routine', desc: 'You occasionally take more than 15 min to fall asleep. A consistent 30-min wind-down ritual (reading, light stretching, warm shower) can reduce sleep onset time significantly.' },
+      2: { level: 'fair', title: 'Reduce sleep latency with stimulus control', desc: 'You often struggle to fall asleep. Only use your bed for sleep and sex — avoid reading, watching TV, or working in bed. If you\'re not asleep in 20 min, get up and do something calm until sleepy.' },
+      3: { level: 'poor', title: 'High latency — rule out anxiety and insomnia', desc: 'Regularly taking over 30 min to fall asleep is clinically significant. Chronic sleep-onset insomnia often involves hyperarousal and racing thoughts — CBT-I, particularly relaxation techniques and sleep restriction, has the strongest evidence base for this pattern.' },
+    },
+    c3: {
+      0: null,
+      1: { level: 'good', title: 'Slightly short duration — aim for 7–9 hours', desc: 'You\'re getting 6–7 hours, slightly below the 7–9 hour recommendation for adults. Even small chronic deficits accumulate — try an earlier bedtime by 30 min and see if you wake more refreshed.' },
+      2: { level: 'fair', title: 'Short sleep — address barriers to earlier bedtime', desc: 'Getting 5–6 hours is below the minimum for most adults. Identify what keeps you up: social media, TV, work, or poor sleep drive from irregular schedules. Protect sleep time as a non-negotiable priority.' },
+      3: { level: 'poor', title: 'Severely short sleep — significant health risk', desc: 'Less than 5 hours consistently is associated with elevated risks of cardiovascular disease, metabolic syndrome, and impaired immune function. Speak with your doctor to rule out underlying conditions driving short sleep.' },
+    },
+    c4: {
+      0: null,
+      1: { level: 'good', title: 'Sleep efficiency borderline — avoid excess time in bed', desc: 'Your efficiency is 75–85%. Spending too much time in bed (lying awake) can worsen insomnia over time. Keep time in bed close to your actual sleep need.' },
+      2: { level: 'fair', title: 'Low efficiency — consider sleep restriction', desc: 'Sleep efficiency below 75% means you spend a quarter or more of bed time awake. Sleep restriction therapy — temporarily limiting time in bed to build sleep pressure — is highly effective at improving efficiency quickly.' },
+      3: { level: 'poor', title: 'Very low efficiency — key insomnia indicator', desc: 'Below 65% efficiency is a hallmark of chronic insomnia. Sleep restriction and stimulus control through CBT-I are the most evidence-based interventions. Avoid compensatory behaviors like napping or lying in bed hoping sleep will come.' },
+    },
+    c5: {
+      0: null,
+      1: { level: 'good', title: 'Minor disturbances — check bedroom environment', desc: 'Occasional sleep disruptions are common. Ensure your bedroom is dark, quiet, and cool. Consider white noise or blackout curtains if environmental factors are waking you.' },
+      2: { level: 'fair', title: 'Frequent disturbances — investigate root cause', desc: 'You\'re regularly disrupted during sleep. Common causes include pain, noise, light, nocturia, and undiagnosed conditions like restless legs syndrome or mild sleep apnea. Tracking when you wake and what sensations accompany it can help identify the driver.' },
+      3: { level: 'poor', title: 'Severe disturbances — seek medical evaluation', desc: 'Multiple frequent sleep disturbances significantly fragment sleep architecture, reducing restorative deep and REM sleep. Breathing difficulties during sleep especially warrant evaluation for obstructive sleep apnea with your healthcare provider.' },
+    },
+    c6: {
+      0: null,
+      1: { level: 'good', title: 'Occasional medication use — monitor dependency', desc: 'Using sleep aids less than weekly is low risk, but regular use can build dependency and reduce natural sleep drive. Discuss with your doctor if you feel you need medication to sleep.' },
+      2: { level: 'fair', title: 'Regular medication use — explore alternatives', desc: 'Weekly sleep medication reliance suggests the underlying sleep problem isn\'t being addressed. CBT-I is more effective long-term and without dependency risk. Ask your doctor about a supervised tapering plan alongside behavioral therapy.' },
+      3: { level: 'poor', title: 'Nightly medication reliance — address with your doctor', desc: 'Nightly sleep medication use can impair natural sleep regulation, cause tolerance, and worsen sleep quality long-term. Work with your doctor to address the root cause and explore CBT-I as a pathway to medication-free sleep.' },
+    },
+    c7: {
+      0: null,
+      1: { level: 'good', title: 'Minor daytime effects — protect your sleep window', desc: 'Mild daytime effects suggest your sleep is mostly adequate but could be more consistent. Protect your sleep window and avoid caffeine after noon to optimize daytime alertness.' },
+      2: { level: 'fair', title: 'Daytime impairment — prioritize sleep consistency', desc: 'Struggling to stay awake or maintain motivation during the day reflects meaningful sleep impairment. Consistent sleep and wake times are the most powerful tool for improving daytime function via stronger circadian signaling.' },
+      3: { level: 'poor', title: 'Severe daytime dysfunction — safety concern', desc: 'If you\'re having trouble staying awake while driving or in social settings, this is a safety issue as well as a health concern. Do not drive if excessively sleepy. Seek evaluation promptly — severe daytime sleepiness can indicate OSA, narcolepsy, or other treatable conditions.' },
+    },
+  };
+
+  function buildRecs(comps) {
+    // Sort by score descending, show top 3 worst components
+    var sorted = comps.slice().sort(function(a, b) { return b.score - a.score; });
+    var html = '';
+    var shown = 0;
+
+    // Always show at least one general rec
+    var globalS = globalScore();
+    if (globalS <= 5) {
+      html += buildRecCard({ level: 'good', title: 'Your sleep quality looks healthy', desc: 'Your PSQI-style score is in the healthy range. Continue prioritizing consistent sleep and wake times, a dark and cool sleep environment, and limiting alcohol and caffeine in the evening. Re-assess after any major life changes.' });
+      shown++;
+    }
+
+    for (var i = 0; i < sorted.length && shown < 3; i++) {
+      var c = sorted[i];
+      var s = c.score;
+      if (s === 0) continue;
+      var tpl = recTemplates[c.key] && recTemplates[c.key][s];
+      if (tpl) {
+        html += buildRecCard(tpl);
+        shown++;
+      }
+    }
+
+    if (shown === 0) {
+      html += buildRecCard({ level: 'good', title: 'All components look great', desc: 'Your responses suggest excellent sleep across all seven PSQI domains. Keep up your healthy sleep habits!' });
+    }
+
+    return html;
+  }
+
+  function buildRecCard(tpl) {
+    var level = tpl.level || 'fair';
+    var iconSvg = {
+      good: '<svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+      fair: '<svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+      poor: '<svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    }[level];
+    return '<div class="rec-item rec-' + level + '">' +
+      '<div class="rec-icon">' + iconSvg + '</div>' +
+      '<div><div class="rec-title">' + tpl.title + '</div><div class="rec-desc">' + tpl.desc + '</div></div>' +
+    '</div>';
+  }
+
+  // =====================
+  //   RENDER
+  // =====================
+  function render() {
+    var score = globalScore();
+    var comps = getComponents();
+    var sq = getSQData(score);
+
+    // Gauge
+    var scoreEl = document.getElementById('gauge-score');
+    if (scoreEl) scoreEl.textContent = score;
+    setGaugeArc(score);
+
+    var innerEl = document.getElementById('gauge-label-inner');
+    if (innerEl) innerEl.textContent = sq.inner;
+
+    // Hero class
+    var hero = document.getElementById('score-hero');
+    if (hero) hero.className = 'score-hero ' + sq.cls;
+
+    var labelEl = document.getElementById('quality-label');
+    if (labelEl) labelEl.textContent = sq.label;
+
+    var subEl = document.getElementById('quality-sub');
+    if (subEl) subEl.textContent = sq.sub;
+
+    // Component breakdown
+    var compList = document.getElementById('comp-list');
+    if (compList) compList.innerHTML = buildCompList(comps);
+
+    // Recommendations
+    var recsList = document.getElementById('recs-list');
+    if (recsList) recsList.innerHTML = buildRecs(comps);
+  }
+
+  // =====================
+  //   SECTION NAVIGATION
+  // =====================
+  function showSection(n) {
+    for (var i = 1; i <= TOTAL_SECTIONS; i++) {
+      var el = document.getElementById('sec-' + i);
+      if (el) el.classList.toggle('active', i === n);
+    }
+    currentSection = n;
+
+    // Progress
+    var pct = ((n - 1) / TOTAL_SECTIONS) * 100;
+    var fill = document.getElementById('progress-fill');
+    if (fill) fill.style.width = pct.toFixed(0) + '%';
+    var lbl = document.getElementById('progress-label');
+    if (lbl) lbl.textContent = 'Section ' + n + ' of ' + TOTAL_SECTIONS;
+
+    // Nav buttons
+    var prev = document.getElementById('btn-prev');
+    var next = document.getElementById('btn-next');
+    if (prev) prev.disabled = n === 1;
+    if (next) {
+      if (n === TOTAL_SECTIONS) {
+        next.innerHTML = 'Done <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      } else {
+        next.innerHTML = 'Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+      }
+    }
+
+    render();
+  }
+
+  document.getElementById('btn-prev') && document.getElementById('btn-prev').addEventListener('click', function() {
+    if (currentSection > 1) showSection(currentSection - 1);
+  });
+
+  document.getElementById('btn-next') && document.getElementById('btn-next').addEventListener('click', function() {
+    if (currentSection < TOTAL_SECTIONS) {
+      showSection(currentSection + 1);
+    } else {
+      // Mark 100% complete
+      var fill = document.getElementById('progress-fill');
+      if (fill) fill.style.width = '100%';
+      var lbl = document.getElementById('progress-label');
+      if (lbl) lbl.textContent = 'Complete!';
+    }
+  });
+
+  // =====================
+  //   OPTION BUTTONS
+  // =====================
+  document.addEventListener('click', function(e) {
+    // Standard option buttons
+    var optBtn = e.target.closest('.option-btn');
+    if (optBtn) {
+      var comp = optBtn.getAttribute('data-comp');
+      var val = parseInt(optBtn.getAttribute('data-val'), 10);
+      if (comp && !isNaN(val)) {
+        // Deselect siblings
+        var group = optBtn.closest('.option-group');
+        if (group) {
+          group.querySelectorAll('.option-btn').forEach(function(b) { b.classList.remove('selected'); });
+        }
+        optBtn.classList.add('selected');
+        state[comp] = val;
+        render();
+      }
+    }
+
+    // Disturbance buttons
+    var distBtn = e.target.closest('.dist-btn');
+    if (distBtn) {
+      var distKey = distBtn.getAttribute('data-dist');
+      var distVal = parseInt(distBtn.getAttribute('data-val'), 10);
+      if (distKey && !isNaN(distVal)) {
+        var distGroup = distBtn.closest('.dist-options');
+        if (distGroup) {
+          distGroup.querySelectorAll('.dist-btn').forEach(function(b) { b.classList.remove('selected'); });
+        }
+        distBtn.classList.add('selected');
+        state.distItems[distKey] = distVal;
+        render();
+      }
+    }
+  });
+
+  // =====================
+  //   SLEEP EFFICIENCY CALC
+  // =====================
+  function calcEfficiency() {
+    var bh = parseInt(document.getElementById('bedtime-h').value, 10);
+    var bm = parseInt(document.getElementById('bedtime-m').value, 10);
+    var wh = parseInt(document.getElementById('waketime-h').value, 10);
+    var wm = parseInt(document.getElementById('waketime-m').value, 10);
+
+    var effDisplay = document.getElementById('efficiency-display');
+
+    if (isNaN(bh) || isNaN(bm) || isNaN(wh) || isNaN(wm)) {
+      effDisplay.textContent = 'Enter both times to calculate efficiency';
+      effDisplay.className = 'efficiency-display';
+      state.effComp = -1;
+      document.getElementById('eff-comp-val').value = -1;
+      render();
+      return;
+    }
+
+    var bedMins = bh * 60 + bm;
+    var wakeMins = wh * 60 + wm;
+    var timeInBed;
+    if (wakeMins > bedMins) {
+      timeInBed = wakeMins - bedMins;
+    } else {
+      // crosses midnight
+      timeInBed = (24 * 60 - bedMins) + wakeMins;
+    }
+
+    if (timeInBed <= 0 || timeInBed > 14 * 60) {
+      effDisplay.textContent = 'Please enter valid bedtime and wake time';
+      effDisplay.className = 'efficiency-display';
+      state.effComp = 0;
+      render();
+      return;
+    }
+
+    // Sleep efficiency = sleep time / time in bed
+    // We don't know actual sleep time precisely from inputs alone,
+    // so we use duration component as proxy: map duration score back to hours
+    var durationHours = [8, 6.5, 5.5, 4][state.duration < 0 ? 0 : state.duration];
+    var eff = (durationHours * 60 / timeInBed) * 100;
+    eff = Math.min(100, Math.max(0, eff));
+
+    var compScore, cls, label;
+    if (eff >= 85) {
+      compScore = 0; cls = 'eff-good'; label = 'Efficiency: ' + eff.toFixed(0) + '% (≥85% — Good)';
+    } else if (eff >= 75) {
+      compScore = 1; cls = 'eff-good'; label = 'Efficiency: ' + eff.toFixed(0) + '% (75–84% — Acceptable)';
+    } else if (eff >= 65) {
+      compScore = 2; cls = 'eff-fair'; label = 'Efficiency: ' + eff.toFixed(0) + '% (65–74% — Fair)';
+    } else {
+      compScore = 3; cls = 'eff-poor'; label = 'Efficiency: ' + eff.toFixed(0) + '% (<65% — Poor)';
+    }
+
+    effDisplay.textContent = label;
+    effDisplay.className = 'efficiency-display ' + cls;
+    state.effComp = compScore;
+    document.getElementById('eff-comp-val').value = compScore;
+    render();
+  }
+
+  ['bedtime-h','bedtime-m','waketime-h','waketime-m'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', calcEfficiency);
+      el.addEventListener('change', calcEfficiency);
+    }
+  });
+
+  // =====================
+  //   INIT
+  // =====================
+  showSection(1);
+
+})();
+</script>

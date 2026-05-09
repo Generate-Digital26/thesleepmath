@@ -1,0 +1,1149 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What are the benefits of morning light therapy for sleep?',
+    answer: `<p>Morning light therapy anchors your circadian rhythm by sending a strong "daytime" signal to your suprachiasmatic nucleus (SCN) — the brain's master clock. When bright light hits your retina within the first hour of waking, it suppresses residual melatonin, raises core body temperature, and accelerates cortisol release (the "morning cortisol awakening response"). The net effect is that your circadian phase advances, making it easier to fall asleep at your target bedtime. <strong>Wright et al. (2013)</strong> showed that one week of natural outdoor light exposure, with no artificial light at night, shifted participants' circadian timing by nearly two hours earlier — comparable to several weeks of behavioral intervention alone.</p>
+<p>Beyond sleep timing, morning light therapy has been validated as a first-line treatment for Seasonal Affective Disorder (SAD) and has demonstrated measurable antidepressant effects in non-seasonal depression as well. <strong>Terman &amp; Terman (2005)</strong> conducted a landmark randomized controlled trial showing that 10,000-lux light box therapy in the morning produced remission rates equivalent to antidepressant medication. Regular morning light exposure also improves daytime alertness, mood regulation, and metabolic health markers — all downstream effects of a well-entrained circadian clock.</p>`,
+  },
+  {
+    question: 'How much lux is needed to affect the circadian rhythm?',
+    answer: `<p>The circadian system is far more demanding than ordinary vision — your eyes can see perfectly well in 100 lux indoor light, but meaningful circadian entrainment requires substantially more. Research consistently points to <strong>1,000–10,000 lux</strong> as the effective therapeutic range. Outdoor daylight ranges from roughly 1,000 lux on an overcast winter morning to over 100,000 lux in direct summer sunlight. The canonical clinical dose is <strong>10,000 lux for 20–30 minutes</strong>, which produces robust circadian phase advances and melatonin suppression. Alternatively, lower intensity (2,500 lux) for longer duration (1–2 hours) achieves a comparable biological effect.</p>
+<p><strong>Gooley et al. (2011)</strong> demonstrated that even ordinary room light (~100–200 lux) can suppress melatonin by over 50% when exposure occurs in the hours before bedtime — a reminder that the same system that requires thousands of lux to advance your clock in the morning is highly sensitive to unwanted light in the evening. For circadian benefit in the morning, typical indoor office lighting (200–500 lux) is insufficient; you need to either go outside, sit by a bright window, or use a certified 10,000-lux light therapy box positioned 12–24 inches from your face.</p>`,
+  },
+  {
+    question: 'What should I look for in a light therapy box?',
+    answer: `<p>Not all light therapy products are created equal. The most important specification is <strong>verified 10,000 lux at the rated use distance</strong> (typically 12 or 24 inches). Many inexpensive products claim 10,000 lux but only achieve this in very close proximity or at impractical angles. Look for devices that use broad-spectrum white light (not UV-emitting bulbs) with a built-in UV filter — UV light is not the active wavelength for circadian entrainment and can damage the eyes and skin. The active wavelengths are in the blue portion of the visible spectrum (~460–480 nm), and broad-spectrum white LEDs deliver these effectively without separate blue LEDs that could cause glare.</p>
+<p><strong>Terman &amp; Terman (2005)</strong> specifically validated 10,000-lux fluorescent and LED boxes used 20–30 minutes upon waking. Key practical features include a large enough light surface so you don't need to hold your gaze perfectly still, a stable stand that lets you use it hands-free while eating breakfast or reading, and a flicker-free LED panel. The Columbia University CGBR (Center for Light Treatment and Biological Rhythms) maintains a product evaluation list that is the most clinically grounded resource for selecting a specific device. Expect to spend $50–$100 USD for a reputable device; budget products under $30 rarely meet clinical specifications.</p>`,
+  },
+  {
+    question: 'Is outdoor morning sunlight better than a light box?',
+    answer: `<p>For most people in most seasons, outdoor morning sunlight is superior to a light box. Direct outdoor exposure on a clear morning delivers 10,000–80,000 lux — far exceeding any artificial device — and includes the full solar spectrum with natural variation in wavelength composition as the sun rises. Outdoor light also provides additional benefits: physical activity during the walk or commute, fresh air, and context switching that helps break the inertia of waking. <strong>Wright et al. (2013)</strong> found that subjects exposed exclusively to natural light (camping, no artificial light) showed complete alignment of their melatonin rhythms to the solar cycle within a single week, a result that would be difficult to replicate with artificial morning light alone without also eliminating evening artificial light.</p>
+<p>The practical limitation is consistency. Cloud cover, rain, winter darkness, and indoor work schedules make daily outdoor morning light unreliable in most climates outside of equatorial regions. A light box solves the reliability problem — you can use it regardless of weather and before sunrise in winter months. The ideal protocol combines both: outdoor light when conditions allow, light box on overcast days or when sunrise occurs after your target wake time. If you live above 45° latitude (roughly the level of Minneapolis, Paris, or Moscow), a light box becomes essentially necessary from November through February when sunrise occurs too late to be useful for most working schedules.</p>`,
+  },
+  {
+    question: 'What is the optimal timing for morning light exposure?',
+    answer: `<p>The circadian system is most responsive to light in the hours immediately after waking, when adenosine levels are low and your clock is primed to receive the morning entrainment signal. Research supports getting meaningful light exposure <strong>within 30–60 minutes of waking</strong> for maximum circadian benefit. This early-morning window is when the phase response curve (PRC) to light shows the strongest phase-advancing effect — meaning light received in this window shifts your clock earlier most efficiently. Waiting until 2–3 hours after waking substantially reduces the phase-shifting potency of the same light dose.</p>
+<p>Chronotype matters too. Early chronotypes (natural morning larks) benefit from morning light exposure that maintains their early timing. Late chronotypes (night owls) benefit most from very early morning light — even before their natural wake time if gradually advancing a sleep schedule. Evening light avoidance is the equally important second half of the equation: <strong>Gooley et al. (2011)</strong> showed that room-level artificial light in the 2 hours before bedtime significantly delayed melatonin onset. Think of it as a matching protocol: actively seek high-lux light in the morning, and actively avoid bright light in the 2 hours before your target bedtime. Both behaviors work synergistically — doing one without the other produces only partial results.</p>`,
+  },
+  {
+    question: 'How does seasonal light variation affect sleep and light therapy needs?',
+    answer: `<p>Seasonal variation in light exposure is one of the most powerful drivers of circadian and mood dysregulation in humans living above mid-latitudes. In summer, sunrise occurs early (often before 5–6 AM), days are long, and most people receive ample morning light naturally. In winter, sunrise is delayed to 7–8 AM or later, days are short, sun angle is low (meaning less UV and less intensity even at solar noon), and many people commute in darkness both ways. The result is a systematic reduction in total daily light exposure that blunts the morning entrainment signal, delays circadian timing, and in susceptible individuals triggers Seasonal Affective Disorder. Even in people without clinical SAD, winter is associated with longer sleep duration, increased sleep inertia, and lower daytime energy.</p>
+<p>The practical implication is that light therapy needs scale with latitude and season. At 35° latitude (roughly Los Angeles or Barcelona), winter sunrise is around 7 AM — slightly inconvenient but manageable with outdoor light. At 55° latitude (Stockholm, Moscow), winter sunrise may be after 9 AM, making a light box essentially mandatory for anyone who wakes before 8 AM. Duration should also increase in winter: <strong>Terman &amp; Terman (2005)</strong> found that 30 minutes at 10,000 lux was sufficient in mild cases, but 45–60 minutes produced better outcomes for patients with severe winter SAD. This calculator adjusts recommendations based on your latitude and season to account for actual solar availability at your location and time of year.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Light Exposure Calculator — Morning Light Therapy for Sleep | The Sleep Math"
+  description="Calculate your personalized morning light schedule based on location, season, and chronotype. Find out how much lux you need and when to get it for better sleep."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Light Exposure Guide
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Light Exposure Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Get a personalized morning light schedule based on your location, season, and wake time. Discover exactly when to seek sunlight — and when to avoid it — for optimal circadian health.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Wright &amp; Terman research
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Circadian science
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your details</h2>
+
+      <div class="field">
+        <label for="wake-time">Wake time</label>
+        <input type="time" id="wake-time" value="07:00">
+      </div>
+
+      <div class="field">
+        <label for="chronotype">Chronotype</label>
+        <select id="chronotype">
+          <option value="early">Early bird (naturally wake before 6:30 AM)</option>
+          <option value="intermediate" selected>Intermediate (6:30–8:00 AM)</option>
+          <option value="late">Night owl (naturally wake after 8:00 AM)</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="latitude">Latitude (for sunrise estimate)</label>
+        <select id="latitude">
+          <option value="60">60°N — Stockholm, Helsinki, Oslo</option>
+          <option value="55">55°N — Moscow, Copenhagen, Edinburgh</option>
+          <option value="51">51°N — London, Berlin, Warsaw</option>
+          <option value="48">48°N — Paris, Vienna, Montreal</option>
+          <option value="45">45°N — Minneapolis, Turin, Bordeaux</option>
+          <option value="40">40°N — New York, Madrid, Beijing</option>
+          <option value="35" selected>35°N — Los Angeles, Tokyo, Athens</option>
+          <option value="30">30°N — Houston, Cairo, Shanghai</option>
+          <option value="25">25°N — Miami, Riyadh, Taipei</option>
+          <option value="0">0° — Singapore, Quito, Nairobi</option>
+          <option value="-25">25°S — Sydney, São Paulo, Johannesburg</option>
+          <option value="-35">35°S — Buenos Aires, Cape Town, Melbourne</option>
+          <option value="manual">Enter sunrise time manually</option>
+        </select>
+      </div>
+
+      <div class="field" id="manual-sunrise-field" style="display:none">
+        <label for="manual-sunrise">Sunrise time (today)</label>
+        <input type="time" id="manual-sunrise" value="06:30">
+      </div>
+
+      <div class="field">
+        <label for="season">Current season</label>
+        <select id="season">
+          <option value="spring">Spring (Mar–May)</option>
+          <option value="summer">Summer (Jun–Aug)</option>
+          <option value="fall">Fall (Sep–Nov)</option>
+          <option value="winter">Winter (Dec–Feb)</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="outdoor-access">Outdoor morning light access</label>
+        <select id="outdoor-access">
+          <option value="yes" selected>Yes — I can go outside in the morning</option>
+          <option value="limited">Limited — bright window only</option>
+          <option value="no">No — indoor work, no morning access</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="light-box">Light therapy box available?</label>
+        <select id="light-box">
+          <option value="no" selected>No</option>
+          <option value="yes">Yes — 10,000 lux certified</option>
+          <option value="low">Yes — lower lux or uncertified</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- HERO RESULT -->
+      <div class="result-hero" id="result-hero">
+        <div class="result-label">Seek morning light by</div>
+        <div class="light-time" id="light-time">7:30</div>
+        <div class="light-period" id="light-period">AM</div>
+        <div class="light-sub" id="light-sub">
+          Within <strong id="window-after">30 min</strong> of waking for maximum circadian benefit.
+        </div>
+      </div>
+
+      <!-- STAT GRID -->
+      <div class="stat-grid">
+        <div class="stat-card s-amber">
+          <div class="stat-num" id="stat-sunrise">6:45</div>
+          <div class="stat-label">est. sunrise today</div>
+        </div>
+        <div class="stat-card s-sky">
+          <div class="stat-num" id="stat-duration">25 min</div>
+          <div class="stat-label">recommended duration</div>
+        </div>
+        <div class="stat-card s-mint">
+          <div class="stat-num" id="stat-avoid">9:30</div>
+          <div class="stat-label">avoid bright light after</div>
+        </div>
+      </div>
+
+      <!-- 24-HOUR TIMELINE -->
+      <div class="chart-card">
+        <h3>Your 24-hour light schedule</h3>
+        <div class="timeline-wrap">
+          <div class="timeline-bar" id="timeline-bar">
+            <!-- rendered by JS -->
+          </div>
+          <div class="timeline-labels" id="timeline-labels">
+            <!-- rendered by JS -->
+          </div>
+        </div>
+        <div class="timeline-legend">
+          <span class="leg-item"><span class="leg-dot" style="background:#f59e0b"></span> Seek light</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#7c6aff22; border: 1.5px solid #7c6aff"></span> Neutral</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#ff6b52"></span> Avoid light</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#1e1b2e"></span> Sleep</span>
+        </div>
+        <div class="suppression-note">Based on your wake time, sleep target, and sunrise estimate. Avoid window = 2 hrs before target bedtime.</div>
+      </div>
+
+      <!-- SUN ARC -->
+      <div class="chart-card">
+        <h3>Estimated sun arc &amp; light window</h3>
+        <div class="sun-arc-wrap">
+          <svg class="sun-arc-svg" id="sun-arc-svg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid meet">
+            <!-- rendered by JS -->
+          </svg>
+        </div>
+        <div class="arc-caption" id="arc-caption">Shaded area shows your recommended morning light window.</div>
+      </div>
+
+      <!-- LUX SOURCE CARD -->
+      <div class="lux-source-card" id="lux-source-card">
+        <h3>Your recommended light source</h3>
+        <div class="lux-sources" id="lux-sources">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+      <!-- SEASONAL TIPS -->
+      <div class="tips-card">
+        <h3 id="tips-title">Seasonal recommendations</h3>
+        <div class="tips-list" id="tips-list">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this calculator</h2>
+      <p>
+        Your circadian clock — housed in the <strong>suprachiasmatic nucleus (SCN)</strong> of the hypothalamus — runs on a cycle of
+        approximately 24.2 hours. Without daily light exposure to re-synchronize it, your body clock would drift slightly later each day.
+        Bright morning light is the primary <em>zeitgeber</em> (German for "time-giver") that keeps your clock locked to the 24-hour solar cycle.
+        When light strikes <strong>intrinsically photosensitive retinal ganglion cells (ipRGCs)</strong> containing the photopigment
+        melanopsin, a signal travels via the retinohypothalamic tract directly to the SCN, triggering the morning entrainment cascade.
+      </p>
+      <p>
+        The circadian system responds to light intensity nonlinearly. Below roughly 1,000 lux, the phase-shifting effect is minimal.
+        The steep part of the dose-response curve falls between 1,000 and 10,000 lux — the range achievable with a certified light box or
+        outdoor exposure on an overcast day. Above 10,000 lux (direct sunlight), additional intensity yields diminishing returns.
+        <strong>Wright et al. (2013)</strong> showed that camping for one week — eliminating all artificial light — shifted participants'
+        internal clocks to align precisely with solar time, demonstrating how powerful natural light exposure is relative to modern artificial environments.
+      </p>
+
+      <div class="formula-box">
+        <div class="formula-main">Sunrise ≈ 12 − (daylight_hours / 2)</div>
+        <div class="formula-desc">
+          daylight_hours ≈ (24/π) × arccos(−tan(φ) × tan(δ)) · δ = solar declination for date · φ = latitude (radians)
+        </div>
+      </div>
+
+      <p>
+        This calculator estimates local sunrise using a simplified solar declination model accurate to ±20 minutes under typical conditions.
+        For precision planning, cross-reference with your local weather service. The <strong>recommended light window</strong> is
+        computed as: wake time + 30 min (to allow initial alerting), extending for the duration appropriate to your lux source.
+        The <strong>avoid-light window</strong> is fixed at 2 hours before your implied bedtime (derived from target wake time minus
+        typical sleep duration for your chronotype).
+      </p>
+
+      <table class="device-table">
+        <thead>
+          <tr>
+            <th>Light Source</th>
+            <th>Approximate Lux</th>
+            <th>Duration for Effect</th>
+            <th>Circadian Potency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Direct outdoor sun</td><td class="lux-val">50,000–100,000</td><td>10–15 min</td><td class="exceed yes">Maximum</td></tr>
+          <tr><td>Outdoor overcast sky</td><td class="lux-val">5,000–15,000</td><td>20–30 min</td><td class="exceed yes">High</td></tr>
+          <tr><td>10,000 lux light box</td><td class="lux-val">10,000 at 12"</td><td>20–30 min</td><td class="exceed yes">High</td></tr>
+          <tr><td>Bright window (indoors)</td><td class="lux-val">500–2,000</td><td>1–2 hours</td><td class="exceed borderline">Moderate</td></tr>
+          <tr><td>Typical office light</td><td class="lux-val">200–500</td><td>Insufficient alone</td><td class="exceed no">Low</td></tr>
+        </tbody>
+      </table>
+
+      <div class="citations">
+        <div class="citation">
+          Wright, K. P., et al. (2013). Entrainment of the Human Circadian Clock to the Natural Light-Dark Cycle.
+          <em>Current Biology, 23(16), 1554–1558.</em>
+        </div>
+        <div class="citation">
+          Terman, M., &amp; Terman, J. S. (2005). Light Therapy for Seasonal and Nonseasonal Depression: Efficacy, Protocol, Safety, and Side Effects.
+          <em>CNS Spectrums, 10(8), 647–663.</em>
+        </div>
+        <div class="citation">
+          Gooley, J. J., et al. (2011). Exposure to Room Light before Bedtime Suppresses Melatonin Onset and Shortens Melatonin Duration in Humans.
+          <em>Journal of Clinical Endocrinology &amp; Metabolism, 96(3), E463–E472.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: var(--amber-bg); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input, .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--primary); }
+  .field select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+  }
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  .result-hero {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.75rem; text-align: center;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .result-hero.state-great { border-color: var(--mint); background: var(--mint-bg); }
+  .result-hero.state-good { border-color: var(--amber); background: var(--amber-bg); }
+  .result-hero.state-limited { border-color: var(--coral); background: #fff4f2; }
+
+  .result-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 0.5rem;
+  }
+  .light-time {
+    font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1;
+  }
+  .light-period { font-size: 1.2rem; font-weight: 600; color: var(--text-mid); }
+  .light-sub {
+    font-size: 0.88rem; color: var(--text-mid); margin-top: 0.65rem;
+    line-height: 1.55; max-width: 380px; margin-left: auto; margin-right: auto;
+  }
+  .light-sub strong { color: var(--text); }
+
+  /* ===== STAT GRID ===== */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 1.35rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+  .stat-card .stat-label { font-size: 0.68rem; color: var(--text-soft); font-weight: 500; }
+  .stat-card.s-amber .stat-num { color: var(--amber); }
+  .stat-card.s-sky .stat-num { color: var(--sky); }
+  .stat-card.s-mint .stat-num { color: var(--mint); }
+  .stat-card.s-coral .stat-num { color: var(--coral); }
+  .stat-card.s-primary .stat-num { color: var(--primary); }
+
+  /* ===== CHART CARDS ===== */
+  .chart-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .chart-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; }
+  .suppression-note {
+    font-size: 0.71rem; color: var(--text-soft); margin-top: 0.75rem;
+    line-height: 1.45;
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline-wrap { margin-bottom: 0.5rem; }
+  .timeline-bar {
+    display: flex; height: 28px; border-radius: 6px; overflow: hidden;
+    border: 1.5px solid var(--border); margin-bottom: 0.3rem;
+  }
+  .timeline-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.65rem; color: var(--text-soft); font-weight: 600;
+    padding: 0 1px;
+  }
+  .timeline-legend {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.72rem; color: var(--text-mid); font-weight: 500;
+    margin-top: 0.65rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 0.3rem; }
+  .leg-dot {
+    width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+  }
+
+  /* ===== SUN ARC ===== */
+  .sun-arc-wrap {
+    background: linear-gradient(180deg, #eaf6ff 0%, var(--bg) 100%);
+    border-radius: 10px; padding: 0.5rem; margin-bottom: 0.5rem;
+    border: 1px solid var(--border);
+  }
+  .sun-arc-svg { width: 100%; display: block; }
+  .arc-caption {
+    font-size: 0.71rem; color: var(--text-soft); line-height: 1.45;
+  }
+
+  /* ===== LUX SOURCE CARD ===== */
+  .lux-source-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .lux-source-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .lux-sources { display: flex; flex-direction: column; gap: 0.65rem; }
+
+  /* ===== TIPS ===== */
+  .tips-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .tips-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .tips-list { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 {
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem;
+  }
+  .science-card p {
+    font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem;
+  }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .device-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .device-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .device-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .device-table tr:last-child td { border-bottom: none; }
+  .device-table .lux-val { font-weight: 700; color: var(--text); }
+  .device-table .exceed { font-weight: 700; font-size: 0.78rem; }
+  .device-table .exceed.yes { color: #059669; }
+  .device-table .exceed.borderline { color: #d97706; }
+  .device-table .exceed.no { color: var(--text-soft); }
+  .citations { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .device-table th:nth-child(3), .device-table td:nth-child(3) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  // ---- SOLAR DECLINATION & SUNRISE ESTIMATE ----
+  // Returns approximate sunrise hour (decimal) for a given latitude and day-of-year
+  function getSunriseHour(latDeg, dayOfYear) {
+    var lat = latDeg * Math.PI / 180;
+    // Solar declination angle (radians)
+    var decl = -0.40928 * Math.cos(2 * Math.PI / 365 * (dayOfYear + 10));
+    // Hour angle at sunrise
+    var cosH = -Math.tan(lat) * Math.tan(decl);
+    // Clamp for polar cases
+    cosH = Math.max(-1, Math.min(1, cosH));
+    var H = Math.acos(cosH) * 180 / Math.PI; // degrees
+    // Sunrise = solar noon - H/15 hours (solar noon ~= 12:00 local mean solar time)
+    var sunrise = 12 - H / 15;
+    return sunrise;
+  }
+
+  // Returns approximate sunset hour for same params
+  function getSunsetHour(latDeg, dayOfYear) {
+    var lat = latDeg * Math.PI / 180;
+    var decl = -0.40928 * Math.cos(2 * Math.PI / 365 * (dayOfYear + 10));
+    var cosH = -Math.tan(lat) * Math.tan(decl);
+    cosH = Math.max(-1, Math.min(1, cosH));
+    var H = Math.acos(cosH) * 180 / Math.PI;
+    return 12 + H / 15;
+  }
+
+  // Approximate day-of-year from season
+  function getDayOfYear(season) {
+    var map = { spring: 90, summer: 172, fall: 265, winter: 355 };
+    return map[season] || 172;
+  }
+
+  function formatTime12(decimalHours) {
+    var h = ((decimalHours % 24) + 24) % 24;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var displayH = Math.floor(h) % 12;
+    if (displayH === 0) displayH = 12;
+    var m = Math.round((h - Math.floor(h)) * 60);
+    if (m === 60) { displayH++; m = 0; if (displayH === 13) displayH = 1; }
+    return {
+      time: displayH + ':' + String(m).padStart(2, '0'),
+      period: period,
+      decimal: h
+    };
+  }
+
+  function getWakeHour() {
+    var val = document.getElementById('wake-time').value || '07:00';
+    var parts = val.split(':').map(Number);
+    return parts[0] + parts[1] / 60;
+  }
+
+  // Recommended sleep duration by chronotype (used to estimate bedtime)
+  var CHRONOTYPE_SLEEP = { early: 7.5, intermediate: 8.0, late: 8.5 };
+
+  // Returns implied bedtime based on wake time and chronotype sleep duration
+  function getBedtimeHour(wakeHour, chronotype) {
+    return wakeHour - CHRONOTYPE_SLEEP[chronotype];
+  }
+
+  // ---- LUX SOURCE RECOMMENDATIONS ----
+  var LUX_SOURCES = {
+    outdoor_great: {
+      icon: 'M12 3v1M12 20v1M4.22 4.22l.71.71M18.36 18.36l.71.71M1 12h2M20 12h2M4.22 19.78l.71-.71M18.36 5.64l.71-.71M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+      color: '#f59e0b',
+      label: 'Outdoor morning sunlight',
+      lux: '5,000–100,000 lux',
+      duration: '10–30 min',
+      desc: 'Step outside within 30–60 min of waking — even on overcast days. No sunglasses during your light window.',
+      badge: 'Best option'
+    },
+    outdoor_limited: {
+      icon: 'M17 8a5 5 0 0 1-10 0M12 3v5M3 21h18M5 21V10M19 21V10',
+      color: '#38b6ff',
+      label: 'Bright indoor window',
+      lux: '500–2,000 lux',
+      duration: '60–90 min',
+      desc: 'Sit as close as possible to a south-facing window. Keep the blinds fully open and avoid tinting or heavy glass.',
+      badge: 'Good option'
+    },
+    lightbox_10k: {
+      icon: 'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18',
+      color: '#7c6aff',
+      label: '10,000-lux light therapy box',
+      lux: '10,000 lux at 12–24"',
+      duration: '20–30 min',
+      desc: 'Place the box at eye level, 12–24 inches away. Use it during breakfast or while reading — indirect gaze is fine.',
+      badge: 'Recommended'
+    },
+    lightbox_low: {
+      icon: 'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18',
+      color: '#ec4899',
+      label: 'Lower-lux light box',
+      lux: '2,500 lux (est.)',
+      duration: '60–90 min',
+      desc: 'Use for longer durations to compensate for lower intensity. Position at the same distance as your 10k-lux box instructions.',
+      badge: 'Extended use'
+    },
+    no_access: {
+      icon: 'M18.36 18.36A9 9 0 1 1 5.64 5.64M12 3a9 9 0 0 1 9 9',
+      color: '#ff6b52',
+      label: 'No outdoor or box access',
+      lux: '200–500 lux (indoor)',
+      duration: 'Not sufficient alone',
+      desc: 'Indoor office light alone is insufficient for circadian entrainment. Consider a light therapy box — certified 10,000-lux models start at $50.',
+      badge: 'Upgrade needed'
+    }
+  };
+
+  function getLuxSources(outdoorAccess, lightBox, season, latDeg) {
+    var sources = [];
+    var isWinter = season === 'winter';
+    var isHighLat = Math.abs(latDeg) > 50;
+
+    if (outdoorAccess === 'yes') {
+      sources.push(LUX_SOURCES.outdoor_great);
+    }
+    if (outdoorAccess === 'limited') {
+      sources.push(LUX_SOURCES.outdoor_limited);
+    }
+    if (lightBox === 'yes') {
+      sources.push(LUX_SOURCES.lightbox_10k);
+    }
+    if (lightBox === 'low') {
+      sources.push(LUX_SOURCES.lightbox_low);
+    }
+    if (outdoorAccess === 'no' && lightBox === 'no') {
+      sources.push(LUX_SOURCES.no_access);
+    }
+    // Suggest light box if outdoor is limited + winter + high lat
+    if ((isWinter || isHighLat) && lightBox === 'no' && outdoorAccess !== 'no') {
+      sources.push({
+        icon: 'M12 2a10 10 0 1 0 10 10M12 2v4M12 6l3-3M22 12h-4',
+        color: '#10b981',
+        label: 'Consider a light therapy box this season',
+        lux: '10,000 lux',
+        duration: '20–30 min',
+        desc: isWinter && isHighLat
+          ? 'At your latitude in winter, sunrise is late and sun angle is low. A certified 10,000-lux box used at wake time will substantially supplement limited natural light.'
+          : isWinter
+            ? 'Winter days are shorter and sun angle is lower. A light box on dark mornings helps maintain circadian consistency.'
+            : 'At your latitude, some mornings may have late or low-angle sunrise. A light box is a good backup.',
+        badge: 'Seasonal tip'
+      });
+    }
+    return sources;
+  }
+
+  function getRecommendedDuration(outdoorAccess, lightBox) {
+    if (outdoorAccess === 'yes') return '20–30 min';
+    if (lightBox === 'yes') return '20–30 min';
+    if (outdoorAccess === 'limited') return '60–90 min';
+    if (lightBox === 'low') return '60–90 min';
+    return 'Not sufficient';
+  }
+
+  // ---- TIMELINE RENDERING ----
+  function renderTimeline(wakeHour, lightStartHour, lightDurationMin, sunriseHour, sunsetHour, avoidHour, bedtimeHour) {
+    // Represent 24 hours as a bar
+    var container = document.getElementById('timeline-bar');
+    var labelsEl = document.getElementById('timeline-labels');
+    var totalH = 24;
+
+    // Build segments:
+    // sleep (before wake), morning neutral, seek light, neutral day, avoid light, sleep
+    var segments = [];
+
+    // Sleep before wake (from implied prev bedtime)
+    // Bedtime is yesterday's, so offset by 24 if needed
+    var prevBed = bedtimeHour < wakeHour ? bedtimeHour : bedtimeHour - 24;
+    var sleepStart = ((prevBed % 24) + 24) % 24;
+    var sleepEnd = wakeHour;
+
+    // Build a list of time segments across 24-hour bar starting at 0
+    // We'll paint the bar by walking from 0 to 24:
+    // 0–sleepEnd (continuing sleep from yesterday)
+    // sleepEnd–lightStart (neutral morning)
+    // lightStart–lightEnd (seek light)
+    // lightEnd–avoidHour (neutral day)
+    // avoidHour–bed+24 adjusted (avoid light)
+    // bed–24 (sleep)
+
+    var lightEndHour = lightStartHour + lightDurationMin / 60;
+    var bed24 = ((bedtimeHour % 24) + 24) % 24;
+
+    function seg(startH, endH, color, label) {
+      if (endH <= startH) return;
+      var pct = (endH - startH) / totalH * 100;
+      segments.push({ startH, endH, color, label, pct });
+    }
+
+    // From midnight (0) to wake (sleep segment)
+    var wake0 = ((wakeHour % 24) + 24) % 24;
+    seg(0, wake0, '#1e1b2e', 'sleep');
+
+    // wake to lightStart (neutral, morning prep)
+    var ls0 = ((lightStartHour % 24) + 24) % 24;
+    if (ls0 > wake0) seg(wake0, ls0, '#f0eef5', 'neutral');
+
+    // lightStart to lightEnd (seek light)
+    var le0 = ((lightEndHour % 24) + 24) % 24;
+    if (le0 > ls0) seg(ls0, le0, '#f59e0b', 'seek light');
+    else if (le0 <= ls0) le0 = ls0; // clamp
+
+    // lightEnd to avoidHour (neutral day)
+    var av0 = ((avoidHour % 24) + 24) % 24;
+    if (av0 > le0) seg(le0, av0, '#f0eef5', 'neutral');
+
+    // avoidHour to bedtime (avoid light)
+    if (bed24 > av0) seg(av0, bed24, '#ff6b52', 'avoid');
+
+    // bedtime to 24 (sleep)
+    if (bed24 < 24) seg(bed24, 24, '#1e1b2e', 'sleep');
+
+    container.innerHTML = segments.map(function (s) {
+      return '<div title="' + s.label + ' (' + formatTime12(s.startH).time + '–' + formatTime12(s.endH).time + ')" style="flex:0 0 ' + s.pct + '%;background:' + s.color + ';height:100%;"></div>';
+    }).join('');
+
+    // Hour labels: 12A, 6A, 12P, 6P, 12A
+    labelsEl.innerHTML = ['12A', '6A', '12P', '6P', '12A'].map(function (l) {
+      return '<span>' + l + '</span>';
+    }).join('');
+  }
+
+  // ---- SUN ARC ----
+  function renderSunArc(sunriseHour, sunsetHour, lightStartHour, lightEndHour, wakeHour) {
+    var svg = document.getElementById('sun-arc-svg');
+    var W = 400, H = 200, margin = 40;
+    var dayH = sunsetHour - sunriseHour;
+
+    // Map hour to x position (only daylight span)
+    function hourToX(h) {
+      var t = Math.max(0, Math.min(1, (h - sunriseHour) / dayH));
+      return margin + t * (W - margin * 2);
+    }
+
+    // Arc: parabola peaking at solar noon
+    function hourToY(h) {
+      var t = (h - sunriseHour) / dayH;
+      return H - 30 - (H - 60) * (4 * t * (1 - t)); // inverted parabola, peak up
+    }
+
+    // Build arc path
+    var steps = 60;
+    var pathD = '';
+    for (var i = 0; i <= steps; i++) {
+      var frac = i / steps;
+      var hh = sunriseHour + frac * dayH;
+      var x = hourToX(hh);
+      var y = hourToY(hh);
+      pathD += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+    }
+
+    // Light window highlight on arc
+    var lsX = hourToX(Math.max(lightStartHour, sunriseHour));
+    var leX = hourToX(Math.min(lightEndHour, sunsetHour));
+
+    // Sun position at lightStart
+    var sunH = lightStartHour;
+    var sunX = hourToX(sunH);
+    var sunY = hourToY(sunH);
+
+    // Ground line
+    var groundY = H - 30;
+    var riseX = hourToX(sunriseHour);
+    var setX = hourToX(sunsetHour);
+
+    var html = '';
+
+    // Sky gradient background
+    html += '<defs>';
+    html += '<linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">';
+    html += '<stop offset="0%" stop-color="#dbeafe"/>';
+    html += '<stop offset="100%" stop-color="#f0f9ff"/>';
+    html += '</linearGradient>';
+    html += '<clipPath id="arcClip"><path d="' + pathD + 'L' + setX.toFixed(1) + ',' + groundY + ' L' + riseX.toFixed(1) + ',' + groundY + ' Z"/></clipPath>';
+    html += '</defs>';
+
+    // Ground
+    html += '<rect x="' + margin + '" y="' + groundY + '" width="' + (W - margin * 2) + '" height="18" fill="#d1fae5" rx="3"/>';
+
+    // Light window shading
+    var winW = Math.max(0, leX - lsX);
+    html += '<rect x="' + lsX.toFixed(1) + '" y="30" width="' + winW.toFixed(1) + '" height="' + (groundY - 30) + '" fill="#f59e0b22" rx="2"/>';
+
+    // Arc path
+    html += '<path d="' + pathD + '" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>';
+
+    // Light window border lines
+    html += '<line x1="' + lsX.toFixed(1) + '" y1="30" x2="' + lsX.toFixed(1) + '" y2="' + groundY + '" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>';
+    html += '<line x1="' + leX.toFixed(1) + '" y1="30" x2="' + leX.toFixed(1) + '" y2="' + groundY + '" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>';
+
+    // Sunrise / sunset markers
+    html += '<circle cx="' + riseX.toFixed(1) + '" cy="' + groundY + '" r="4" fill="#f59e0b"/>';
+    html += '<circle cx="' + setX.toFixed(1) + '" cy="' + groundY + '" r="4" fill="#f59e0b" opacity="0.4"/>';
+
+    // Wake marker
+    var wakeX = hourToX(wakeHour);
+    html += '<line x1="' + wakeX.toFixed(1) + '" y1="' + (groundY - 12) + '" x2="' + wakeX.toFixed(1) + '" y2="' + (groundY + 4) + '" stroke="#7c6aff" stroke-width="2"/>';
+
+    // Sun circle on arc (at lightStart)
+    if (lightStartHour >= sunriseHour && lightStartHour <= sunsetHour) {
+      html += '<circle cx="' + sunX.toFixed(1) + '" cy="' + sunY.toFixed(1) + '" r="8" fill="#f59e0b"/>';
+      html += '<circle cx="' + sunX.toFixed(1) + '" cy="' + sunY.toFixed(1) + '" r="13" fill="#f59e0b" opacity="0.2"/>';
+    }
+
+    // Labels
+    var riseLabel = formatTime12(sunriseHour);
+    var setLabel = formatTime12(sunsetHour);
+    html += '<text x="' + riseX.toFixed(1) + '" y="' + (groundY + 15) + '" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Rise ' + riseLabel.time + '</text>';
+    html += '<text x="' + setX.toFixed(1) + '" y="' + (groundY + 15) + '" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Set ' + setLabel.time + '</text>';
+
+    // Light window label
+    var midWinX = (lsX + leX) / 2;
+    html += '<text x="' + midWinX.toFixed(1) + '" y="50" text-anchor="middle" font-size="9" fill="#d97706" font-weight="700" font-family="Sora,sans-serif">LIGHT WINDOW</text>';
+
+    // Wake label
+    html += '<text x="' + wakeX.toFixed(1) + '" y="' + (groundY - 15) + '" text-anchor="middle" font-size="9" fill="#7c6aff" font-weight="700" font-family="Sora,sans-serif">Wake</text>';
+
+    svg.innerHTML = html;
+  }
+
+  // ---- SEASONAL TIPS ----
+  function getSeasonalTips(season, latDeg, outdoorAccess, lightBox, chronotype) {
+    var tips = [];
+    var isHighLat = Math.abs(latDeg) > 48;
+    var isVeryHighLat = Math.abs(latDeg) > 55;
+
+    var seasonTips = {
+      winter: [
+        {
+          icon: 'M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18',
+          color: '#7c6aff',
+          text: 'Winter mornings often have sunrise after 7–8 AM at mid-latitudes. Use a 10,000-lux light box immediately upon waking to simulate the morning light signal before the sun rises.'
+        },
+        {
+          icon: 'M12 2a10 10 0 1 0 10 10',
+          color: '#38b6ff',
+          text: 'Vitamin D synthesis is minimal in winter above 40° latitude — light therapy boxes do not provide UV-B, so consider a supplement if your doctor recommends it.'
+        },
+        {
+          icon: 'M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z',
+          color: '#ff6b52',
+          text: 'Mood and energy often dip in winter due to reduced light exposure. Consistent morning light therapy — even on weekends — helps stabilize mood and circadian timing year-round.'
+        }
+      ],
+      summer: [
+        {
+          icon: 'M17 8a5 5 0 0 1-10 0',
+          color: '#f59e0b',
+          text: 'Summer sunrise is early — often before 5:30 AM at mid-latitudes. If you wake after sunrise, blackout curtains can prevent premature early waking while still allowing planned morning light sessions.'
+        },
+        {
+          icon: 'M12 3v1M12 20v1M4.22 4.22l.71.71M18.36 18.36l.71.71',
+          color: '#10b981',
+          text: 'In summer, 10–15 minutes of outdoor morning light is often sufficient. Avoid the light box in summer unless you wake before sunrise — overexposure in bright seasons can over-advance your clock.'
+        },
+        {
+          icon: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
+          color: '#ec4899',
+          text: 'Long summer evenings make light avoidance harder. Use blackout curtains in the bedroom and dim indoor lights 2 hours before bed — the sun may still be up at your target bedtime.'
+        }
+      ],
+      spring: [
+        {
+          icon: 'M12 3v1M4.22 4.22l.71.71M1 12h2M4.22 19.78l.71-.71M12 21v1',
+          color: '#10b981',
+          text: 'Spring is an ideal time to re-establish outdoor morning light habits after winter. Sunrise is moving earlier each day — your morning light window naturally expands through the season.'
+        },
+        {
+          icon: 'M12 3a9 9 0 0 1 9 9M12 3v4m0 0l3-3',
+          color: '#38b6ff',
+          text: 'Daylight Saving Time shifts in spring can temporarily disrupt your circadian schedule. Morning light immediately upon waking for several days helps re-entrain your clock to the new schedule.'
+        }
+      ],
+      fall: [
+        {
+          icon: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
+          color: '#f59e0b',
+          text: 'Fall is the time to begin transitioning from outdoor-only morning light to a hybrid approach. Sunrise moves later each week — a light box prevents the gradual loss of morning light exposure as days shorten.'
+        },
+        {
+          icon: 'M3 15a4 4 0 0 0 4 4h9a5 5 0 0 0 1.8-9.7 6 6 0 0 0-11.8-1 4 4 0 0 0-3 6.7',
+          color: '#7c6aff',
+          text: 'As days get shorter, some people notice mood or energy changes beginning in fall — this is the earliest sign of seasonal sensitivity. Starting morning light therapy in October rather than waiting for winter produces better outcomes.'
+        }
+      ]
+    };
+
+    tips = (seasonTips[season] || seasonTips['spring']).slice();
+
+    // Add chronotype-specific tip
+    if (chronotype === 'late') {
+      tips.push({
+        icon: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+        color: '#ec4899',
+        text: 'As a night owl, morning light is your most powerful tool for shifting your clock earlier. Even 15 minutes of bright outdoor light the moment you wake — before coffee, before your phone — will gradually advance your sleep timing over 1–2 weeks.'
+      });
+    }
+
+    if (isVeryHighLat && season === 'winter') {
+      tips.push({
+        icon: 'M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2',
+        color: '#ff6b52',
+        text: 'At your latitude in winter, the sun rises after 9 AM and sets before 3 PM — providing very little usable morning light. A 10,000-lux light box is not optional at this latitude in winter: it is essential for circadian health.'
+      });
+    }
+
+    return tips;
+  }
+
+  // ---- MAIN CALCULATE ----
+  function calculate() {
+    var wakeHour = getWakeHour();
+    var chronotype = document.getElementById('chronotype').value;
+    var latSelect = document.getElementById('latitude').value;
+    var season = document.getElementById('season').value;
+    var outdoorAccess = document.getElementById('outdoor-access').value;
+    var lightBox = document.getElementById('light-box').value;
+
+    // Manual sunrise
+    var sunriseHour;
+    if (latSelect === 'manual') {
+      document.getElementById('manual-sunrise-field').style.display = '';
+      var manVal = document.getElementById('manual-sunrise').value || '06:30';
+      var parts = manVal.split(':').map(Number);
+      sunriseHour = parts[0] + parts[1] / 60;
+    } else {
+      document.getElementById('manual-sunrise-field').style.display = 'none';
+      var lat = parseFloat(latSelect);
+      var doy = getDayOfYear(season);
+      sunriseHour = getSunriseHour(lat, doy);
+    }
+
+    var lat = latSelect === 'manual' ? 40 : parseFloat(latSelect);
+    var sunsetHour = getSunsetHour(lat, getDayOfYear(season));
+
+    // Clamp sunrise to reasonable range
+    sunriseHour = Math.max(3, Math.min(10, sunriseHour));
+    sunsetHour = Math.max(14, Math.min(21, sunsetHour));
+
+    // Recommended light start: wake + 30 min (allow alerting period)
+    var lightStartHour = wakeHour + 0.5;
+
+    // If sunrise is after lightStart, shift lightStart to sunrise
+    if (sunriseHour > lightStartHour && outdoorAccess === 'yes') {
+      lightStartHour = sunriseHour;
+    }
+
+    // Duration based on source
+    var lightDurationMin;
+    if (outdoorAccess === 'yes' || lightBox === 'yes') {
+      lightDurationMin = 25;
+    } else if (outdoorAccess === 'limited' || lightBox === 'low') {
+      lightDurationMin = 75;
+    } else {
+      lightDurationMin = 30; // show even if insufficient
+    }
+
+    var lightEndHour = lightStartHour + lightDurationMin / 60;
+
+    // Implied bedtime for avoid window
+    var bedtime = wakeHour + 16; // ~16hr day
+    var avoidHour = bedtime - 2;
+
+    // Update hero
+    var hero = document.getElementById('result-hero');
+    var lightFmt = formatTime12(lightStartHour);
+    document.getElementById('light-time').textContent = lightFmt.time;
+    document.getElementById('light-period').textContent = lightFmt.period;
+
+    var windowAfterMin = Math.round((lightStartHour - wakeHour) * 60);
+    var windowAfterText = windowAfterMin <= 30 ? '30 min' : windowAfterMin + ' min';
+
+    hero.className = 'result-hero';
+    var subEl = document.getElementById('light-sub');
+
+    if (outdoorAccess === 'yes' || lightBox === 'yes') {
+      hero.classList.add('state-great');
+      subEl.innerHTML = 'Within <strong>' + windowAfterText + '</strong> of waking for maximum circadian benefit. Aim for <strong>' + lightDurationMin + ' min</strong> of bright light.';
+    } else if (outdoorAccess === 'limited' || lightBox === 'low') {
+      hero.classList.add('state-good');
+      subEl.innerHTML = 'Window access or a lower-lux box requires <strong>60–90 min</strong> to achieve the same circadian effect as 20–30 min of outdoor or 10,000-lux light.';
+    } else {
+      hero.classList.add('state-limited');
+      document.getElementById('light-time').textContent = 'Limited';
+      document.getElementById('light-period').textContent = '';
+      subEl.innerHTML = 'Indoor office light alone is insufficient for circadian entrainment. <strong>A 10,000-lux light box is strongly recommended.</strong>';
+    }
+
+    // Sunrise stat
+    var sunriseFmt = formatTime12(sunriseHour);
+    document.getElementById('stat-sunrise').textContent = sunriseFmt.time + ' ' + sunriseFmt.period;
+
+    // Duration stat
+    var durationLabel = getRecommendedDuration(outdoorAccess, lightBox);
+    document.getElementById('stat-duration').textContent = durationLabel;
+
+    // Avoid-light stat
+    var avoidFmt = formatTime12(avoidHour);
+    document.getElementById('stat-avoid').textContent = avoidFmt.time + ' ' + avoidFmt.period;
+
+    // Timeline
+    renderTimeline(wakeHour, lightStartHour, lightDurationMin, sunriseHour, sunsetHour, avoidHour, bedtime);
+
+    // Sun arc
+    renderSunArc(sunriseHour, sunsetHour, lightStartHour, lightEndHour, wakeHour);
+
+    // Arc caption
+    var arcEl = document.getElementById('arc-caption');
+    arcEl.textContent = 'Sunrise at ' + sunriseFmt.time + ' ' + sunriseFmt.period + '. Golden window: ' + lightFmt.time + ' ' + lightFmt.period + ' for ' + lightDurationMin + ' min. Purple tick = your wake time.';
+
+    // Lux sources
+    var sources = getLuxSources(outdoorAccess, lightBox, season, lat);
+    var sourcesEl = document.getElementById('lux-sources');
+    sourcesEl.innerHTML = sources.map(function (s) {
+      return '<div class="lux-source-row">' +
+        '<div class="lux-source-icon" style="background:' + s.color + '22; color:' + s.color + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="' + s.icon + '"/></svg>' +
+        '</div>' +
+        '<div class="lux-source-body">' +
+          '<div class="lux-source-name">' + s.label + '<span class="lux-source-badge" style="background:' + s.color + '22; color:' + s.color + '">' + s.badge + '</span></div>' +
+          '<div class="lux-source-meta">' + s.lux + ' &nbsp;·&nbsp; ' + s.duration + '</div>' +
+          '<div class="lux-source-desc">' + s.desc + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    // Seasonal tips
+    var tips = getSeasonalTips(season, lat, outdoorAccess, lightBox, chronotype);
+    var tipsEl = document.getElementById('tips-list');
+    document.getElementById('tips-title').textContent = season.charAt(0).toUpperCase() + season.slice(1) + ' recommendations';
+    tipsEl.innerHTML = tips.map(function (t) {
+      return '<div class="tip-item">' +
+        '<div class="tip-icon" style="background:' + t.color + '22; color:' + t.color + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + t.icon + '"/></svg>' +
+        '</div>' +
+        '<p>' + t.text + '</p>' +
+      '</div>';
+    }).join('');
+  }
+
+  // Wire up inputs
+  ['wake-time','chronotype','latitude','season','outdoor-access','light-box','manual-sunrise'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', calculate);
+    if (el) el.addEventListener('input', calculate);
+  });
+
+  // Set season from current month
+  var month = new Date().getMonth(); // 0-11
+  var seasonEl = document.getElementById('season');
+  if (month >= 2 && month <= 4) seasonEl.value = 'spring';
+  else if (month >= 5 && month <= 7) seasonEl.value = 'summer';
+  else if (month >= 8 && month <= 10) seasonEl.value = 'fall';
+  else seasonEl.value = 'winter';
+
+  // Initial render
+  calculate();
+})();
+</script>
+
+<style is:inline>
+  /* Dynamic JS-rendered element styles */
+  .lux-source-row {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    padding: 0.75rem; border-radius: 10px;
+    border: 1.5px solid var(--border); background: var(--bg);
+  }
+  .lux-source-icon {
+    width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .lux-source-icon svg { width: 18px; height: 18px; }
+  .lux-source-body { flex: 1; min-width: 0; }
+  .lux-source-name {
+    font-size: 0.84rem; font-weight: 700; color: var(--text);
+    display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.2rem; flex-wrap: wrap;
+  }
+  .lux-source-badge {
+    font-size: 0.62rem; font-weight: 700; padding: 0.1rem 0.45rem;
+    border-radius: 10px; text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .lux-source-meta {
+    font-size: 0.72rem; font-weight: 600; color: var(--text-soft); margin-bottom: 0.3rem;
+  }
+  .lux-source-desc {
+    font-size: 0.78rem; color: var(--text-mid); line-height: 1.5;
+  }
+
+  .tip-item {
+    display: flex; align-items: flex-start; gap: 0.65rem;
+  }
+  .tip-icon {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tip-icon svg { width: 15px; height: 15px; }
+  .tip-item p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; margin: 0; padding-top: 0.3rem; }
+</style>

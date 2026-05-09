@@ -1,0 +1,928 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How long should it take to fall asleep?',
+    answer: `<p>For most healthy adults, falling asleep should take between <strong>10 and 20 minutes</strong> — a range established through decades of clinical sleep research and formalized in the Multiple Sleep Latency Test (MSLT) protocol developed by Carskadon and Dement (1982). This window reflects a healthy balance: the brain is tired enough to transition smoothly into sleep, but not so sleep-deprived that it collapses into unconsciousness within seconds. The MSLT itself uses 5-minute nap opportunities across a day; a sleep latency under 8 minutes on the MSLT is considered clinical evidence of excessive daytime sleepiness.</p>
+<p>Falling asleep in under 5 minutes is <strong>not a sign of being a "good sleeper"</strong> — it is a red flag for significant sleep debt or an underlying sleep disorder. Equally, consistently taking more than 30 minutes to fall asleep meets the clinical threshold for sleep onset insomnia as defined by Lichstein et al. (2003), who set the criterion at 30 or more minutes of sleep onset latency occurring at least three nights per week for at least one month. If your latency falls outside the 10–20 minute window regularly, it warrants attention.</p>`,
+  },
+  {
+    question: 'What does falling asleep too fast mean?',
+    answer: `<p>Falling asleep in under <strong>5 minutes</strong> — sometimes called "hitting the pillow" sleep — is often interpreted as a positive trait, but clinically it signals the opposite. The Multiple Sleep Latency Test (Carskadon & Dement, 1982) consistently shows that healthy, well-rested individuals require 10–20 minutes to fall asleep under controlled conditions. A sleep latency below 8 minutes on the MSLT is the diagnostic threshold for pathological sleepiness and is used to confirm narcolepsy and idiopathic hypersomnia. In otherwise healthy people, instant sleep onset almost always reflects severe cumulative sleep debt — the brain is so starved of sleep it surrenders within moments of lying down.</p>
+<p>Other causes of very short sleep latency include <strong>obstructive sleep apnea</strong> (where fragmented nocturnal sleep drives extreme daytime pressure), shift work disorder, and certain medications. If you routinely fall asleep within 1–5 minutes of lying down — especially if you can fall asleep unintentionally during the day — this is worth discussing with a sleep physician. The fix is typically straightforward: consistent, sufficient sleep for several weeks will push your latency back into the healthy 10–20 minute range as sleep debt clears.</p>`,
+  },
+  {
+    question: 'What is sleep onset insomnia?',
+    answer: `<p><strong>Sleep onset insomnia</strong> is the inability to fall asleep within a reasonable time at the start of the sleep period, despite adequate opportunity and a suitable sleep environment. Lichstein et al. (2003) established the widely-used quantitative criterion: a sleep onset latency (SOL) of 30 minutes or more, occurring at least three nights per week, persisting for at least one month, and causing meaningful daytime impairment. It is distinct from sleep maintenance insomnia (waking in the night) and early-morning-awakening insomnia, though these types frequently co-occur. Sleep onset insomnia is the most common presentation, particularly in younger adults and in people with anxiety disorders, because the pre-sleep period becomes associated with worry and hyperarousal rather than relaxation.</p>
+<p>The primary evidence-based treatment is <strong>Cognitive Behavioral Therapy for Insomnia (CBT-I)</strong>, which directly targets the conditioned arousal, maladaptive beliefs about sleep, and behavioral patterns (like excessive time in bed) that perpetuate sleep onset difficulty. CBT-I typically reduces sleep latency by 30–50% over a 6–8 week course and shows better long-term outcomes than sleep medication. Stimulus control (using the bed only for sleep), sleep restriction therapy, and relaxation techniques are the core behavioral components. Sedative-hypnotics can reduce sleep onset latency acutely but do not address the underlying drivers and carry dependency risks with prolonged use.</p>`,
+  },
+  {
+    question: 'How can I improve my sleep latency?',
+    answer: `<p>The most powerful single intervention for improving sleep latency is <strong>consistent sleep and wake times</strong> — including weekends. A regular schedule anchors the circadian rhythm and creates a strong homeostatic sleep pressure signal that arrives reliably at the same time each night, making it far easier to fall asleep on cue. Beyond scheduling: avoid caffeine for at least 6 hours before bed (caffeine's half-life is 5–6 hours; it blocks adenosine receptors and directly delays sleep onset); dim lights in the 60–90 minutes before bed to protect the melatonin surge that signals sleep readiness; and keep the bedroom cool (around 18–19°C / 65–66°F) since the core body temperature drop that triggers sleep is facilitated by a cool environment.</p>
+<p>Screen use before bed delays sleep onset through both the blue-light suppression of melatonin and — more significantly — the cognitive arousal from engaging content. <strong>A 15–30 minute wind-down routine</strong> that is consistently performed in the same sequence each night functions as a conditioned sleep-onset cue, training the brain to begin downregulating arousal in anticipation of sleep. If you are lying awake for more than 20 minutes unable to sleep, stimulus control therapy recommends leaving the bed and doing something calm in dim light until sleepiness returns — this prevents the bed from becoming associated with wakefulness and frustration. Exercise improves sleep latency significantly but should generally be completed more than 2 hours before bedtime.</p>`,
+  },
+  {
+    question: 'What is the Multiple Sleep Latency Test (MSLT)?',
+    answer: `<p>The <strong>Multiple Sleep Latency Test (MSLT)</strong> is the gold-standard clinical measure of physiological sleepiness, developed by Mary Carskadon and William Dement at Stanford in 1977 and formally published in 1982. The protocol consists of five 20-minute nap opportunities offered at 2-hour intervals throughout the day (typically starting 1.5–2 hours after the previous night's sleep). Electrodes record EEG, EOG (eye movements), and EMG (muscle activity) so that the precise moment of sleep onset — defined as the first 30-second epoch scored as any sleep stage — can be identified. The average latency across all five naps is the MSLT score. A mean latency above 10 minutes is considered normal; 8–10 minutes is borderline; below 8 minutes indicates pathological sleepiness; below 5 minutes represents severe sleepiness.</p>
+<p>The MSLT is also used to detect <strong>sleep-onset REM periods (SOREMPs)</strong> — instances where REM sleep begins within 15 minutes of sleep onset on a nap. Two or more SOREMPs across the five naps, combined with a mean latency below 8 minutes, are the diagnostic criteria for narcolepsy type 1. The home sleep latency calculator on this page is a self-report approximation, not a clinical MSLT. It gives a useful directional signal — whether your typical latency falls in the healthy range, the insomnia range, or the sleep-debt range — but it cannot replace polysomnographic measurement if a formal diagnosis is needed.</p>`,
+  },
+  {
+    question: 'When should I see a doctor about my sleep latency?',
+    answer: `<p>You should speak with a physician or sleep specialist if your sleep onset difficulty persists for <strong>more than three nights per week for at least one month</strong> and is causing daytime consequences — fatigue, concentration problems, mood disturbance, or impaired performance. This meets the clinical insomnia criteria of Lichstein et al. (2003) and warrants a structured assessment. You should seek urgent evaluation if you are falling asleep unintentionally during activities such as driving, eating, or mid-conversation, particularly if accompanied by sudden muscle weakness triggered by strong emotions (cataplexy) — these are hallmark symptoms of narcolepsy. Equally, if a bed partner reports that you stop breathing, gasp, or snore loudly, sleep apnea is likely and should be ruled out, as it can profoundly disrupt sleep architecture and drive pathological daytime sleepiness.</p>
+<p>For milder, shorter-lasting sleep onset difficulty, start with the behavioral strategies described in this calculator's recommendations — they have strong clinical evidence and none of the side effects of medication. <strong>CBT-I delivered by a trained therapist</strong> (or via validated digital programs such as Sleepio or SOMRYST) is the first-line recommended treatment for chronic insomnia in guidelines from the American Academy of Sleep Medicine, the American College of Physicians, and the European Sleep Research Society. If sleep problems persist after 4–6 weeks of consistent behavioral effort, a sleep specialist can conduct a more thorough evaluation including sleep diary review, actigraphy, and where appropriate, a polysomnogram or MSLT.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Latency Calculator — How Long Should It Take to Fall Asleep?"
+  description="Find out if your sleep latency is normal, indicates insomnia, or signals sleep deprivation. Clinical benchmarks based on MSLT research by Carskadon & Dement."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Sleep Latency Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+          <path d="M8 14s1 1 4 1 4-1 4-1"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Latency Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find out if your time to fall asleep is normal, suggests insomnia, or flags serious sleep debt. Benchmarked against the clinical MSLT standard.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        2 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        MSLT benchmarks
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Clinical research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your sleep details</h2>
+
+      <!-- Latency slider -->
+      <div class="field">
+        <label for="latency-slider">How long does it take you to fall asleep?</label>
+        <div class="slider-value-row">
+          <span class="slider-value-display" id="latency-display">15 min</span>
+        </div>
+        <input type="range" id="latency-slider" min="0" max="120" value="15" step="1" class="slider">
+        <div class="slider-labels">
+          <span>0 min</span>
+          <span>60 min</span>
+          <span>120 min</span>
+        </div>
+      </div>
+
+      <!-- Measurement method -->
+      <div class="field">
+        <label>How did you measure this?</label>
+        <div class="choice-group" id="method-group">
+          <button class="choice-btn active" data-val="guess">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Rough guess
+          </button>
+          <button class="choice-btn" data-val="tracked">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+            Sleep tracker
+          </button>
+          <button class="choice-btn" data-val="partner">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Partner observed
+          </button>
+        </div>
+      </div>
+
+      <!-- Daytime sleepiness -->
+      <div class="field">
+        <label>Daytime sleepiness level</label>
+        <div class="choice-group" id="sleepiness-group">
+          <button class="choice-btn active" data-val="none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            Alert all day
+          </button>
+          <button class="choice-btn" data-val="mild">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            Mildly tired
+          </button>
+          <button class="choice-btn" data-val="moderate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            Noticeably tired
+          </button>
+          <button class="choice-btn" data-val="severe">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 8.5a5 5 0 0 1-7.5 4.33A5 5 0 1 1 17.5 8.5"/><path d="M12 22v-5"/><path d="M9 17h6"/></svg>
+            Fighting sleep
+          </button>
+        </div>
+      </div>
+
+      <!-- Sleep habits -->
+      <div class="field">
+        <label>Sleep habits (select all that apply)</label>
+        <div class="checkbox-group" id="habits-group">
+          <label class="check-item">
+            <input type="checkbox" id="habit-caffeine"> Caffeine within 6 hrs of bed
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="habit-screens"> Screens right before bed
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="habit-irregular"> Irregular sleep schedule
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="habit-stress"> High stress / racing thoughts
+          </label>
+        </div>
+      </div>
+
+      <div class="tip-box" id="tip-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="tip-text">Adjust the slider to your typical time to fall asleep on a normal night.</span>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel" id="results-panel">
+
+      <!-- Classification card -->
+      <div class="classification-card" id="classification-card">
+        <div class="class-header">
+          <div class="class-badge" id="class-badge">Normal</div>
+          <div class="class-latency" id="class-latency">15 min</div>
+        </div>
+        <div class="class-label" id="class-label">Your sleep latency is in the healthy range</div>
+      </div>
+
+      <!-- Gauge card -->
+      <div class="gauge-card">
+        <h3>Sleep latency spectrum</h3>
+        <p class="gauge-subtitle">Where you fall on the clinical continuum — from sleep deprivation to insomnia.</p>
+        <div class="gauge-wrap">
+          <div class="gauge-track">
+            <div class="gauge-zone zone-debt"    title="Sleep debt (&lt;5 min)"></div>
+            <div class="gauge-zone zone-short"   title="Below normal (5–10 min)"></div>
+            <div class="gauge-zone zone-normal"  title="Normal (10–20 min)"></div>
+            <div class="gauge-zone zone-mild"    title="Mild difficulty (20–30 min)"></div>
+            <div class="gauge-zone zone-insomnia" title="Insomnia range (30–60 min)"></div>
+            <div class="gauge-zone zone-severe"  title="Severe (&gt;60 min)"></div>
+            <div class="gauge-marker" id="gauge-marker"></div>
+          </div>
+          <div class="gauge-labels">
+            <span>0</span>
+            <span>10</span>
+            <span>20</span>
+            <span>30</span>
+            <span>60</span>
+            <span>120 min</span>
+          </div>
+          <div class="gauge-zone-labels">
+            <span class="gzl debt">Sleep<br>debt</span>
+            <span class="gzl short">Below<br>normal</span>
+            <span class="gzl normal">Normal<br>range</span>
+            <span class="gzl mild">Mild<br>difficulty</span>
+            <span class="gzl insomnia">Insomnia<br>range</span>
+            <span class="gzl severe">Severe</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Population comparison card -->
+      <div class="pop-card">
+        <h3>Population comparison</h3>
+        <div class="pop-bars" id="pop-bars">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Recommendations card -->
+      <div class="recs-card" id="recs-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Personalized recommendations
+        </h3>
+        <ul class="recs-list" id="recs-list">
+          <!-- Rendered by JS -->
+        </ul>
+      </div>
+
+      <!-- MSLT reference card -->
+      <div class="mslt-card">
+        <div class="mslt-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          MSLT reference thresholds
+        </div>
+        <div class="mslt-grid">
+          <div class="mslt-row mslt-debt">
+            <div class="mslt-range">&lt; 5 min</div>
+            <div class="mslt-desc">Severe sleepiness — pathological on clinical MSLT</div>
+          </div>
+          <div class="mslt-row mslt-low">
+            <div class="mslt-range">5 – 8 min</div>
+            <div class="mslt-desc">Below normal — significant sleep debt likely</div>
+          </div>
+          <div class="mslt-row mslt-normal">
+            <div class="mslt-range">10 – 20 min</div>
+            <div class="mslt-desc">Normal range — healthy sleep pressure balance</div>
+          </div>
+          <div class="mslt-row mslt-high">
+            <div class="mslt-range">30+ min</div>
+            <div class="mslt-desc">Insomnia threshold (Lichstein et al., 2003)</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of sleep latency</h2>
+      <p>
+        Sleep onset is not a simple switch — it is a gradual neurological transition orchestrated by two interacting systems. The homeostatic system (Process S) accumulates adenosine pressure throughout the wake period, creating a mounting drive for sleep. The circadian system (Process C), governed by the suprachiasmatic nucleus of the hypothalamus, generates a time-of-day alerting signal that counteracts Process S during the day and withdraws in the evening. Sleep onset occurs when Process S overwhelms the waning circadian alerting signal, allowing the thalamus to enter the slow-wave oscillation patterns of NREM Stage 1.
+      </p>
+      <p>
+        The clinical standard for measuring this transition is the <strong>Multiple Sleep Latency Test</strong>, introduced by Carskadon and Dement (1982). The MSLT administers five 20-minute nap opportunities across a day in a controlled environment, using polysomnography to identify the exact moment of sleep onset at single-epoch (30-second) resolution. This tool allows precise quantification of physiological sleepiness — something subjective self-report dramatically underestimates. People who are severely sleep-deprived consistently rate their sleepiness as moderate while their MSLT latencies are at pathological levels below 5 minutes.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Sleep Onset Latency = time from lights-out → first epoch of sleep</div>
+        <div class="formula-desc">
+          Normal SOL: 10–20 min &nbsp;·&nbsp; Insomnia criterion: ≥ 30 min × ≥ 3 nights/week × ≥ 1 month &nbsp;·&nbsp; MSLT pathological: &lt; 8 min mean
+        </div>
+      </div>
+      <p>
+        <strong>Hyperarousal</strong> is the dominant model for insomnia-related long latency. People with chronic sleep onset insomnia show elevated whole-body metabolic rate, higher core temperature, increased high-frequency EEG activity (beta/gamma power), and elevated cortisol at bedtime compared to good sleepers — even after controlling for age, sex, and sleep duration. This physiological hyperarousal prevents the neural downshift required for sleep onset. CBT-I targets this arousal directly through stimulus control (breaking the bed–wakefulness association) and sleep restriction (compressing the sleep window to build homeostatic pressure).
+      </p>
+      <table class="science-table">
+        <thead>
+          <tr><th>Latency range</th><th>Clinical label</th><th>Prevalence</th><th>Primary cause</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>&lt; 5 min</td><td class="mono">Pathological</td><td class="mono">~5% adults</td><td>Severe sleep debt / sleep disorder</td></tr>
+          <tr><td>5 – 10 min</td><td class="mono">Below normal</td><td class="mono">~15% adults</td><td>Mild–moderate sleep debt</td></tr>
+          <tr><td>10 – 20 min</td><td class="mono">Normal</td><td class="mono">~55% adults</td><td>Healthy homeostatic balance</td></tr>
+          <tr><td>20 – 30 min</td><td class="mono">Mild difficulty</td><td class="mono">~15% adults</td><td>Hyperarousal, poor habits, stress</td></tr>
+          <tr><td>30+ min</td><td class="mono">Insomnia range</td><td class="mono">~10% adults</td><td>Chronic insomnia, hyperarousal</td></tr>
+        </tbody>
+      </table>
+      <div class="citation">
+        Carskadon, M.A. &amp; Dement, W.C. (1982). The Multiple Sleep Latency Test: What does it measure? <em>Sleep, 5(Suppl 2), S67–S72.</em>
+      </div>
+      <div class="citation">
+        Lichstein, K.L., Durrence, H.H., Taylor, D.J., Bush, A.J., &amp; Riedel, B.W. (2003). Quantitative criteria for insomnia. <em>Behaviour Research and Therapy, 41(4), 427–445.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS VARS ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-hover: #6858e8;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #edeaff; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+
+  .field { margin-bottom: 1.25rem; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.4rem;
+  }
+
+  /* Slider */
+  .slider-value-row {
+    display: flex; justify-content: flex-end; margin-bottom: 0.35rem;
+  }
+  .slider-value-display {
+    font-size: 1.1rem; font-weight: 800; color: var(--primary);
+    letter-spacing: -0.03em; font-family: 'Space Grotesk', monospace;
+  }
+  .slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 6px; border-radius: 3px;
+    background: var(--border); outline: none; cursor: pointer;
+  }
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); cursor: pointer;
+    box-shadow: 0 0 0 3px rgba(124,106,255,0.15);
+    transition: box-shadow 0.15s;
+  }
+  .slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 5px rgba(124,106,255,0.2);
+  }
+  .slider::-moz-range-thumb {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--primary); cursor: pointer; border: none;
+    box-shadow: 0 0 0 3px rgba(124,106,255,0.15);
+  }
+  .slider-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.65rem; color: var(--text-soft); font-weight: 600;
+    margin-top: 0.35rem;
+  }
+
+  /* Choice buttons */
+  .choice-group { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .choice-btn {
+    display: flex; align-items: center; gap: 0.4rem;
+    padding: 0.45rem 0.7rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--bg); cursor: pointer; font-family: inherit;
+    font-size: 0.75rem; font-weight: 600; color: var(--text-mid);
+    transition: all 0.15s; white-space: nowrap;
+  }
+  .choice-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .choice-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .choice-btn.active { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+  /* Checkboxes */
+  .checkbox-group { display: flex; flex-direction: column; gap: 0.45rem; }
+  .check-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; color: var(--text-mid); font-weight: 500;
+    cursor: pointer; line-height: 1.4;
+  }
+  .check-item input[type="checkbox"] {
+    width: 16px; height: 16px; accent-color: var(--primary);
+    cursor: pointer; flex-shrink: 0;
+  }
+  .check-item:hover { color: var(--text); }
+
+  /* Tip box */
+  .tip-box {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    background: var(--primary-soft); border: 1px solid #d4ceff;
+    border-radius: var(--radius-sm); padding: 0.65rem 0.85rem;
+    font-size: 0.76rem; color: var(--primary); line-height: 1.5;
+    margin-top: 0.75rem;
+  }
+  .tip-box svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Classification card */
+  .classification-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    transition: border-color 0.3s;
+  }
+  .class-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  .class-badge {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; padding: 0.25rem 0.7rem;
+    border-radius: 20px; background: #d1fae5; color: #065f46;
+    transition: background 0.3s, color 0.3s;
+  }
+  .class-latency {
+    font-size: 2rem; font-weight: 800; letter-spacing: -0.04em;
+    color: var(--primary); font-family: 'Space Grotesk', monospace;
+    transition: color 0.3s;
+  }
+  .class-label {
+    font-size: 0.88rem; font-weight: 600; color: var(--text-mid);
+    line-height: 1.4;
+  }
+
+  /* Gauge card */
+  .gauge-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+  }
+  .gauge-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .gauge-subtitle { font-size: 0.76rem; color: var(--text-soft); line-height: 1.5; margin-bottom: 1rem; }
+
+  .gauge-wrap { position: relative; }
+  .gauge-track {
+    display: flex; height: 22px; border-radius: 6px; overflow: hidden;
+    border: 1.5px solid var(--border); position: relative;
+  }
+  .gauge-zone { height: 100%; transition: opacity 0.2s; }
+  .zone-debt    { flex: 5;  background: #ef4444; }
+  .zone-short   { flex: 5;  background: #f97316; }
+  .zone-normal  { flex: 10; background: #10b981; }
+  .zone-mild    { flex: 10; background: #f59e0b; }
+  .zone-insomnia{ flex: 30; background: #f97316; }
+  .zone-severe  { flex: 60; background: #ef4444; }
+
+  .gauge-marker {
+    position: absolute; top: -3px; bottom: -3px;
+    width: 4px; border-radius: 3px;
+    background: var(--text); transform: translateX(-50%);
+    transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--text);
+    z-index: 2;
+  }
+
+  .gauge-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.63rem; color: var(--text-soft); font-weight: 600;
+    margin-top: 0.35rem;
+    font-family: 'Space Grotesk', monospace;
+  }
+  .gauge-zone-labels {
+    display: flex; margin-top: 0.25rem;
+  }
+  .gzl {
+    font-size: 0.58rem; font-weight: 700; text-align: center;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+  .gzl.debt     { flex: 5;  color: #ef4444; }
+  .gzl.short    { flex: 5;  color: #f97316; }
+  .gzl.normal   { flex: 10; color: #10b981; }
+  .gzl.mild     { flex: 10; color: #f59e0b; }
+  .gzl.insomnia { flex: 30; color: #f97316; }
+  .gzl.severe   { flex: 60; color: #ef4444; }
+
+  /* Population card */
+  .pop-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+  }
+  .pop-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .pop-bars { display: flex; flex-direction: column; gap: 0.65rem; }
+  .pop-row { display: flex; align-items: center; gap: 0.65rem; }
+  .pop-label {
+    font-size: 0.72rem; font-weight: 600; color: var(--text-mid);
+    width: 110px; flex-shrink: 0; line-height: 1.3;
+  }
+  .pop-bar-wrap { flex: 1; }
+  .pop-bar-track {
+    height: 10px; background: var(--border); border-radius: 5px; overflow: hidden;
+  }
+  .pop-bar-fill {
+    height: 100%; border-radius: 5px;
+    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .pop-pct {
+    font-size: 0.68rem; font-weight: 700; font-family: 'Space Grotesk', monospace;
+    color: var(--text-soft); width: 30px; text-align: right; flex-shrink: 0;
+  }
+  .pop-you {
+    font-size: 0.6rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--primary);
+    background: var(--primary-soft); padding: 0.1rem 0.4rem;
+    border-radius: 20px; margin-left: 0.3rem; white-space: nowrap;
+  }
+
+  /* Recommendations card */
+  .recs-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+  }
+  .recs-card h3 {
+    font-size: 0.92rem; font-weight: 700; margin-bottom: 0.85rem;
+    display: flex; align-items: center; gap: 0.45rem;
+  }
+  .recs-card h3 svg { width: 16px; height: 16px; color: var(--primary); }
+  .recs-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .recs-list li {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.5;
+  }
+  .rec-icon {
+    width: 22px; height: 22px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 0.05rem;
+  }
+  .rec-icon svg { width: 12px; height: 12px; }
+  .rec-primary .rec-icon { background: var(--primary-soft); color: var(--primary); }
+  .rec-mint    .rec-icon { background: #d1fae5; color: #065f46; }
+  .rec-amber   .rec-icon { background: #fef3c7; color: #92400e; }
+  .rec-coral   .rec-icon { background: #fee2e2; color: #991b1b; }
+  .rec-sky     .rec-icon { background: #e0f2fe; color: #0c4a6e; }
+
+  /* MSLT reference card */
+  .mslt-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+  }
+  .mslt-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.82rem; font-weight: 700; margin-bottom: 0.85rem;
+    color: var(--text);
+  }
+  .mslt-header svg { width: 16px; height: 16px; color: var(--primary); }
+  .mslt-grid { display: flex; flex-direction: column; gap: 0.4rem; }
+  .mslt-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.5rem 0.75rem; border-radius: var(--radius-sm);
+    font-size: 0.78rem;
+  }
+  .mslt-range {
+    font-weight: 700; font-family: 'Space Grotesk', monospace;
+    min-width: 80px; flex-shrink: 0;
+  }
+  .mslt-desc { color: var(--text-mid); line-height: 1.4; }
+  .mslt-debt    { background: #fee2e2; }
+  .mslt-debt .mslt-range    { color: #991b1b; }
+  .mslt-low     { background: #fef3c7; }
+  .mslt-low .mslt-range     { color: #92400e; }
+  .mslt-normal  { background: #d1fae5; }
+  .mslt-normal .mslt-range  { color: #065f46; }
+  .mslt-high    { background: #fee2e2; }
+  .mslt-high .mslt-range    { color: #991b1b; }
+
+  /* ===== SCIENCE SECTION ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: #1e1b2e; color: #e8e6f0;
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 {
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.75rem; color: #fff;
+  }
+  .science-card p {
+    font-size: 0.88rem; color: #a8a3be; line-height: 1.7;
+    margin-bottom: 0.85rem;
+  }
+  .science-card strong { color: #e8e6f0; }
+
+  .formula-box {
+    background: rgba(124,106,255,0.15); border: 1px solid rgba(124,106,255,0.3);
+    border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.95rem; font-weight: 700; color: #edeaff; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.73rem; color: #a8a3be; line-height: 1.6; }
+
+  .science-table {
+    width: 100%; border-collapse: collapse; margin-top: 1rem;
+    font-size: 0.82rem;
+  }
+  .science-table th {
+    text-align: left; font-weight: 700; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: #7c778e; padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .science-table td {
+    padding: 0.55rem 0.75rem; color: #a8a3be;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .science-table tr:last-child td { border-bottom: none; }
+  .science-table .mono {
+    font-family: 'Space Grotesk', monospace; font-size: 0.78rem;
+    color: #e8e6f0; font-weight: 600;
+  }
+
+  .citation {
+    font-size: 0.76rem; color: #7c778e; line-height: 1.6;
+    padding-left: 0.85rem; border-left: 2px solid rgba(124,106,255,0.4);
+    margin-top: 0.85rem;
+  }
+  .citation em { color: #9ca3af; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-card { padding: 1.5rem; }
+    .choice-btn { font-size: 0.72rem; padding: 0.4rem 0.6rem; }
+  }
+  @media (max-width: 480px) {
+    .class-latency { font-size: 1.6rem; }
+    .gauge-zone-labels { display: none; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* ---- DOM refs ---- */
+  var slider        = document.getElementById('latency-slider');
+  var latencyDisplay = document.getElementById('latency-display');
+  var methodGroup   = document.getElementById('method-group');
+  var sleepinessGrp = document.getElementById('sleepiness-group');
+  var habitCaffeine = document.getElementById('habit-caffeine');
+  var habitScreens  = document.getElementById('habit-screens');
+  var habitIrreg    = document.getElementById('habit-irregular');
+  var habitStress   = document.getElementById('habit-stress');
+  var tipText       = document.getElementById('tip-text');
+
+  var classBadge    = document.getElementById('class-badge');
+  var classLatency  = document.getElementById('class-latency');
+  var classLabel    = document.getElementById('class-label');
+  var classCard     = document.getElementById('classification-card');
+  var gaugeMarker   = document.getElementById('gauge-marker');
+  var popBars       = document.getElementById('pop-bars');
+  var recsList      = document.getElementById('recs-list');
+
+  /* ---- State ---- */
+  var currentMethod     = 'guess';
+  var currentSleepiness = 'none';
+
+  /* ---- Clinical classification ---- */
+  /* Zones: debt (<5), short (5-9), normal (10-20), mild (21-30), insomnia (31-60), severe (>60) */
+  function classify(min) {
+    if (min < 5)  return { id: 'debt',     label: 'Sleep Deprivation', short: 'Severe debt',   desc: 'Falling asleep this fast signals significant sleep debt or a sleep disorder', badgeBg: '#fee2e2', badgeColor: '#991b1b', accent: '#ef4444', cardBorder: '#fca5a5' };
+    if (min < 10) return { id: 'short',    label: 'Below Normal',      short: 'Below normal',  desc: 'Falling asleep quickly may reflect mild-to-moderate sleep debt', badgeBg: '#fef3c7', badgeColor: '#92400e', accent: '#f97316', cardBorder: '#fcd34d' };
+    if (min <= 20) return { id: 'normal',  label: 'Normal Range',      short: 'Normal',        desc: 'Your sleep latency is in the healthy window defined by the MSLT', badgeBg: '#d1fae5', badgeColor: '#065f46', accent: '#10b981', cardBorder: '#6ee7b7' };
+    if (min <= 30) return { id: 'mild',    label: 'Mild Difficulty',   short: 'Mild difficulty', desc: 'Slightly elevated latency — often caused by hyperarousal or poor sleep habits', badgeBg: '#fef3c7', badgeColor: '#92400e', accent: '#f59e0b', cardBorder: '#fcd34d' };
+    if (min <= 60) return { id: 'insomnia',label: 'Insomnia Range',    short: 'Insomnia range',  desc: 'Meets the Lichstein et al. (2003) quantitative criterion for sleep onset insomnia', badgeBg: '#fee2e2', badgeColor: '#991b1b', accent: '#f97316', cardBorder: '#fca5a5' };
+    return            { id: 'severe',      label: 'Severe Insomnia',   short: 'Severe',           desc: 'Extremely long sleep latency — a sleep specialist evaluation is recommended', badgeBg: '#fce7f3', badgeColor: '#831843', accent: '#ec4899', cardBorder: '#f9a8d4' };
+  }
+
+  /* ---- Gauge position ---- */
+  /* Map 0-120 minutes to 0-100% on the gauge track.
+   * The zones have flex widths: 5+5+10+10+30+60 = 120 units total.
+   * Zone boundaries: 5, 10, 20, 30, 60, 120 min.
+   * We need to map minutes → percentage within those zones.
+   */
+  function minutesToGaugePct(min) {
+    /* Zone cumulative flex: debt[0-5]=5, short[5-10]=5, normal[10-20]=10, mild[20-30]=10, insomnia[30-60]=30, severe[60-120]=60 */
+    /* Total flex = 120. Percentage = flex units used / 120. */
+    var totalFlex = 120;
+    var flexUsed;
+    if (min <= 5)  flexUsed = (min / 5) * 5;
+    else if (min <= 10)  flexUsed = 5 + ((min - 5) / 5) * 5;
+    else if (min <= 20)  flexUsed = 10 + ((min - 10) / 10) * 10;
+    else if (min <= 30)  flexUsed = 20 + ((min - 20) / 10) * 10;
+    else if (min <= 60)  flexUsed = 30 + ((min - 30) / 30) * 30;
+    else                 flexUsed = 60 + ((min - 60) / 60) * 60;
+    return (flexUsed / totalFlex) * 100;
+  }
+
+  /* ---- Population data ---- */
+  /* Approximate prevalence across the latency zones (US/EU adult data) */
+  var POP_DATA = [
+    { label: '< 5 min (sleep debt)', pct: 5,  color: '#ef4444' },
+    { label: '5 – 10 min',           pct: 15, color: '#f97316' },
+    { label: '10 – 20 min (normal)', pct: 55, color: '#10b981' },
+    { label: '20 – 30 min',          pct: 15, color: '#f59e0b' },
+    { label: '30+ min (insomnia)',    pct: 10, color: '#f97316' },
+  ];
+
+  function getPopZone(min) {
+    if (min < 5)   return 0;
+    if (min < 10)  return 1;
+    if (min <= 20) return 2;
+    if (min <= 30) return 3;
+    return 4;
+  }
+
+  /* ---- Recommendations ---- */
+  var RECS = {
+    debt: [
+      { cls: 'rec-coral',   icon: 'alert', text: 'Prioritise sleep urgently — your brain is operating in a clinically sleep-deprived state. Aim for 7–9 hours every night for the next 2 weeks.' },
+      { cls: 'rec-primary', icon: 'clock', text: 'Set a consistent wake time and protect it — even on weekends. This is the single most powerful fix for sleep debt.' },
+      { cls: 'rec-sky',     icon: 'doc',   text: 'If you routinely fall asleep within minutes despite adequate time in bed, see a GP to rule out sleep apnea or narcolepsy.' },
+      { cls: 'rec-amber',   icon: 'moon',  text: 'Do not use sleep debt as a license to sleep 10+ hours on weekends — it disrupts your circadian anchor and perpetuates the cycle.' },
+    ],
+    short: [
+      { cls: 'rec-amber',   icon: 'clock', text: 'Aim for 7–8 hours per night consistently. Your fast sleep onset suggests you are carrying some sleep debt — build your sleep back up.' },
+      { cls: 'rec-mint',    icon: 'check', text: 'Maintain a regular sleep schedule. A consistent wake time is more powerful than a consistent bedtime for regulating your circadian rhythm.' },
+      { cls: 'rec-primary', icon: 'book',  text: 'Track your sleep for 2 weeks using a sleep diary or wearable. Identify whether your short latency coincides with insufficient total sleep.' },
+    ],
+    normal: [
+      { cls: 'rec-mint',    icon: 'check', text: 'Your sleep latency is healthy. Protect it by keeping consistent sleep and wake times, even on weekends.' },
+      { cls: 'rec-primary', icon: 'star',  text: 'Continue avoiding caffeine in the 6 hours before bed and dimming lights in the final hour to preserve your natural melatonin onset.' },
+      { cls: 'rec-sky',     icon: 'moon',  text: 'A 10–20 minute pre-sleep wind-down routine strengthens the conditioned association between your bedtime rituals and sleep onset.' },
+    ],
+    mild: [
+      { cls: 'rec-amber',   icon: 'moon',  text: 'A 20–30 min latency often indicates hyperarousal. Start a consistent 20-min wind-down: dim lights, no screens, calm activity only.' },
+      { cls: 'rec-primary', icon: 'clock', text: 'Stimulus control: if you\'re not asleep in 20 minutes, get up and do something calm in dim light until you feel sleepy. Return to bed only then.' },
+      { cls: 'rec-mint',    icon: 'check', text: 'Avoid clock-watching. Knowing exactly how long you\'ve been awake increases anxiety and extends latency. Turn clocks away from the bed.' },
+      { cls: 'rec-coral',   icon: 'alert', text: 'Cut caffeine by 2 PM and avoid heavy meals within 2 hours of bedtime. Both elevate core temperature and delay sleep onset.' },
+    ],
+    insomnia: [
+      { cls: 'rec-coral',   icon: 'alert', text: 'Your latency meets the clinical insomnia threshold. CBT-I (Cognitive Behavioral Therapy for Insomnia) is the first-line evidence-based treatment — more effective than sleep medication long-term.' },
+      { cls: 'rec-primary', icon: 'clock', text: 'Sleep restriction therapy: compress your time in bed to match your actual sleep time, then expand it gradually. This builds intense homeostatic pressure that breaks the cycle.' },
+      { cls: 'rec-amber',   icon: 'moon',  text: 'Apply strict stimulus control: bed is for sleep only. If awake for >20 minutes, leave the room. This de-conditions the bed-wakefulness association.' },
+      { cls: 'rec-sky',     icon: 'doc',   text: 'Speak with your GP or a sleep clinic. Digital CBT-I programs (Sleepio, SOMRYST) are clinically validated if in-person therapy is not accessible.' },
+      { cls: 'rec-mint',    icon: 'book',  text: 'Keep a two-week sleep diary (bedtime, estimated sleep onset, wake time, total sleep). This data is essential for a sleep specialist to guide your treatment.' },
+    ],
+    severe: [
+      { cls: 'rec-coral',   icon: 'alert', text: 'Latency over 60 minutes warrants a clinical evaluation. Please speak with a sleep specialist — polysomnography can identify underlying causes.' },
+      { cls: 'rec-primary', icon: 'clock', text: 'In the meantime, strict sleep restriction and stimulus control are the most evidence-based behavioral tools available. Do not spend more than 8 hours in bed until latency improves.' },
+      { cls: 'rec-amber',   icon: 'moon',  text: 'Avoid daytime naps — they reduce the homeostatic sleep pressure that drives sleep onset at night. Even brief naps can extend your latency further.' },
+      { cls: 'rec-sky',     icon: 'doc',   text: 'Consider requesting a referral to a sleep medicine clinic for a full evaluation including sleep diary review, actigraphy, and where appropriate a polysomnogram.' },
+    ],
+  };
+
+  function getRecsKey(classId) { return RECS[classId] || RECS['normal']; }
+
+  /* ---- SVG icons for recs ---- */
+  function recIconSvg(type) {
+    var icons = {
+      alert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+      clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+      check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+      moon:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+      doc:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
+      book:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
+      star:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    };
+    return icons[type] || icons['check'];
+  }
+
+  /* ---- Habit-derived tip ---- */
+  function buildTip(min, method, sleepiness, caffeine, screens, irreg, stress) {
+    var tips = [];
+    if (method === 'guess') tips.push('Note: self-estimated latency tends to be 5–10 min longer than objectively measured. Your true latency may be shorter.');
+    if (method === 'tracked') tips.push('Sleep tracker-measured latency is more accurate than estimation — use these results with confidence.');
+    if (caffeine && min > 20) tips.push('Caffeine is likely contributing to your delayed sleep onset — try cutting off at 2 PM.');
+    if (screens  && min > 15) tips.push('Blue light and cognitive arousal from screens can delay sleep onset by 30–60 min.');
+    if (irreg    && min > 15) tips.push('Irregular sleep timing weakens your circadian signal and makes falling asleep harder.');
+    if (stress   && min > 20) tips.push('Pre-sleep worry is a leading driver of sleep onset insomnia. CBT-I targets this directly.');
+    if (sleepiness === 'severe' && min < 8) tips.push('Extreme daytime sleepiness combined with very fast sleep onset is a red flag — please see a doctor.');
+    if (tips.length === 0) tips.push('Adjust any input above to see personalised observations here.');
+    return tips[0];
+  }
+
+  /* ---- Main calculate ---- */
+  function calculate() {
+    var min         = parseInt(slider.value, 10);
+    var caffeine    = habitCaffeine.checked;
+    var screens     = habitScreens.checked;
+    var irreg       = habitIrreg.checked;
+    var stress      = habitStress.checked;
+
+    /* Update slider display */
+    latencyDisplay.textContent = min + ' min';
+
+    /* Classify */
+    var c = classify(min);
+
+    /* Classification card */
+    classCard.style.borderColor = c.cardBorder;
+    classBadge.textContent = c.short;
+    classBadge.style.background = c.badgeBg;
+    classBadge.style.color = c.badgeColor;
+    classLatency.textContent = min + ' min';
+    classLatency.style.color = c.accent;
+    classLabel.textContent = c.desc;
+
+    /* Gauge marker */
+    var pct = minutesToGaugePct(min);
+    gaugeMarker.style.left = pct + '%';
+
+    /* Population bars */
+    var youZone  = getPopZone(min);
+    var barsHtml = '';
+    POP_DATA.forEach(function(row, i) {
+      var isYou = (i === youZone);
+      barsHtml += '<div class="pop-row">';
+      barsHtml += '<div class="pop-label">' + row.label + (isYou ? ' <span class="pop-you">You</span>' : '') + '</div>';
+      barsHtml += '<div class="pop-bar-wrap"><div class="pop-bar-track"><div class="pop-bar-fill" style="width:' + row.pct + '%;background:' + row.color + '"></div></div></div>';
+      barsHtml += '<div class="pop-pct">' + row.pct + '%</div>';
+      barsHtml += '</div>';
+    });
+    popBars.innerHTML = barsHtml;
+
+    /* Recommendations */
+    var recs = getRecsKey(c.id);
+    var recsHtml = '';
+    recs.forEach(function(rec) {
+      recsHtml += '<li class="' + rec.cls + '">';
+      recsHtml += '<div class="rec-icon">' + recIconSvg(rec.icon) + '</div>';
+      recsHtml += '<span>' + rec.text + '</span>';
+      recsHtml += '</li>';
+    });
+    recsList.innerHTML = recsHtml;
+
+    /* Tip box */
+    tipText.textContent = buildTip(min, currentMethod, currentSleepiness, caffeine, screens, irreg, stress);
+  }
+
+  /* ---- Event listeners ---- */
+  slider.addEventListener('input', calculate);
+  habitCaffeine.addEventListener('change', calculate);
+  habitScreens.addEventListener('change', calculate);
+  habitIrreg.addEventListener('change', calculate);
+  habitStress.addEventListener('change', calculate);
+
+  /* Method group */
+  methodGroup.addEventListener('click', function(e) {
+    var btn = e.target.closest('.choice-btn');
+    if (!btn) return;
+    currentMethod = btn.dataset.val;
+    methodGroup.querySelectorAll('.choice-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    calculate();
+  });
+
+  /* Sleepiness group */
+  sleepinessGrp.addEventListener('click', function(e) {
+    var btn = e.target.closest('.choice-btn');
+    if (!btn) return;
+    currentSleepiness = btn.dataset.val;
+    sleepinessGrp.querySelectorAll('.choice-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    calculate();
+  });
+
+  /* ---- Init ---- */
+  calculate();
+
+})();
+</script>

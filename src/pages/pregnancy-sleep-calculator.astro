@@ -1,0 +1,1013 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What are the safest sleep positions during pregnancy?',
+    answer: `<p><strong>Left-side sleeping (SOS — Sleep On Side)</strong> is the position most consistently recommended by obstetric researchers, particularly from the second trimester onward. Lying on the left side optimises blood flow through the inferior vena cava — the large vein that returns blood from the lower body to the heart — and improves circulation to the placenta, uterus, and kidneys. Research by <strong>O'Brien &amp; Warland (2014)</strong> confirmed that both sides are preferable to back sleeping, but left-side lying offers a slight circulatory advantage because the inferior vena cava runs slightly to the right of the spine.</p><p>Right-side sleeping is also considered safe throughout pregnancy and is far preferable to supine (back) sleep. Many clinicians advise patients not to stress if they wake on their right side, as the body's natural positional shifts during sleep are normal. The key guidance is to <strong>avoid flat back sleeping after 28 weeks</strong>, as this places sustained pressure on the vena cava and has been associated with reduced fetal blood flow. Using a full-length body pillow or a wedge behind the back can help maintain a lateral position through the night.</p>`,
+  },
+  {
+    question: 'Why is left-side sleeping recommended during pregnancy?',
+    answer: `<p>The left-side recommendation is rooted in vascular anatomy. The <strong>inferior vena cava (IVC)</strong> — the primary route for venous blood returning to the heart from the lower body — is positioned slightly to the right of the lumbar spine. When a pregnant person lies flat on their back, the growing uterus exerts direct compression on the IVC, reducing venous return to the heart and consequently decreasing cardiac output by up to 25% in late pregnancy. Lying on the left side shifts the uterus away from the IVC, allowing unobstructed blood flow. Improved kidney perfusion in the left lateral position also helps manage the fluid retention and oedema common in the third trimester.</p><p>From a fetal perspective, optimised maternal circulation means better oxygen and nutrient delivery to the placenta. <strong>Stacey et al. (2011)</strong>, in their landmark Auckland Stillbirth Study, found that women who went to sleep on their back in the last month of pregnancy had a 2.54× higher odds of stillbirth compared to those who slept on their left side, even after adjusting for other risk factors. While the absolute risk remains low, the mechanistic and epidemiological evidence together make left-side sleeping the evidence-based recommendation for late pregnancy.</p>`,
+  },
+  {
+    question: 'How does sleep change by trimester during pregnancy?',
+    answer: `<p>Each trimester brings distinct sleep challenges. <strong>First trimester (weeks 1–13):</strong> progesterone surges dramatically and acts as a natural sedative, causing intense daytime sleepiness and longer total sleep time. However, sleep quality often suffers — frequent urination disrupts overnight sleep, and nausea (morning sickness) can occur at any hour. The National Sleep Foundation (NSF) reports that up to 78% of pregnant women experience sleep disruption during the first trimester. Recommended sleep duration increases to <strong>8–10 hours</strong> per night, plus daytime naps as needed.</p><p><strong>Second trimester (weeks 14–27)</strong> often brings a reprieve — nausea typically improves and energy partially returns, with many women reporting their best sleep of the pregnancy during this window. Leg cramps, heartburn, and vivid dreams may emerge. <strong>Third trimester (weeks 28–42)</strong> is the most sleep-disrupted period: the enlarged uterus compresses the bladder (causing up to 3–4 nighttime bathroom trips), back pain intensifies, and back sleeping becomes contraindicated after week 28 per the guidance of Stacey et al. (2011). Restless legs syndrome (RLS) also peaks in the third trimester, affecting approximately 26% of pregnant women.</p>`,
+  },
+  {
+    question: 'Do pregnancy pillows really improve sleep?',
+    answer: `<p><strong>Pregnancy pillows — particularly C-shaped, U-shaped, and wedge pillows — meaningfully improve sleep comfort</strong> by supporting the growing abdomen, reducing lumbar stress, and helping maintain a side-lying position. A full-length U-shaped body pillow supports both the front and back simultaneously, minimising positional rolling during sleep without requiring the sleeper to consciously correct their position. A wedge pillow placed under the abdomen when side-sleeping offloads gravitational pressure from the lower back, and a second wedge behind the back acts as a physical stop that prevents rolling supine.</p><p>From a musculoskeletal standpoint, pregnancy shifts the centre of gravity anteriorly and increases lumbar lordosis (inward curve of the lower back), placing greater load on the lumbar discs and sacroiliac joints. Proper pillow arrangement that keeps the hips, spine, and shoulders aligned — rather than allowing the top leg to drop forward and rotate the pelvis — reduces overnight muscle tension. Clinicians generally recommend placing a pillow <strong>between the knees</strong> when side-sleeping regardless of pregnancy status to maintain neutral spinal alignment; during pregnancy, this is especially beneficial. NSF pregnancy guidelines endorse positional aids as a first-line non-pharmacological approach to improving sleep comfort.</p>`,
+  },
+  {
+    question: 'Is it dangerous to sleep on your back during pregnancy?',
+    answer: `<p>The risk of back sleeping is <strong>low in the first and second trimesters</strong> and increases substantially after 28 weeks as the uterus becomes large enough to consistently compress the inferior vena cava. <strong>Stacey et al. (2011)</strong> — the Auckland Stillbirth Study, published in the BMJ — was among the first large controlled studies to quantify this risk, reporting a 2.54-fold increase in late stillbirth odds for women who went to sleep supine versus left-lateral in the final month of pregnancy. A subsequent meta-analysis by <strong>O'Brien &amp; Warland (2014)</strong> reviewed pooled data from multiple cohort studies and found consistent evidence that non-supine sleep position in late pregnancy is associated with reduced adverse perinatal outcomes.</p><p>It is important to note that this research concerns <strong>sleep-onset position</strong> (the position in which you fall asleep), not necessarily the position in which you are found mid-sleep. The body naturally moves during the night, and clinicians do not advise patients to set alarms to correct their position. The practical guidance is: <em>if you wake up on your back, calmly roll to your side and return to sleep</em>. Sleeping with a pillow wedged behind the back reduces the likelihood of rolling supine in the first place. Women with specific risk factors (low placental position, growth restriction, hypertension) should discuss individualised positional guidance with their obstetric provider.</p>`,
+  },
+  {
+    question: 'How much sleep do pregnant women need per night?',
+    answer: `<p>The <strong>National Sleep Foundation (NSF)</strong> recommends that pregnant women aim for <strong>8–10 hours of sleep per night</strong> during the first trimester, compared to the standard adult recommendation of 7–9 hours. This increased need reflects the enormous metabolic and hormonal demands of early placental development, organogenesis, and the sedating effect of elevated progesterone. Research consistently shows that inadequate sleep during pregnancy is associated with longer labours, higher rates of caesarean delivery, gestational diabetes, preeclampsia, and preterm birth — making sleep hygiene a genuine clinical priority, not merely a comfort issue.</p><p>In the <strong>second trimester</strong>, many women find 8–9 hours adequate as progesterone levels stabilise and nausea abates. By the <strong>third trimester</strong>, sleep efficiency (the proportion of time in bed actually spent asleep) often declines despite spending more time in bed, due to positional discomfort, frequent urination, and foetal movement. Daytime naps of <strong>20–30 minutes</strong> (avoiding naps after 3 PM to protect night sleep) are strongly endorsed as a compensatory strategy. If sleep deprivation is severe or accompanied by symptoms of gestational sleep apnoea (loud snoring, witnessed apnoeas, morning headaches), referral for a sleep study is warranted, as untreated OSA in pregnancy carries independent risks for maternal and fetal outcomes.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Pregnancy Sleep Calculator — The Sleep Math"
+  description="Trimester-specific pregnancy sleep guide. Find safe sleep positions, pillow arrangements, sleep duration needs, and symptom-specific tips based on your stage of pregnancy."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Pregnancy Sleep Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/>
+          <path d="M12 6v6l3 3"/>
+          <circle cx="12" cy="12" r="3" fill="#edeaff" stroke="none"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Pregnancy Sleep Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Trimester-specific sleep position guidance, pillow arrangement tips, duration recommendations, and symptom-specific strategies — backed by obstetric sleep research.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Stacey et al. 2011
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        NSF Guidelines
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your pregnancy details</h2>
+
+      <div class="field">
+        <label for="trimester-select">Trimester</label>
+        <select id="trimester-select">
+          <option value="1">1st Trimester (Weeks 1–13)</option>
+          <option value="2" selected>2nd Trimester (Weeks 14–27)</option>
+          <option value="3">3rd Trimester (Weeks 28–42)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="weeks-slider">Weeks pregnant: <strong id="weeks-display">20</strong></label>
+        <input type="range" id="weeks-slider" min="4" max="42" value="20" step="1">
+        <div class="slider-track-labels">
+          <span>4 wks</span>
+          <span>42 wks</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Current symptoms <span class="optional">(check all that apply)</span></label>
+        <div class="symptom-list">
+          <label class="symptom-item">
+            <input type="checkbox" id="sym-backpain" value="backpain">
+            <span class="sym-check"></span>
+            <span class="sym-label">Back pain</span>
+          </label>
+          <label class="symptom-item">
+            <input type="checkbox" id="sym-heartburn" value="heartburn">
+            <span class="sym-check"></span>
+            <span class="sym-label">Heartburn / acid reflux</span>
+          </label>
+          <label class="symptom-item">
+            <input type="checkbox" id="sym-legcramps" value="legcramps">
+            <span class="sym-check"></span>
+            <span class="sym-label">Leg cramps</span>
+          </label>
+          <label class="symptom-item">
+            <input type="checkbox" id="sym-urination" value="urination">
+            <span class="sym-check"></span>
+            <span class="sym-label">Frequent urination</span>
+          </label>
+          <label class="symptom-item">
+            <input type="checkbox" id="sym-breath" value="breath">
+            <span class="sym-check"></span>
+            <span class="sym-label">Shortness of breath</span>
+          </label>
+          <label class="symptom-item">
+            <input type="checkbox" id="sym-rls" value="rls">
+            <span class="sym-check"></span>
+            <span class="sym-label">Restless legs (RLS)</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- SAFETY ALERT (hidden by default, shown after wk 28) -->
+      <div class="safety-alert" id="safety-alert" style="display:none;">
+        <div class="alert-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="alert-body">
+          <div class="alert-title">Back sleeping caution after 28 weeks</div>
+          <div class="alert-text">Stacey et al. (2011) found a 2.54× higher odds of late stillbirth for women who went to sleep supine vs. left-lateral in the final month. Aim to fall asleep on your side — if you wake on your back, simply roll over and return to sleep.</div>
+        </div>
+      </div>
+
+      <!-- SUMMARY CARDS -->
+      <div class="summary-cards">
+        <div class="summary-card">
+          <div class="sc-icon" style="background:#edeaff;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Sleep needed</div>
+            <div class="sc-value" id="sleep-needed-val">8–9h</div>
+            <div class="sc-sub">per night</div>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="sc-icon" style="background:#f0fdf9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Best position</div>
+            <div class="sc-value" id="best-position-val" style="font-size:1rem;">Left side</div>
+            <div class="sc-sub" id="best-position-sub">SOS recommended</div>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="sc-icon" style="background:#fff8f0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Pillow count</div>
+            <div class="sc-value" id="pillow-count-val">2–3</div>
+            <div class="sc-sub">support pillows</div>
+          </div>
+        </div>
+        <div class="summary-card">
+          <div class="sc-icon" style="background:#fdf2f8;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Trimester phase</div>
+            <div class="sc-value" id="trimester-phase-val" style="font-size:1rem;">2nd</div>
+            <div class="sc-sub" id="trimester-phase-sub">Week 20</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- POSITION DIAGRAM -->
+      <div class="position-card">
+        <h3 id="position-card-title">Recommended sleeping position</h3>
+        <p class="position-card-sub" id="position-card-sub">Left-side lateral — optimal for placental blood flow</p>
+        <div class="position-diagram-wrap">
+          <div class="position-diagram" id="position-diagram">
+            <!-- Rendered by JS -->
+          </div>
+          <div class="position-legend" id="position-legend">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- PILLOW GUIDE -->
+      <div class="pillow-card">
+        <div class="pillow-header">
+          <div class="pillow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="20" height="8" rx="4"/></svg>
+          </div>
+          <h3>Pillow arrangement guide</h3>
+        </div>
+        <ul class="pillow-list" id="pillow-list">
+          <!-- Rendered by JS -->
+        </ul>
+      </div>
+
+      <!-- SYMPTOM TIPS -->
+      <div class="symptom-tips-card" id="symptom-tips-card" style="display:none;">
+        <div class="tips-header">
+          <div class="tips-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          </div>
+          <h3>Symptom-specific sleep tips</h3>
+        </div>
+        <div class="symptom-tips-list" id="symptom-tips-list">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- TRIMESTER TIPS -->
+      <div class="tips-card">
+        <div class="tips-header">
+          <div class="tips-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3 id="tips-title">Sleep tips for the 2nd trimester</h3>
+        </div>
+        <ul class="tips-list" id="tips-list">
+          <!-- Rendered by JS -->
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of pregnancy sleep</h2>
+      <p>
+        Pregnancy profoundly disrupts sleep across all three trimesters through overlapping hormonal, anatomical, and physiological mechanisms. <strong>Progesterone</strong> — which rises dramatically in the first trimester — acts as a CNS depressant and respiratory stimulant, simultaneously increasing sleepiness while altering upper airway muscle tone in a way that predisposes to snoring and sleep-disordered breathing. By the third trimester, up to <strong>30% of pregnant women</strong> meet criteria for obstructive sleep apnoea, a rate comparable to obese middle-aged men.
+      </p>
+      <p>
+        Sleep architecture changes are equally significant. REM sleep decreases across pregnancy, and <strong>slow-wave (deep) sleep</strong> is substantially reduced by the third trimester — partly due to frequent positional awakenings and nocturia (nighttime urination), and partly due to elevated cortisol and noradrenaline associated with physical discomfort. The resulting sleep debt accumulates and correlates with labour outcomes: a landmark study by Lee &amp; Gay (2004) found that women who slept fewer than 6 hours per night had significantly longer labours and 4.5× higher caesarean rates than women averaging 7+ hours.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Left-side sleep → IVC decompression → ↑ cardiac output → ↑ placental perfusion</div>
+        <div class="formula-desc">
+          Supine position compresses the inferior vena cava, reducing venous return by up to 25% · Stacey et al. 2011 · O'Brien &amp; Warland 2014
+        </div>
+      </div>
+      <p>
+        The physiological rationale for <strong>lateral sleep positioning</strong> in late pregnancy is well-established: the gravid uterus at 28+ weeks weighs 3–5 kg and exerts substantial pressure on the retroperitoneal inferior vena cava when the patient lies supine. This aortocaval compression syndrome reduces preload, drops cardiac output, and can produce maternal hypotension and fetal bradycardia. The left lateral position physically displaces the uterus off the IVC, restoring normal venous return — an effect measurable within minutes of position change on Doppler imaging.
+      </p>
+      <table class="sleep-table">
+        <thead>
+          <tr><th>Trimester</th><th>Sleep needed</th><th>Best position</th><th>Common disruptions</th><th>Safety note</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1st (wks 1–13)</td>
+            <td class="highlight">8–10h</td>
+            <td>Any comfortable</td>
+            <td>Nausea, urination, fatigue</td>
+            <td>No restrictions yet</td>
+          </tr>
+          <tr>
+            <td>2nd (wks 14–27)</td>
+            <td class="highlight">8–9h</td>
+            <td>Left or right side</td>
+            <td>Heartburn, leg cramps, vivid dreams</td>
+            <td>Begin side habit now</td>
+          </tr>
+          <tr>
+            <td>3rd (wks 28–42)</td>
+            <td class="highlight">8–9h + naps</td>
+            <td>Left side (preferred)</td>
+            <td>Back pain, RLS, frequent waking</td>
+            <td>Avoid back sleep (Stacey 2011)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="citations">
+        <div class="citation">
+          Stacey, T., Thompson, J.M., Mitchell, E.A., Ekeroma, A.J., Zuccollo, J.M., &amp; McCowan, L.M. (2011). Association between maternal sleep practices and risk of late stillbirth: a case-control study. <em>BMJ, 342, d3403.</em>
+        </div>
+        <div class="citation">
+          O'Brien, L.M., &amp; Warland, J. (2014). Maternal sleep position: what do we know where do we go? <em>BMC Pregnancy and Childbirth, 14(Suppl 1), S4.</em>
+        </div>
+        <div class="citation">
+          National Sleep Foundation (2020). Pregnancy and Sleep. <em>sleepfoundation.org/pregnancy</em>
+        </div>
+        <div class="citation">
+          Lee, K.A., &amp; Gay, C.L. (2004). Sleep in late pregnancy predicts length of labor and type of delivery. <em>American Journal of Obstetrics and Gynecology, 191(6), 2041–2046.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== DESIGN TOKENS ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #edeaff; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.25rem; }
+  .field > label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.4rem;
+  }
+  .optional { font-weight: 400; color: var(--text-soft); }
+  .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+    appearance: none; -webkit-appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem;
+    padding-right: 2.25rem;
+  }
+  .field select:focus { border-color: var(--primary); }
+
+  /* Range slider */
+  .field input[type="range"] {
+    width: 100%; accent-color: var(--primary); cursor: pointer;
+    margin: 0.4rem 0 0.25rem;
+  }
+  .slider-track-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.68rem; color: var(--text-soft);
+  }
+
+  /* Symptom checklist */
+  .symptom-list { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.1rem; }
+  .symptom-item {
+    display: flex; align-items: center; gap: 0.5rem;
+    cursor: pointer; padding: 0.45rem 0.6rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    transition: all 0.15s; background: var(--bg);
+  }
+  .symptom-item:hover { border-color: var(--primary); background: #edeaff40; }
+  .symptom-item input[type="checkbox"] { display: none; }
+  .sym-check {
+    width: 16px; height: 16px; border: 1.5px solid var(--border);
+    border-radius: 4px; flex-shrink: 0; position: relative; background: var(--card);
+    transition: all 0.15s;
+  }
+  .symptom-item input:checked ~ .sym-check {
+    background: var(--primary); border-color: var(--primary);
+  }
+  .symptom-item input:checked ~ .sym-check::after {
+    content: ''; position: absolute; left: 3px; top: 1px;
+    width: 5px; height: 8px; border: 2px solid #fff;
+    border-top: none; border-left: none; transform: rotate(45deg);
+  }
+  .symptom-item input:checked ~ .sym-label { color: var(--primary); font-weight: 600; }
+  .sym-label { font-size: 0.8rem; color: var(--text-mid); transition: color 0.15s; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Safety alert */
+  .safety-alert {
+    background: #fffbeb; border: 1.5px solid #fde68a;
+    border-radius: var(--radius); padding: 1rem 1.1rem;
+    display: flex; align-items: flex-start; gap: 0.75rem;
+  }
+  .alert-icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 0.05rem; }
+  .alert-icon svg { width: 100%; height: 100%; }
+  .alert-title { font-size: 0.82rem; font-weight: 700; color: #92400e; margin-bottom: 0.25rem; }
+  .alert-text { font-size: 0.78rem; color: #78350f; line-height: 1.55; }
+
+  /* Summary cards */
+  .summary-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;
+  }
+  .summary-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1rem;
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    transition: border-color 0.2s;
+  }
+  .summary-card:hover { border-color: var(--primary); }
+  .sc-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .sc-icon svg { width: 18px; height: 18px; }
+  .sc-body { flex: 1; min-width: 0; }
+  .sc-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-soft); margin-bottom: 0.2rem; }
+  .sc-value { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 0.15rem; font-family: 'Space Grotesk', monospace; }
+  .sc-sub { font-size: 0.68rem; color: var(--text-soft); }
+
+  /* Position diagram card */
+  .position-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .position-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .position-card-sub { font-size: 0.78rem; color: var(--text-mid); margin-bottom: 1rem; }
+  .position-diagram-wrap { display: flex; gap: 1rem; align-items: flex-start; }
+  .position-diagram {
+    flex: 1; min-height: 140px; background: var(--bg-tint);
+    border-radius: var(--radius-sm); display: flex; align-items: center;
+    justify-content: center; overflow: hidden; position: relative;
+  }
+  .position-diagram svg { width: 100%; height: auto; display: block; }
+  .position-legend {
+    flex-shrink: 0; display: flex; flex-direction: column; gap: 0.4rem;
+    font-size: 0.72rem; color: var(--text-soft); max-width: 140px;
+  }
+  .leg-row { display: flex; align-items: center; gap: 0.4rem; line-height: 1.3; }
+  .leg-dot {
+    width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+  }
+
+  /* Pillow guide */
+  .pillow-card {
+    background: #edeaff; border: 1.5px solid #c7c0ff;
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .pillow-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+  .pillow-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pillow-icon svg { width: 100%; height: 100%; }
+  .pillow-card h3 { font-size: 0.88rem; font-weight: 700; margin: 0; color: var(--text); }
+  .pillow-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .pillow-list li {
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.5;
+    padding-left: 1.25rem; position: relative;
+  }
+  .pillow-list li::before {
+    content: ''; position: absolute; left: 0; top: 0.42rem;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--primary);
+  }
+
+  /* Symptom tips */
+  .symptom-tips-card {
+    background: #ecfdf5; border: 1.5px solid #a7f3d0;
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .tips-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+  .tips-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .tips-icon svg { width: 100%; height: 100%; }
+  .symptom-tips-card h3 { font-size: 0.88rem; font-weight: 700; margin: 0; color: var(--text); }
+  .symptom-tips-list { display: flex; flex-direction: column; gap: 0.65rem; }
+  .symptom-tip-group { }
+  .symptom-tip-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: #065f46; margin-bottom: 0.2rem;
+  }
+  .symptom-tip-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Trimester tips */
+  .tips-card {
+    background: #edeaff; border: 1.5px solid #c7c0ff;
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .tips-card .tips-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+  .tips-card h3 { font-size: 0.88rem; font-weight: 700; margin: 0; }
+  .tips-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .tips-list li { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; padding-left: 1.1rem; position: relative; }
+  .tips-list li::before { content: ''; position: absolute; left: 0; top: 0.45rem; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.72rem; color: #a8a3be; }
+  .sleep-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .sleep-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .sleep-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .sleep-table tr:last-child td { border-bottom: none; }
+  .sleep-table .highlight { font-weight: 700; color: var(--text); font-family: 'Space Grotesk', monospace; font-size: 0.8rem; }
+  .citations { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .citation { font-size: 0.78rem; color: var(--text-soft); line-height: 1.5; padding-left: 0.85rem; border-left: 2px solid var(--border); }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .summary-cards { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .sleep-table { font-size: 0.75rem; }
+    .sleep-table th, .sleep-table td { padding: 0.4rem 0.5rem; }
+    .position-diagram-wrap { flex-direction: column; }
+    .position-legend { max-width: 100%; flex-direction: row; flex-wrap: wrap; gap: 0.5rem 1rem; }
+  }
+  @media (max-width: 480px) {
+    .summary-cards { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* =============================================
+     DATA BY TRIMESTER
+     ============================================= */
+  var TRIMESTER_DATA = {
+    '1': {
+      label: '1st trimester',
+      weeks: '1–13',
+      sleepNeeded: '8–10h',
+      bestPosition: 'Any side',
+      bestPositionSub: 'Any comfortable position',
+      pillowCount: '1–2',
+      positionTitle: 'Any comfortable position',
+      positionSub: 'No position restrictions in the first trimester — prioritise comfort',
+      positionType: 'first',
+      pillowGuide: [
+        'A standard pillow between the knees reduces hip rotation and lumbar stress when side-sleeping.',
+        'If nausea is severe when lying flat, try a 30° incline with a wedge pillow or stacked pillows under the upper body.',
+        'A small pillow hugged to the abdomen can relieve early uterine ligament discomfort even before the bump is visible.',
+        'Keep a pillow nearby to experiment with positioning — comfort requirements change week to week in the first trimester.',
+      ],
+      tips: [
+        'Progesterone surges cause intense fatigue in weeks 6–10 — short 20-minute naps before 3 PM are clinically endorsed.',
+        'Nausea (morning sickness) peaks around weeks 8–10. Keep crackers or ginger biscuits by the bed for middle-of-night nausea.',
+        'Frequent urination is driven by hCG and progesterone — reduce fluid intake after 7 PM to minimise nighttime disruption.',
+        'Room temperature of 65–68°F (18–20°C) promotes sleep onset; the progesterone-driven basal body temperature rise makes many women feel warmer than usual.',
+        'Vivid dreams are common and normal in the first trimester — attributed to hormonal changes and lighter, more fragmented sleep.',
+        'If morning sickness makes lying flat unbearable, semi-reclined positioning is a safe short-term alternative while nausea resolves.',
+      ]
+    },
+    '2': {
+      label: '2nd trimester',
+      weeks: '14–27',
+      sleepNeeded: '8–9h',
+      bestPosition: 'Left side',
+      bestPositionSub: 'SOS recommended',
+      pillowCount: '2–3',
+      positionTitle: 'Left-side lateral (SOS)',
+      positionSub: 'Begin the left-side habit now — optimal for placental blood flow',
+      positionType: 'left',
+      pillowGuide: [
+        'Place a pillow between your knees and ankles to keep the hips stacked and prevent pelvic rotation — this reduces sacroiliac joint strain as the bump grows.',
+        'A body pillow or C-pillow along the front supports the growing abdomen and prevents the top arm from rotating the torso forward.',
+        'Tuck a small pillow under the belly at week 20+ to take gravitational pressure off the uterine ligaments overnight.',
+        'If heartburn is present, elevate the head of the bed by 6–8 inches using books under the bed legs — this is more effective than extra pillows alone.',
+        'A wedge pillow behind the back in mid-second trimester helps establish the habit of staying on your side before it becomes critical in the third trimester.',
+      ],
+      tips: [
+        'The second trimester is typically the most restful period of pregnancy — use this window to establish good sleep hygiene habits before the third trimester.',
+        'Begin sleeping on your side now to make it habitual before the uterus is large enough that back sleeping becomes dangerous (week 28).',
+        'Round ligament pain (sharp groin/side twinges) peaks in the second trimester as the uterus grows rapidly — a belly support pillow reduces overnight ligament traction.',
+        'Leg cramps are common from week 14 onward — stretch calves before bed and ensure adequate magnesium, calcium, and hydration.',
+        'Heartburn typically begins in the second trimester as progesterone relaxes the lower oesophageal sphincter — avoid large meals within 3 hours of sleep.',
+        'Vivid, emotionally intense dreams continue and often intensify in the second trimester — these are normal and do not predict outcomes.',
+      ]
+    },
+    '3': {
+      label: '3rd trimester',
+      weeks: '28–42',
+      sleepNeeded: '8–9h + naps',
+      bestPosition: 'Left side',
+      bestPositionSub: 'Critical — avoid back sleep',
+      pillowCount: '3–4',
+      positionTitle: 'Left-side lateral — essential',
+      positionSub: 'Stacey et al. (2011): avoid back sleeping after 28 weeks',
+      positionType: 'left-critical',
+      pillowGuide: [
+        'Use a full U-shaped body pillow to support both front and back simultaneously — this is the most effective way to prevent rolling supine during sleep without waking.',
+        'Wedge a firm pillow behind your back as a physical stop to prevent rolling. This is especially important after 32 weeks when the back-sleeping risk is highest.',
+        'Place a pillow between the knees with a second pillow extending between the ankles to keep the entire lower limb aligned and reduce hip/knee strain.',
+        'Support the abdomen from below with a wedge or rolled towel — by week 32–36 the fundal height creates significant lateral gravitational pull when side-sleeping.',
+        'If shortness of breath occurs lying flat, a semi-Fowler position (30–45° incline) with multiple stacked pillows behind the back is safe and improves respiratory mechanics.',
+        'A contoured pregnancy pillow that curves under the neck eliminates the need for a separate head pillow and reduces overnight neck strain.',
+      ],
+      tips: [
+        'If you wake on your back, calmly roll to your side — the important thing is sleep-onset position, not every moment of the night.',
+        'Restless legs syndrome (RLS) affects approximately 26% of pregnant women in the third trimester — iron supplementation (if deficient), gentle stretching, and warm baths before bed can help.',
+        'The baby\'s movements are most active in the evening — a short period of focused fetal kick counting (10 movements in 2 hours) before bed provides reassurance and reduces anxiety-driven insomnia.',
+        'Nocturia (nighttime urination) averaging 2–4 trips per night is normal at this stage — keep the path to the bathroom clear and minimally lit to make returning to sleep easier.',
+        'Pelvic girdle pain often peaks in the third trimester — a maternity support belt worn briefly during evening activity can reduce overnight discomfort.',
+        'Short naps of 20–30 minutes remain valuable in the third trimester; avoid naps after 3 PM to protect night sleep pressure.',
+      ]
+    }
+  };
+
+  /* Symptom-specific tips */
+  var SYMPTOM_TIPS = {
+    backpain: {
+      label: 'Back pain',
+      text: 'Place a pillow between your knees when side-sleeping to keep the hips stacked and spine neutral. A maternity support belt worn during evening activity reduces overnight lower back tension. Sleeping on a firmer surface or adding a mattress topper can reduce pressure point pain.'
+    },
+    heartburn: {
+      label: 'Heartburn / acid reflux',
+      text: 'Elevate the head of the bed 6–8 inches using furniture risers under the bed legs (more effective than pillow stacking alone). Avoid eating within 3 hours of bed and limit fatty, spicy, and acidic foods at dinner. Left-side sleep is specifically beneficial for heartburn as it positions the stomach below the oesophagus.'
+    },
+    legcramps: {
+      label: 'Leg cramps',
+      text: 'Stretch calves before bed: stand facing a wall, place hands on wall, step one foot back and press the heel flat to the floor for 30 seconds each side. Ensure adequate magnesium (300–360 mg/day in pregnancy) and hydration throughout the day. Dorsiflexing the foot immediately when a cramp begins (pulling toes toward shin) interrupts the cramp faster than massage.'
+    },
+    urination: {
+      label: 'Frequent urination',
+      text: 'Reduce fluid intake after 6–7 PM while ensuring adequate daytime hydration (2–3 L). Keep a path from bed to bathroom clear with a low night-light to minimise wake time and light exposure. A brief period of legs-elevated rest (feet above heart level) in the late afternoon encourages fluid redistribution before bed, potentially reducing nocturia.'
+    },
+    breath: {
+      label: 'Shortness of breath',
+      text: 'Sleep in a semi-Fowler position (30–45° incline) using stacked pillows or an adjustable wedge behind the back — this reduces diaphragmatic pressure from the fundus and is safe in all trimesters. Avoid lying fully flat if shortness of breath is prominent. Report new-onset severe shortness of breath to your provider, as it can indicate pulmonary conditions requiring evaluation.'
+    },
+    rls: {
+      label: 'Restless legs syndrome',
+      text: 'RLS in pregnancy is often linked to iron and folate deficiency — check ferritin levels with your provider. Before bed, try a warm bath, gentle calf stretching, or a short walk to temporarily relieve symptoms. Avoid caffeine, alcohol, and antihistamines which worsen RLS. RLS typically resolves within weeks of delivery.'
+    }
+  };
+
+  /* =============================================
+     POSITION DIAGRAMS (SVG)
+     ============================================= */
+  function getPositionSVG(type) {
+
+    /* Shared: first trimester — any side, simple side illustration */
+    if (type === 'first') {
+      return '<svg viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" aria-label="Side sleeping position diagram">' +
+        /* Bed base */
+        '<rect x="10" y="130" width="300" height="20" rx="4" fill="#d8d4ec"/>' +
+        /* Mattress */
+        '<rect x="10" y="110" width="300" height="24" rx="6" fill="#edeaff"/>' +
+        /* Pillow */
+        '<ellipse cx="60" cy="108" rx="36" ry="12" fill="#c7c0ff" opacity="0.8"/>' +
+        /* Body — side lying (right side shown for first trimester - either side ok) */
+        /* Torso */
+        '<ellipse cx="165" cy="100" rx="65" ry="22" fill="#fde8d0" transform="rotate(-5 165 100)"/>' +
+        /* Head */
+        '<circle cx="60" cy="88" r="22" fill="#fde8d0"/>' +
+        /* Hair suggestion */
+        '<ellipse cx="60" cy="72" rx="22" ry="10" fill="#7c6aff" opacity="0.25"/>' +
+        /* Arm (top) */
+        '<path d="M100 88 Q140 80 170 90" stroke="#fde8d0" stroke-width="14" fill="none" stroke-linecap="round"/>' +
+        /* Belly (small — first trimester) */
+        '<ellipse cx="180" cy="110" rx="22" ry="14" fill="#fcd3a0" opacity="0.6"/>' +
+        /* Legs */
+        '<path d="M220 108 Q250 115 280 112" stroke="#fde8d0" stroke-width="18" fill="none" stroke-linecap="round"/>' +
+        '<path d="M220 118 Q250 128 282 126" stroke="#fde8d0" stroke-width="16" fill="none" stroke-linecap="round"/>' +
+        /* Knee pillow */
+        '<ellipse cx="255" cy="122" rx="22" ry="8" fill="#c7c0ff" opacity="0.6"/>' +
+        /* Labels */
+        '<text x="60" y="60" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Head pillow</text>' +
+        '<line x1="60" y1="63" x2="60" y2="75" stroke="#d0cce0" stroke-width="1"/>' +
+        '<text x="255" y="138" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Knee pillow</text>' +
+        '</svg>';
+    }
+
+    /* Second trimester — left side with belly pillow */
+    if (type === 'left') {
+      return '<svg viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" aria-label="Left side sleeping position diagram">' +
+        /* Bed */
+        '<rect x="10" y="140" width="300" height="20" rx="4" fill="#d8d4ec"/>' +
+        '<rect x="10" y="118" width="300" height="26" rx="6" fill="#edeaff"/>' +
+        /* Pillow */
+        '<ellipse cx="60" cy="116" rx="36" ry="12" fill="#c7c0ff" opacity="0.8"/>' +
+        /* Body left side */
+        /* Torso */
+        '<ellipse cx="165" cy="107" rx="68" ry="24" fill="#fde8d0" transform="rotate(-4 165 107)"/>' +
+        /* Head */
+        '<circle cx="58" cy="93" r="23" fill="#fde8d0"/>' +
+        '<ellipse cx="58" cy="76" rx="23" ry="10" fill="#7c6aff" opacity="0.22"/>' +
+        /* Belly — medium (second trimester) */
+        '<ellipse cx="185" cy="118" rx="30" ry="20" fill="#fcd3a0" opacity="0.75"/>' +
+        /* Baby inside */
+        '<circle cx="185" cy="118" r="10" fill="#f59e0b" opacity="0.3"/>' +
+        /* Belly support pillow */
+        '<ellipse cx="185" cy="136" rx="34" ry="10" fill="#a5b4fc" opacity="0.65"/>' +
+        /* Arm */
+        '<path d="M98 92 Q138 83 170 95" stroke="#fde8d0" stroke-width="13" fill="none" stroke-linecap="round"/>' +
+        /* Legs */
+        '<path d="M222 116 Q252 122 282 119" stroke="#fde8d0" stroke-width="18" fill="none" stroke-linecap="round"/>' +
+        '<path d="M222 128 Q254 138 284 136" stroke="#fde8d0" stroke-width="16" fill="none" stroke-linecap="round"/>' +
+        /* Knee pillow */
+        '<ellipse cx="256" cy="132" rx="24" ry="9" fill="#c7c0ff" opacity="0.65"/>' +
+        /* Left arrow indicator */
+        '<path d="M14 107 L26 100 L26 104 L34 104 L34 110 L26 110 L26 114 Z" fill="#10b981" opacity="0.7"/>' +
+        '<text x="38" y="110" font-size="8" fill="#065f46" font-family="Sora,sans-serif" font-weight="700">LEFT</text>' +
+        /* Labels */
+        '<text x="58" y="64" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Head pillow</text>' +
+        '<line x1="58" y1="67" x2="58" y2="80" stroke="#d0cce0" stroke-width="1"/>' +
+        '<text x="185" y="151" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Belly pillow</text>' +
+        '<text x="256" y="148" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Knee pillow</text>' +
+        '</svg>';
+    }
+
+    /* Third trimester — left side, large belly, back wedge, critical */
+    if (type === 'left-critical') {
+      return '<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" aria-label="Third trimester left side sleep position with pillows">' +
+        /* Bed */
+        '<rect x="10" y="152" width="300" height="20" rx="4" fill="#d8d4ec"/>' +
+        '<rect x="10" y="128" width="300" height="28" rx="6" fill="#edeaff"/>' +
+        /* Pillow */
+        '<ellipse cx="60" cy="126" rx="36" ry="13" fill="#c7c0ff" opacity="0.85"/>' +
+        /* Body left side */
+        /* Torso */
+        '<ellipse cx="158" cy="114" rx="68" ry="26" fill="#fde8d0" transform="rotate(-3 158 114)"/>' +
+        /* Head */
+        '<circle cx="58" cy="98" r="24" fill="#fde8d0"/>' +
+        '<ellipse cx="58" cy="79" rx="24" ry="10" fill="#7c6aff" opacity="0.2"/>' +
+        /* Large belly — third trimester */
+        '<ellipse cx="185" cy="126" rx="38" ry="28" fill="#fcd3a0" opacity="0.8"/>' +
+        /* Baby inside */
+        '<ellipse cx="185" cy="126" rx="18" ry="16" fill="#f59e0b" opacity="0.28"/>' +
+        '<circle cx="185" cy="118" r="8" fill="#f59e0b" opacity="0.2"/>' +
+        /* U-body pillow / belly support */
+        '<path d="M148 148 Q185 158 222 148" stroke="#a5b4fc" stroke-width="10" fill="none" stroke-linecap="round" opacity="0.75"/>' +
+        /* Back wedge pillow (behind back to prevent rolling supine) */
+        '<polygon points="228,108 282,108 282,138 228,138" fill="#fde68a" opacity="0.75" rx="4"/>' +
+        '<text x="255" y="126" text-anchor="middle" font-size="8" fill="#78350f" font-family="Sora,sans-serif" font-weight="700">Back</text>' +
+        '<text x="255" y="136" text-anchor="middle" font-size="8" fill="#78350f" font-family="Sora,sans-serif" font-weight="700">wedge</text>' +
+        /* Arm */
+        '<path d="M96 96 Q134 87 166 100" stroke="#fde8d0" stroke-width="13" fill="none" stroke-linecap="round"/>' +
+        /* Legs */
+        '<path d="M218 126 Q238 134 258 132" stroke="#fde8d0" stroke-width="17" fill="none" stroke-linecap="round"/>' +
+        '<path d="M218 140 Q238 150 260 148" stroke="#fde8d0" stroke-width="15" fill="none" stroke-linecap="round"/>' +
+        /* Knee pillow */
+        '<ellipse cx="242" cy="144" rx="22" ry="9" fill="#c7c0ff" opacity="0.7"/>' +
+        /* Left indicator with urgency */
+        '<path d="M14 114 L26 107 L26 111 L34 111 L34 117 L26 117 L26 121 Z" fill="#10b981" opacity="0.85"/>' +
+        '<text x="38" y="117" font-size="8" fill="#065f46" font-family="Sora,sans-serif" font-weight="700">LEFT</text>' +
+        /* Labels */
+        '<text x="58" y="68" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Head pillow</text>' +
+        '<line x1="58" y1="71" x2="58" y2="83" stroke="#d0cce0" stroke-width="1"/>' +
+        '<text x="185" y="164" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Body pillow</text>' +
+        '<text x="242" y="158" text-anchor="middle" font-size="9" fill="#7c778e" font-family="Sora,sans-serif">Knee pillow</text>' +
+        '</svg>';
+    }
+
+    return '';
+  }
+
+  function getPositionLegend(type) {
+    var items = [];
+    if (type === 'first') {
+      items = [
+        { color: '#c7c0ff', text: 'Head pillow' },
+        { color: '#c7c0ff', text: 'Knee pillow' },
+        { color: '#fde8d0', text: 'Body' },
+      ];
+    } else if (type === 'left') {
+      items = [
+        { color: '#c7c0ff', text: 'Head pillow' },
+        { color: '#a5b4fc', text: 'Belly pillow' },
+        { color: '#c7c0ff', text: 'Knee pillow' },
+        { color: '#f59e0b', text: 'Baby' },
+      ];
+    } else if (type === 'left-critical') {
+      items = [
+        { color: '#c7c0ff', text: 'Head pillow' },
+        { color: '#a5b4fc', text: 'Body pillow' },
+        { color: '#fde68a', text: 'Back wedge' },
+        { color: '#c7c0ff', text: 'Knee pillow' },
+      ];
+    }
+    return items.map(function(i) {
+      return '<div class="leg-row"><div class="leg-dot" style="background:' + i.color + ';"></div><span>' + i.text + '</span></div>';
+    }).join('');
+  }
+
+  /* =============================================
+     DOM REFS
+     ============================================= */
+  var trimesterSelect   = document.getElementById('trimester-select');
+  var weeksSlider       = document.getElementById('weeks-slider');
+  var weeksDisplay      = document.getElementById('weeks-display');
+  var safetyAlert       = document.getElementById('safety-alert');
+
+  var sleepNeededVal    = document.getElementById('sleep-needed-val');
+  var bestPositionVal   = document.getElementById('best-position-val');
+  var bestPositionSub   = document.getElementById('best-position-sub');
+  var pillowCountVal    = document.getElementById('pillow-count-val');
+  var trimesterPhaseVal = document.getElementById('trimester-phase-val');
+  var trimesterPhaseSub = document.getElementById('trimester-phase-sub');
+
+  var positionCardTitle = document.getElementById('position-card-title');
+  var positionCardSub   = document.getElementById('position-card-sub');
+  var positionDiagram   = document.getElementById('position-diagram');
+  var positionLegend    = document.getElementById('position-legend');
+
+  var pillowList        = document.getElementById('pillow-list');
+
+  var symptomTipsCard   = document.getElementById('symptom-tips-card');
+  var symptomTipsList   = document.getElementById('symptom-tips-list');
+
+  var tipsTitle         = document.getElementById('tips-title');
+  var tipsList          = document.getElementById('tips-list');
+
+  /* Symptom checkboxes */
+  var SYM_IDS = ['backpain', 'heartburn', 'legcramps', 'urination', 'breath', 'rls'];
+
+  /* =============================================
+     SYNC TRIMESTER <-> WEEKS SLIDER
+     ============================================= */
+  function weeksToTrimester(w) {
+    if (w <= 13) return '1';
+    if (w <= 27) return '2';
+    return '3';
+  }
+
+  function trimesterDefaultWeek(t) {
+    if (t === '1') return 8;
+    if (t === '2') return 20;
+    return 34;
+  }
+
+  /* When slider moves, auto-update trimester select */
+  weeksSlider.addEventListener('input', function () {
+    var w = parseInt(this.value, 10);
+    weeksDisplay.textContent = w;
+    var t = weeksToTrimester(w);
+    if (trimesterSelect.value !== t) {
+      trimesterSelect.value = t;
+    }
+    calculate();
+  });
+
+  /* When trimester select changes, jump slider to midpoint */
+  trimesterSelect.addEventListener('change', function () {
+    var t = this.value;
+    var w = trimesterDefaultWeek(t);
+    weeksSlider.value = w;
+    weeksDisplay.textContent = w;
+    calculate();
+  });
+
+  /* Symptom checkboxes */
+  SYM_IDS.forEach(function (id) {
+    var el = document.getElementById('sym-' + id);
+    if (el) el.addEventListener('change', calculate);
+  });
+
+  /* =============================================
+     MAIN CALCULATE
+     ============================================= */
+  function calculate() {
+    var t     = trimesterSelect.value;
+    var weeks = parseInt(weeksSlider.value, 10);
+    var d     = TRIMESTER_DATA[t];
+
+    /* Safety alert after week 28 */
+    if (weeks >= 28) {
+      safetyAlert.style.display = 'flex';
+    } else {
+      safetyAlert.style.display = 'none';
+    }
+
+    /* Summary cards */
+    sleepNeededVal.textContent    = d.sleepNeeded;
+    bestPositionVal.textContent   = d.bestPosition;
+    bestPositionSub.textContent   = d.bestPositionSub;
+    pillowCountVal.textContent    = d.pillowCount;
+
+    var ordinals = { '1': '1st', '2': '2nd', '3': '3rd' };
+    trimesterPhaseVal.textContent = ordinals[t];
+    trimesterPhaseSub.textContent = 'Week ' + weeks;
+
+    /* Position diagram */
+    positionCardTitle.textContent = d.positionTitle;
+    positionCardSub.textContent   = d.positionSub;
+    positionDiagram.innerHTML     = getPositionSVG(d.positionType);
+    positionLegend.innerHTML      = getPositionLegend(d.positionType);
+
+    /* Pillow guide */
+    var pillHtml = '';
+    d.pillowGuide.forEach(function (tip) {
+      pillHtml += '<li>' + tip + '</li>';
+    });
+    pillowList.innerHTML = pillHtml;
+
+    /* Trimester tips */
+    tipsTitle.textContent = 'Sleep tips for the ' + ordinals[t] + ' trimester';
+    var tipHtml = '';
+    d.tips.forEach(function (tip) {
+      tipHtml += '<li>' + tip + '</li>';
+    });
+    tipsList.innerHTML = tipHtml;
+
+    /* Symptom tips */
+    var activeSymptoms = SYM_IDS.filter(function (id) {
+      var el = document.getElementById('sym-' + id);
+      return el && el.checked;
+    });
+
+    if (activeSymptoms.length > 0) {
+      symptomTipsCard.style.display = 'block';
+      var symHtml = '';
+      activeSymptoms.forEach(function (id) {
+        var s = SYMPTOM_TIPS[id];
+        if (s) {
+          symHtml += '<div class="symptom-tip-group">';
+          symHtml += '<div class="symptom-tip-label">' + s.label + '</div>';
+          symHtml += '<div class="symptom-tip-text">' + s.text + '</div>';
+          symHtml += '</div>';
+        }
+      });
+      symptomTipsList.innerHTML = symHtml;
+    } else {
+      symptomTipsCard.style.display = 'none';
+    }
+  }
+
+  /* =============================================
+     INIT
+     ============================================= */
+  calculate();
+
+})();
+</script>
