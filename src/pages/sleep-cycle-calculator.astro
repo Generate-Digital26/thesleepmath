@@ -1,0 +1,707 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How long is a sleep cycle?',
+    answer: `<p>A single sleep cycle lasts approximately <strong>90 minutes</strong> on average, though individual cycles can range from 70 to 110 minutes depending on the person, age, and sleep debt. This figure was established by Dement and Kleitman (1957) in their landmark EEG studies at the University of Chicago, where they first characterized the recurring pattern of NREM and REM sleep that cycles throughout the night.</p>
+<p>Each cycle moves through light sleep (NREM stages 1 and 2), deep slow-wave sleep (NREM stage 3), and REM sleep — but the proportions change across the night. Early cycles are dominated by deep NREM sleep; later cycles contain much longer REM periods. This is why waking after 4.5 hours (3 cycles) feels noticeably lighter than waking at 5 hours, which often lands mid-cycle in deep sleep.</p>`,
+  },
+  {
+    question: 'What time should I go to sleep?',
+    answer: `<p>The ideal bedtime depends on what time you need to wake up and how many sleep cycles you want to complete. Working backwards from your wake time in 90-minute increments — then subtracting 15 minutes for sleep onset — gives you the optimal bedtimes. For a 7:00 AM wake time: <strong>10:15 PM (6 cycles / 9h)</strong>, <strong>11:45 PM (5 cycles / 7.5h)</strong>, <strong>1:15 AM (4 cycles / 6h)</strong>, or <strong>2:45 AM (3 cycles / 4.5h)</strong>.</p>
+<p>Five cycles (7.5 hours) is the most commonly recommended target for adults, aligning with the National Sleep Foundation's guidelines of 7–9 hours. Going to sleep at a consistent time anchors your circadian rhythm, making it easier to fall asleep and wake naturally. Irregular bedtimes — varying by more than 30 minutes — fragment the circadian signal and reduce sleep quality even when total hours are adequate.</p>`,
+  },
+  {
+    question: 'Why do I feel groggy when I wake up?',
+    answer: `<p>That grogginess is called <strong>sleep inertia</strong> — a state of impaired alertness, slowed cognition, and disorientation that occurs when you wake from deep NREM (slow-wave) sleep. It can last anywhere from 5 to 30 minutes in most people, and up to 4 hours in severe cases or extreme sleep deprivation.</p>
+<p>Sleep inertia is caused by residual high-amplitude delta brain waves that persist briefly after waking, combined with slow clearance of adenosine from the prefrontal cortex. Waking mid-cycle — especially during the NREM stage 3 deep sleep phase that dominates the first two cycles — triggers the worst inertia. <strong>The solution is to wake between cycles, not during them.</strong> This calculator identifies those natural exit points so you surface from light sleep at the end of a cycle, when sleep inertia is minimal and waking feels effortless.</p>`,
+  },
+  {
+    question: 'Is 6 hours of sleep enough?',
+    answer: `<p>For most adults, <strong>6 hours (4 sleep cycles) is not enough for optimal health</strong>, though some people — due to a rare genetic variant in the ADRB1 or DEC2 genes — genuinely function well on less. The American Academy of Sleep Medicine and Sleep Research Society jointly recommend at least 7 hours for adults. Carskadon and Dement's extensive research (2011) shows that chronic 6-hour sleep results in measurable cognitive impairment equivalent to 1–2 days of total sleep deprivation, even when subjects report feeling fine.</p>
+<p>This is the "subjective adaptation" problem: people adapt to feeling mildly impaired and lose the ability to accurately assess how impaired they are. Reaction time, working memory, emotional regulation, and immune function all degrade. If 6 hours is genuinely the only option, this calculator marks it as "Acceptable" and ensures you at least wake at the optimal cycle boundary — not mid-cycle — to minimize grogginess.</p>`,
+  },
+  {
+    question: 'What is REM sleep and why is it important?',
+    answer: `<p><strong>REM (Rapid Eye Movement) sleep</strong> is the stage of sleep associated with vivid dreaming, emotional memory consolidation, and synaptic plasticity. During REM, the brain is nearly as active as during wakefulness — but voluntary muscle movement is suppressed (atonia), preventing you from acting out dreams. EEG patterns show fast, mixed-frequency waves similar to wake; the defining observable feature is the bursts of rapid horizontal eye movements recorded under closed lids.</p>
+<p>REM sleep makes up roughly 20–25% of total sleep in adults and becomes progressively longer in each 90-minute cycle across the night. The first REM period may last only 5–10 minutes; the fourth or fifth can run 40–60 minutes. This is why cutting sleep short by even 1.5 hours disproportionately eliminates REM sleep — you lose the longest, richest REM periods in the final cycles. Functions tied to REM include emotional processing, creative problem-solving, procedural memory consolidation, and mood regulation. Chronic REM deprivation is strongly linked to anxiety, depression, and impaired learning.</p>`,
+  },
+  {
+    question: 'Does the 90-minute sleep cycle work for everyone?',
+    answer: `<p>The 90-minute figure is an <strong>average across the population</strong>, not a fixed biological law. Individual cycle length varies from roughly 70 to 110 minutes and can shift even within the same person based on age, sleep debt, alcohol consumption, medications, and stress levels. Children have shorter cycles (50–60 minutes); elderly adults often have cycles closer to 70–80 minutes; deep sleep decreases with age while lighter NREM stages increase.</p>
+<p>This means the calculator's results are best treated as targets rather than precise times. In practice, most people find that aiming for a wake time near a 90-minute boundary feels noticeably better than arbitrary wake times — even if their personal cycle is 80 or 95 minutes. If you consistently feel groggy at the calculator's suggested times, your cycle may be shorter or longer than 90 minutes; try adjusting by ±15 minutes to find your personal rhythm. Wearable devices that track heart rate variability and movement can help identify your specific cycle length over time.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Cycle Calculator — The Sleep Math"
+  description="Find the best times to sleep and wake based on 90-minute sleep cycles. Wake between cycles to feel refreshed — not groggy."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Sleep Cycle Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 7h4l2 2h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
+          <path d="M7 19v-5"/>
+          <path d="M17 19v-5"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Cycle Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find the best times to sleep and wake based on 90-minute sleep cycles. Wake between cycles — not mid-cycle — to feel refreshed instead of groggy.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        10 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        90-min cycle model
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Sleep research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your sleep details</h2>
+
+      <!-- Mode toggle -->
+      <div class="field">
+        <label>What do you want to calculate?</label>
+        <div class="mode-toggle" id="mode-toggle">
+          <button class="mode-btn active" data-mode="wake">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            I need to wake up at…
+          </button>
+          <button class="mode-btn" data-mode="bed">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h4l2 2h10a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+            I'm going to sleep at…
+          </button>
+        </div>
+      </div>
+
+      <!-- Wake time input (mode 1) -->
+      <div class="field" id="wake-field">
+        <label for="wake-time">Wake-up time</label>
+        <input type="time" id="wake-time" value="07:00">
+      </div>
+
+      <!-- Bed time input (mode 2) -->
+      <div class="field hidden" id="bed-field">
+        <label for="bed-time">Bedtime</label>
+        <input type="time" id="bed-time" value="23:00">
+      </div>
+
+      <div class="tip-box" id="tip-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="tip-text">Includes 15 min to fall asleep. Results show when to go to bed to wake refreshed.</span>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel" id="results-panel">
+
+      <!-- Results header -->
+      <div class="results-header" id="results-header">
+        <div class="results-header-label" id="results-label">Best bedtimes for a 7:00 AM wake-up</div>
+      </div>
+
+      <!-- Cycle cards grid -->
+      <div class="cycles-grid" id="cycles-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Cycle timeline visualization -->
+      <div class="timeline-card">
+        <h3>Sleep architecture across the night</h3>
+        <p class="timeline-subtitle">Each block represents one 90-min cycle. REM periods (blue) grow longer in later cycles — accurate to sleep science.</p>
+        <div class="arch-wrap" id="arch-wrap">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="arch-legend">
+          <span class="leg-item"><span class="leg-dot" style="background:#c4b5fd"></span>NREM 1</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#7c6aff"></span>NREM 2</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#4c1d95"></span>NREM 3</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#38b6ff"></span>REM</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of sleep cycles</h2>
+      <p>
+        Sleep is not a uniform state — it is a precisely choreographed sequence of distinct stages that repeat throughout the night. Dement and Kleitman (1957) first described this cyclical architecture using electroencephalography (EEG), identifying a recurring 90-minute pattern that became the foundation of modern sleep science. Each cycle contains four stages: three phases of Non-Rapid Eye Movement sleep (NREM 1, 2, and 3) followed by REM sleep.
+      </p>
+      <p>
+        <strong>NREM Stage 1</strong> is the transitional dozing phase (5–10% of cycle). Brain activity slows from waking alpha waves to theta waves; muscle tone decreases. <strong>NREM Stage 2</strong> is true light sleep (45–55%), characterized by sleep spindles and K-complexes — bursts of neural activity that protect sleep from external disturbances. <strong>NREM Stage 3</strong> (slow-wave or deep sleep) dominates the first two cycles of the night and is critical for physical restoration, immune function, and declarative memory consolidation.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Optimal bedtime = Wake time − (cycles × 90 min) − 15 min onset</div>
+        <div class="formula-desc">
+          Onset delay: ~15 min average · Cycles: 3 (4.5h) to 6 (9h) · Wake between cycles = no grogginess
+        </div>
+      </div>
+      <p>
+        <strong>REM sleep</strong> is characterized by rapid eye movements, near-waking brain activity, and muscle atonia. Critically, REM periods grow progressively longer in each subsequent cycle — from roughly 10 minutes in cycle 1 to 45–60 minutes in cycle 5 or 6. This is why cutting the last 1–2 hours of sleep disproportionately eliminates REM, impairing emotional regulation, memory consolidation, and creative thinking. Waking at the natural end of a cycle — when the brain surfaces from light sleep — minimises sleep inertia. Waking mid-cycle during deep NREM triggers grogginess that can last 20–30 minutes (Carskadon &amp; Dement, 2011).
+      </p>
+      <table class="cycle-table">
+        <thead>
+          <tr><th>Stage</th><th>% of cycle</th><th>Brain waves</th><th>Function</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>NREM 1</td><td class="mono">5–10%</td><td class="mono">Theta (4–8 Hz)</td><td>Sleep onset, hypnic jerks</td></tr>
+          <tr><td>NREM 2</td><td class="mono">45–55%</td><td class="mono">Spindles, K-complexes</td><td>Memory consolidation, noise gating</td></tr>
+          <tr><td>NREM 3</td><td class="mono">15–25%</td><td class="mono">Delta (0.5–4 Hz)</td><td>Physical repair, immune, deep memory</td></tr>
+          <tr><td>REM</td><td class="mono">20–25%</td><td class="mono">Mixed, near-wake</td><td>Emotional processing, dreaming, creativity</td></tr>
+        </tbody>
+      </table>
+      <div class="citation">
+        Dement, W. &amp; Kleitman, N. (1957). Cyclic variations in EEG during sleep and their relation to eye movements, body motility, and dreaming. <em>Electroencephalography and Clinical Neurophysiology, 9(4), 673–690.</em>
+      </div>
+      <div class="citation">
+        Carskadon, M.A. &amp; Dement, W.C. (2011). Normal human sleep: An overview. In M.H. Kryger, T. Roth, &amp; W.C. Dement (Eds.), <em>Principles and Practice of Sleep Medicine (5th ed., pp. 16–26). Elsevier Saunders.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS VARS ===== */
+  :root {
+    --bg: #faf9f7;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-hover: #6858e8;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #edeaff; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+
+  .field { margin-bottom: 1.15rem; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input[type="time"] {
+    width: 100%; padding: 0.65rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 1rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+    font-weight: 600;
+  }
+  .field input[type="time"]:focus { border-color: var(--primary); }
+
+  .hidden { display: none !important; }
+
+  /* Mode toggle */
+  .mode-toggle { display: flex; flex-direction: column; gap: 0.4rem; }
+  .mode-btn {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.65rem 0.85rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--bg); cursor: pointer; font-family: inherit;
+    font-size: 0.82rem; font-weight: 600; color: var(--text-mid);
+    transition: all 0.15s; text-align: left;
+  }
+  .mode-btn svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+  .mode-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .mode-btn.active { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+  /* Tip box */
+  .tip-box {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    background: var(--primary-soft); border: 1px solid #d4ceff;
+    border-radius: var(--radius-sm); padding: 0.65rem 0.85rem;
+    font-size: 0.76rem; color: var(--primary); line-height: 1.5;
+    margin-top: 0.75rem;
+  }
+  .tip-box svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 0.1rem; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  .results-header { margin-bottom: 0.1rem; }
+  .results-header-label {
+    font-size: 0.82rem; font-weight: 600; color: var(--text-soft);
+  }
+
+  /* Cycles grid */
+  .cycles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+
+  .cycle-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.1rem 1rem;
+    position: relative; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .cycle-card.recommended {
+    border-color: var(--mint);
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+  }
+  .cycle-card.extended {
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px rgba(56,182,255,0.1);
+  }
+  .cycle-card.acceptable {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(245,158,11,0.1);
+  }
+  .cycle-card.minimum {
+    border-color: var(--coral);
+    box-shadow: 0 0 0 3px rgba(255,107,82,0.1);
+  }
+
+  .cycle-badge {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; padding: 0.2rem 0.5rem;
+    border-radius: 20px; margin-bottom: 0.55rem;
+  }
+  .badge-recommended { background: #d1fae5; color: #065f46; }
+  .badge-extended { background: #e0f2fe; color: #0c4a6e; }
+  .badge-acceptable { background: #fef3c7; color: #92400e; }
+  .badge-minimum { background: #fee2e2; color: #991b1b; }
+
+  .cycle-time {
+    font-size: 1.75rem; font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1; color: var(--text); margin-bottom: 0.2rem;
+    font-family: 'Space Grotesk', monospace;
+  }
+  .cycle-meta {
+    font-size: 0.72rem; color: var(--text-soft); font-weight: 500;
+    margin-bottom: 0.5rem; line-height: 1.4;
+  }
+  .cycle-detail {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.4rem;
+  }
+  .cycle-cycles {
+    font-size: 0.7rem; font-weight: 700; color: var(--text-mid);
+    display: flex; align-items: center; gap: 0.2rem;
+  }
+  .cycle-cycles svg { width: 11px; height: 11px; flex-shrink: 0; }
+  .cycle-hours {
+    font-size: 0.7rem; font-weight: 600; color: var(--text-soft);
+    background: var(--bg); border: 1px solid var(--border);
+    padding: 0.15rem 0.4rem; border-radius: 20px;
+  }
+
+  /* Cycle timeline visualization */
+  .timeline-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .timeline-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .timeline-subtitle { font-size: 0.76rem; color: var(--text-soft); line-height: 1.5; margin-bottom: 1rem; }
+
+  .arch-wrap { display: flex; flex-direction: column; gap: 0.45rem; }
+
+  .arch-row {
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .arch-label {
+    font-size: 0.66rem; font-weight: 700; color: var(--text-soft);
+    width: 38px; flex-shrink: 0; text-align: right;
+  }
+  .arch-bar {
+    flex: 1; height: 22px; border-radius: 5px; overflow: hidden;
+    display: flex; border: 1px solid var(--border);
+  }
+  .arch-seg {
+    height: 100%; transition: flex 0.3s ease;
+    position: relative;
+  }
+  .arch-seg:hover::after {
+    content: attr(data-label);
+    position: absolute; top: -28px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--text); color: #fff;
+    font-size: 0.6rem; font-weight: 600;
+    padding: 0.15rem 0.4rem; border-radius: 4px;
+    white-space: nowrap; pointer-events: none; z-index: 10;
+  }
+  .seg-n1 { background: #c4b5fd; }
+  .seg-n2 { background: #7c6aff; }
+  .seg-n3 { background: #4c1d95; }
+  .seg-rem { background: #38b6ff; }
+
+  .arch-times { display: flex; align-items: center; gap: 0.6rem; padding: 0.2rem 0 0; }
+  .arch-times-spacer { width: 38px; flex-shrink: 0; }
+  .arch-times-bar {
+    flex: 1; display: flex; justify-content: space-between;
+    font-size: 0.63rem; color: var(--text-soft); font-weight: 600;
+    font-family: 'Space Grotesk', monospace;
+  }
+
+  .arch-legend {
+    display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.85rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--text-soft); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* ===== SCIENCE SECTION ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: #1e1b2e; color: #e8e6f0;
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 {
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.75rem; color: #fff;
+  }
+  .science-card p {
+    font-size: 0.88rem; color: #a8a3be; line-height: 1.7;
+    margin-bottom: 0.85rem;
+  }
+  .science-card strong { color: #e8e6f0; }
+
+  .formula-box {
+    background: rgba(124,106,255,0.15); border: 1px solid rgba(124,106,255,0.3);
+    border-radius: var(--radius-sm); padding: 1rem 1.25rem;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1rem; font-weight: 700; color: #edeaff; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.73rem; color: #a8a3be; line-height: 1.6; }
+
+  .cycle-table {
+    width: 100%; border-collapse: collapse; margin-top: 1rem;
+    font-size: 0.82rem;
+  }
+  .cycle-table th {
+    text-align: left; font-weight: 700; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: #7c778e; padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .cycle-table td {
+    padding: 0.55rem 0.75rem; color: #a8a3be;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .cycle-table tr:last-child td { border-bottom: none; }
+  .cycle-table .mono {
+    font-family: 'Space Grotesk', monospace; font-size: 0.78rem;
+    color: #e8e6f0; font-weight: 600;
+  }
+
+  .citation {
+    font-size: 0.76rem; color: #7c778e; line-height: 1.6;
+    padding-left: 0.85rem; border-left: 2px solid rgba(124,106,255,0.4);
+    margin-top: 0.85rem;
+  }
+  .citation em { color: #9ca3af; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .cycles-grid { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-card { padding: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .cycles-grid { grid-template-columns: 1fr; }
+    .cycle-time { font-size: 1.5rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  /* ---- DOM refs ---- */
+  var modeToggle    = document.getElementById('mode-toggle');
+  var wakeField     = document.getElementById('wake-field');
+  var bedField      = document.getElementById('bed-field');
+  var wakeInput     = document.getElementById('wake-time');
+  var bedInput      = document.getElementById('bed-time');
+  var tipText       = document.getElementById('tip-text');
+  var resultsLabel  = document.getElementById('results-label');
+  var cyclesGrid    = document.getElementById('cycles-grid');
+  var archWrap      = document.getElementById('arch-wrap');
+
+  var mode = 'wake'; /* 'wake' or 'bed' */
+
+  /* ---- Helpers ---- */
+  function parseTime(val) {
+    var parts = val.split(':').map(Number);
+    return parts[0] * 60 + parts[1]; /* minutes since midnight */
+  }
+
+  function mod1440(m) { return ((m % 1440) + 1440) % 1440; }
+
+  function fmt12(totalMinutes) {
+    var m = mod1440(totalMinutes);
+    var h = Math.floor(m / 60) % 24;
+    var min = m % 60;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = h % 12; if (hh === 0) hh = 12;
+    return hh + ':' + (min < 10 ? '0' : '') + min + ' ' + period;
+  }
+
+  /* Cycle config: [cycles, totalSleepMinutes, badge class, badge label] */
+  var CYCLE_CONFIG = [
+    { cycles: 3, mins: 270,  badgeClass: 'badge-minimum',    cardClass: 'minimum',    label: 'Minimum'    },
+    { cycles: 4, mins: 360,  badgeClass: 'badge-acceptable', cardClass: 'acceptable', label: 'Acceptable' },
+    { cycles: 5, mins: 450,  badgeClass: 'badge-recommended',cardClass: 'recommended',label: 'Recommended' },
+    { cycles: 6, mins: 540,  badgeClass: 'badge-extended',   cardClass: 'extended',   label: 'Extended'   },
+  ];
+
+  var SLEEP_ONSET = 15; /* minutes */
+
+  /* ---- Sleep architecture data per cycle ----
+   * Each cycle = 90 minutes.
+   * Minutes breakdown per cycle (N1, N2, N3, REM):
+   * Based on published sleep architecture norms (Carskadon & Dement 2011)
+   * Cycle 1: heavy deep sleep, little REM
+   * Cycle 6: minimal deep, long REM
+   */
+  var ARCH = [
+    /* cycle:  N1  N2  N3  REM */
+    /* 1 */  [ 5, 50, 25, 10 ],
+    /* 2 */  [ 5, 45, 20, 20 ],
+    /* 3 */  [ 5, 45, 10, 30 ],
+    /* 4 */  [ 5, 45,  5, 35 ],
+    /* 5 */  [ 5, 40,  5, 40 ],
+    /* 6 */  [ 5, 35,  5, 45 ],
+  ];
+
+  /* ---- Calculate ---- */
+  function calculate() {
+    var anchorMinutes;
+    if (mode === 'wake') {
+      anchorMinutes = parseTime(wakeInput.value);
+    } else {
+      anchorMinutes = parseTime(bedInput.value);
+    }
+
+    /* Build 4 result cards */
+    var html = '';
+    CYCLE_CONFIG.forEach(function(cfg) {
+      var sleepTime, wakeTime;
+      if (mode === 'wake') {
+        /* wake time given — calculate bedtimes */
+        wakeTime = anchorMinutes;
+        sleepTime = mod1440(anchorMinutes - cfg.mins - SLEEP_ONSET);
+        /* Display as: go to bed at sleepTime, wake at wakeTime */
+      } else {
+        /* bed time given — calculate wake times */
+        sleepTime = anchorMinutes;
+        wakeTime = mod1440(anchorMinutes + SLEEP_ONSET + cfg.mins);
+      }
+
+      var displayTime = mode === 'wake' ? sleepTime : wakeTime;
+      var hoursLabel = (cfg.mins / 60).toFixed(1) + 'h sleep';
+      var cyclesLabel = cfg.cycles + ' cycle' + (cfg.cycles !== 1 ? 's' : '');
+
+      html += '<div class="cycle-card ' + cfg.cardClass + '">';
+      html += '<div class="cycle-badge ' + cfg.badgeClass + '">';
+      /* badge dot */
+      html += '<svg viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="3"/></svg>';
+      html += cfg.label;
+      html += '</div>';
+      html += '<div class="cycle-time">' + fmt12(displayTime) + '</div>';
+      if (mode === 'wake') {
+        html += '<div class="cycle-meta">Go to bed at this time</div>';
+      } else {
+        html += '<div class="cycle-meta">Wake up at this time</div>';
+      }
+      html += '<div class="cycle-detail">';
+      html += '<div class="cycle-cycles">';
+      html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      html += cyclesLabel;
+      html += '</div>';
+      html += '<div class="cycle-hours">' + hoursLabel + '</div>';
+      html += '</div>'; /* cycle-detail */
+      html += '</div>'; /* cycle-card */
+    });
+    cyclesGrid.innerHTML = html;
+
+    /* Update label */
+    if (mode === 'wake') {
+      resultsLabel.textContent = 'Best bedtimes for a ' + fmt12(anchorMinutes) + ' wake-up';
+      tipText.textContent = 'Includes 15 min to fall asleep. Go to bed at these times to wake refreshed.';
+    } else {
+      resultsLabel.textContent = 'Best wake times if you sleep at ' + fmt12(anchorMinutes);
+      tipText.textContent = 'Includes 15 min to fall asleep. Set your alarm for one of these times.';
+    }
+
+    /* Render architecture for selected result (5-cycle / recommended as default) */
+    renderArchitecture(anchorMinutes);
+  }
+
+  /* ---- Render sleep architecture bars ---- */
+  function renderArchitecture(anchorMinutes) {
+    var numCycles = 6; /* always show 6 cycles worth of bars */
+    var startMinutes; /* when sleep actually begins (after onset) */
+    if (mode === 'wake') {
+      /* back-calculate from wake time with 6 cycles */
+      startMinutes = mod1440(anchorMinutes - 6 * 90);
+    } else {
+      startMinutes = mod1440(anchorMinutes + SLEEP_ONSET);
+    }
+
+    var rows = '';
+    var currentMinute = startMinutes;
+    var cycleTimes = [currentMinute]; /* track start of each cycle for time labels */
+
+    for (var i = 0; i < numCycles; i++) {
+      var arch = ARCH[i];
+      var n1 = arch[0], n2 = arch[1], n3 = arch[2], rem = arch[3];
+      var total = n1 + n2 + n3 + rem; /* should be 90 */
+
+      rows += '<div class="arch-row">';
+      rows += '<div class="arch-label">C' + (i + 1) + '</div>';
+      rows += '<div class="arch-bar">';
+
+      /* N1 */
+      rows += '<div class="arch-seg seg-n1" style="flex:' + n1 + '" data-label="NREM 1 (' + n1 + ' min)"></div>';
+      /* N2 */
+      rows += '<div class="arch-seg seg-n2" style="flex:' + n2 + '" data-label="NREM 2 (' + n2 + ' min)"></div>';
+      /* N3 — only if > 0 */
+      if (n3 > 0) {
+        rows += '<div class="arch-seg seg-n3" style="flex:' + n3 + '" data-label="NREM 3 (' + n3 + ' min)"></div>';
+      }
+      /* REM */
+      rows += '<div class="arch-seg seg-rem" style="flex:' + rem + '" data-label="REM (' + rem + ' min)"></div>';
+
+      rows += '</div>'; /* arch-bar */
+      rows += '</div>'; /* arch-row */
+
+      currentMinute = mod1440(currentMinute + total);
+      cycleTimes.push(currentMinute);
+    }
+
+    /* Time labels row */
+    rows += '<div class="arch-times">';
+    rows += '<div class="arch-times-spacer"></div>';
+    rows += '<div class="arch-times-bar">';
+
+    /* Show start time and end time */
+    rows += '<span>' + fmt12(startMinutes) + '</span>';
+    /* mid point ~3 cycles */
+    var midMinutes = mod1440(startMinutes + 3 * 90);
+    rows += '<span>' + fmt12(midMinutes) + '</span>';
+    rows += '<span>' + fmt12(cycleTimes[6]) + '</span>';
+    rows += '</div>'; /* arch-times-bar */
+    rows += '</div>'; /* arch-times */
+
+    archWrap.innerHTML = rows;
+  }
+
+  /* ---- Mode toggle ---- */
+  modeToggle.addEventListener('click', function(e) {
+    var btn = e.target.closest('.mode-btn');
+    if (!btn) return;
+    mode = btn.dataset.mode;
+    modeToggle.querySelectorAll('.mode-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    if (mode === 'wake') {
+      wakeField.classList.remove('hidden');
+      bedField.classList.add('hidden');
+    } else {
+      wakeField.classList.add('hidden');
+      bedField.classList.remove('hidden');
+    }
+    calculate();
+  });
+
+  /* ---- Input listeners ---- */
+  wakeInput.addEventListener('input', calculate);
+  bedInput.addEventListener('input', calculate);
+
+  /* ---- Init ---- */
+  calculate();
+})();
+</script>

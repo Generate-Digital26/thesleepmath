@@ -1,0 +1,988 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How much sleep does my baby need?',
+    answer: `<p>Total sleep needs vary significantly by age, per AAP and National Sleep Foundation guidelines. <strong>Newborns (0–3 months)</strong> need 14–17 hours over 24 hours, though individual variation is normal. <strong>Infants (4–12 months)</strong> typically need 12–16 hours including naps. <strong>Toddlers (1–2 years)</strong> need 11–14 hours including one nap. <strong>Preschoolers (3–5 years)</strong> need 10–13 hours, and naps become optional.</p><p>These totals include all sleep — nighttime sleep plus any daytime naps. It is normal for sleep to be distributed unevenly, especially in the newborn stage when circadian rhythms have not yet formed.</p>`,
+  },
+  {
+    question: 'What are wake windows?',
+    answer: `<p>A <strong>wake window</strong> is the maximum amount of time a baby can comfortably stay awake before needing to sleep again. Exceeding the wake window leads to overtiredness, which paradoxically makes it <em>harder</em> to fall asleep — cortisol rises to compensate for fatigue, increasing arousal and fussiness.</p><p>Wake windows grow as babies mature: a 6-week-old may only tolerate 45–90 minutes of wakefulness, while a 12-month-old can manage 3–4 hours. Watching the clock is a useful guide, but also watch for sleepy cues — eye rubbing, yawning, decreased activity, or fussiness — which signal the window is closing. Catching the window just before these cues appear leads to easier, longer naps.</p>`,
+  },
+  {
+    question: 'When should I start a sleep schedule?',
+    answer: `<p>True circadian rhythms do not emerge until around <strong>3–4 months of age</strong>, when the suprachiasmatic nucleus (the brain's master clock) begins responding to light-dark cues. Before this point, strict scheduling is largely ineffective because the biological machinery for consolidated sleep does not yet exist.</p><p>From about 8–12 weeks, you can begin gentle shaping: consistent morning wake times, darkening the room for sleep, and following age-appropriate wake windows. By 4–6 months most babies are ready for a more predictable eat-play-sleep routine. Many families find success with a structured schedule between 4 and 6 months, which often coincides with a natural reduction in night feeds.</p>`,
+  },
+  {
+    question: 'How many naps should my baby take?',
+    answer: `<p>Nap count decreases predictably with age. <strong>Newborns (0–3 months)</strong> typically take 4–5 short naps per day, often 30–60 minutes each. <strong>4–6 months</strong>: consolidation to 3 naps. <strong>6–9 months</strong>: transition to 2 naps (usually around 6–8 months). <strong>12–18 months</strong>: transition to 1 nap (often between 14–18 months). <strong>3–5 years</strong>: nap drops entirely for most children.</p><p>Nap transitions are often disruptive for 2–4 weeks as the baby adjusts. During transitions, an earlier bedtime can help bridge the gap while the longer wake window is consolidated.</p>`,
+  },
+  {
+    question: 'What is the ideal bedtime for a baby?',
+    answer: `<p>Most babies and toddlers sleep best with a <strong>bedtime between 6:30 PM and 8:00 PM</strong>. This aligns with the natural rise of melatonin, which begins approximately 2 hours before sleep onset (the "dim light melatonin onset" or DLMO), and typically occurs in the early evening for young children. Counter-intuitively, an earlier bedtime often produces longer overnight sleep and fewer night wakings by preventing overtiredness.</p><p>The ideal bedtime shifts with the last nap — it should fall approximately one full wake window after the final nap ends. For a 9-month-old on two naps with a 3.5-hour wake window whose last nap ends at 3:30 PM, a bedtime of around 7:00 PM is appropriate. Bedtimes creep later as the child grows and wake windows lengthen.</p>`,
+  },
+  {
+    question: 'When do babies drop naps?',
+    answer: `<p>Nap transitions happen at predictable windows but with significant individual variation. The <strong>3-to-2 nap transition</strong> typically occurs between 6–8 months. The <strong>2-to-1 nap transition</strong> usually happens between 14–18 months, though some babies transition as early as 12 months. The <strong>1-to-0 nap transition</strong> (nap drop) occurs most commonly between 3 and 4 years, though some children nap until 5 and others stop before 3.</p><p>Signs a baby is ready to drop a nap include consistently resisting the nap for 2+ weeks, taking a long time to fall asleep at naptime, napping well but then struggling to fall asleep at bedtime, or waking very early in the morning. Avoid dropping naps prematurely at the first sign of resistance — many babies go through temporary nap regression phases that resolve on their own.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Baby Sleep Calculator — The Sleep Math"
+  description="Find your baby's ideal sleep schedule by age. Nap times, wake windows, and bedtime recommendations based on AAP guidelines."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Baby Sleep Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Baby Sleep Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find your baby's ideal nap schedule, wake windows, and bedtime based on age. Built on AAP guidelines and pediatric sleep research.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        15 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        AAP Guidelines
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Pediatric research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your baby's details</h2>
+
+      <div class="field">
+        <label for="age-select">Baby's age</label>
+        <select id="age-select">
+          <option value="0-3mo">0–3 months (Newborn)</option>
+          <option value="4-6mo">4–6 months</option>
+          <option value="7-9mo" selected>7–9 months</option>
+          <option value="10-12mo">10–12 months</option>
+          <option value="1-2yr">1–2 years (Toddler)</option>
+          <option value="2-3yr">2–3 years</option>
+          <option value="3-5yr">3–5 years (Preschool)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="wake-time">Morning wake time <span class="optional">(optional)</span></label>
+        <input type="time" id="wake-time" value="07:00">
+        <div class="field-hint">Used to generate a suggested daily schedule</div>
+      </div>
+
+      <div class="field">
+        <label>Schedule style</label>
+        <div class="style-btns" id="style-btns">
+          <button class="style-btn active" data-style="earlier">
+            <span class="style-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 9 14"/></svg>
+            </span>
+            <span class="style-text">
+              <strong>Earlier naps</strong>
+              <span>More predictable</span>
+            </span>
+          </button>
+          <button class="style-btn" data-style="later">
+            <span class="style-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+            <span class="style-text">
+              <strong>Later naps</strong>
+              <span>Better for late risers</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- SUMMARY CARDS -->
+      <div class="summary-cards" id="summary-cards">
+        <div class="summary-card" id="card-total-sleep">
+          <div class="sc-icon" style="background:#fdf2f8;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Total sleep needed</div>
+            <div class="sc-value" id="total-sleep-val">12–15h</div>
+            <div class="sc-sub" id="total-sleep-sub">per 24 hours</div>
+          </div>
+        </div>
+        <div class="summary-card" id="card-night-sleep">
+          <div class="sc-icon" style="background:#edeaff;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Nighttime sleep</div>
+            <div class="sc-value" id="night-sleep-val">10–12h</div>
+            <div class="sc-sub" id="night-sleep-sub">overnight stretch</div>
+          </div>
+        </div>
+        <div class="summary-card" id="card-nap-count">
+          <div class="sc-icon" style="background:#f0fdf9;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Naps per day</div>
+            <div class="sc-value" id="nap-count-val">2</div>
+            <div class="sc-sub" id="nap-count-sub">60–120 min each</div>
+          </div>
+        </div>
+        <div class="summary-card" id="card-wake-window">
+          <div class="sc-icon" style="background:#fff8f0;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Wake windows</div>
+            <div class="sc-value" id="wake-window-val">2.5–3.5h</div>
+            <div class="sc-sub" id="wake-window-sub">between sleeps</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 24H TIMELINE -->
+      <div class="timeline-card">
+        <h3>24-hour sleep timeline</h3>
+        <div class="timeline-wrap">
+          <div class="timeline-bar" id="timeline-bar">
+            <!-- rendered by JS -->
+          </div>
+          <div class="timeline-labels" id="timeline-labels">
+            <!-- rendered by JS -->
+          </div>
+        </div>
+        <div class="timeline-legend">
+          <span class="leg-item"><span class="leg-dot night-color"></span>Night sleep</span>
+          <span class="leg-item"><span class="leg-dot nap-color"></span>Nap</span>
+          <span class="leg-item"><span class="leg-dot wake-color"></span>Awake</span>
+        </div>
+      </div>
+
+      <!-- SUGGESTED SCHEDULE -->
+      <div class="schedule-card">
+        <h3>Suggested schedule</h3>
+        <p class="schedule-sub" id="schedule-sub">Based on a <strong id="schedule-wake-label">7:00 AM</strong> morning wake time</p>
+        <div class="schedule-list" id="schedule-list">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+      <!-- AGE TIPS -->
+      <div class="tips-card">
+        <div class="tips-header">
+          <div class="tips-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3 id="tips-title">Tips for 7–9 months</h3>
+        </div>
+        <ul class="tips-list" id="tips-list">
+          <!-- rendered by JS -->
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of baby sleep</h2>
+      <p>
+        Baby sleep is fundamentally different from adult sleep in two key ways: <strong>sleep architecture</strong> and <strong>circadian immaturity</strong>. Newborns spend approximately 50% of sleep time in active sleep (analogous to REM), compared to about 20–25% in adults. This high REM proportion is thought to support the extraordinary rate of neural development in the first year of life.
+      </p>
+      <p>
+        Baby sleep cycles are also much shorter — approximately <strong>50 minutes</strong> versus the adult 90-minute cycle. This is why babies often wake after one cycle and must be helped to transition to the next. As the brain matures, cycle length increases and the ability to self-settle between cycles develops, usually between 4–6 months for many infants.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Circadian rhythm onset ≈ 3–4 months postnatal age</div>
+        <div class="formula-desc">
+          Before 12 weeks, the SCN is not yet entrained by light · Consolidated nighttime sleep emerges after circadian development
+        </div>
+      </div>
+      <p>
+        The <strong>circadian clock</strong> (suprachiasmatic nucleus, SCN) begins responding to light-dark cycles at approximately 3–4 months corrected age. Before this developmental milestone, newborn sleep is distributed across the 24-hour period with no strong preference for nighttime, which is entirely normal. Parents can begin gentle entrainment by exposing babies to bright light during morning wake windows and dimming lights in the evening.
+      </p>
+      <table class="sleep-table">
+        <thead>
+          <tr><th>Age</th><th>Total sleep</th><th>Nap count</th><th>Nap length</th><th>Wake windows</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>0–3 months</td><td class="highlight">14–17h</td><td>4–5</td><td>30–60 min</td><td>45–90 min</td></tr>
+          <tr><td>4–6 months</td><td class="highlight">12–16h</td><td>3</td><td>45–120 min</td><td>1.5–2.5h</td></tr>
+          <tr><td>7–9 months</td><td class="highlight">12–15h</td><td>2</td><td>60–120 min</td><td>2.5–3.5h</td></tr>
+          <tr><td>10–12 months</td><td class="highlight">11–14h</td><td>1–2</td><td>60–120 min</td><td>3–4h</td></tr>
+          <tr><td>1–2 years</td><td class="highlight">11–14h</td><td>1–2</td><td>60–120 min</td><td>3.5–5h</td></tr>
+          <tr><td>2–3 years</td><td class="highlight">11–14h</td><td>0–1</td><td>60–120 min</td><td>5–6h</td></tr>
+          <tr><td>3–5 years</td><td class="highlight">10–13h</td><td>0–1</td><td>Occasional</td><td>5–6h+</td></tr>
+        </tbody>
+      </table>
+      <div class="citations">
+        <div class="citation">
+          Mindell, J.A., Sadeh, A., Wiegand, B., How, T.H., &amp; Goh, D.Y. (2010). Cross-cultural differences in infant and toddler sleep. <em>Sleep Medicine, 11(3), 274–280.</em>
+        </div>
+        <div class="citation">
+          Galland, B.C., Taylor, B.J., Elder, D.E., &amp; Herbison, P. (2012). Normal sleep patterns in infants and children: a systematic review of observational studies. <em>Sleep Medicine Reviews, 16(3), 213–222.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== GLOBAL CSS VARS (restate for isolation) ===== */
+  :root {
+    --bg: #faf9f7;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fdf2f8; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .optional { font-weight: 400; color: var(--text-soft); }
+  .field-hint { font-size: 0.7rem; color: var(--text-soft); margin-top: 0.25rem; line-height: 1.4; }
+  .field select,
+  .field input[type="time"] {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+    appearance: none; -webkit-appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem;
+    padding-right: 2.25rem; cursor: pointer;
+  }
+  .field select:focus,
+  .field input[type="time"]:focus { border-color: var(--rose); }
+
+  /* Style buttons */
+  .style-btns { display: flex; flex-direction: column; gap: 0.4rem; }
+  .style-btn {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.65rem 0.75rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--bg); cursor: pointer;
+    transition: all 0.15s; font-family: inherit; text-align: left;
+  }
+  .style-btn:hover { border-color: var(--rose); background: #fdf2f8; }
+  .style-btn.active { border-color: var(--rose); background: #fdf2f8; }
+  .style-icon { width: 1.25rem; height: 1.25rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--text-soft); }
+  .style-btn.active .style-icon { color: var(--rose); }
+  .style-icon svg { width: 100%; height: 100%; }
+  .style-text { display: flex; flex-direction: column; gap: 0.05rem; }
+  .style-text strong { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+  .style-text span { font-size: 0.7rem; color: var(--text-soft); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Summary cards */
+  .summary-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;
+  }
+  .summary-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1rem;
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    transition: border-color 0.2s;
+  }
+  .summary-card:hover { border-color: var(--primary); }
+  .sc-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .sc-icon svg { width: 18px; height: 18px; }
+  .sc-body { flex: 1; min-width: 0; }
+  .sc-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-soft); margin-bottom: 0.2rem; }
+  .sc-value { font-size: 1.35rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text); line-height: 1; margin-bottom: 0.15rem; font-family: 'Space Grotesk', monospace; }
+  .sc-sub { font-size: 0.68rem; color: var(--text-soft); }
+
+  /* 24h timeline */
+  .timeline-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .timeline-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; }
+  .timeline-wrap { overflow: hidden; }
+  .timeline-bar {
+    height: 32px; border-radius: 6px; overflow: hidden;
+    display: flex; margin-bottom: 0.5rem; background: var(--bg);
+    border: 1px solid var(--border); position: relative;
+  }
+  .timeline-seg { height: 100%; }
+  .timeline-seg.seg-night { background: #312e81; }
+  .timeline-seg.seg-nap { background: #a5b4fc; }
+  .timeline-seg.seg-wake { background: #e0e7ff; }
+  .timeline-labels {
+    position: relative; height: 28px; margin-top: 4px;
+  }
+  .tl-label {
+    position: absolute; display: flex; flex-direction: column;
+    align-items: center; gap: 0.1rem; transform: translateX(-50%);
+  }
+  .tl-time { font-family: 'Space Grotesk', monospace; font-size: 0.67rem; font-weight: 700; color: var(--text); }
+  .tl-tag { font-size: 0.58rem; color: var(--text-soft); white-space: nowrap; }
+  .timeline-legend {
+    display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 0.75rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--text-soft); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .night-color { background: #312e81; }
+  .nap-color { background: #a5b4fc; }
+  .wake-color { background: #e0e7ff; }
+
+  /* Suggested schedule */
+  .schedule-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .schedule-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .schedule-sub { font-size: 0.78rem; color: var(--text-mid); margin-bottom: 0.85rem; }
+  .schedule-list { display: flex; flex-direction: column; gap: 0; }
+  .schedule-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+  }
+  .schedule-item:last-child { border-bottom: none; }
+  .si-dot-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0; width: 20px; }
+  .si-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+  .si-dot.night { background: #312e81; }
+  .si-dot.nap { background: #a5b4fc; }
+  .si-dot.wake { background: var(--border); }
+  .si-dot.bed { background: #312e81; }
+  .si-time { font-size: 0.8rem; font-weight: 700; color: var(--text); min-width: 70px; font-family: 'Space Grotesk', monospace; }
+  .si-label { font-size: 0.8rem; color: var(--text-mid); }
+  .si-badge {
+    margin-left: auto; font-size: 0.65rem; font-weight: 700;
+    padding: 0.15rem 0.5rem; border-radius: 20px; flex-shrink: 0;
+  }
+  .si-badge.nap { background: #eef2ff; color: #6366f1; }
+  .si-badge.sleep { background: #ede9fe; color: #7c3aed; }
+  .si-badge.wake-badge { background: #f0fdf9; color: #059669; }
+
+  /* Age tips */
+  .tips-card {
+    background: #fdf2f8; border: 1.5px solid #fce7f3;
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .tips-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.75rem; }
+  .tips-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .tips-icon svg { width: 100%; height: 100%; }
+  .tips-card h3 { font-size: 0.88rem; font-weight: 700; margin: 0; }
+  .tips-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .tips-list li { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; padding-left: 1.1rem; position: relative; }
+  .tips-list li::before { content: ''; position: absolute; left: 0; top: 0.45rem; width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .sleep-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .sleep-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .sleep-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .sleep-table tr:last-child td { border-bottom: none; }
+  .sleep-table .highlight { font-weight: 700; color: var(--text); font-family: 'Space Grotesk', monospace; font-size: 0.8rem; }
+  .citations { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .summary-cards { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .sleep-table { font-size: 0.75rem; }
+    .sleep-table th, .sleep-table td { padding: 0.4rem 0.5rem; }
+  }
+  @media (max-width: 480px) {
+    .summary-cards { grid-template-columns: 1fr; }
+    .timeline-legend { gap: 0.4rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* =============================================
+     DATA — AAP / NSF guidelines by age group
+     ============================================= */
+  var AGE_DATA = {
+    '0-3mo': {
+      label: '0–3 months',
+      totalSleep: '14–17h',
+      totalMin: 14, totalMax: 17,
+      nightSleep: '8–9h',
+      nightMin: 8, nightMax: 9,
+      napCount: '4–5',
+      napCountNum: 4,
+      napLength: '30–60 min',
+      napMin: 30, napMax: 60,
+      wakeWindow: '45–90 min',
+      wwMin: 0.75, wwMax: 1.5,
+      tips: [
+        'Circadian rhythms have not yet formed — irregular sleep is completely normal before 3 months.',
+        'Watch for sleepy cues (yawning, eye rubbing, decreased activity) at 45–60 minutes of awake time.',
+        'Swaddling activates the calming reflex and can extend sleep duration.',
+        'White noise at 65–70 dB masks household sounds and mimics the womb environment.',
+        'Night feeds are still needed — do not attempt sleep training before 4 months.',
+        'Room-sharing (not bed-sharing) is recommended by the AAP to reduce SIDS risk.',
+      ]
+    },
+    '4-6mo': {
+      label: '4–6 months',
+      totalSleep: '12–16h',
+      totalMin: 12, totalMax: 16,
+      nightSleep: '9–11h',
+      nightMin: 9, nightMax: 11,
+      napCount: '3',
+      napCountNum: 3,
+      napLength: '45–120 min',
+      napMin: 45, napMax: 120,
+      wakeWindow: '1.5–2.5h',
+      wwMin: 1.5, wwMax: 2.5,
+      tips: [
+        'Circadian rhythms begin developing at 3–4 months — now is a good time to introduce light-dark cues.',
+        'A consistent bedtime routine (bath, feed, song) helps signal sleep onset.',
+        'Many babies become developmentally ready for sleep training between 4–6 months.',
+        'The 4-month sleep regression coincides with a maturation of sleep architecture — cycles lengthen.',
+        'Aim for the first nap 1.5–2 hours after morning wake time.',
+        'Watch for an earlier bedtime if the third nap is short or dropped — 7:00–7:30 PM works well.',
+      ]
+    },
+    '7-9mo': {
+      label: '7–9 months',
+      totalSleep: '12–15h',
+      totalMin: 12, totalMax: 15,
+      nightSleep: '10–12h',
+      nightMin: 10, nightMax: 12,
+      napCount: '2',
+      napCountNum: 2,
+      napLength: '60–120 min',
+      napMin: 60, napMax: 120,
+      wakeWindow: '2.5–3.5h',
+      wwMin: 2.5, wwMax: 3.5,
+      tips: [
+        'Most babies consolidate to 2 naps between 6–8 months — look for consistent nap resistance as a readiness sign.',
+        'The first nap typically falls 2.5–3 hours after morning wake, second nap 2.5–3 hours after first nap wake.',
+        'Separation anxiety peaks around 8–9 months — this is developmental, not a sleep problem.',
+        'Bedtime should fall 3–3.5 hours after the end of the second nap.',
+        'Aim for nap lengths of at least 60 minutes — a "short nap" under 45 minutes usually means baby woke between sleep cycles.',
+        'Solid food introduction around 6 months does not increase nighttime sleep duration.',
+      ]
+    },
+    '10-12mo': {
+      label: '10–12 months',
+      totalSleep: '11–14h',
+      totalMin: 11, totalMax: 14,
+      nightSleep: '10–12h',
+      nightMin: 10, nightMax: 12,
+      napCount: '1–2',
+      napCountNum: 2,
+      napLength: '60–120 min',
+      napMin: 60, napMax: 120,
+      wakeWindow: '3–4h',
+      wwMin: 3, wwMax: 4,
+      tips: [
+        'Some babies begin the 2-to-1 nap transition between 14–18 months, but not usually before 12 months.',
+        'If resisting one nap, try shifting both naps slightly later before eliminating the second nap.',
+        'Walking and increased physical activity (starting around 9–12 months) often causes temporary sleep disruption.',
+        'Consistent first nap timing (e.g., 9:30–10:00 AM) helps anchor the schedule.',
+        'Night wakings at this age are more often behavioral (habit) than developmental.',
+        'A 4-hour wake window before bedtime works well for most babies in this range.',
+      ]
+    },
+    '1-2yr': {
+      label: '1–2 years',
+      totalSleep: '11–14h',
+      totalMin: 11, totalMax: 14,
+      nightSleep: '10–12h',
+      nightMin: 10, nightMax: 12,
+      napCount: '1–2',
+      napCountNum: 1,
+      napLength: '60–120 min',
+      napMin: 60, napMax: 120,
+      wakeWindow: '3.5–5h',
+      wwMin: 3.5, wwMax: 5,
+      tips: [
+        'Most toddlers transition to one nap between 14–18 months.',
+        'The one nap typically occurs midday (11:30 AM – 1:00 PM) and lasts 1–2 hours.',
+        'During the 2-to-1 nap transition, an earlier bedtime (6:30–7:00 PM) helps bridge the gap.',
+        'Toddlers are prone to sleep resistance due to increasing autonomy — consistent boundaries are important.',
+        'Wake windows extend to 5–6 hours by 18 months for most toddlers.',
+        'Night terrors may begin in this age range — they occur in deep (NREM) sleep and are more upsetting for parents than for the child.',
+      ]
+    },
+    '2-3yr': {
+      label: '2–3 years',
+      totalSleep: '11–14h',
+      totalMin: 11, totalMax: 14,
+      nightSleep: '10–12h',
+      nightMin: 10, nightMax: 12,
+      napCount: '0–1',
+      napCountNum: 1,
+      napLength: '60–120 min',
+      napMin: 60, napMax: 120,
+      wakeWindow: '5–6h',
+      wwMin: 5, wwMax: 6,
+      tips: [
+        'Some 2-year-olds resist the nap but still need the rest — a mandatory quiet time in the room can substitute.',
+        'Naps that run too late (after 3:30–4 PM) often cause bedtime resistance.',
+        'Limit excessive screen time before bed — blue light suppresses melatonin even in toddlers.',
+        'Nighttime fears are common at this age — a night light and consistent check-in routine can help.',
+        'Transitioning from crib to bed before 3 years old increases night wakings for many children.',
+        'Most children this age do well with a 7:00–8:00 PM bedtime.',
+      ]
+    },
+    '3-5yr': {
+      label: '3–5 years',
+      totalSleep: '10–13h',
+      totalMin: 10, totalMax: 13,
+      nightSleep: '10–12h',
+      nightMin: 10, nightMax: 12,
+      napCount: '0–1',
+      napCountNum: 0,
+      napLength: 'Occasional',
+      napMin: 0, napMax: 60,
+      wakeWindow: '5–6h+',
+      wwMin: 5, wwMax: 7,
+      tips: [
+        'Most preschoolers drop the nap between 3–4 years, but some need it until age 5.',
+        'Quiet rest time (even without sleep) helps with afternoon mood regulation.',
+        'Starting school often causes temporary sleep disruption due to schedule shifts and stimulation.',
+        'Consistent bedtime routines with calming activities (reading, light stretching) support sleep onset.',
+        'Nighttime fears and "curtain calls" (repeated bedtime requests) peak at 3–5 years.',
+        'A 7:00–8:30 PM bedtime supports adequate overnight sleep for most preschoolers.',
+      ]
+    }
+  };
+
+  /* =============================================
+     DOM REFS
+     ============================================= */
+  var ageSelect      = document.getElementById('age-select');
+  var wakeInput      = document.getElementById('wake-time');
+  var styleBtns      = document.getElementById('style-btns');
+  var totalSleepVal  = document.getElementById('total-sleep-val');
+  var nightSleepVal  = document.getElementById('night-sleep-val');
+  var napCountVal    = document.getElementById('nap-count-val');
+  var wakeWindowVal  = document.getElementById('wake-window-val');
+  var napCountSub    = document.getElementById('nap-count-sub');
+  var scheduleList   = document.getElementById('schedule-list');
+  var scheduleWakeLabel = document.getElementById('schedule-wake-label');
+  var timelineBar    = document.getElementById('timeline-bar');
+  var timelineLabels = document.getElementById('timeline-labels');
+  var tipsList       = document.getElementById('tips-list');
+  var tipsTitle      = document.getElementById('tips-title');
+
+  var scheduleStyle = 'earlier';
+
+  /* =============================================
+     HELPERS
+     ============================================= */
+  function fmt12(h) {
+    h = ((h % 24) + 24) % 24;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = Math.floor(h) % 12; if (hh === 0) hh = 12;
+    var mm = Math.round((h - Math.floor(h)) * 60);
+    if (mm === 60) { hh = (hh % 12) + 1; mm = 0; if (hh > 12) hh = 1; }
+    return hh + ':' + (mm < 10 ? '0' : '') + mm + ' ' + period;
+  }
+
+  function parseTime(val) {
+    var parts = val.split(':').map(Number);
+    return parts[0] + parts[1] / 60;
+  }
+
+  function pct(h) {
+    return (((h % 24) + 24) % 24 / 24 * 100).toFixed(2) + '%';
+  }
+
+  /* =============================================
+     BUILD SCHEDULE
+     ============================================= */
+  function buildSchedule(age, wake, style) {
+    var d = AGE_DATA[age];
+    var events = [];
+    var offset = style === 'later' ? 0.25 : 0; /* 15 min shift */
+
+    /* Nighttime sleep: wake up, then trace backwards to find bedtime previous night */
+    var ww  = style === 'later'
+              ? (d.wwMin + d.wwMax) / 2 + 0.25
+              : (d.wwMin + d.wwMax) / 2;
+    var napDur = d.napMin > 0 ? Math.round((d.napMin + d.napMax) / 2) : 0;
+    var napDurH = napDur / 60;
+    var nightDur = (d.nightMin + d.nightMax) / 2;
+
+    /* Previous night bedtime (before wake) */
+    var prevBed = wake - nightDur;
+
+    /* Morning wake */
+    events.push({ time: wake, label: 'Wake up', type: 'wake', badge: 'wake-badge', badgeText: 'Morning' });
+
+    var naps = d.napCountNum;
+    var cursor = wake;
+
+    if (naps === 0) {
+      /* No naps — just bedtime */
+      cursor = wake + ww * 2;
+      var bed0 = cursor;
+      events.push({ time: bed0, label: 'Bedtime', type: 'bed', badge: 'sleep', badgeText: 'Night sleep' });
+    } else if (naps >= 4) {
+      /* 0-3mo: 4 naps */
+      for (var i = 0; i < 4; i++) {
+        var napStart = cursor + ww + offset;
+        events.push({ time: napStart, label: 'Nap ' + (i + 1) + ' starts', type: 'nap', badge: 'nap', badgeText: napDur + ' min' });
+        cursor = napStart + napDurH;
+        events.push({ time: cursor, label: 'Nap ' + (i + 1) + ' ends', type: 'wake', badge: null });
+      }
+      var bedtime4 = cursor + ww;
+      events.push({ time: bedtime4, label: 'Bedtime', type: 'bed', badge: 'sleep', badgeText: 'Night sleep' });
+    } else if (naps === 3) {
+      /* 4-6mo: 3 naps */
+      var n3times = [];
+      var c3 = wake;
+      for (var j = 0; j < 3; j++) {
+        var ns3 = c3 + ww + offset;
+        n3times.push(ns3);
+        events.push({ time: ns3, label: 'Nap ' + (j + 1) + ' starts', type: 'nap', badge: 'nap', badgeText: napDur + ' min' });
+        c3 = ns3 + napDurH;
+        events.push({ time: c3, label: 'Nap ' + (j + 1) + ' ends', type: 'wake', badge: null });
+      }
+      var bed3 = c3 + ww;
+      events.push({ time: bed3, label: 'Bedtime', type: 'bed', badge: 'sleep', badgeText: 'Night sleep' });
+    } else if (naps === 2) {
+      /* 7-12mo: 2 naps */
+      var nap1Start = cursor + ww + offset;
+      events.push({ time: nap1Start, label: 'Nap 1 starts', type: 'nap', badge: 'nap', badgeText: napDur + ' min' });
+      var nap1End = nap1Start + napDurH;
+      events.push({ time: nap1End, label: 'Nap 1 ends', type: 'wake', badge: null });
+
+      var nap2Start = nap1End + ww + offset;
+      events.push({ time: nap2Start, label: 'Nap 2 starts', type: 'nap', badge: 'nap', badgeText: napDur + ' min' });
+      var nap2End = nap2Start + napDurH;
+      events.push({ time: nap2End, label: 'Nap 2 ends', type: 'wake', badge: null });
+
+      var bed2 = nap2End + ww;
+      events.push({ time: bed2, label: 'Bedtime', type: 'bed', badge: 'sleep', badgeText: 'Night sleep' });
+    } else {
+      /* 1 nap */
+      var nap1s = cursor + ww + offset;
+      events.push({ time: nap1s, label: 'Nap starts', type: 'nap', badge: 'nap', badgeText: napDur + ' min' });
+      var nap1e = nap1s + napDurH;
+      events.push({ time: nap1e, label: 'Nap ends', type: 'wake', badge: null });
+
+      var bed1 = nap1e + ww * 1.5;
+      events.push({ time: bed1, label: 'Bedtime', type: 'bed', badge: 'sleep', badgeText: 'Night sleep' });
+    }
+
+    return { events: events, prevBed: prevBed, nightDur: nightDur };
+  }
+
+  /* =============================================
+     RENDER TIMELINE
+     ============================================= */
+  function renderTimeline(age, wake, schedule) {
+    var d = AGE_DATA[age];
+    var events = schedule.events;
+    var nightDur = schedule.nightDur;
+
+    /* Build 24h segments: night sleep, naps, wake */
+    /* First find bedtime from events */
+    var bedtime = null;
+    for (var i = events.length - 1; i >= 0; i--) {
+      if (events[i].type === 'bed') { bedtime = events[i].time; break; }
+    }
+    if (bedtime === null) bedtime = wake + 14;
+
+    /* Collect nap windows */
+    var napWindows = [];
+    for (var j = 0; j < events.length; j++) {
+      if (events[j].type === 'nap') {
+        /* find next wake event */
+        for (var k = j + 1; k < events.length; k++) {
+          if (events[k].type === 'wake') {
+            napWindows.push({ start: events[j].time, end: events[k].time });
+            break;
+          }
+        }
+      }
+    }
+
+    /* Build segments over 0–24 */
+    var segs = [];
+
+    /* Prev night sleep: 0 → wake */
+    var prevBedNorm = ((wake - nightDur) % 24 + 24) % 24;
+    if (prevBedNorm < wake) {
+      segs.push({ start: prevBedNorm, end: wake, cls: 'seg-night' });
+      /* Wake time 0..prevBed is also night sleep if it wraps */
+    } else {
+      /* Wraps midnight */
+      segs.push({ start: prevBedNorm, end: 24, cls: 'seg-night' });
+      segs.push({ start: 0, end: wake, cls: 'seg-night' });
+    }
+
+    /* Wake period from wake to first event */
+    /* Add wake stretches between events */
+    var prev = wake;
+    var allMarkers = [wake].concat(events.map(function(e) { return e.time; }));
+
+    /* Draw wake from wake to first nap */
+    segs.push({ start: wake, end: (napWindows.length > 0 ? napWindows[0].start : bedtime), cls: 'seg-wake' });
+
+    /* Draw nap and wake alternating */
+    for (var n = 0; n < napWindows.length; n++) {
+      segs.push({ start: napWindows[n].start, end: napWindows[n].end, cls: 'seg-nap' });
+      var nextStart = n + 1 < napWindows.length ? napWindows[n + 1].start : bedtime;
+      segs.push({ start: napWindows[n].end, end: nextStart, cls: 'seg-wake' });
+    }
+
+    /* Tonight's sleep: bedtime → end of day (24) */
+    if (bedtime <= 24) {
+      segs.push({ start: bedtime, end: 24, cls: 'seg-night' });
+    }
+
+    /* Remove zero-width segs and sort */
+    segs = segs.filter(function(s) { return s.end > s.start && s.end - s.start > 0.01; });
+
+    /* Render bar */
+    var html = '';
+    segs.forEach(function(s) {
+      var w = ((s.end - s.start) / 24 * 100).toFixed(2);
+      html += '<div class="timeline-seg ' + s.cls + '" style="width:' + w + '%;"></div>';
+    });
+    timelineBar.innerHTML = html;
+
+    /* Label key times */
+    var labelPts = [];
+    labelPts.push({ h: wake, label: fmt12(wake), tag: 'Wake' });
+    if (napWindows.length > 0) {
+      labelPts.push({ h: napWindows[0].start, label: fmt12(napWindows[0].start), tag: 'Nap 1' });
+    }
+    if (napWindows.length > 1) {
+      labelPts.push({ h: napWindows[1].start, label: fmt12(napWindows[1].start), tag: 'Nap 2' });
+    }
+    if (bedtime !== null) {
+      labelPts.push({ h: bedtime, label: fmt12(bedtime), tag: 'Bedtime' });
+    }
+
+    /* Render labels */
+    var labHtml = '';
+    labelPts.forEach(function(pt) {
+      var lp = (((pt.h % 24) + 24) % 24 / 24 * 100).toFixed(2);
+      labHtml += '<div class="tl-label" style="left:' + lp + '%;">';
+      labHtml += '<span class="tl-time">' + pt.label + '</span>';
+      labHtml += '<span class="tl-tag">' + pt.tag + '</span>';
+      labHtml += '</div>';
+    });
+    timelineLabels.innerHTML = labHtml;
+  }
+
+  /* =============================================
+     RENDER SCHEDULE LIST
+     ============================================= */
+  function renderScheduleList(events) {
+    var html = '';
+    events.forEach(function(e) {
+      var dotCls = e.type === 'nap' ? 'nap' : (e.type === 'bed' ? 'bed' : 'wake');
+      var badgeHtml = '';
+      if (e.badge) {
+        badgeHtml = '<span class="si-badge ' + e.badge + '">' + e.badgeText + '</span>';
+      }
+      html += '<div class="schedule-item">';
+      html += '<div class="si-dot-wrap"><div class="si-dot ' + dotCls + '"></div></div>';
+      html += '<span class="si-time">' + fmt12(e.time) + '</span>';
+      html += '<span class="si-label">' + e.label + '</span>';
+      html += badgeHtml;
+      html += '</div>';
+    });
+    scheduleList.innerHTML = html;
+  }
+
+  /* =============================================
+     RENDER TIPS
+     ============================================= */
+  function renderTips(age) {
+    var d = AGE_DATA[age];
+    tipsTitle.textContent = 'Tips for ' + d.label;
+    var html = '';
+    d.tips.forEach(function(tip) {
+      html += '<li>' + tip + '</li>';
+    });
+    tipsList.innerHTML = html;
+  }
+
+  /* =============================================
+     MAIN CALCULATE
+     ============================================= */
+  function calculate() {
+    var age  = ageSelect.value;
+    var wake = parseTime(wakeInput.value);
+    var d    = AGE_DATA[age];
+
+    /* Update summary cards */
+    totalSleepVal.textContent  = d.totalSleep;
+    nightSleepVal.textContent  = d.nightSleep;
+    napCountVal.textContent    = d.napCount;
+    wakeWindowVal.textContent  = d.wakeWindow;
+    napCountSub.textContent    = d.napMin > 0 ? d.napMin + '–' + d.napMax + ' min each' : 'nighttime only';
+
+    /* Update schedule wake label */
+    scheduleWakeLabel.textContent = fmt12(wake);
+
+    /* Build schedule */
+    var schedule = buildSchedule(age, wake, scheduleStyle);
+
+    /* Render */
+    renderScheduleList(schedule.events);
+    renderTimeline(age, wake, schedule);
+    renderTips(age);
+  }
+
+  /* =============================================
+     EVENT LISTENERS
+     ============================================= */
+  ageSelect.addEventListener('change', calculate);
+  wakeInput.addEventListener('input', calculate);
+
+  styleBtns.addEventListener('click', function(e) {
+    var btn = e.target.closest('.style-btn');
+    if (!btn) return;
+    scheduleStyle = btn.dataset.style;
+    styleBtns.querySelectorAll('.style-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    calculate();
+  });
+
+  /* =============================================
+     INIT
+     ============================================= */
+  calculate();
+
+})();
+</script>

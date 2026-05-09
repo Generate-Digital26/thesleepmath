@@ -1,0 +1,888 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is the STOP-Bang questionnaire?',
+    answer: `<p>STOP-Bang is an 8-item validated clinical screening tool developed by Chung et al. (2008) to identify patients at risk for <strong>obstructive sleep apnea (OSA)</strong>. The acronym stands for: <strong>S</strong>noring, <strong>T</strong>iredness, <strong>O</strong>bserved apnea, <strong>P</strong>ressure (blood pressure), <strong>B</strong>MI, <strong>A</strong>ge, <strong>N</strong>eck circumference, and <strong>G</strong>ender.</p>
+<p>Each item is answered yes or no, with each "yes" scoring 1 point. Scores of 0–2 indicate <strong>low risk</strong>, 3–4 indicate <strong>intermediate risk</strong>, and 5–8 indicate <strong>high risk</strong> for moderate-to-severe OSA. The tool has been validated in surgical, primary care, and sleep clinic populations and is widely used as a pre-operative screening instrument worldwide.</p>`,
+  },
+  {
+    question: 'How accurate is online sleep apnea screening?',
+    answer: `<p>The STOP-Bang questionnaire has been extensively validated in peer-reviewed research. In the original Chung et al. (2008) study of surgical patients, STOP-Bang demonstrated a <strong>sensitivity of 93.4%</strong> for moderate-to-severe OSA (AHI ≥ 15) and <strong>100% sensitivity</strong> for severe OSA (AHI ≥ 30). This means the tool misses very few true cases.</p>
+<p>However, <strong>specificity is lower</strong> — roughly 43% for moderate-to-severe OSA — meaning a positive screen does not confirm a diagnosis. The tool is designed to cast a wide net and identify people who should pursue formal sleep study testing. An online questionnaire cannot replace polysomnography or a home sleep test for diagnosis. Use this calculator as a structured first step, not a final answer.</p>`,
+  },
+  {
+    question: 'What are the warning signs of sleep apnea?',
+    answer: `<p>The most common symptoms of obstructive sleep apnea include:</p>
+<p><strong>Nighttime symptoms:</strong> Loud, disruptive snoring; choking or gasping sounds during sleep (often noticed by a bed partner); breathing pauses observed by others; frequent awakenings; nocturia (waking to urinate); night sweats; and restless sleep.</p>
+<p><strong>Daytime symptoms:</strong> Excessive daytime sleepiness (especially in quiet or sedentary situations); unrefreshing sleep despite adequate hours in bed; morning headaches; difficulty concentrating; irritability or mood changes; and reduced libido. Importantly, many people with OSA are unaware of their nighttime symptoms — the daytime fatigue and partner-reported snoring are often the first clues. If you recognize several of these symptoms, discuss them with a healthcare provider.</p>`,
+  },
+  {
+    question: 'What happens during a sleep study?',
+    answer: `<p>There are two main types of sleep studies used to diagnose sleep apnea:</p>
+<p><strong>Polysomnography (PSG)</strong> is the gold-standard in-lab sleep study. You sleep overnight at a sleep center while sensors monitor brain waves (EEG), eye movements, muscle activity, heart rhythm, oxygen saturation, airflow, breathing effort, and leg movements. A technologist monitors the study in real time. PSG provides the most comprehensive data and is required for diagnosing complex cases.</p>
+<p><strong>Home sleep apnea testing (HSAT)</strong> is a simplified device you wear in your own bed, typically measuring airflow, respiratory effort, and oxygen saturation. It is less comprehensive than PSG but sufficient to diagnose moderate-to-severe OSA in most uncomplicated cases. Both studies report an <strong>Apnea-Hypopnea Index (AHI)</strong>: mild OSA is 5–14 events/hour, moderate is 15–29, and severe is 30 or more.</p>`,
+  },
+  {
+    question: 'Can sleep apnea be cured?',
+    answer: `<p>Sleep apnea can be effectively managed and, in some cases, resolved entirely — depending on its underlying cause and severity.</p>
+<p><strong>CPAP therapy</strong> (continuous positive airway pressure) is the most effective treatment for moderate-to-severe OSA and is considered first-line. It eliminates apnea events in most patients who use it consistently, but it is a management tool, not a cure — symptoms return if CPAP is stopped. <strong>Weight loss</strong> can substantially reduce or even eliminate OSA in overweight patients, as excess weight is the primary modifiable risk factor. <strong>Positional therapy</strong> helps patients who only experience apnea while sleeping on their back. <strong>Oral appliances</strong> (mandibular advancement devices) are effective for mild-to-moderate OSA. <strong>Surgery</strong> (e.g., UPPP, maxillomandibular advancement) may be appropriate for specific anatomical causes. Children with OSA often experience complete resolution after tonsillectomy and adenoidectomy.</p>`,
+  },
+  {
+    question: 'Who is at highest risk for sleep apnea?',
+    answer: `<p>The population-level risk factors for obstructive sleep apnea are well-established. A 2019 global prevalence study by Benjafield et al. estimated that <strong>936 million adults aged 30–69</strong> have mild-to-severe OSA worldwide — making it one of the most common chronic conditions globally.</p>
+<p>Highest-risk groups include: <strong>men</strong> (2–3x higher prevalence than pre-menopausal women; risk equalizes after menopause); people with <strong>BMI over 35</strong>; adults <strong>over 50</strong>; individuals with a <strong>neck circumference above 40 cm (16 in)</strong>; people with <strong>high blood pressure</strong> (OSA causes hypertension and vice versa); those who <strong>snore loudly</strong> or have had <strong>observed breathing pauses</strong>; and people with certain anatomical features such as a small jaw, large tongue, or enlarged tonsils. Ethnicity also plays a role — East Asian populations have higher OSA rates at lower BMIs due to craniofacial anatomy differences.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Apnea Risk Calculator — The Sleep Math"
+  description="Free STOP-Bang sleep apnea screening tool. Answer 8 validated questions to assess your risk for obstructive sleep apnea."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Sleep Apnea Risk
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <!-- Heart-pulse / activity icon in coral -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Apnea Risk Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Answer 8 clinically validated STOP-Bang questions to assess your risk for obstructive sleep apnea. Used by sleep clinics worldwide.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        2 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        STOP-Bang validated
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Clinical screening
+      </span>
+    </div>
+  </div>
+
+  <!-- MEDICAL DISCLAIMER -->
+  <div class="disclaimer-banner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+    <div>
+      <strong>Screening tool only — not a medical diagnosis.</strong> The STOP-Bang questionnaire identifies people who should pursue further evaluation. Only a licensed healthcare provider and formal sleep study (polysomnography or home sleep test) can diagnose sleep apnea. If you have concerns, speak with your doctor.
+    </div>
+  </div>
+
+  <!-- CALCULATOR LAYOUT -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>STOP-Bang Questions</h2>
+      <p class="panel-hint">Answer each question honestly for your most accurate score.</p>
+
+      <!-- S: Snoring -->
+      <div class="question-card" id="q-s">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">S</div>
+          <div class="q-text">Do you <strong>snore loudly</strong>?<span class="q-note">Louder than talking, or loud enough to be heard through closed doors</span></div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="s" data-val="0">No</button>
+          <button class="toggle-btn" data-q="s" data-val="1">Yes</button>
+        </div>
+      </div>
+
+      <!-- T: Tired -->
+      <div class="question-card" id="q-t">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">T</div>
+          <div class="q-text">Do you often feel <strong>tired, fatigued, or sleepy</strong> during the day?<span class="q-note">Such as falling asleep while driving or at work</span></div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="t" data-val="0">No</button>
+          <button class="toggle-btn" data-q="t" data-val="1">Yes</button>
+        </div>
+      </div>
+
+      <!-- O: Observed -->
+      <div class="question-card" id="q-o">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">O</div>
+          <div class="q-text">Has anyone <strong>observed you stop breathing</strong> during your sleep?<span class="q-note">Or gasping/choking during sleep</span></div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="o" data-val="0">No</button>
+          <button class="toggle-btn" data-q="o" data-val="1">Yes</button>
+        </div>
+      </div>
+
+      <!-- P: Pressure -->
+      <div class="question-card" id="q-p">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">P</div>
+          <div class="q-text">Do you have or are you being treated for <strong>high blood pressure</strong>?</div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="p" data-val="0">No</button>
+          <button class="toggle-btn" data-q="p" data-val="1">Yes</button>
+        </div>
+      </div>
+
+      <!-- B: BMI -->
+      <div class="question-card" id="q-b">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">B</div>
+          <div class="q-text">Is your <strong>BMI greater than 35</strong>?<span class="q-note">Enter your height and weight to auto-calculate</span></div>
+        </div>
+        <div class="bmi-inputs">
+          <div class="bmi-field">
+            <label>Height</label>
+            <div class="bmi-row">
+              <input type="number" id="height-ft" min="3" max="8" value="" placeholder="ft" aria-label="Height feet">
+              <span class="bmi-unit">ft</span>
+              <input type="number" id="height-in" min="0" max="11" value="" placeholder="in" aria-label="Height inches">
+              <span class="bmi-unit">in</span>
+            </div>
+          </div>
+          <div class="bmi-field">
+            <label>Weight</label>
+            <div class="bmi-row">
+              <input type="number" id="weight-lbs" min="50" max="700" value="" placeholder="lbs" aria-label="Weight in pounds">
+              <span class="bmi-unit">lbs</span>
+            </div>
+          </div>
+          <div class="bmi-result" id="bmi-result">Enter height &amp; weight above</div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="b" data-val="0">No / Not sure</button>
+          <button class="toggle-btn" data-q="b" data-val="1">Yes</button>
+        </div>
+      </div>
+
+      <!-- A: Age -->
+      <div class="question-card" id="q-a">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">A</div>
+          <div class="q-text">Are you <strong>older than 50</strong>?<span class="q-note">Enter your age to auto-calculate</span></div>
+        </div>
+        <div class="age-input-row">
+          <input type="number" id="age-input" min="18" max="120" value="" placeholder="Age" aria-label="Your age">
+          <span class="bmi-unit">years</span>
+          <span class="age-result" id="age-result"></span>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="a" data-val="0">No / Not sure</button>
+          <button class="toggle-btn" data-q="a" data-val="1">Yes</button>
+        </div>
+      </div>
+
+      <!-- N: Neck -->
+      <div class="question-card" id="q-n">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">N</div>
+          <div class="q-text">Is your <strong>neck circumference greater than 16 in (40 cm)</strong>?<span class="q-note">Measure around the middle of your neck</span></div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="n" data-val="0">No / Unknown</button>
+          <button class="toggle-btn" data-q="n" data-val="1">Yes</button>
+        </div>
+      </div>
+
+      <!-- G: Gender -->
+      <div class="question-card" id="q-g">
+        <div class="q-header">
+          <div class="q-letter" style="background:#fff0ed;color:#ff6b52;">G</div>
+          <div class="q-text">Are you <strong>male</strong>?<span class="q-note">Male sex is an independent OSA risk factor</span></div>
+        </div>
+        <div class="toggle-group">
+          <button class="toggle-btn active" data-q="g" data-val="0">No</button>
+          <button class="toggle-btn" data-q="g" data-val="1">Yes</button>
+        </div>
+      </div>
+
+    </div>
+    <!-- END INPUT PANEL -->
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- Score hero with arc gauge -->
+      <div class="score-hero" id="score-hero">
+        <div class="gauge-wrap">
+          <svg class="gauge-svg" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Track arc -->
+            <path d="M 20 110 A 90 90 0 0 1 180 110" fill="none" stroke="#e4e1ec" stroke-width="14" stroke-linecap="round"/>
+            <!-- Colored fill arc — drawn by JS -->
+            <path id="gauge-fill" d="M 20 110 A 90 90 0 0 1 180 110" fill="none" stroke="#10b981" stroke-width="14" stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283"/>
+          </svg>
+          <div class="gauge-score-wrap">
+            <div class="gauge-score" id="gauge-score">0</div>
+            <div class="gauge-denom">/ 8</div>
+          </div>
+        </div>
+        <div class="risk-label" id="risk-label">Low Risk</div>
+        <div class="risk-sub" id="risk-sub">Score 0–2: Low probability of moderate-to-severe OSA</div>
+      </div>
+
+      <!-- Risk breakdown -->
+      <div class="breakdown-card" id="breakdown-card">
+        <h3>Factor breakdown</h3>
+        <div class="factor-list" id="factor-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- Next steps cards -->
+      <div class="next-steps" id="next-steps">
+        <h3>Recommended next steps</h3>
+        <div class="steps-grid" id="steps-grid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- Sleep study info -->
+      <div class="info-card">
+        <h3>About sleep apnea testing</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-icon" style="background:#f0fdf8;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </div>
+            <div>
+              <div class="info-label">Home Sleep Test (HSAT)</div>
+              <div class="info-desc">Portable device worn overnight. Measures airflow, oxygen, and breathing effort. Convenient and sufficient for most uncomplicated OSA diagnoses.</div>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon" style="background:#edeaff;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <div>
+              <div class="info-label">Polysomnography (PSG)</div>
+              <div class="info-desc">Gold-standard overnight study in a sleep lab. Monitors brain waves, oxygen, heart rate, and muscle movements. Best for complex or ambiguous cases.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- END RESULTS PANEL -->
+
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind STOP-Bang</h2>
+      <p>
+        Obstructive sleep apnea is one of the most prevalent yet underdiagnosed sleep disorders in the world. A landmark 2019 global prevalence analysis by <strong>Benjafield et al.</strong> estimated that <strong>936 million adults aged 30–69</strong> have mild-to-severe OSA, with the United States alone accounting for roughly 54 million cases. Despite this burden, an estimated 80% of moderate-to-severe OSA cases remain undiagnosed.
+      </p>
+      <p>
+        The STOP-Bang questionnaire was developed and validated by <strong>Chung et al. (2008)</strong> as a concise pre-operative screening tool. In their validation study of 2,467 surgical patients, STOP-Bang demonstrated a sensitivity of <strong>93.4% for moderate-to-severe OSA</strong> (AHI ≥ 15) and <strong>100% sensitivity for severe OSA</strong> (AHI ≥ 30). A score of 5 or higher is associated with a high probability of moderate-to-severe OSA requiring treatment.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Score = S + T + O + P + B + A + N + G &nbsp;(0–8)</div>
+        <div class="formula-desc">0–2 = Low risk &nbsp;·&nbsp; 3–4 = Intermediate risk &nbsp;·&nbsp; 5–8 = High risk for moderate-to-severe OSA</div>
+      </div>
+      <p>
+        OSA prevalence is highest in men, older adults, and individuals with obesity. Risk is also elevated in people with anatomical predispositions, hypertension, and a history of witnessed apneas. The condition is causally linked to cardiovascular disease, type 2 diabetes, metabolic syndrome, and impaired cognitive function — making early screening and treatment clinically important beyond sleep quality alone.
+      </p>
+      <div class="citation">
+        Chung, F., Yegneswaran, B., Liao, P., Chung, S. A., Vairavanathan, S., Islam, S., Khajehdehi, A., &amp; Shapiro, C. M. (2008). STOP questionnaire: A tool to screen patients for obstructive sleep apnea.
+        <em>Anesthesiology, 108(5), 812–821.</em>
+      </div>
+      <div class="citation" style="margin-top:0.6rem;">
+        Benjafield, A. V., Ayas, N. T., Eastwood, P. R., Heinzer, R., Ip, M. S. M., Morrell, M. J., Nunez, C. M., Patel, S. R., Penzel, T., Pépin, J.-L., Peppard, P. E., Sinha, S., Tufik, S., Valentine, K., &amp; Malhotra, A. (2019). Estimation of the global prevalence and burden of obstructive sleep apnoea: A literature-based analysis.
+        <em>The Lancet Respiratory Medicine, 7(8), 687–698.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS CUSTOM PROPERTIES ===== */
+  :root {
+    --bg: #faf9f7;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --radius: 14px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== DISCLAIMER BANNER ===== */
+  .disclaimer-banner {
+    max-width: 920px; margin: 1rem auto 0; padding: 0 2rem;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+  }
+  .disclaimer-banner > div {
+    background: #fffbeb; border: 1.5px solid #fde68a;
+    border-radius: 10px; padding: 0.75rem 1rem;
+    font-size: 0.8rem; color: #78350f; line-height: 1.55; flex: 1;
+  }
+  .disclaimer-banner svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 0.75rem; display: none; }
+  .disclaimer-banner > div { display: flex; align-items: flex-start; gap: 0.6rem; }
+  .disclaimer-banner {
+    display: block; padding: 0 2rem;
+  }
+  .disclaimer-banner > div {
+    display: flex; align-items: flex-start; gap: 0.65rem;
+  }
+  .disclaimer-banner svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.1rem; display: block; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fff0ed; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+    max-height: calc(100vh - 100px); overflow-y: auto;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .panel-hint { font-size: 0.75rem; color: var(--text-soft); margin-bottom: 1.1rem; line-height: 1.4; }
+
+  /* ===== QUESTION CARDS ===== */
+  .question-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 0.85rem;
+    margin-bottom: 0.65rem; transition: border-color 0.2s;
+  }
+  .question-card.answered-yes { border-color: var(--coral); background: #fff6f4; }
+  .q-header { display: flex; gap: 0.65rem; align-items: flex-start; margin-bottom: 0.65rem; }
+  .q-letter {
+    width: 26px; height: 26px; border-radius: 6px;
+    font-size: 0.82rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .q-text {
+    font-size: 0.82rem; color: var(--text); line-height: 1.45; font-weight: 500;
+    display: flex; flex-direction: column; gap: 0.2rem;
+  }
+  .q-note { font-size: 0.72rem; color: var(--text-soft); font-weight: 400; }
+
+  /* Toggle buttons */
+  .toggle-group { display: flex; gap: 0.45rem; }
+  .toggle-btn {
+    flex: 1; padding: 0.4rem 0.5rem;
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 8px; font-family: inherit;
+    font-size: 0.78rem; font-weight: 600; color: var(--text-mid);
+    cursor: pointer; transition: all 0.15s; text-align: center;
+  }
+  .toggle-btn:hover { border-color: var(--coral); color: var(--coral); }
+  .toggle-btn.active[data-val="0"] { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+  .toggle-btn.active[data-val="1"] { background: #fff0ed; border-color: var(--coral); color: var(--coral); }
+
+  /* BMI / Age inputs */
+  .bmi-inputs { margin-bottom: 0.65rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .bmi-field { display: flex; flex-direction: column; gap: 0.2rem; }
+  .bmi-field label { font-size: 0.68rem; font-weight: 700; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+  .bmi-row { display: flex; align-items: center; gap: 0.3rem; }
+  .bmi-row input, .age-input-row input {
+    width: 60px; padding: 0.35rem 0.45rem;
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 7px; font-family: inherit;
+    font-size: 0.82rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; text-align: center;
+    -moz-appearance: textfield;
+  }
+  .bmi-row input::-webkit-outer-spin-button,
+  .bmi-row input::-webkit-inner-spin-button,
+  .age-input-row input::-webkit-outer-spin-button,
+  .age-input-row input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .bmi-row input:focus, .age-input-row input:focus { border-color: var(--coral); }
+  .bmi-unit { font-size: 0.72rem; color: var(--text-soft); font-weight: 600; }
+  .bmi-result {
+    font-size: 0.75rem; font-weight: 600; color: var(--text-soft);
+    padding: 0.3rem 0.5rem; background: var(--card);
+    border: 1px solid var(--border); border-radius: 6px;
+    text-align: center;
+  }
+  .bmi-result.over { color: var(--coral); border-color: var(--coral); background: #fff0ed; }
+  .bmi-result.ok { color: var(--mint); border-color: #a7f3d0; background: #f0fdf8; }
+  .age-input-row { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.65rem; }
+  .age-input-row input { width: 70px; }
+  .age-result { font-size: 0.75rem; font-weight: 600; }
+  .age-result.over { color: var(--coral); }
+  .age-result.ok { color: var(--mint); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Score hero */
+  .score-hero {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem 1.5rem 1.25rem;
+    text-align: center; transition: border-color 0.3s, background 0.3s;
+  }
+  .score-hero.risk-low { border-color: var(--mint); background: #f0fdf8; }
+  .score-hero.risk-intermediate { border-color: var(--amber); background: #fffbeb; }
+  .score-hero.risk-high { border-color: var(--coral); background: #fff6f4; }
+
+  .gauge-wrap {
+    position: relative; width: 200px; height: 120px;
+    margin: 0 auto 0.75rem;
+  }
+  .gauge-svg { width: 200px; height: 120px; }
+  .gauge-score-wrap {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; align-items: baseline; justify-content: center;
+    gap: 0.1rem;
+  }
+  .gauge-score {
+    font-size: 3rem; font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1; font-family: 'Space Grotesk', monospace;
+    color: var(--text);
+  }
+  .score-hero.risk-low .gauge-score { color: var(--mint); }
+  .score-hero.risk-intermediate .gauge-score { color: var(--amber); }
+  .score-hero.risk-high .gauge-score { color: var(--coral); }
+  .gauge-denom { font-size: 1.1rem; font-weight: 700; color: var(--text-soft); padding-bottom: 0.15rem; }
+
+  .risk-label {
+    font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em;
+    margin-bottom: 0.3rem;
+  }
+  .score-hero.risk-low .risk-label { color: var(--mint); }
+  .score-hero.risk-intermediate .risk-label { color: var(--amber); }
+  .score-hero.risk-high .risk-label { color: var(--coral); }
+  .risk-sub { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Breakdown card */
+  .breakdown-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .breakdown-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .factor-list { display: flex; flex-direction: column; gap: 0.4rem; }
+  .factor-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.5rem 0.65rem; border-radius: 8px;
+    font-size: 0.8rem; font-weight: 500;
+    background: var(--bg); border: 1px solid var(--border);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .factor-item.scored { background: #fff0ed; border-color: #ffd0c8; color: var(--coral); font-weight: 600; }
+  .factor-item.not-scored { color: var(--text-soft); }
+  .factor-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .factor-item.scored .factor-dot { background: var(--coral); }
+  .factor-item.not-scored .factor-dot { background: var(--border); }
+  .factor-letter { font-weight: 800; font-size: 0.85rem; width: 14px; flex-shrink: 0; }
+
+  /* Next steps */
+  .next-steps {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .next-steps h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .steps-grid { display: flex; flex-direction: column; gap: 0.65rem; }
+  .step-card {
+    display: flex; gap: 0.85rem; align-items: flex-start;
+    padding: 0.85rem; border-radius: 10px; border: 1.5px solid;
+  }
+  .step-card.step-low { border-color: #a7f3d0; background: #f0fdf8; }
+  .step-card.step-intermediate { border-color: #fde68a; background: #fffbeb; }
+  .step-card.step-high { border-color: #ffd0c8; background: #fff6f4; }
+  .step-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .step-icon svg { width: 18px; height: 18px; }
+  .step-low .step-icon { background: #dcfce7; }
+  .step-intermediate .step-icon { background: #fef9c3; }
+  .step-high .step-icon { background: #ffe4de; }
+  .step-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .step-low .step-title { color: #065f46; }
+  .step-intermediate .step-title { color: #78350f; }
+  .step-high .step-title { color: #9a1c10; }
+  .step-desc { font-size: 0.77rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Info card */
+  .info-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .info-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .info-grid { display: flex; flex-direction: column; gap: 0.7rem; }
+  .info-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .info-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .info-icon svg { width: 18px; height: 18px; }
+  .info-label { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.2rem; color: var(--text); }
+  .info-desc { font-size: 0.75rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.73rem; color: #a8a3be; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.55;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .disclaimer-banner { padding: 0 1.25rem; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; max-height: none; }
+    .science-section { padding: 0 1.25rem 2rem; }
+  }
+  @media (max-width: 480px) {
+    .toggle-btn { padding: 0.4rem 0.35rem; font-size: 0.72rem; }
+    .bmi-row input { width: 52px; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  // State: current values for each question (0 = No, 1 = Yes)
+  var state = { s: 0, t: 0, o: 0, p: 0, b: 0, a: 0, n: 0, g: 0 };
+
+  var factorMeta = [
+    { key: 's', letter: 'S', label: 'Snoring loudly' },
+    { key: 't', letter: 'T', label: 'Tired / fatigued during the day' },
+    { key: 'o', letter: 'O', label: 'Observed apnea (breathing pauses)' },
+    { key: 'p', letter: 'P', label: 'High blood pressure' },
+    { key: 'b', letter: 'B', label: 'BMI greater than 35' },
+    { key: 'a', letter: 'A', label: 'Age greater than 50' },
+    { key: 'n', letter: 'N', label: 'Neck circumference > 16 in / 40 cm' },
+    { key: 'g', letter: 'G', label: 'Male sex' },
+  ];
+
+  // ARC GAUGE — half-circle from left (20,110) to right (180,110), radius 90
+  // Full arc length ≈ PI * 90 = 282.74 px
+  var ARC_LEN = Math.PI * 90; // ~282.74
+
+  function setGaugeArc(score) {
+    var fill = document.getElementById('gauge-fill');
+    if (!fill) return;
+    var frac = score / 8;
+    var drawn = frac * ARC_LEN;
+    var offset = ARC_LEN - drawn;
+    fill.setAttribute('stroke-dasharray', ARC_LEN.toFixed(2));
+    fill.setAttribute('stroke-dashoffset', offset.toFixed(2));
+    // color
+    var color = score <= 2 ? '#10b981' : score <= 4 ? '#f59e0b' : '#ff6b52';
+    fill.setAttribute('stroke', color);
+  }
+
+  function getRiskData(score) {
+    if (score <= 2) {
+      return {
+        cls: 'risk-low',
+        label: 'Low Risk',
+        sub: 'Score 0–2: Low probability of moderate-to-severe OSA',
+      };
+    } else if (score <= 4) {
+      return {
+        cls: 'risk-intermediate',
+        label: 'Intermediate Risk',
+        sub: 'Score 3–4: Intermediate probability of moderate-to-severe OSA',
+      };
+    } else {
+      return {
+        cls: 'risk-high',
+        label: 'High Risk',
+        sub: 'Score 5–8: High probability of moderate-to-severe OSA — evaluation recommended',
+      };
+    }
+  }
+
+  function buildFactorList(stateObj) {
+    var html = '';
+    for (var i = 0; i < factorMeta.length; i++) {
+      var m = factorMeta[i];
+      var scored = stateObj[m.key] === 1;
+      html += '<div class="factor-item ' + (scored ? 'scored' : 'not-scored') + '">' +
+        '<div class="factor-dot"></div>' +
+        '<span class="factor-letter">' + m.letter + '</span>' +
+        '<span>' + m.label + '</span>' +
+        (scored ? '<svg style="margin-left:auto;flex-shrink:0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' : '') +
+      '</div>';
+    }
+    return html;
+  }
+
+  function buildSteps(score) {
+    if (score <= 2) {
+      return '<div class="step-card step-low">' +
+        '<div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>' +
+        '<div><div class="step-title">Monitor and maintain good sleep habits</div>' +
+        '<div class="step-desc">Your score suggests low risk for sleep apnea. Continue to get 7–9 hours nightly, maintain a healthy weight, and avoid alcohol close to bedtime. Re-screen if symptoms develop or risk factors change.</div></div>' +
+      '</div>';
+    } else if (score <= 4) {
+      return '<div class="step-card step-intermediate">' +
+        '<div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>' +
+        '<div><div class="step-title">Discuss results with your healthcare provider</div>' +
+        '<div class="step-desc">Your score indicates intermediate risk. Speak with your doctor about your symptoms — they may recommend a home sleep apnea test (HSAT) or refer you to a sleep specialist for further evaluation, especially if you have daytime sleepiness, hypertension, or a bed partner reporting breathing pauses.</div></div>' +
+      '</div>';
+    } else {
+      return '<div class="step-card step-high">' +
+        '<div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>' +
+        '<div><div class="step-title">Seek a formal sleep study soon</div>' +
+        '<div class="step-desc">A score of 5 or more is associated with a high probability of moderate-to-severe obstructive sleep apnea. Contact your doctor promptly to arrange a home sleep apnea test or in-lab polysomnography. Untreated OSA increases risk of cardiovascular disease, hypertension, and daytime impairment. Effective treatments (CPAP, oral appliances) are available and well-tolerated.</div></div>' +
+      '</div>' +
+      '<div class="step-card step-high" style="margin-top:0;">' +
+        '<div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>' +
+        '<div><div class="step-title">In the meantime — reduce known risk factors</div>' +
+        '<div class="step-desc">While awaiting evaluation: avoid alcohol within 3 hours of bedtime (alcohol relaxes throat muscles), sleep on your side rather than your back, and if overweight, even modest weight loss (5–10%) can reduce apnea severity meaningfully.</div></div>' +
+      '</div>';
+    }
+  }
+
+  function calculate() {
+    var score = state.s + state.t + state.o + state.p + state.b + state.a + state.n + state.g;
+
+    // Update gauge
+    var scoreEl = document.getElementById('gauge-score');
+    if (scoreEl) scoreEl.textContent = score;
+    setGaugeArc(score);
+
+    // Risk hero
+    var hero = document.getElementById('score-hero');
+    var riskLabelEl = document.getElementById('risk-label');
+    var riskSubEl = document.getElementById('risk-sub');
+    var risk = getRiskData(score);
+    if (hero) {
+      hero.className = 'score-hero ' + risk.cls;
+    }
+    if (riskLabelEl) riskLabelEl.textContent = risk.label;
+    if (riskSubEl) riskSubEl.textContent = risk.sub;
+
+    // Factor list
+    var factorList = document.getElementById('factor-list');
+    if (factorList) factorList.innerHTML = buildFactorList(state);
+
+    // Next steps
+    var stepsGrid = document.getElementById('steps-grid');
+    if (stepsGrid) stepsGrid.innerHTML = buildSteps(score);
+
+    // Highlight question cards
+    var qCards = document.querySelectorAll('.question-card');
+    qCards.forEach(function(card) {
+      var qId = card.id.replace('q-', '');
+      if (state[qId] === 1) {
+        card.classList.add('answered-yes');
+      } else {
+        card.classList.remove('answered-yes');
+      }
+    });
+  }
+
+  // Toggle button interaction
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.toggle-btn');
+    if (!btn) return;
+    var q = btn.getAttribute('data-q');
+    var val = parseInt(btn.getAttribute('data-val'), 10);
+    if (!q) return;
+
+    // Update active state for the group
+    var group = btn.closest('.toggle-group');
+    if (group) {
+      group.querySelectorAll('.toggle-btn').forEach(function(b) {
+        b.classList.remove('active');
+      });
+    }
+    btn.classList.add('active');
+
+    state[q] = val;
+    calculate();
+  });
+
+  // BMI auto-calculation
+  function calcBMI() {
+    var ft = parseFloat(document.getElementById('height-ft').value) || 0;
+    var inch = parseFloat(document.getElementById('height-in').value) || 0;
+    var lbs = parseFloat(document.getElementById('weight-lbs').value) || 0;
+    var bmiResult = document.getElementById('bmi-result');
+
+    if (!ft && !inch && !lbs) {
+      bmiResult.textContent = 'Enter height & weight above';
+      bmiResult.className = 'bmi-result';
+      return;
+    }
+    if ((!ft && !inch) || !lbs) {
+      bmiResult.textContent = 'Fill in all fields to calculate';
+      bmiResult.className = 'bmi-result';
+      return;
+    }
+
+    var totalInches = (ft * 12) + inch;
+    var heightM = totalInches * 0.0254;
+    var weightKg = lbs * 0.453592;
+    var bmi = weightKg / (heightM * heightM);
+
+    if (bmi > 35) {
+      bmiResult.textContent = 'BMI: ' + bmi.toFixed(1) + ' — above 35 (Yes)';
+      bmiResult.className = 'bmi-result over';
+      // auto-set B to Yes
+      setToggle('b', 1);
+    } else if (bmi > 0) {
+      bmiResult.textContent = 'BMI: ' + bmi.toFixed(1) + ' — at or below 35 (No)';
+      bmiResult.className = 'bmi-result ok';
+      // auto-set B to No
+      setToggle('b', 0);
+    } else {
+      bmiResult.textContent = 'Enter height & weight above';
+      bmiResult.className = 'bmi-result';
+    }
+    calculate();
+  }
+
+  // Age auto-calculation
+  function calcAge() {
+    var age = parseInt(document.getElementById('age-input').value, 10);
+    var ageResult = document.getElementById('age-result');
+    if (!age || isNaN(age)) {
+      ageResult.textContent = '';
+      ageResult.className = 'age-result';
+      return;
+    }
+    if (age > 50) {
+      ageResult.textContent = 'Age > 50 (Yes)';
+      ageResult.className = 'age-result over';
+      setToggle('a', 1);
+    } else {
+      ageResult.textContent = 'Age ≤ 50 (No)';
+      ageResult.className = 'age-result ok';
+      setToggle('a', 0);
+    }
+    calculate();
+  }
+
+  function setToggle(q, val) {
+    state[q] = val;
+    var group = document.querySelector('[data-q="' + q + '"]');
+    if (!group) return;
+    var container = group.closest('.toggle-group');
+    if (!container) return;
+    container.querySelectorAll('.toggle-btn').forEach(function(b) {
+      b.classList.remove('active');
+      if (parseInt(b.getAttribute('data-val'), 10) === val) {
+        b.classList.add('active');
+      }
+    });
+  }
+
+  // Attach BMI listeners
+  ['height-ft', 'height-in', 'weight-lbs'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', calcBMI);
+      el.addEventListener('change', calcBMI);
+    }
+  });
+
+  // Attach age listener
+  var ageEl = document.getElementById('age-input');
+  if (ageEl) {
+    ageEl.addEventListener('input', calcAge);
+    ageEl.addEventListener('change', calcAge);
+  }
+
+  // Initial render
+  calculate();
+
+})();
+</script>

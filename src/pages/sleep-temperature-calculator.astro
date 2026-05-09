@@ -1,0 +1,764 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is the ideal room temperature for sleep?',
+    answer: `<p>The <strong>National Sleep Foundation recommends 60–67°F (15.5–19.5°C)</strong> as the optimal bedroom temperature for most adults. This range supports your body's natural core temperature drop, which is a biological prerequisite for sleep onset and deep sleep maintenance.</p>
+<p>That said, "ideal" varies by individual. Age, bedding, sleepwear, and personal thermoregulation all shift the sweet spot. Infants and older adults tend to need slightly warmer rooms, while people who run hot may prefer the lower end of the range or even below 60°F.</p>`,
+  },
+  {
+    question: 'Why does temperature affect sleep?',
+    answer: `<p>Temperature is directly tied to your <strong>circadian rhythm</strong>. About 2 hours before your natural bedtime, your body begins actively redistributing blood to your hands and feet — a process called distal vasodilation — which sheds heat from your core. Your core body temperature drops by roughly <strong>1–2°F (0.5–1°C)</strong> at sleep onset and continues falling during deep sleep stages.</p>
+<p>A cool bedroom environment accelerates this heat-shedding process. A warm room forces your body to work harder to cool down, delaying sleep onset, fragmenting slow-wave sleep, and reducing REM duration. Okamoto-Mizuno & Mizuno (2012) found that thermal discomfort — whether too hot or too cold — significantly disrupts sleep architecture, particularly suppressing the deepest NREM stages.</p>`,
+  },
+  {
+    question: 'Is it better to sleep in a cold or warm room?',
+    answer: `<p>Research consistently shows that <strong>cooler rooms produce better sleep quality</strong> than warmer ones for most adults. However, "cold" doesn't mean extreme — rooms below 54°F (12°C) can cause discomfort and muscle tension that fragments sleep just as warm rooms do.</p>
+<p>The sweet spot is around <strong>65°F (18°C)</strong> for most adults. Harding et al. (2019) found that skin temperature — kept warm by blankets while the room stays cool — is the key factor, not ambient temperature alone. This is the "warm hands, cool room" principle: your distal skin should feel warm (promoting heat loss from the core) while the surrounding air stays cool.</p>`,
+  },
+  {
+    question: 'What temperature is best for baby sleep?',
+    answer: `<p>Infants cannot regulate their own body temperature as efficiently as adults, so they need a <strong>slightly warmer room: 68–72°F (20–22°C)</strong>. This is higher than the adult recommendation but still within a safe thermoneutral range.</p>
+<p>The AAP recommends keeping the room <strong>comfortable enough that an adult in light clothing would not feel cold</strong>. Avoid heavy blankets for babies under 12 months — use sleep sacks or wearable blankets instead, and dress the baby in one more layer than you'd wear comfortably. Overheating is a known risk factor for SIDS, so err on the cooler side of the 68–72°F range and check for signs of overheating (sweating, flushed skin, rapid breathing).</p>`,
+  },
+  {
+    question: 'How does humidity affect sleep?',
+    answer: `<p>Relative humidity in the bedroom should stay between <strong>30–50%</strong> for optimal sleep. At this range, your respiratory passages stay moist enough to filter air effectively, and your skin's evaporative cooling works efficiently — which supports the core temperature drop needed for sleep onset.</p>
+<p>High humidity (above 60%) makes the air feel warmer than it is, slows sweat evaporation, and can promote mold and dust mite growth — all of which disrupt sleep. Low humidity (below 30%) dries out nasal passages and skin, causing micro-arousals and morning congestion. A hygrometer (humidity monitor) and a cool-mist humidifier or dehumidifier can help you dial in this often-overlooked sleep factor.</p>`,
+  },
+  {
+    question: 'Should I use a fan or AC for sleep?',
+    answer: `<p>Both work, but through different mechanisms. <strong>Air conditioning</strong> actively lowers air temperature and can also dehumidify — it's the most effective way to cool a room below outdoor temperature. A thermostat set to 65–67°F before bed, then raising slightly during early morning, mirrors the natural room-temperature curve that supports sleep.</p>
+<p>A <strong>fan</strong> doesn't cool the air but increases evaporative cooling from your skin — particularly helpful for hot sleepers. The white noise a fan produces also masks environmental sounds, adding an independent sleep benefit. The downside: fans can dry out nasal passages at high settings and may be insufficient in humid climates where evaporation is slow. If you share a bed, a directional fan aimed away from both partners avoids the "too hot / too cold" conflict while still providing airflow.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Temperature Calculator — The Sleep Math"
+  description="Find your ideal bedroom temperature for sleep. Personalized recommendations based on your age, bedding, and preferences."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Sleep Temperature
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Temperature Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find your ideal bedroom temperature for sleep. Personalized recommendations based on your age, bedding, sleepwear, and thermoregulation tendencies.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        20 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        NSF Guidelines
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Thermoregulation research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your details</h2>
+
+      <div class="field">
+        <label for="age-group">Age group</label>
+        <select id="age-group">
+          <option value="adult" selected>Adult (18–64)</option>
+          <option value="child">Child (3–17)</option>
+          <option value="infant">Infant / Toddler (0–2)</option>
+          <option value="older">Older Adult (65+)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="bedding">Bedding type</label>
+        <select id="bedding">
+          <option value="light">Light sheet or thin blanket</option>
+          <option value="medium" selected>Medium comforter</option>
+          <option value="heavy">Heavy duvet</option>
+          <option value="weighted">Weighted blanket</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sleepwear">Sleepwear</label>
+        <select id="sleepwear">
+          <option value="minimal">Minimal / nothing</option>
+          <option value="light" selected>Light (t-shirt &amp; shorts)</option>
+          <option value="moderate">Moderate (pajama set)</option>
+          <option value="heavy">Heavy (flannel / thick layers)</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="tendency">You tend to…</label>
+        <select id="tendency">
+          <option value="hot">Run hot — always warm at night</option>
+          <option value="neutral" selected>Run neutral — comfortable most nights</option>
+          <option value="cold">Run cold — often need extra blankets</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="partner">Sleep situation</label>
+        <select id="partner">
+          <option value="solo" selected>Sleep alone</option>
+          <option value="partner-hot">Partner who runs hot</option>
+          <option value="partner-cold">Partner who runs cold</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="units">Temperature units</label>
+        <div class="unit-toggle">
+          <button id="btn-f" class="unit-btn active" data-unit="F">°F</button>
+          <button id="btn-c" class="unit-btn" data-unit="C">°C</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- HERO TEMP DISPLAY -->
+      <div class="result-hero" id="result-hero">
+        <div class="result-label">Your ideal sleep temperature</div>
+        <div class="temp-display-row">
+          <div class="thermometer-wrap">
+            <div class="therm-outer">
+              <div class="therm-fill" id="therm-fill"></div>
+              <div class="therm-bulb"></div>
+            </div>
+          </div>
+          <div class="temp-numbers">
+            <div class="temp-main" id="temp-main">65°F</div>
+            <div class="temp-sub" id="temp-sub">18.3°C</div>
+            <div class="temp-range-label">Sweet spot range</div>
+            <div class="temp-range" id="temp-range">63–67°F</div>
+          </div>
+        </div>
+        <div class="humidity-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          Humidity target: <strong>30–50% RH</strong>
+        </div>
+      </div>
+
+      <!-- STAT GRID -->
+      <div class="stat-grid">
+        <div class="stat-card s-coral">
+          <div class="stat-num" id="stat-f">65°F</div>
+          <div class="stat-label">Fahrenheit</div>
+        </div>
+        <div class="stat-card s-sky">
+          <div class="stat-num" id="stat-c">18°C</div>
+          <div class="stat-label">Celsius</div>
+        </div>
+        <div class="stat-card s-mint">
+          <div class="stat-num" id="stat-range-width">4°</div>
+          <div class="stat-label">Comfort window</div>
+        </div>
+      </div>
+
+      <!-- ADJUSTMENT BREAKDOWN -->
+      <div class="breakdown-card" id="breakdown-card">
+        <h3>How we got there</h3>
+        <div class="breakdown-list" id="breakdown-list"></div>
+        <div class="breakdown-total" id="breakdown-total"></div>
+      </div>
+
+      <!-- TIPS -->
+      <div class="tips-card" id="tips-card">
+        <h3>Recommendations for you</h3>
+        <div class="tips-list" id="tips-list"></div>
+      </div>
+
+      <!-- PARTNER COMPROMISE (conditionally shown) -->
+      <div class="partner-card" id="partner-card" style="display:none;">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Partner compromise ideas
+        </h3>
+        <div class="partner-tips" id="partner-tips"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of sleep temperature</h2>
+      <p>
+        Your body does not passively "get cold" when you sleep — it <strong>actively engineers a temperature drop</strong>.
+        About two hours before your natural bedtime, your circadian clock triggers dilation of blood vessels
+        in your hands, feet, and face. This peripheral vasodilation radiates heat outward, lowering your
+        core body temperature by roughly 1–2°F (0.5–1°C). This cooling signal is one of the strongest
+        biological triggers for sleep onset.
+      </p>
+      <p>
+        A cool bedroom environment (60–67°F / 15.5–19.5°C) <strong>accelerates and sustains this process</strong>.
+        A warm room works against it, prolonging sleep latency, suppressing deep slow-wave sleep (SWS),
+        and cutting short REM cycles. The ideal state is a warm skin (kept warm by bedding, promoting
+        continued heat radiation) in a cool room — the <em>distal-warm / proximal-cool gradient</em>.
+      </p>
+      <p>
+        Humidity also plays a direct role. High humidity (above 60% RH) reduces the efficiency of sweat
+        evaporation from the skin — your body's primary cooling mechanism — making the same temperature
+        feel significantly warmer and disrupting the thermoregulatory gradient needed for deep sleep.
+      </p>
+
+      <div class="science-two-col">
+        <div>
+          <h4>Key findings</h4>
+          <ul>
+            <li>Core temp drops ~1–2°F at sleep onset (Harding et al., 2019)</li>
+            <li>60–67°F is the NSF-recommended range for adults</li>
+            <li>Thermal discomfort reduces SWS and REM duration</li>
+            <li>Infants need 68–72°F due to immature thermoregulation</li>
+            <li>30–50% RH optimizes evaporative skin cooling</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Temperature by life stage</h4>
+          <table class="ref-table">
+            <thead><tr><th>Group</th><th>Recommended</th></tr></thead>
+            <tbody>
+              <tr><td>Infants / Toddlers</td><td class="mg">68–72°F / 20–22°C</td></tr>
+              <tr><td>Children (3–17)</td><td class="mg">65–70°F / 18–21°C</td></tr>
+              <tr><td>Adults (18–64)</td><td class="mg">60–67°F / 15.5–19.5°C</td></tr>
+              <tr><td>Older Adults (65+)</td><td class="mg">62–70°F / 16.5–21°C</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="citation">
+        Harding, E. C., Franks, N. P., &amp; Wisden, W. (2019). The temperature dependence of sleep.
+        <em>Frontiers in Neuroscience, 13, 336.</em>
+      </div>
+      <div class="citation" style="margin-top:0.5rem;">
+        Okamoto-Mizuno, K., &amp; Mizuno, K. (2012). Effects of thermal environment on sleep and circadian rhythm.
+        <em>Journal of Physiological Anthropology, 31(1), 14.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fff0ed; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+  }
+  .field select:focus { border-color: var(--primary); }
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+  .unit-toggle { display: flex; gap: 0.4rem; }
+  .unit-btn {
+    flex: 1; padding: 0.55rem; border-radius: 10px;
+    border: 1.5px solid var(--border); background: var(--bg);
+    font-family: inherit; font-size: 0.88rem; font-weight: 700;
+    color: var(--text-mid); cursor: pointer; transition: all 0.15s;
+  }
+  .unit-btn.active { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
+  .unit-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* --- HERO --- */
+  .result-hero {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.75rem;
+  }
+  .result-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 1rem; text-align: center;
+  }
+  .temp-display-row {
+    display: flex; align-items: center; gap: 1.5rem; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  /* --- THERMOMETER --- */
+  .thermometer-wrap { display: flex; align-items: center; justify-content: center; }
+  .therm-outer {
+    width: 28px; height: 140px; border-radius: 14px 14px 0 0;
+    border: 2.5px solid var(--border); background: var(--bg);
+    position: relative; overflow: hidden; flex-shrink: 0;
+  }
+  .therm-fill {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, #ff6b52, #f59e0b, #38b6ff);
+    transition: height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 0;
+  }
+  .therm-bulb {
+    position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%);
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #ff6b52; border: 2.5px solid var(--border);
+  }
+
+  /* --- TEMP NUMBERS --- */
+  .temp-numbers { text-align: left; }
+  .temp-main {
+    font-size: clamp(2.25rem, 5vw, 3rem); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1; color: var(--text);
+  }
+  .temp-sub { font-size: 1.1rem; font-weight: 600; color: var(--text-soft); margin-bottom: 0.75rem; }
+  .temp-range-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-soft); margin-bottom: 0.2rem; }
+  .temp-range { font-size: 1rem; font-weight: 700; color: var(--coral); }
+
+  /* --- HUMIDITY BADGE --- */
+  .humidity-badge {
+    display: flex; align-items: center; gap: 0.4rem; justify-content: center;
+    background: #e8f7f2; border-radius: 8px; padding: 0.55rem 1rem;
+    font-size: 0.82rem; color: #0a7a55; font-weight: 500;
+  }
+  .humidity-badge svg { width: 14px; height: 14px; stroke: #10b981; }
+  .humidity-badge strong { font-weight: 700; }
+
+  /* --- STAT GRID --- */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 1.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+  .stat-card .stat-label { font-size: 0.7rem; color: var(--text-soft); font-weight: 500; }
+  .stat-card.s-coral .stat-num { color: #ff6b52; }
+  .stat-card.s-sky .stat-num { color: #38b6ff; }
+  .stat-card.s-mint .stat-num { color: #10b981; }
+
+  /* --- BREAKDOWN CARD --- */
+  .breakdown-card, .tips-card, .partner-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .breakdown-card h3, .tips-card h3, .partner-card h3 {
+    font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .partner-card h3 svg { width: 16px; height: 16px; color: var(--primary); }
+  .breakdown-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.85rem; }
+  .breakdown-row {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.82rem; padding: 0.45rem 0.65rem; border-radius: 8px;
+    background: var(--bg);
+  }
+  .breakdown-row .factor { color: var(--text-mid); font-weight: 500; }
+  .breakdown-row .adj { font-weight: 700; font-size: 0.85rem; }
+  .breakdown-row .adj.pos { color: #10b981; }
+  .breakdown-row .adj.neg { color: #ff6b52; }
+  .breakdown-row .adj.neutral { color: var(--text-soft); }
+  .breakdown-total {
+    border-top: 1.5px solid var(--border); padding-top: 0.65rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.88rem; font-weight: 700;
+  }
+  .breakdown-total .total-label { color: var(--text-mid); }
+  .breakdown-total .total-val { color: var(--coral); font-size: 1rem; }
+
+  /* --- TIPS --- */
+  .tips-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .tip-item {
+    display: flex; gap: 0.65rem; align-items: flex-start;
+    font-size: 0.83rem; color: var(--text-mid); line-height: 1.5;
+  }
+  .tip-dot {
+    width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; margin-top: 1px;
+  }
+  .tip-dot svg { width: 12px; height: 12px; }
+  .tip-dot.cool { background: #e0f2fe; }
+  .tip-dot.cool svg { stroke: #0284c7; }
+  .tip-dot.warm { background: #fff7ed; }
+  .tip-dot.warm svg { stroke: #f59e0b; }
+  .tip-dot.partner { background: var(--primary-soft); }
+  .tip-dot.partner svg { stroke: var(--primary); }
+  .tip-dot.general { background: #ecfdf5; }
+  .tip-dot.general svg { stroke: #10b981; }
+
+  /* --- PARTNER CARD --- */
+  .partner-tips { display: flex; flex-direction: column; gap: 0.55rem; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    border: 1.5px solid var(--border); border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .science-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.25rem 0; }
+  .science-two-col h4 { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--text); }
+  .science-two-col ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.3rem; }
+  .science-two-col ul li { font-size: 0.8rem; color: var(--text-mid); line-height: 1.4; }
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  .ref-table th {
+    text-align: left; font-weight: 700; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.4rem 0.6rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .ref-table td { padding: 0.45rem 0.6rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table .mg { font-weight: 700; color: var(--text); }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-two-col { grid-template-columns: 1fr; }
+    .temp-display-row { gap: 1rem; }
+  }
+  @media (max-width: 420px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  /* ---- DOM refs ---- */
+  const ageGroupSel   = document.getElementById('age-group');
+  const beddingSel    = document.getElementById('bedding');
+  const sleepwearSel  = document.getElementById('sleepwear');
+  const tendencySel   = document.getElementById('tendency');
+  const partnerSel    = document.getElementById('partner');
+  const btnF          = document.getElementById('btn-f');
+  const btnC          = document.getElementById('btn-c');
+
+  const thermFill     = document.getElementById('therm-fill');
+  const tempMain      = document.getElementById('temp-main');
+  const tempSub       = document.getElementById('temp-sub');
+  const tempRange     = document.getElementById('temp-range');
+  const statF         = document.getElementById('stat-f');
+  const statC         = document.getElementById('stat-c');
+  const statRangeWidth = document.getElementById('stat-range-width');
+
+  const breakdownList  = document.getElementById('breakdown-list');
+  const breakdownTotal = document.getElementById('breakdown-total');
+  const tipsList       = document.getElementById('tips-list');
+  const partnerCard    = document.getElementById('partner-card');
+  const partnerTips    = document.getElementById('partner-tips');
+
+  let useF = true;   /* unit toggle state */
+
+  /* ---- Helper: round to 1 decimal ---- */
+  function r1(n) { return Math.round(n * 10) / 10; }
+  function fToC(f) { return r1((f - 32) * 5 / 9); }
+  function cToF(c) { return r1(c * 9 / 5 + 32); }
+  function displayTemp(f) {
+    return useF ? r1(f) + '°F' : fToC(f) + '°C';
+  }
+  function displayRange(lo, hi) {
+    if (useF) return r1(lo) + '–' + r1(hi) + '°F';
+    return fToC(lo) + '–' + fToC(hi) + '°C';
+  }
+
+  /* ---- Core calculation ---- */
+  function calculate() {
+    const age      = ageGroupSel.value;
+    const bedding  = beddingSel.value;
+    const wear     = sleepwearSel.value;
+    const tendency = tendencySel.value;
+    const partner  = partnerSel.value;
+
+    /* Base: NSF midpoint 63.5°F, range ±2 */
+    let baseMid = 63.5;
+    let rangeLo = 60, rangeHi = 67;
+
+    const adjustments = [];
+
+    /* --- Age group --- */
+    if (age === 'infant') {
+      baseMid = 70; rangeLo = 68; rangeHi = 72;
+      adjustments.push({ factor: 'Infant thermoregulation', delta: +6.5, note: 'Infants need warmer rooms (68–72°F)' });
+    } else if (age === 'child') {
+      baseMid = 67; rangeLo = 65; rangeHi = 70;
+      adjustments.push({ factor: 'Child (3–17)', delta: +3.5, note: 'Children sleep comfortably slightly warmer than adults' });
+    } else if (age === 'older') {
+      baseMid = 66; rangeLo = 62; rangeHi = 70;
+      adjustments.push({ factor: 'Older adult (65+)', delta: +2.5, note: 'Thermoregulation declines with age; slightly warmer preferred' });
+    } else {
+      adjustments.push({ factor: 'Adult (18–64)', delta: 0, note: 'NSF base: 60–67°F (15.5–19.5°C)' });
+    }
+
+    /* --- Bedding --- */
+    let beddingDelta = 0;
+    if (bedding === 'light') {
+      beddingDelta = +1.5;
+      adjustments.push({ factor: 'Light bedding', delta: +1.5, note: 'Less insulation — room can be slightly warmer' });
+    } else if (bedding === 'heavy') {
+      beddingDelta = -2.5;
+      adjustments.push({ factor: 'Heavy duvet', delta: -2.5, note: 'More insulation traps body heat — cooler room needed' });
+    } else if (bedding === 'weighted') {
+      beddingDelta = -3;
+      adjustments.push({ factor: 'Weighted blanket', delta: -3, note: 'Dense insulation and pressure — compensate with cooler air' });
+    } else {
+      adjustments.push({ factor: 'Medium comforter', delta: 0, note: 'Standard bedding — no adjustment' });
+    }
+    baseMid += beddingDelta;
+
+    /* --- Sleepwear --- */
+    let wearDelta = 0;
+    if (wear === 'minimal') {
+      wearDelta = -1;
+      adjustments.push({ factor: 'Minimal sleepwear', delta: -1, note: 'Less clothing means more heat loss — keep room a touch cooler' });
+    } else if (wear === 'moderate') {
+      wearDelta = +1;
+      adjustments.push({ factor: 'Moderate sleepwear', delta: +1, note: 'Pajama set adds insulation — room can be slightly warmer' });
+    } else if (wear === 'heavy') {
+      wearDelta = +2;
+      adjustments.push({ factor: 'Heavy sleepwear', delta: +2, note: 'Flannel/thick layers retain significant heat' });
+    } else {
+      adjustments.push({ factor: 'Light sleepwear', delta: 0, note: 'T-shirt & shorts — standard baseline' });
+    }
+    baseMid += wearDelta;
+
+    /* --- Hot/cold tendency --- */
+    let tendDelta = 0;
+    if (tendency === 'hot') {
+      tendDelta = -2;
+      adjustments.push({ factor: 'You run hot', delta: -2, note: 'Higher basal metabolic rate — cooler room helps core temp drop' });
+    } else if (tendency === 'cold') {
+      tendDelta = +2;
+      adjustments.push({ factor: 'You run cold', delta: +2, note: 'Lower heat production at rest — slightly warmer room aids comfort' });
+    } else {
+      adjustments.push({ factor: 'Neutral sleeper', delta: 0, note: 'Typical thermoregulation — no adjustment' });
+    }
+    baseMid += tendDelta;
+
+    /* --- Partner --- */
+    let partnerDelta = 0;
+    if (partner === 'partner-hot') {
+      partnerDelta = -1;
+      adjustments.push({ factor: 'Partner runs hot', delta: -1, note: 'Shared body heat; compromise leans cooler' });
+      baseMid += partnerDelta;
+    } else if (partner === 'partner-cold') {
+      partnerDelta = +1;
+      adjustments.push({ factor: 'Partner runs cold', delta: +1, note: 'Compromise leans slightly warmer' });
+      baseMid += partnerDelta;
+    }
+
+    /* Clamp to reasonable range */
+    baseMid = Math.max(55, Math.min(78, baseMid));
+
+    /* Final range: mid ± 2°F (narrower for infants: ±1.5) */
+    const halfRange = age === 'infant' ? 1.5 : 2;
+    const finalLo = baseMid - halfRange;
+    const finalHi = baseMid + halfRange;
+    const rangeWidth = finalHi - finalLo;
+
+    /* Thermometer fill: map 55–78°F → 10%–90% height */
+    const fillPct = 10 + ((baseMid - 55) / (78 - 55)) * 80;
+    thermFill.style.height = fillPct.toFixed(1) + '%';
+
+    /* Update temperature displays */
+    tempMain.textContent = displayTemp(baseMid);
+    tempSub.textContent  = useF ? fToC(baseMid) + '°C' : cToF(baseMid) + '°F';
+    tempRange.textContent = displayRange(finalLo, finalHi);
+
+    statF.textContent = r1(baseMid) + '°F';
+    statC.textContent = fToC(baseMid) + '°C';
+    statRangeWidth.textContent = (useF ? r1(rangeWidth) : r1(rangeWidth * 5 / 9)) + '°';
+
+    /* Render breakdown */
+    breakdownList.innerHTML = adjustments.map(a => {
+      let adjClass = 'neutral', sign = '';
+      if (a.delta > 0) { adjClass = 'pos'; sign = '+'; }
+      if (a.delta < 0) { adjClass = 'neg'; }
+      const display = a.delta === 0 ? 'Base' : sign + (useF ? r1(a.delta) + '°F' : r1(a.delta * 5/9) + '°C');
+      return `<div class="breakdown-row" title="${a.note}">
+        <span class="factor">${a.factor}</span>
+        <span class="adj ${adjClass}">${display}</span>
+      </div>`;
+    }).join('');
+
+    breakdownTotal.innerHTML = `
+      <span class="total-label">Final recommendation</span>
+      <span class="total-val">${displayRange(finalLo, finalHi)}</span>
+    `;
+
+    /* Tips */
+    const tips = [];
+    const isHot = tendency === 'hot' || bedding === 'heavy' || bedding === 'weighted';
+    const isCold = tendency === 'cold' || bedding === 'light';
+
+    if (isHot) {
+      tips.push({ type: 'cool', text: 'Run your AC or a fan 30 minutes before bed to pre-cool the room to ' + displayTemp(baseMid) + '.' });
+      tips.push({ type: 'cool', text: 'Moisture-wicking sheets (bamboo or linen) improve evaporative cooling for hot sleepers.' });
+      tips.push({ type: 'cool', text: 'A cooling mattress pad or topper actively pulls heat away from your body throughout the night.' });
+    }
+    if (isCold) {
+      tips.push({ type: 'warm', text: 'Use a pre-warmed bed (via electric blanket, removed before sleep) to shorten sleep onset.' });
+      tips.push({ type: 'warm', text: 'Warm feet specifically: wear socks to bed — peripheral vasodilation in the feet accelerates core cooling.' });
+    }
+
+    tips.push({ type: 'general', text: 'Keep a hygrometer in your bedroom. Target 30–50% relative humidity alongside your temperature goal.' });
+    tips.push({ type: 'general', text: 'Your core temperature naturally rises after ~4 AM. Set a programmable thermostat to rise 1–2°F in the early morning to match.' });
+
+    if (age === 'infant') {
+      tips.push({ type: 'warm', text: 'Check your baby for signs of overheating: sweating, flushed skin, or rapid breathing. Use a sleep sack instead of loose blankets.' });
+    }
+    if (age === 'older') {
+      tips.push({ type: 'general', text: 'Older adults lose core heat faster. Layering with a light blanket on top allows easy temperature self-regulation during the night.' });
+    }
+
+    tipsList.innerHTML = tips.map(t => {
+      const iconMap = {
+        cool: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 6 12 2 16 6"/><line x1="12" y1="2" x2="12" y2="15"/><path d="M20 16.58A5 5 0 0 1 18 17H6a5 5 0 0 1-2-9.58"/></svg>`,
+        warm: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
+        general: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+        partner: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`
+      };
+      return `<div class="tip-item">
+        <div class="tip-dot ${t.type}">${iconMap[t.type] || iconMap.general}</div>
+        <span>${t.text}</span>
+      </div>`;
+    }).join('');
+
+    /* Partner compromise card */
+    if (partner === 'partner-hot' || partner === 'partner-cold') {
+      partnerCard.style.display = 'block';
+      const pTips = [];
+      if (partner === 'partner-hot') {
+        pTips.push({ type: 'partner', text: 'Set the thermostat to your preference but give your partner a separate lighter blanket they can remove.' });
+        pTips.push({ type: 'partner', text: 'A fan aimed at your partner\'s side of the bed increases their cooling without changing room temperature.' });
+        pTips.push({ type: 'partner', text: 'Dual-zone mattress pads (e.g., ChiliPad, Ooler) allow each person to independently control their sleep surface temperature.' });
+      } else {
+        pTips.push({ type: 'partner', text: 'Your partner can use a heavier or weighted blanket on their side while you sleep with lighter covers.' });
+        pTips.push({ type: 'partner', text: 'Try meeting in the middle: set the thermostat to ' + displayTemp(baseMid) + ' and let each partner layer appropriately.' });
+        pTips.push({ type: 'partner', text: 'Dual-zone mattress pads let your partner warm their side without affecting yours.' });
+      }
+      partnerTips.innerHTML = pTips.map(t => `<div class="tip-item">
+        <div class="tip-dot partner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <span>${t.text}</span>
+      </div>`).join('');
+    } else {
+      partnerCard.style.display = 'none';
+    }
+  }
+
+  /* ---- Unit toggle ---- */
+  btnF.addEventListener('click', function () {
+    useF = true;
+    btnF.classList.add('active');
+    btnC.classList.remove('active');
+    calculate();
+  });
+  btnC.addEventListener('click', function () {
+    useF = false;
+    btnC.classList.add('active');
+    btnF.classList.remove('active');
+    calculate();
+  });
+
+  /* ---- Input listeners ---- */
+  [ageGroupSel, beddingSel, sleepwearSel, tendencySel, partnerSel].forEach(function (el) {
+    el.addEventListener('change', calculate);
+  });
+
+  /* ---- Init ---- */
+  calculate();
+})();
+</script>

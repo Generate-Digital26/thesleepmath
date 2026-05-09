@@ -1,0 +1,803 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is a circadian rhythm?',
+    answer: `<p>A circadian rhythm is your body's internal 24-hour biological clock — a self-sustaining oscillator that regulates nearly every physiological process: sleep-wake cycles, hormone secretion, core body temperature, metabolism, immune function, and cognition.</p>
+<p>The master pacemaker is the <strong>suprachiasmatic nucleus (SCN)</strong>, a pair of tiny structures in the hypothalamus containing roughly 20,000 neurons. The SCN receives direct light input from the retina via the retinohypothalamic tract and uses that signal to synchronize peripheral clocks throughout the body. Even in the absence of all environmental cues, the SCN maintains a near-24-hour rhythm — typically running slightly longer than 24 hours (about 24.2 hours on average), which is why daily light exposure is needed to keep you locked to the solar day.</p>
+<p>Disrupting this clock — through shift work, jet lag, irregular sleep schedules, or excessive artificial light at night — has measurable consequences for mood, metabolism, cardiovascular function, and long-term health outcomes.</p>`,
+  },
+  {
+    question: 'When is my energy peak?',
+    answer: `<p>Your peak cognitive alertness window typically falls <strong>2–4 hours after your natural wake time</strong>, once the morning cortisol surge has peaked and core body temperature is rising steadily.</p>
+<p>For the average Bear chronotype waking at 7:00 AM, this places peak alertness around <strong>9:00–11:00 AM</strong>. This window is characterized by the highest levels of cortisol, serotonin, and norepinephrine — neurotransmitters that support focused attention, working memory, and executive function.</p>
+<p>A secondary performance window often appears in the late afternoon for most chronotypes, roughly <strong>wake + 9–10 hours</strong>, when core body temperature reaches its daily maximum. Reaction time and physical coordination are at their best during this window. The exact timing shifts with chronotype: Lion types peak 1–2 hours earlier, Wolf types 1–2 hours later.</p>`,
+  },
+  {
+    question: 'How does light affect circadian rhythm?',
+    answer: `<p>Light is the primary <strong>zeitgeber</strong> (time-giver) for the human circadian clock. Specialized photoreceptors in the retina — <strong>intrinsically photosensitive retinal ganglion cells (ipRGCs)</strong> — contain melanopsin, a photopigment maximally sensitive to short-wavelength blue light (~480 nm). These cells send signals directly to the SCN, suppressing melatonin production and shifting the clock forward or backward depending on <em>when</em> during the 24-hour cycle the light exposure occurs.</p>
+<p>The key principle is the <strong>phase response curve (PRC)</strong>: bright light in the early morning advances your clock (making you earlier), while bright light in the late evening delays it (making you later). This is why morning sunlight is so powerful for anchoring your circadian phase, and why blue-light exposure from screens after sunset can delay sleep onset by 30–60+ minutes.</p>
+<p>Czeisler et al. (1999) demonstrated that even relatively dim room light (~100 lux) can suppress melatonin and shift the human circadian clock, challenging earlier assumptions that only very bright light mattered. Aim for bright, outdoor-level light (1,000–10,000 lux) within the first hour of waking for the strongest entrainment effect.</p>`,
+  },
+  {
+    question: 'What is the afternoon dip?',
+    answer: `<p>The afternoon dip — sometimes called the <strong>post-lunch dip</strong> or <strong>siesta trough</strong> — is a natural period of reduced alertness and increased sleepiness that occurs approximately <strong>6–8 hours after waking</strong> for most people. For the average Bear chronotype, this falls between 1:00–3:00 PM.</p>
+<p>Contrary to popular belief, the dip is not caused by lunch — it occurs at the same time even after fasting. It reflects a biologically programmed drop in core body temperature and a transient increase in sleep pressure regulated by the circadian clock. Many cultures have institutionalized rest during this window (the Mediterranean siesta, the Chinese "noon break").</p>
+<p>The dip is more pronounced when you carry sleep debt. A 10–20 minute nap timed to this window can restore alertness to near-morning levels; longer naps risk entering deeper sleep stages and causing grogginess (<em>sleep inertia</em>) upon waking. This window is poorly suited for demanding cognitive work or high-stakes decisions.</p>`,
+  },
+  {
+    question: 'Can I change my circadian rhythm?',
+    answer: `<p>Yes — within limits. The <strong>underlying chronotype</strong> has a strong genetic component (studies identify variants in clock genes like <em>PER3</em>, <em>CLOCK</em>, and <em>CRY1</em>), but circadian phase can be shifted substantially through behavioral and light interventions.</p>
+<p><strong>To advance the clock (become earlier):</strong> Get bright outdoor light immediately after waking; avoid bright light and screens in the 2 hours before bed; maintain a strict, consistent sleep and wake time; exercise in the morning. Researchers have shifted circadian phase by 1.5–2 hours in 2–3 weeks using structured light protocols.</p>
+<p><strong>To delay the clock (become later):</strong> Bright light exposure in the evening shifts the clock later. This happens passively through modern indoor lighting and screen use, which is why the average person's social clock runs 1–2 hours later than their biological optimum.</p>
+<p>Wright et al. (2013) showed that camping for one week — with only natural light exposure — advanced participants' circadian phase by nearly 2 hours, bringing them in closer alignment with the solar cycle. This highlights how powerfully modern artificial lighting delays the clock relative to nature.</p>`,
+  },
+  {
+    question: 'What is DLMO?',
+    answer: `<p><strong>Dim Light Melatonin Onset (DLMO)</strong> is the gold standard clinical marker of circadian phase. It refers to the point in the evening when the pineal gland begins releasing melatonin in the absence of bright light, typically occurring <strong>about 2 hours before habitual sleep onset</strong> — or roughly <strong>14 hours after your natural wake time</strong>.</p>
+<p>DLMO is measured in research settings by collecting saliva or blood samples every 30–60 minutes under dim light conditions (&lt;10 lux) and tracking the rise in melatonin concentration. For clinical assessment of circadian sleep disorders (like Delayed Sleep Phase Disorder), DLMO provides the most accurate window for interventions like melatonin supplementation and light therapy.</p>
+<p>Practically, DLMO marks the beginning of your <strong>biological wind-down window</strong>. Exposing yourself to bright light after DLMO suppresses melatonin and delays sleep onset. Keeping lights dim and screens off after DLMO allows the melatonin signal to build naturally, making it easier to fall asleep at your intended time.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Circadian Rhythm Calculator — The Sleep Math"
+  description="Map your personal 24-hour body clock. See when your energy peaks, when to focus, exercise, and wind down based on chronobiology research."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Circadian Rhythm
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Circadian Rhythm Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Map your personal 24-hour body clock. See when your energy peaks, when to focus, exercise, and wind down — based on chronobiology research.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Chronobiology research
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Personalized
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your schedule</h2>
+
+      <div class="field">
+        <label for="wake-time">Typical wake time</label>
+        <input type="time" id="wake-time" value="07:00" />
+      </div>
+
+      <div class="field">
+        <label for="chronotype">Chronotype</label>
+        <select id="chronotype">
+          <option value="lion">Early Bird / Lion (-1h)</option>
+          <option value="bear" selected>Average / Bear (0h)</option>
+          <option value="wolf">Night Owl / Wolf (+2h)</option>
+          <option value="dolphin">Light Sleeper / Dolphin (variable)</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="chronotype-info" id="chronotype-info">
+        <div class="chronotype-badge" id="chronotype-badge">Bear</div>
+        <p id="chronotype-desc">The most common chronotype (~55% of people). Moderate sleep drive, rhythms aligned roughly with the solar day. Peak alertness in mid-morning; wind-down starts in the evening.</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="event-legend">
+        <div class="legend-title">Timeline key</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#10b981"></span> Peak performance</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#86efac"></span> Good energy</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#f59e0b"></span> Low / dip</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#7c6aff"></span> Wind-down</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#1e1b2e"></span> Core sleep</div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- 24-hour Timeline -->
+      <div class="timeline-card">
+        <h3>Your 24-hour circadian map</h3>
+        <div class="timeline-wrap">
+          <div class="timeline-track" id="timeline-track">
+            <!-- segments populated by JS -->
+          </div>
+          <div class="timeline-hours" id="timeline-hours">
+            <!-- hour labels populated by JS -->
+          </div>
+        </div>
+        <div class="timeline-now" id="timeline-now-wrap" style="display:none">
+          <div class="now-dot"></div>
+          <span id="timeline-now-label">Current time marker</span>
+        </div>
+      </div>
+
+      <!-- Circadian Events -->
+      <div class="events-card">
+        <h3>Key circadian events today</h3>
+        <div class="events-list" id="events-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- Best Times Summary -->
+      <div class="best-times-card">
+        <h3>Best times for...</h3>
+        <div class="best-times-grid" id="best-times-grid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this calculator</h2>
+      <p>
+        Your circadian rhythm is orchestrated by the <strong>suprachiasmatic nucleus (SCN)</strong> — a tiny master clock in the hypothalamus that coordinates timing signals throughout the body via hormones, neural pathways, and body temperature oscillations. The SCN receives direct light input from the retina, allowing it to synchronize your internal clock to the external 24-hour day.
+      </p>
+      <p>
+        The events mapped by this calculator are drawn from decades of circadian research. The cortisol awakening response — a sharp spike in cortisol 30 minutes after waking — was characterized by Pruessner et al. (2003) and is one of the most robust neuroendocrine rhythms. Core body temperature minimum, occurring roughly 2 hours before natural wake time, is considered the most reliable biological marker of circadian phase (Czeisler et al., 1999).
+      </p>
+      <p>
+        <strong>Chronotype shifts</strong> reflect genetically-influenced differences in the intrinsic period of the circadian clock. Lion types tend toward shorter intrinsic periods (&lt;24h), naturally running early; Wolf types lean toward longer periods (&gt;24h), drifting late without sufficient morning light. Wright et al. (2013) demonstrated these patterns are strongly linked to natural light exposure timing, and that camping in natural light can advance phase by nearly 2 hours in one week.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Circadian event time = Wake time + offset + chronotype shift</div>
+        <div class="formula-desc">
+          Offsets: Cortisol peak +0.5h · Peak alertness +3h · Best coordination +5h · Afternoon dip +7h · Body temp peak +11h · DLMO +14h · Temp minimum −2h
+        </div>
+      </div>
+      <div class="citation">
+        Czeisler, C. A., et al. (1999). Stability, precision, and near-24-hour period of the human circadian pacemaker.
+        <em>Science, 284(5423), 2177–2181.</em>
+      </div>
+      <div class="citation" style="margin-top:0.6rem;">
+        Wright, K. P., et al. (2013). Entrainment of the human circadian clock to the natural light-dark cycle.
+        <em>Current Biology, 23(16), 1554–1558.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS VARS ===== */
+  :root {
+    --bg: #faf9f7;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --radius: 14px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fffbeb; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input[type="time"],
+  .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input[type="time"]:focus { border-color: var(--amber); }
+  .field select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+  }
+  .field select:focus { border-color: var(--primary); }
+
+  .divider { height: 1px; background: var(--border); margin: 1.1rem 0 1rem; }
+
+  /* Chronotype info */
+  .chronotype-info { }
+  .chronotype-badge {
+    display: inline-block; padding: 0.2rem 0.65rem;
+    background: var(--primary-soft); color: var(--primary);
+    border-radius: 99px; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.04em; margin-bottom: 0.45rem;
+  }
+  .chronotype-info p {
+    font-size: 0.78rem; color: var(--text-mid); line-height: 1.55; margin: 0;
+  }
+
+  /* Legend */
+  .event-legend { }
+  .legend-title {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-soft); margin-bottom: 0.55rem;
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: 0.45rem;
+    font-size: 0.76rem; color: var(--text-mid); margin-bottom: 0.3rem;
+  }
+  .legend-swatch {
+    width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0;
+  }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Timeline */
+  .timeline-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .timeline-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; }
+
+  .timeline-wrap {
+    position: relative; margin-bottom: 0.3rem;
+  }
+  .timeline-track {
+    display: flex; height: 36px; border-radius: 8px;
+    overflow: hidden; width: 100%;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+  }
+  .timeline-segment {
+    height: 100%; position: relative;
+    transition: opacity 0.2s;
+    cursor: default;
+  }
+  .timeline-segment:hover { opacity: 0.85; }
+
+  .timeline-hours {
+    display: flex; justify-content: space-between;
+    padding: 0.3rem 0 0; position: relative;
+  }
+  .timeline-hour-label {
+    font-size: 0.62rem; color: var(--text-soft); font-weight: 600;
+    position: absolute; transform: translateX(-50%);
+  }
+  .timeline-now {
+    display: flex; align-items: center; gap: 0.4rem;
+    margin-top: 0.5rem;
+    font-size: 0.74rem; color: var(--text-soft);
+  }
+  .now-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--coral); flex-shrink: 0;
+  }
+
+  /* Events list */
+  .events-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .events-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .events-list { display: flex; flex-direction: column; gap: 0; }
+
+  .event-item {
+    display: grid; grid-template-columns: 42px 80px 1fr;
+    gap: 0.75rem; align-items: center;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(228,225,236,0.5);
+  }
+  .event-item:last-child { border-bottom: none; }
+
+  .event-icon-wrap {
+    width: 34px; height: 34px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .event-icon-wrap svg { width: 17px; height: 17px; }
+
+  .event-time {
+    font-size: 0.88rem; font-weight: 800; font-family: 'Space Grotesk', monospace;
+    color: var(--text); white-space: nowrap;
+  }
+  .event-info { }
+  .event-name { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.1rem; }
+  .event-desc { font-size: 0.74rem; color: var(--text-soft); line-height: 1.4; }
+
+  /* Best times grid */
+  .best-times-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .best-times-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .best-times-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;
+  }
+  .best-time-item {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 0.75rem 0.85rem;
+  }
+  .best-time-activity {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.74rem; font-weight: 700; color: var(--text-mid);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem;
+  }
+  .best-time-activity svg { width: 13px; height: 13px; }
+  .best-time-window {
+    font-size: 0.92rem; font-weight: 800;
+    font-family: 'Space Grotesk', monospace; color: var(--text);
+  }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
+  .formula-box .formula-desc { font-size: 0.73rem; color: #a8a3be; line-height: 1.6; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .best-times-grid { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+  }
+  @media (max-width: 480px) {
+    .best-times-grid { grid-template-columns: 1fr; }
+    .event-item { grid-template-columns: 34px 70px 1fr; gap: 0.5rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* ---- DOM refs ---- */
+  var wakeInput      = document.getElementById('wake-time');
+  var chronoSelect   = document.getElementById('chronotype');
+  var chronoBadge    = document.getElementById('chronotype-badge');
+  var chronoDesc     = document.getElementById('chronotype-desc');
+  var timelineTrack  = document.getElementById('timeline-track');
+  var timelineHours  = document.getElementById('timeline-hours');
+  var eventsList     = document.getElementById('events-list');
+  var bestTimesGrid  = document.getElementById('best-times-grid');
+  var nowWrap        = document.getElementById('timeline-now-wrap');
+  var nowLabel       = document.getElementById('timeline-now-label');
+
+  /* ---- Chronotype data ---- */
+  var chronotypeData = {
+    lion: {
+      label: 'Lion',
+      shift: -1,
+      desc: 'The early riser (~15% of people). Lions wake naturally early, peak in the morning, and tire by evening. Genetic variants in PER3 and CLOCK genes contribute to this advanced phase.',
+    },
+    bear: {
+      label: 'Bear',
+      shift: 0,
+      desc: 'The most common chronotype (~55% of people). Moderate sleep drive, rhythms aligned roughly with the solar day. Peak alertness in mid-morning; wind-down starts in the evening.',
+    },
+    wolf: {
+      label: 'Wolf',
+      shift: 2,
+      desc: 'The night owl (~20% of people). Wolves have a delayed circadian phase — they come alive in the evening and struggle with early mornings. Often linked to longer intrinsic clock periods.',
+    },
+    dolphin: {
+      label: 'Dolphin',
+      shift: 0.5,
+      desc: 'The light, irregular sleeper (~10% of people). Dolphins are sensitive to sleep disruption, often anxious sleepers who wake easily. Schedule flexibility matters more than fixed offsets.',
+    },
+  };
+
+  /* ---- Circadian event definitions ---- */
+  /* offset in hours from wake time; shift is multiplied by chronotype shift factor */
+  var eventDefs = [
+    {
+      id: 'cortisol',
+      name: 'Cortisol awakening peak',
+      desc: 'Cortisol surges within 30 min of waking, boosting alertness and immune readiness.',
+      offsetBase: 0.5,
+      shiftFactor: 0.5,
+      color: '#f59e0b',
+      bgColor: '#fffbeb',
+      iconPath: 'M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41',
+    },
+    {
+      id: 'alertness',
+      name: 'Peak alertness window',
+      desc: 'Highest concentration, working memory, and executive function. Best for deep cognitive work.',
+      offsetBase: 3,
+      shiftFactor: 1,
+      color: '#10b981',
+      bgColor: '#f0fdf4',
+      iconPath: 'M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3',
+    },
+    {
+      id: 'coordination',
+      name: 'Best physical coordination',
+      desc: 'Fastest reaction time and best neuromuscular coordination. Ideal for exercise and sport.',
+      offsetBase: 5,
+      shiftFactor: 1,
+      color: '#38b6ff',
+      bgColor: '#eff9ff',
+      iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+    },
+    {
+      id: 'dip',
+      name: 'Afternoon dip',
+      desc: 'A biologically programmed slump in alertness. Schedule low-demand tasks or a short nap.',
+      offsetBase: 7,
+      shiftFactor: 1,
+      color: '#f59e0b',
+      bgColor: '#fffbeb',
+      iconPath: 'M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3',
+    },
+    {
+      id: 'tempmax',
+      name: 'Core temperature peak',
+      desc: 'Body temperature reaches its daily maximum — physical performance and verbal memory are at their best.',
+      offsetBase: 11,
+      shiftFactor: 1,
+      color: '#ff6b52',
+      bgColor: '#fff4f2',
+      iconPath: 'M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z',
+    },
+    {
+      id: 'dlmo',
+      name: 'Melatonin onset (DLMO)',
+      desc: 'Melatonin begins rising, signaling the start of biological night. Dim lights and avoid screens.',
+      offsetBase: 14,
+      shiftFactor: 1,
+      color: '#7c6aff',
+      bgColor: '#edeaff',
+      iconPath: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
+    },
+    {
+      id: 'tempmin',
+      name: 'Core temperature minimum',
+      desc: 'Lowest body temperature of the 24h cycle, 2h before natural waking. Deepest sleep stage.',
+      offsetBase: -2,
+      shiftFactor: 1,
+      color: '#4a4560',
+      bgColor: '#f4f3f8',
+      iconPath: 'M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM12 8v8M8 12h8',
+    },
+  ];
+
+  /* ---- Timeline segment definitions ---- */
+  /* Each segment: label, duration in hours relative to wake, base offset, color */
+  var segmentDefs = [
+    { label: 'Sleep',         offsetBase: -9,  dur: 7,  color: '#1e1b2e', shiftFactor: 1 },
+    { label: 'Rising',        offsetBase: 0,   dur: 2,  color: '#fde68a', shiftFactor: 0.5 },
+    { label: 'Peak',          offsetBase: 2,   dur: 4,  color: '#10b981', shiftFactor: 1 },
+    { label: 'Good',          offsetBase: 6,   dur: 1,  color: '#86efac', shiftFactor: 1 },
+    { label: 'Dip',           offsetBase: 7,   dur: 2,  color: '#f59e0b', shiftFactor: 1 },
+    { label: 'Recovery',      offsetBase: 9,   dur: 2,  color: '#86efac', shiftFactor: 1 },
+    { label: 'Evening peak',  offsetBase: 11,  dur: 2,  color: '#10b981', shiftFactor: 1 },
+    { label: 'Wind-down',     offsetBase: 13,  dur: 2,  color: '#7c6aff', shiftFactor: 1 },
+  ];
+
+  /* ---- Utility ---- */
+  function parseWakeMinutes(val) {
+    if (!val) return 7 * 60;
+    var parts = val.split(':');
+    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+  }
+
+  function formatTime(totalMinutes) {
+    var mins = ((totalMinutes % (24 * 60)) + 24 * 60) % (24 * 60);
+    var h = Math.floor(mins / 60);
+    var m = mins % 60;
+    var suffix = h >= 12 ? 'PM' : 'AM';
+    var h12 = h % 12 === 0 ? 12 : h % 12;
+    return h12 + (m > 0 ? ':' + String(m).padStart(2, '0') : '') + ' ' + suffix;
+  }
+
+  function minutesInDay(totalMinutes) {
+    return ((totalMinutes % (24 * 60)) + 24 * 60) % (24 * 60);
+  }
+
+  /* ---- Calculation ---- */
+  function calculate() {
+    var wakeMins = parseWakeMinutes(wakeInput.value);
+    var chronotype = chronoSelect.value;
+    var ct = chronotypeData[chronotype];
+    var shiftMins = ct.shift * 60;
+
+    /* Update chronotype UI */
+    chronoBadge.textContent = ct.label;
+    chronoDesc.textContent = ct.desc;
+
+    /* Compute event times */
+    var events = eventDefs.map(function (def) {
+      var appliedShift = Math.round(shiftMins * def.shiftFactor);
+      var eventMins = wakeMins + def.offsetBase * 60 + appliedShift;
+      return Object.assign({}, def, { timeMins: eventMins });
+    });
+
+    /* Sort events chronologically within the 24h day */
+    var eventsSorted = events.slice().sort(function (a, b) {
+      return minutesInDay(a.timeMins) - minutesInDay(b.timeMins);
+    });
+
+    renderTimeline(wakeMins, shiftMins);
+    renderEvents(eventsSorted);
+    renderBestTimes(wakeMins, shiftMins);
+    renderNowMarker();
+  }
+
+  /* ---- Timeline renderer ---- */
+  function renderTimeline(wakeMins, shiftMins) {
+    /* Build 24 segments distributed over the day starting at 00:00 */
+    /* We'll render as percent-width blocks covering 24h from 00:00 */
+
+    /* Build color map for each hour of the day */
+    var hourColors = new Array(24).fill('#e4e1ec');
+    var hourLabels = new Array(24).fill('');
+
+    segmentDefs.forEach(function (seg) {
+      var appliedShift = Math.round(shiftMins * seg.shiftFactor);
+      var startMins = wakeMins + seg.offsetBase * 60 + appliedShift;
+      var endMins   = startMins + seg.dur * 60;
+
+      /* paint each minute's hour slot */
+      for (var m = startMins; m < endMins; m += 60) {
+        var hr = Math.floor(minutesInDay(m) / 60);
+        hourColors[hr] = seg.color;
+        hourLabels[hr] = seg.label;
+      }
+    });
+
+    /* Build continuous segments (merge same-color adjacent hours) */
+    var segments = [];
+    var i = 0;
+    while (i < 24) {
+      var col = hourColors[i];
+      var lbl = hourLabels[i];
+      var count = 1;
+      while (i + count < 24 && hourColors[i + count] === col) {
+        count++;
+      }
+      segments.push({ color: col, label: lbl, hours: count, startHr: i });
+      i += count;
+    }
+
+    var trackHtml = '';
+    segments.forEach(function (seg) {
+      var pct = (seg.hours / 24 * 100).toFixed(3);
+      trackHtml += '<div class="timeline-segment" style="width:' + pct + '%;background:' + seg.color + ';" title="' + seg.label + '"></div>';
+    });
+    timelineTrack.innerHTML = trackHtml;
+
+    /* Hour labels — show every 3 hours */
+    var labelsHtml = '';
+    for (var h = 0; h <= 24; h += 3) {
+      var leftPct = (h / 24 * 100).toFixed(2);
+      var suffix = h < 12 ? 'AM' : 'PM';
+      var h12 = h % 12 === 0 ? 12 : h % 12;
+      var label = (h === 0 || h === 24) ? '12 AM' : (h === 12 ? '12 PM' : h12 + ' ' + suffix);
+      labelsHtml += '<div class="timeline-hour-label" style="left:' + leftPct + '%">' + label + '</div>';
+    }
+    timelineHours.style.position = 'relative';
+    timelineHours.style.height = '20px';
+    timelineHours.innerHTML = labelsHtml;
+  }
+
+  /* ---- Events list renderer ---- */
+  function renderEvents(events) {
+    var html = '';
+    events.forEach(function (ev) {
+      html += '<div class="event-item">' +
+        '<div class="event-icon-wrap" style="background:' + ev.bgColor + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="' + ev.color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="' + ev.iconPath + '"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="event-time">' + formatTime(ev.timeMins) + '</div>' +
+        '<div class="event-info">' +
+          '<div class="event-name">' + ev.name + '</div>' +
+          '<div class="event-desc">' + ev.desc + '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    eventsList.innerHTML = html;
+  }
+
+  /* ---- Best times renderer ---- */
+  function renderBestTimes(wakeMins, shiftMins) {
+    var shift = shiftMins;
+
+    var focusStart  = wakeMins + 2 * 60 + shift;
+    var focusEnd    = wakeMins + 4 * 60 + shift;
+    var exerciseStart = wakeMins + 4 * 60 + shift;
+    var exerciseEnd   = wakeMins + 6 * 60 + shift;
+    var creativeStart = wakeMins + 9 * 60 + shift;
+    var creativeEnd   = wakeMins + 11 * 60 + shift;
+    var meetingsStart = wakeMins + 3 * 60 + shift;
+    var meetingsEnd   = wakeMins + 5 * 60 + shift;
+    var winddownStart = wakeMins + 13 * 60 + shift;
+    var winddownEnd   = wakeMins + 15 * 60 + shift;
+
+    var items = [
+      {
+        activity: 'Focused work',
+        window: formatTime(focusStart) + ' – ' + formatTime(focusEnd),
+        iconPath: 'M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z',
+        color: '#10b981',
+      },
+      {
+        activity: 'Exercise',
+        window: formatTime(exerciseStart) + ' – ' + formatTime(exerciseEnd),
+        iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+        color: '#38b6ff',
+      },
+      {
+        activity: 'Creative work',
+        window: formatTime(creativeStart) + ' – ' + formatTime(creativeEnd),
+        iconPath: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01',
+        color: '#7c6aff',
+      },
+      {
+        activity: 'Meetings',
+        window: formatTime(meetingsStart) + ' – ' + formatTime(meetingsEnd),
+        iconPath: 'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 8 0 4 4 0 0 0-8 0M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
+        color: '#f59e0b',
+      },
+      {
+        activity: 'Winding down',
+        window: formatTime(winddownStart) + ' – ' + formatTime(winddownEnd),
+        iconPath: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
+        color: '#7c6aff',
+      },
+    ];
+
+    var html = '';
+    items.forEach(function (item) {
+      html += '<div class="best-time-item">' +
+        '<div class="best-time-activity">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="' + item.color + '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + item.iconPath + '"/></svg>' +
+          item.activity +
+        '</div>' +
+        '<div class="best-time-window">' + item.window + '</div>' +
+      '</div>';
+    });
+    bestTimesGrid.innerHTML = html;
+  }
+
+  /* ---- Now marker ---- */
+  function renderNowMarker() {
+    var now = new Date();
+    var nowMins = now.getHours() * 60 + now.getMinutes();
+    var pct = (nowMins / (24 * 60) * 100).toFixed(1);
+    nowWrap.style.display = 'flex';
+    nowLabel.textContent = 'Current time: ' + formatTime(nowMins);
+
+    /* Draw a marker line on the timeline */
+    var existing = timelineTrack.querySelector('.now-marker-line');
+    if (existing) existing.remove();
+    var line = document.createElement('div');
+    line.className = 'now-marker-line';
+    line.style.cssText = 'position:absolute;top:0;bottom:0;width:2px;background:rgba(255,107,82,0.9);left:' + pct + '%;pointer-events:none;z-index:2;box-shadow:0 0 4px rgba(255,107,82,0.5);';
+    timelineTrack.style.position = 'relative';
+    timelineTrack.appendChild(line);
+  }
+
+  /* ---- Event listeners ---- */
+  wakeInput.addEventListener('change', calculate);
+  wakeInput.addEventListener('input', calculate);
+  chronoSelect.addEventListener('change', calculate);
+
+  /* ---- Initial render ---- */
+  calculate();
+
+})();
+</script>

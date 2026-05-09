@@ -1,0 +1,831 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What time should I wake up?',
+    answer: `<p>The ideal wake time depends on when you fall asleep and how long you need to sleep. The key insight is to align your alarm with the <strong>end of a 90-minute sleep cycle</strong> rather than hitting an arbitrary hour. For most adults who need 7–9 hours, that means setting your alarm for 6, 7.5, or 9 hours after falling asleep. Waking at the end of a cycle — when you're naturally in lighter sleep — dramatically reduces morning grogginess (sleep inertia).</p>
+<p>Use this calculator to find your optimal wake times based on when you actually fell asleep, not just when you got into bed. Most people take 10–20 minutes to fall asleep, so account for that delay when planning your alarm.</p>`,
+  },
+  {
+    question: 'How do sleep cycles affect when I should wake up?',
+    answer: `<p>Sleep cycles last approximately <strong>90 minutes</strong> and consist of four stages: N1 (light), N2 (light), N3 (deep/slow-wave), and REM. During a typical night your brain cycles through these stages 4–6 times. The proportion of deep sleep is highest early in the night; REM sleep dominates later cycles. Waking during N3 deep sleep — which commonly occurs in the middle of a cycle — causes severe sleep inertia because the brain is in its most restorative, hardest-to-rouse state.</p>
+<p>When you wake at the <strong>end of a cycle</strong>, you're typically emerging from REM or light N2 sleep, both of which produce minimal sleep inertia. This is why someone who slept 6 hours (four cycles) may feel more alert than someone who slept 7 hours (waking mid-fifth-cycle). The research of Tassi and Muzet (2000) confirmed that sleep stage at awakening is a stronger predictor of post-wake alertness than total sleep duration alone.</p>`,
+  },
+  {
+    question: 'Why do I feel groggy even after 8 hours of sleep?',
+    answer: `<p>Post-sleep grogginess lasting more than 20–30 minutes is called <strong>sleep inertia</strong>, and it typically means your alarm woke you during deep slow-wave sleep (N3 stage). Even after 8 full hours, if your alarm fires in the middle of your fifth or sixth sleep cycle, you'll surface from the deepest, most adenosine-suppressed state possible — and feel terrible despite adequate sleep duration.</p>
+<p>There are several fixes. First, try shifting your alarm by 15–30 minutes earlier or later to hit a cycle boundary. Second, use a <strong>gradual light alarm</strong> (sunrise simulator) to trigger the cortisol awakening response naturally. Third, check for <strong>sleep apnea</strong> — fragmented sleep from apnea events prevents entering deep restorative cycles at all, leaving you exhausted regardless of hours in bed. If grogginess persists daily despite adjusting your wake time, consult a sleep clinician.</p>`,
+  },
+  {
+    question: 'Is it better to sleep 6 or 7.5 hours?',
+    answer: `<p>From a sleep cycle perspective, <strong>7.5 hours is strongly preferable</strong> to 6 hours — not because one hour of extra sleep is intrinsically more restorative, but because 7.5 hours gives you exactly five complete 90-minute cycles, while 6 hours gives you four. Both are cycle-aligned, so grogginess at wake is similar. The difference is cumulative: over a week, the 90-minute gap translates to roughly 6 fewer hours of sleep, building significant sleep debt.</p>
+<p>Chronically sleeping 6 hours or less — even without feeling subjectively sleepy — is associated with impaired immune function, elevated cortisol, metabolic disruption, and accelerated cognitive decline (Walker, 2017). Most adults need 7–9 hours. If you're consistently constrained to 6, prioritise a short nap later to partially offset the debt, and aim for 7.5 on recovery nights.</p>`,
+  },
+  {
+    question: 'What is sleep inertia?',
+    answer: `<p><strong>Sleep inertia</strong> is the transitional state of impaired alertness, grogginess, and cognitive performance that occurs immediately upon waking. It typically lasts 15–30 minutes in most individuals but can extend to over an hour when waking from deep slow-wave sleep (N3) or in people with chronic sleep deprivation. Physiologically, sleep inertia reflects the lag between brain activity resuming and the metabolic clearance of adenosine and other sleep-promoting compounds from the brain.</p>
+<p>Tassi and Muzet (2000) documented that performance deficits during sleep inertia are comparable to being legally drunk — reaction times, decision-making, and memory encoding are all impaired. This is why professionals with safety-critical roles (pilots, surgeons, emergency responders) are warned against making high-stakes decisions in the first 20–30 minutes after waking. To minimise sleep inertia: wake at cycle boundaries (this calculator), use bright light immediately after waking, consume caffeine 20–30 minutes post-wake, and allow 90 seconds in bed before standing up.</p>`,
+  },
+  {
+    question: 'Can I train myself to wake up without an alarm?',
+    answer: `<p>Yes — and many people do this naturally once they establish a consistent sleep schedule. The mechanism is the <strong>cortisol awakening response (CAR)</strong>: about 45–60 minutes before your anticipated wake time, cortisol begins rising steeply (up to 50–160% above baseline), which gradually increases arousal and moves sleep into lighter stages. If your wake time is consistent, your brain learns to trigger this hormonal ramp reliably.</p>
+<p>Research by Born et al. (1999) demonstrated that participants who expected to wake at a specific time showed elevated ACTH (the cortisol precursor hormone) starting precisely 60 minutes before that time — even when they were not consciously aware of the timing. To develop alarm-free waking: keep bedtime and wake time consistent for at least 3–4 weeks, ensure you're getting enough total sleep, and keep your bedroom fully dark to let the cortisol rise naturally as morning light enters. The process takes 2–4 weeks of consistency to establish reliably.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Wake Time Calculator — The Sleep Math"
+  description="Find the best time to wake up based on when you fell asleep. Align your alarm with sleep cycles to minimize grogginess."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Wake Time Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <!-- sunrise / alarm icon in amber -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 20v2M17.66 17.66l1.41 1.41M22 12h-2M17.66 6.34l-1.41 1.41"/>
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M6 22h12M8 22V18M16 22V18"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Wake Time Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find the best time to wake up based on when you fell asleep. Align your alarm with sleep cycles to wake up refreshed, not groggy.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        10 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Sleep cycle model
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 20v2M17.66 17.66l1.41 1.41M22 12h-2M17.66 6.34l-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>
+        Wake optimization
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your sleep details</h2>
+
+      <!-- Mode toggle -->
+      <div class="field">
+        <label>Mode</label>
+        <div class="mode-toggle" id="mode-toggle">
+          <button class="mode-btn active" data-mode="fell-asleep">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            I already fell asleep
+          </button>
+          <button class="mode-btn" data-mode="falling-asleep">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 20v2M17.66 17.66l1.41 1.41M22 12h-2M17.66 6.34l-1.41 1.41"/><circle cx="12" cy="12" r="4"/></svg>
+            I'm falling asleep now
+          </button>
+        </div>
+      </div>
+
+      <div class="field" id="sleep-time-field">
+        <label for="sleep-time" id="sleep-time-label">What time did you fall asleep?</label>
+        <input type="time" id="sleep-time" value="23:00">
+      </div>
+
+      <div class="field">
+        <label for="min-hours">Minimum sleep needed</label>
+        <select id="min-hours">
+          <option value="4.5">4.5 hours (3 cycles)</option>
+          <option value="6">6 hours (4 cycles)</option>
+          <option value="7" selected>7 hours (minimum rec.)</option>
+          <option value="7.5">7.5 hours (5 cycles)</option>
+          <option value="8">8 hours</option>
+          <option value="9">9 hours (6 cycles)</option>
+        </select>
+      </div>
+
+      <!-- Live counter -->
+      <div class="sleep-counter" id="sleep-counter">
+        <div class="counter-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="counter-text">
+          <div class="counter-label">Time since you fell asleep</div>
+          <div class="counter-value" id="counter-value">—</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- Alarm cards grid -->
+      <div class="alarm-grid" id="alarm-grid">
+        <!-- injected by JS -->
+      </div>
+
+      <!-- Sleep stage progression -->
+      <div class="stage-card">
+        <h3>Sleep stage progression tonight</h3>
+        <div class="stage-timeline" id="stage-timeline">
+          <!-- injected by JS -->
+        </div>
+        <div class="stage-legend">
+          <span class="leg-item"><span class="leg-dot n1-color"></span>N1 Light</span>
+          <span class="leg-item"><span class="leg-dot n2-color"></span>N2 Light</span>
+          <span class="leg-item"><span class="leg-dot n3-color"></span>N3 Deep</span>
+          <span class="leg-item"><span class="leg-dot rem-color"></span>REM</span>
+          <span class="leg-item"><span class="leg-dot wake-color"></span>Ideal wake</span>
+        </div>
+      </div>
+
+      <!-- Best alarm highlight -->
+      <div class="best-alarm-card" id="best-alarm-card">
+        <div class="ba-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+        </div>
+        <div class="ba-text">
+          <div class="ba-label">Recommended alarm</div>
+          <div class="ba-time" id="ba-time">—</div>
+          <div class="ba-desc" id="ba-desc">Loading...</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind wake time optimization</h2>
+      <p>
+        Sleep progresses through repeated <strong>90-minute cycles</strong>, each containing four stages: N1 (light onset sleep), N2 (light sleep with sleep spindles), N3 (deep slow-wave sleep), and REM (rapid eye movement). The composition of each cycle shifts across the night: early cycles are dominated by N3 deep sleep needed for physical repair and immune function; later cycles contain progressively more REM, which supports memory consolidation, emotional regulation, and creativity.
+      </p>
+      <p>
+        The scientific basis for cycle-timed waking comes from research on <strong>sleep inertia</strong> — the post-wake state of impaired cognition and alertness. Tassi and Muzet (2000) demonstrated that sleep inertia severity depends primarily on the sleep stage at awakening, not total sleep duration. Waking from N3 (deep) sleep produces the most severe sleep inertia; waking from N1 or REM produces the least. Since N3 is concentrated in the early cycles and each cycle ends in lighter N2 or REM sleep, aligning your alarm with cycle boundaries maximises the chance of waking from light sleep.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Optimal wake time = Sleep onset + (N × 90 min)</div>
+        <div class="formula-desc">
+          where N = 3, 4, 5, or 6 complete cycles · Sleep onset ≈ bedtime + 10–20 min
+        </div>
+      </div>
+      <p>
+        The circadian underpinning is provided by Dijk and Czeisler (1995), who showed that the internal clock (suprachiasmatic nucleus) orchestrates both sleep architecture and the cortisol awakening response — a surge of cortisol beginning 45–60 minutes before anticipated wake time that gradually lightens sleep and prepares the body for waking. A consistent wake time makes this cortisol ramp predictable, reducing reliance on alarm jarring you from deep sleep.
+      </p>
+      <table class="cycle-table">
+        <thead>
+          <tr><th>Cycles</th><th>Total sleep</th><th>Wake at</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>3 cycles</td><td>4.5 hours</td><td class="cycle-time">Sleep + 4:30</td><td>Minimum; some cognitive impact</td></tr>
+          <tr><td>4 cycles</td><td>6 hours</td><td class="cycle-time">Sleep + 6:00</td><td>Acceptable short-term</td></tr>
+          <tr class="cycle-highlight"><td>5 cycles</td><td>7.5 hours</td><td class="cycle-time">Sleep + 7:30</td><td>Optimal for most adults</td></tr>
+          <tr><td>6 cycles</td><td>9 hours</td><td class="cycle-time">Sleep + 9:00</td><td>Extended recovery sleep</td></tr>
+        </tbody>
+      </table>
+      <div class="citation-block">
+        <div class="citation">
+          Dijk, D. &amp; Czeisler, C. (1995). Contribution of the circadian pacemaker and the sleep homeostat to sleep propensity, sleep structure, electroencephalographic slow waves, and sleep spindle activity in humans. <em>Journal of Neuroscience, 15(5), 3526–3538.</em>
+        </div>
+        <div class="citation">
+          Tassi, P. &amp; Muzet, A. (2000). Sleep inertia. <em>Sleep Medicine Reviews, 4(4), 341–353.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== CSS VARS (local fallbacks) ===== */
+  :root {
+    --bg: #faf9f7;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --radius: 14px;
+  }
+
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fffbeb; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input[type="time"],
+  .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+    appearance: none; -webkit-appearance: none;
+  }
+  .field input[type="time"]:focus,
+  .field select:focus { border-color: var(--primary); }
+
+  /* Mode toggle */
+  .mode-toggle { display: flex; flex-direction: column; gap: 0.4rem; }
+  .mode-btn {
+    display: flex; align-items: center; gap: 0.55rem;
+    padding: 0.55rem 0.75rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--bg); cursor: pointer; font-family: inherit;
+    font-size: 0.78rem; font-weight: 600; color: var(--text-mid);
+    transition: all 0.15s; text-align: left;
+  }
+  .mode-btn svg { width: 15px; height: 15px; flex-shrink: 0; color: var(--text-soft); }
+  .mode-btn:hover { border-color: var(--amber); background: #fffbeb; color: var(--text); }
+  .mode-btn.active { border-color: var(--amber); background: #fffbeb; color: var(--text); }
+  .mode-btn.active svg { color: var(--amber); }
+
+  /* Sleep counter */
+  .sleep-counter {
+    display: flex; align-items: center; gap: 0.65rem;
+    background: var(--primary-soft); border: 1.5px solid #c9c0ff;
+    border-radius: 10px; padding: 0.75rem 0.85rem; margin-top: 0.25rem;
+  }
+  .counter-icon { flex-shrink: 0; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
+  .counter-icon svg { width: 100%; height: 100%; }
+  .counter-label { font-size: 0.68rem; font-weight: 600; color: var(--text-soft); margin-bottom: 0.1rem; }
+  .counter-value { font-size: 1.05rem; font-weight: 800; color: var(--primary); font-family: 'Space Grotesk', monospace; letter-spacing: -0.02em; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Alarm grid */
+  .alarm-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem;
+  }
+
+  .alarm-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.5rem;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .alarm-card.meets-min {
+    border-color: var(--mint);
+    background: #f0fdf9;
+  }
+  .alarm-card.recommended-card {
+    border-color: var(--amber);
+    background: #fffbeb;
+    box-shadow: 0 0 0 2px rgba(245,158,11,0.18);
+  }
+  .alarm-card.past-card {
+    opacity: 0.55;
+    background: var(--bg);
+  }
+
+  .alarm-card-top {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .alarm-cycle-badge {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; color: var(--text-soft);
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 0.15rem 0.55rem;
+  }
+  .alarm-card.meets-min .alarm-cycle-badge {
+    background: #d1fae5; border-color: #6ee7b7; color: #065f46;
+  }
+  .alarm-card.recommended-card .alarm-cycle-badge {
+    background: #fef3c7; border-color: #fcd34d; color: #92400e;
+  }
+
+  .alarm-rec-badge {
+    font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #92400e;
+    background: #fef3c7; border: 1px solid #fcd34d;
+    border-radius: 20px; padding: 0.15rem 0.5rem;
+    display: none;
+  }
+  .alarm-card.recommended-card .alarm-rec-badge { display: inline-block; }
+
+  .alarm-time {
+    font-size: 1.65rem; font-weight: 800; letter-spacing: -0.04em;
+    color: var(--text); line-height: 1; font-family: 'Space Grotesk', monospace;
+  }
+  .alarm-card.meets-min .alarm-time { color: var(--mint); }
+  .alarm-card.recommended-card .alarm-time { color: var(--amber); }
+  .alarm-card.past-card .alarm-time { color: var(--text-soft); }
+
+  .alarm-duration {
+    font-size: 0.75rem; color: var(--text-soft); font-weight: 600;
+  }
+  .alarm-card.meets-min .alarm-duration { color: #059669; }
+
+  .alarm-stage-hint {
+    font-size: 0.7rem; color: var(--text-soft); line-height: 1.4;
+    border-top: 1px solid var(--border); padding-top: 0.45rem; margin-top: 0.1rem;
+  }
+  .alarm-card.meets-min .alarm-stage-hint { border-top-color: #a7f3d0; color: #047857; }
+  .alarm-card.recommended-card .alarm-stage-hint { border-top-color: #fcd34d; color: #92400e; }
+
+  /* Stage card */
+  .stage-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .stage-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; }
+
+  .stage-timeline {
+    display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.75rem;
+  }
+  .stage-row {
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .stage-row-label {
+    font-size: 0.68rem; font-weight: 600; color: var(--text-soft);
+    width: 52px; flex-shrink: 0; text-align: right;
+  }
+  .stage-bar-wrap {
+    flex: 1; height: 18px; border-radius: 5px; overflow: hidden;
+    display: flex; background: var(--bg); border: 1px solid var(--border);
+    position: relative;
+  }
+  .stage-seg {
+    height: 100%; transition: width 0.3s ease;
+  }
+  .stage-seg.seg-n1 { background: #bfdbfe; }
+  .stage-seg.seg-n2 { background: #818cf8; }
+  .stage-seg.seg-n3 { background: #312e81; }
+  .stage-seg.seg-rem { background: #a78bfa; }
+
+  .stage-wake-marker {
+    position: absolute; top: 0; bottom: 0; width: 2px; border-radius: 1px; z-index: 2;
+  }
+
+  .stage-legend {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.35rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--text-soft); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .n1-color { background: #bfdbfe; }
+  .n2-color { background: #818cf8; }
+  .n3-color { background: #312e81; }
+  .rem-color { background: #a78bfa; }
+  .wake-color { background: var(--amber); }
+
+  /* Best alarm card */
+  .best-alarm-card {
+    background: #fffbeb; border: 2px solid var(--amber);
+    border-radius: var(--radius); padding: 1.25rem;
+    display: flex; align-items: center; gap: 1rem;
+    box-shadow: 0 2px 12px rgba(245,158,11,0.12);
+  }
+  .ba-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(245,158,11,0.12); display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .ba-icon svg { width: 22px; height: 22px; }
+  .ba-label {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #92400e; margin-bottom: 0.2rem;
+  }
+  .ba-time {
+    font-size: 2rem; font-weight: 800; letter-spacing: -0.04em;
+    color: var(--amber); line-height: 1; font-family: 'Space Grotesk', monospace;
+    margin-bottom: 0.25rem;
+  }
+  .ba-desc { font-size: 0.8rem; color: #92400e; line-height: 1.45; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+
+  .cycle-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .cycle-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .cycle-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .cycle-table tr:last-child td { border-bottom: none; }
+  .cycle-table .cycle-time { font-weight: 700; color: var(--text); font-family: 'Space Grotesk', monospace; font-size: 0.82rem; }
+  .cycle-table .cycle-highlight td { background: #f0fdf9; color: #065f46; }
+  .cycle-table .cycle-highlight .cycle-time { color: #059669; }
+
+  .citation-block { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .alarm-grid { grid-template-columns: repeat(2, 1fr); }
+    .science-section { padding: 0 1.25rem 2rem; }
+  }
+  @media (max-width: 480px) {
+    .alarm-grid { grid-template-columns: 1fr; }
+    .best-alarm-card { flex-direction: column; text-align: center; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  /* ---- DOM refs ---- */
+  var sleepInput    = document.getElementById('sleep-time');
+  var minHoursInput = document.getElementById('min-hours');
+  var modeToggle    = document.getElementById('mode-toggle');
+  var sleepLabel    = document.getElementById('sleep-time-label');
+  var counterValue  = document.getElementById('counter-value');
+  var alarmGrid     = document.getElementById('alarm-grid');
+  var stageTl       = document.getElementById('stage-timeline');
+  var baTime        = document.getElementById('ba-time');
+  var baDesc        = document.getElementById('ba-desc');
+  var sleepCounter  = document.getElementById('sleep-counter');
+
+  var currentMode = 'fell-asleep'; /* or 'falling-asleep' */
+
+  /* ---- Helpers ---- */
+  function parseTime(val) {
+    var parts = val.split(':').map(Number);
+    return parts[0] * 60 + parts[1]; /* returns minutes since midnight */
+  }
+
+  function mod1440(m) { return ((m % 1440) + 1440) % 1440; }
+
+  function fmt12(totalMins) {
+    var m = mod1440(totalMins);
+    var h = Math.floor(m / 60) % 24;
+    var mins = m % 60;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = h % 12; if (hh === 0) hh = 12;
+    return hh + ':' + (mins < 10 ? '0' : '') + mins + ' ' + period;
+  }
+
+  function fmtDuration(mins) {
+    var h = Math.floor(mins / 60);
+    var m = mins % 60;
+    if (m === 0) return h + 'h';
+    return h + 'h ' + m + 'm';
+  }
+
+  function nowMins() {
+    var d = new Date();
+    return d.getHours() * 60 + d.getMinutes();
+  }
+
+  /* ---- Sleep stage model ---- */
+  /* Each cycle ~90 min. Composition changes across night. */
+  /* Returns array of stage segs: {stage, start, end} relative to sleep onset (mins) */
+  function buildStageSegs(numCycles) {
+    var segs = [];
+    /* Typical night architecture across cycles:
+       Cycle 1: N1(5) N2(20) N3(40) REM(25)
+       Cycle 2: N1(5) N2(20) N3(30) REM(35)
+       Cycle 3: N1(5) N2(25) N3(15) REM(45)
+       Cycle 4: N1(5) N2(25) N3(5)  REM(55)
+       Cycle 5: N1(5) N2(30) N3(0)  REM(55)
+       Cycle 6: N1(5) N2(30) N3(0)  REM(55)
+    */
+    var cycles = [
+      [5, 20, 40, 25],
+      [5, 20, 30, 35],
+      [5, 25, 15, 45],
+      [5, 25,  5, 55],
+      [5, 30,  0, 55],
+      [5, 30,  0, 55],
+    ];
+    var t = 0;
+    var nc = Math.min(numCycles, cycles.length);
+    for (var i = 0; i < nc; i++) {
+      var c = cycles[i];
+      /* N1 */
+      segs.push({ stage: 'n1', start: t, end: t + c[0] });
+      t += c[0];
+      /* N2 */
+      segs.push({ stage: 'n2', start: t, end: t + c[1] });
+      t += c[1];
+      /* N3 */
+      if (c[2] > 0) {
+        segs.push({ stage: 'n3', start: t, end: t + c[2] });
+        t += c[2];
+      }
+      /* REM */
+      segs.push({ stage: 'rem', start: t, end: t + c[3] });
+      t += c[3];
+    }
+    return segs;
+  }
+
+  /* ---- Calculate ---- */
+  function calculate() {
+    var sleepMins = parseTime(sleepInput.value);
+    var minHours  = parseFloat(minHoursInput.value);
+    var minMins   = minHours * 60;
+
+    /* Cycle boundary times (minutes since midnight) */
+    var cycleDurations = [90, 180, 270, 360, 450, 540]; /* 1.5h through 9h */
+    var wakeOptions = cycleDurations.map(function (d) {
+      return {
+        totalMins: d,
+        wakeTime: mod1440(sleepMins + d),
+        cycles: d / 90,
+        meetsMin: d >= minMins,
+      };
+    });
+
+    /* Determine which is "now" to flag past alarms */
+    var now = nowMins();
+
+    /* Build alarm cards */
+    var gridHtml = '';
+
+    /* Stage hint per cycle */
+    var stageHints = [
+      'Wakes from N2 light sleep — moderate inertia',
+      'Wakes from REM — fresh and alert',
+      'Wakes from REM light sleep — best for most',
+      'Wakes from REM — fully rested',
+      'Wakes from REM — deep recovery',
+      'Wakes from REM — extended restoration',
+    ];
+
+    /* Find recommended: first cycle that meets min and is in the future */
+    var recommendedIdx = -1;
+    for (var i = 0; i < wakeOptions.length; i++) {
+      var opt = wakeOptions[i];
+      var isPast = isWakeInPast(sleepMins, opt.wakeTime, now);
+      if (opt.meetsMin && !isPast) {
+        recommendedIdx = i;
+        break;
+      }
+    }
+    /* Fallback: first that meets min regardless */
+    if (recommendedIdx === -1) {
+      for (var j = 0; j < wakeOptions.length; j++) {
+        if (wakeOptions[j].meetsMin) { recommendedIdx = j; break; }
+      }
+    }
+    /* Ultimate fallback */
+    if (recommendedIdx === -1) recommendedIdx = 3; /* 6h / 4 cycles */
+
+    for (var k = 0; k < wakeOptions.length; k++) {
+      var wo = wakeOptions[k];
+      var isRec = (k === recommendedIdx);
+      var isPastAlarm = isWakeInPast(sleepMins, wo.wakeTime, now) && currentMode === 'fell-asleep';
+
+      var classes = 'alarm-card';
+      if (isRec) classes += ' recommended-card';
+      else if (wo.meetsMin) classes += ' meets-min';
+      if (isPastAlarm) classes += ' past-card';
+
+      var cycleLabel = wo.cycles + (wo.cycles === 1 ? ' cycle' : ' cycles');
+
+      gridHtml += '<div class="' + classes + '">';
+      gridHtml += '<div class="alarm-card-top">';
+      gridHtml += '<span class="alarm-cycle-badge">' + cycleLabel + '</span>';
+      if (isRec) gridHtml += '<span class="alarm-rec-badge">Best</span>';
+      gridHtml += '</div>';
+      gridHtml += '<div class="alarm-time">' + fmt12(wo.wakeTime) + '</div>';
+      gridHtml += '<div class="alarm-duration">' + fmtDuration(wo.totalMins) + ' of sleep' + (wo.meetsMin ? ' ✓' : '') + '</div>';
+      gridHtml += '<div class="alarm-stage-hint">' + stageHints[k] + '</div>';
+      gridHtml += '</div>';
+    }
+
+    alarmGrid.innerHTML = gridHtml;
+
+    /* Best alarm summary */
+    var best = wakeOptions[recommendedIdx];
+    baTime.textContent = fmt12(best.wakeTime);
+    baDesc.textContent = fmtDuration(best.totalMins) + ' · ' + best.cycles + ' complete sleep cycles · ' + stageHints[recommendedIdx];
+
+    /* Stage timeline — show for recommended option */
+    renderStageLine(best.cycles, sleepMins);
+
+    /* Counter */
+    updateCounter(sleepMins);
+  }
+
+  function isWakeInPast(sleepMins, wakeMins, now) {
+    /* If wake time is "before" now relative to sleep onset, it's past */
+    /* Account for crossing midnight */
+    var elapsed = mod1440(now - sleepMins);
+    var cycleMins = mod1440(wakeMins - sleepMins);
+    return elapsed > cycleMins;
+  }
+
+  function renderStageLine(cycles, sleepMins) {
+    var segs = buildStageSegs(cycles);
+    var totalMins = cycles * 90;
+    var html = '';
+
+    /* One combined bar */
+    html += '<div class="stage-row">';
+    html += '<div class="stage-row-label">Stages</div>';
+    html += '<div class="stage-bar-wrap">';
+
+    segs.forEach(function (seg) {
+      var w = ((seg.end - seg.start) / totalMins * 100).toFixed(2);
+      html += '<div class="stage-seg seg-' + seg.stage + '" style="width:' + w + '%;"></div>';
+    });
+
+    /* Wake marker at 100% end */
+    html += '<div class="stage-wake-marker" style="right:0;background:' + 'var(--amber)' + ';"></div>';
+    html += '</div>';
+    html += '</div>';
+
+    /* Per-cycle rows */
+    for (var i = 0; i < cycles; i++) {
+      var cycleStart = i * 90;
+      var cycleEnd   = cycleStart + 90;
+      var cycleSegs  = segs.filter(function (s) {
+        return s.start >= cycleStart && s.end <= cycleEnd;
+      });
+
+      var wakeAt = mod1440(sleepMins + cycleEnd);
+
+      html += '<div class="stage-row">';
+      html += '<div class="stage-row-label">Cycle ' + (i + 1) + '</div>';
+      html += '<div class="stage-bar-wrap">';
+
+      cycleSegs.forEach(function (seg) {
+        var w = ((seg.end - seg.start) / 90 * 100).toFixed(2);
+        html += '<div class="stage-seg seg-' + seg.stage + '" style="width:' + w + '%;"></div>';
+      });
+
+      /* Wake marker at end of each cycle */
+      var isRecommended = (i + 1 === cycles);
+      html += '<div class="stage-wake-marker" style="right:0;background:' + (isRecommended ? 'var(--amber)' : '#d1d5db') + ';"></div>';
+      html += '</div>';
+      html += '<div style="font-size:0.65rem;color:var(--text-soft);font-weight:600;white-space:nowrap;padding-left:0.35rem;align-self:center;">' + fmt12(wakeAt) + '</div>';
+      html += '</div>';
+    }
+
+    stageTl.innerHTML = html;
+  }
+
+  function updateCounter(sleepMins) {
+    var now = nowMins();
+    if (currentMode === 'falling-asleep') {
+      sleepCounter.style.display = 'none';
+      return;
+    }
+    sleepCounter.style.display = 'flex';
+    var elapsed = mod1440(now - sleepMins);
+    if (elapsed > 14 * 60) {
+      /* More than 14h — probably wrong input, show friendly fallback */
+      counterValue.textContent = 'Set your sleep time above';
+      return;
+    }
+    var h = Math.floor(elapsed / 60);
+    var m = elapsed % 60;
+    counterValue.textContent = h + 'h ' + m + 'm';
+  }
+
+  /* ---- Mode toggle ---- */
+  modeToggle.addEventListener('click', function (e) {
+    var btn = e.target.closest('.mode-btn');
+    if (!btn) return;
+    currentMode = btn.dataset.mode;
+    modeToggle.querySelectorAll('.mode-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    if (currentMode === 'falling-asleep') {
+      /* Set sleep time to now */
+      var d = new Date();
+      var hh = d.getHours().toString().padStart(2, '0');
+      var mm = d.getMinutes().toString().padStart(2, '0');
+      sleepInput.value = hh + ':' + mm;
+      sleepLabel.textContent = 'I\'m falling asleep right now';
+      sleepInput.setAttribute('readonly', 'true');
+      sleepInput.style.opacity = '0.6';
+    } else {
+      sleepLabel.textContent = 'What time did you fall asleep?';
+      sleepInput.removeAttribute('readonly');
+      sleepInput.style.opacity = '1';
+    }
+    calculate();
+  });
+
+  /* ---- Event listeners ---- */
+  sleepInput.addEventListener('input', calculate);
+  minHoursInput.addEventListener('change', calculate);
+
+  /* ---- Tick: update counter every minute ---- */
+  function tick() {
+    var sleepMins = parseTime(sleepInput.value);
+    updateCounter(sleepMins);
+
+    /* If in falling-asleep mode, keep time in sync */
+    if (currentMode === 'falling-asleep') {
+      var d = new Date();
+      var hh = d.getHours().toString().padStart(2, '0');
+      var mm = d.getMinutes().toString().padStart(2, '0');
+      sleepInput.value = hh + ':' + mm;
+      calculate();
+    }
+  }
+  setInterval(tick, 60000);
+
+  /* ---- Init ---- */
+  /* Default sleep time to 11 PM; set "now" for counter */
+  sleepInput.value = '23:00';
+  calculate();
+})();
+</script>

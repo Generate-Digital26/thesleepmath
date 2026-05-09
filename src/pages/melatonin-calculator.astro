@@ -1,0 +1,861 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How much melatonin should I take?',
+    answer: `<p>Less than you think. The research-backed <strong>physiological dose is 0.3–0.5 mg</strong> — the amount that raises blood melatonin to the level your brain naturally produces. Despite what supplement labels suggest, most over-the-counter products contain 5–10 mg, which is 10–20x higher than the physiological threshold.</p>
+<p>Ferracioli-Oda et al. (2013) conducted a meta-analysis of 19 randomized controlled trials and found that melatonin at doses as low as <strong>0.1–0.5 mg</strong> significantly reduced sleep onset latency and improved sleep quality. Higher doses did not produce better results and were associated with morning grogginess and rebound insomnia. Start at 0.5 mg and only increase if there is no effect after 2 weeks.</p>`,
+  },
+  {
+    question: 'When should I take melatonin?',
+    answer: `<p>Timing depends entirely on your purpose. For <strong>general sleep onset</strong>, take melatonin <strong>30–60 minutes before your target bedtime</strong>. This corresponds to the rising phase of your natural melatonin rhythm, amplifying the signal your brain is already sending.</p>
+<p>For <strong>jet lag (eastward travel)</strong>, take melatonin at the destination bedtime starting on day 1 of travel, for 2–5 days. For <strong>westward travel</strong>, a morning dose at the destination can help advance your clock more gently. For <strong>circadian phase shifting</strong> (e.g., shift workers), timing 5–7 hours before your desired sleep time exploits the phase response curve's advance zone, which is more powerful than the standard pre-bed window.</p>`,
+  },
+  {
+    question: 'Is melatonin safe?',
+    answer: `<p>Short-term melatonin use (up to 3 months) is considered safe for most healthy adults. It is not habit-forming and does not suppress the body's own melatonin production the way sedatives affect GABA receptors. However, <strong>long-term safety data beyond 6 months is limited</strong>, and melatonin is classified as a dietary supplement (not a drug) in the United States, which means quality control varies widely between brands.</p>
+<p>The Auger et al. (2015) AASM guideline recommends melatonin for circadian rhythm disorders (DSPD, jet lag, shift work disorder) but notes that evidence for primary insomnia is weaker. Groups requiring caution include: pregnant or breastfeeding women, people on blood thinners (warfarin), immunosuppressants, or diabetes medications, and children under 4. Always consult a physician if you take any of these medications or have an underlying condition.</p>`,
+  },
+  {
+    question: 'Can you take too much melatonin?',
+    answer: `<p>Yes. While melatonin is not acutely toxic in overdose the way many sedatives are, taking too much causes real, measurable problems. High doses (5–10 mg or more) can cause <strong>next-day grogginess, headache, dizziness, and nausea</strong>. More importantly, pharmacological doses can desensitize melatonin receptors over time, making your brain less responsive to both supplemental and natural melatonin.</p>
+<p>A single large dose can also shift your circadian phase in the wrong direction if timed incorrectly — acting as a pro-waking signal rather than a sleep signal. The "more is better" assumption is particularly harmful here. Research consistently shows that 0.5 mg is as effective as 5 mg for reducing sleep onset latency, with far fewer side effects. If you have been taking high doses and feel they stopped working, that unresponsiveness may itself be a consequence of receptor downregulation.</p>`,
+  },
+  {
+    question: 'What is the best melatonin dosage by age?',
+    answer: `<p>Dosing recommendations from the research literature and AASM guidelines differ substantially by age group:</p>
+<p><strong>Children (4–12):</strong> 0.5–1 mg maximum, at least 30 minutes before bedtime. Melatonin for children should only be used under pediatric supervision. The AASM recommends it specifically for autism spectrum disorder-related sleep onset difficulties, not for typical childhood sleep issues. Dose should be the lowest effective amount.</p>
+<p><strong>Teens (13–17):</strong> 0.5–3 mg. Adolescent circadian rhythms naturally shift later (delayed phase), so melatonin is most useful for advancing sleep timing, not just inducing sedation. Low doses (0.5–1 mg) taken 5–6 hours before desired sleep onset are more effective than high pre-bed doses.</p>
+<p><strong>Adults (18–65):</strong> Start at 0.5 mg. Increase to 1–3 mg if needed. The 5 mg threshold is rarely necessary and mostly found in commercial products for marketing reasons.</p>
+<p><strong>Older adults (65+):</strong> 0.5–2 mg. Melatonin production naturally declines with age, making supplementation more meaningful. However, older adults are more sensitive to sedative effects and drug interactions — start with 0.5 mg.</p>`,
+  },
+  {
+    question: 'Does melatonin work for jet lag?',
+    answer: `<p>Yes — jet lag is the best-supported use case for melatonin. Auger et al. (2015) and multiple Cochrane reviews confirm that melatonin significantly reduces jet lag symptoms, particularly for <strong>eastward travel crossing 5 or more time zones</strong>. The mechanism is direct: melatonin shifts your circadian clock's phase by acting on MT1/MT2 receptors in the suprachiasmatic nucleus (SCN), the brain's master clock.</p>
+<p>The critical variable is timing. For eastward travel, take 0.5–3 mg at the <strong>destination bedtime</strong> (not your home bedtime) for 2–5 nights. For westward travel, the clock shifts more easily in that direction naturally, and morning light exposure is often sufficient — but a low dose taken in the morning at the destination can accelerate adaptation. Avoid taking melatonin in the middle of the day in your home time zone, as this can worsen jet lag by shifting your clock in the wrong direction.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Melatonin Calculator — The Sleep Math"
+  description="Find your optimal melatonin dose and timing. Evidence-based recommendations by age and purpose. Most people take too much."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Melatonin Calculator
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <!-- Pill / capsule icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.5 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6.5"/>
+          <path d="M8 11h8"/>
+          <path d="M8 15h5"/>
+          <circle cx="16.5" cy="19.5" r="2.5"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Melatonin Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find your optimal melatonin dose and timing. Evidence-based recommendations by age and purpose. Most people take too much — the physiological dose is smaller than you think.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Evidence-based dosing
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Timing research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your details</h2>
+
+      <div class="field">
+        <label>Age group</label>
+        <div class="age-btns" id="age-btns">
+          <button class="age-btn" data-age="child">
+            <span class="age-label">Child</span>
+            <span class="age-range">4–12</span>
+          </button>
+          <button class="age-btn" data-age="teen">
+            <span class="age-label">Teen</span>
+            <span class="age-range">13–17</span>
+          </button>
+          <button class="age-btn active" data-age="adult">
+            <span class="age-label">Adult</span>
+            <span class="age-range">18–65</span>
+          </button>
+          <button class="age-btn" data-age="older">
+            <span class="age-label">Older</span>
+            <span class="age-range">65+</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Purpose</label>
+        <div class="purpose-btns" id="purpose-btns">
+          <button class="purpose-btn active" data-purpose="sleep">
+            <span class="purpose-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+            <span class="purpose-text">
+              <strong>Fall asleep faster</strong>
+              <span>General sleep onset</span>
+            </span>
+          </button>
+          <button class="purpose-btn" data-purpose="jetlag">
+            <span class="purpose-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </span>
+            <span class="purpose-text">
+              <strong>Jet lag</strong>
+              <span>Travel time-zone shift</span>
+            </span>
+          </button>
+          <button class="purpose-btn" data-purpose="shift">
+            <span class="purpose-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </span>
+            <span class="purpose-text">
+              <strong>Shift work</strong>
+              <span>Off-schedule sleep</span>
+            </span>
+          </button>
+          <button class="purpose-btn" data-purpose="reset">
+            <span class="purpose-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-5.07"/></svg>
+            </span>
+            <span class="purpose-text">
+              <strong>Circadian reset</strong>
+              <span>Fix sleep schedule</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Jet lag direction (shown only when jetlag selected) -->
+      <div class="field" id="jetlag-field" style="display:none;">
+        <label>Travel direction</label>
+        <div class="dir-btns" id="dir-btns">
+          <button class="dir-btn active" data-dir="east">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            Eastward
+          </button>
+          <button class="dir-btn" data-dir="west">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Westward
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="bedtime-input">Target bedtime</label>
+        <input type="time" id="bedtime-input" value="23:00">
+      </div>
+
+      <div class="field">
+        <label for="current-time-input">Current time</label>
+        <input type="time" id="current-time-input" value="21:00">
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- DOSE HERO -->
+      <div class="dose-hero" id="dose-hero">
+        <div class="dose-hero-top">
+          <div class="dose-badge" id="dose-badge">
+            <span class="dose-num" id="dose-num">0.5</span>
+            <span class="dose-unit">mg</span>
+          </div>
+          <div class="dose-hero-text">
+            <div class="dose-label" id="dose-label">Recommended starting dose</div>
+            <div class="dose-sub" id="dose-sub">Physiological dose — matches natural brain production</div>
+          </div>
+        </div>
+
+        <!-- Dosage scale bar -->
+        <div class="dose-scale-wrap">
+          <div class="dose-scale-label">Dosage spectrum</div>
+          <div class="dose-scale" id="dose-scale">
+            <div class="dose-scale-track">
+              <div class="dose-range-physio" title="Physiological range 0.1–0.5 mg"></div>
+              <div class="dose-range-low"    title="Low therapeutic 0.5–1 mg"></div>
+              <div class="dose-range-mid"    title="Moderate 1–3 mg"></div>
+              <div class="dose-range-high"   title="High pharmacological 3–10 mg"></div>
+            </div>
+            <div class="dose-marker-wrap" id="dose-marker-wrap">
+              <div class="dose-marker" id="dose-marker" style="left:4%">
+                <div class="dm-pin"></div>
+                <div class="dm-label" id="dm-label">Start here</div>
+              </div>
+            </div>
+            <div class="dose-scale-ticks">
+              <span>0.1 mg</span>
+              <span>0.5 mg</span>
+              <span>1 mg</span>
+              <span>3 mg</span>
+              <span>5 mg</span>
+              <span>10 mg</span>
+            </div>
+          </div>
+          <div class="dose-scale-legend">
+            <span><span class="dl-dot dl-physio"></span>Physiological</span>
+            <span><span class="dl-dot dl-low"></span>Low therapeutic</span>
+            <span><span class="dl-dot dl-mid"></span>Moderate</span>
+            <span><span class="dl-dot dl-high"></span>Pharmacological</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMING CARD -->
+      <div class="timing-card" id="timing-card">
+        <h3>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Optimal timing
+        </h3>
+        <div class="timing-grid">
+          <div class="timing-block" id="timing-take-block">
+            <div class="tb-label">Take melatonin at</div>
+            <div class="tb-time" id="timing-take-time">10:00 PM</div>
+            <div class="tb-note" id="timing-take-note">30–60 min before bed</div>
+          </div>
+          <div class="timing-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </div>
+          <div class="timing-block">
+            <div class="tb-label">Target bedtime</div>
+            <div class="tb-time tb-bed" id="timing-bed-time">11:00 PM</div>
+            <div class="tb-note">Lights out</div>
+          </div>
+        </div>
+        <div class="timing-insight" id="timing-insight">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span id="timing-insight-text">Melatonin rises naturally 2 hours before your DLMO. Supplementing 30–60 min early amplifies the signal without suppressing your own production.</span>
+        </div>
+      </div>
+
+      <!-- WARNING CARDS -->
+      <div class="warnings-grid" id="warnings-grid">
+        <div class="warn-card warn-interaction">
+          <div class="warn-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Drug interactions
+          </div>
+          <ul class="warn-list">
+            <li>Blood thinners (warfarin) — increased bleeding risk</li>
+            <li>Immunosuppressants — may alter immune response</li>
+            <li>Diabetes medications — melatonin affects glucose</li>
+            <li>CNS depressants — additive sedation</li>
+            <li>Fluvoxamine — dramatically raises melatonin levels</li>
+          </ul>
+        </div>
+        <div class="warn-card warn-avoid">
+          <div class="warn-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            When to avoid
+          </div>
+          <ul class="warn-list">
+            <li>Pregnancy or breastfeeding</li>
+            <li>Autoimmune conditions</li>
+            <li>Children under 4 without physician guidance</li>
+            <li>Before driving or operating heavy machinery</li>
+            <li>Severe liver disease (impaired metabolism)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MEDICAL DISCLAIMER -->
+      <div class="disclaimer-card">
+        <div class="disclaimer-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="disclaimer-text">
+          <strong>Medical disclaimer</strong>
+          This calculator provides educational information based on published research. It is not medical advice. Melatonin dosing should be discussed with your physician or pharmacist, especially if you take medications, are pregnant, or have underlying health conditions. Individual responses to melatonin vary significantly.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science of melatonin — why less is more</h2>
+      <p>
+        Melatonin is not a sedative. It is a <strong>darkness signal</strong> — a hormone secreted by the pineal gland that communicates "night has arrived" to every cell in your body. Natural melatonin production begins at dim light melatonin onset (DLMO), roughly 2 hours before your habitual bedtime, and is suppressed almost immediately by light exposure. Peak blood levels during a normal night are only 10–100 pg/mL — far lower than the concentrations produced by a standard 5 mg supplement.
+      </p>
+      <p>
+        The phase response curve (PRC) is the key to timing melatonin correctly. The PRC describes how melatonin shifts your circadian clock depending on when it is taken. Doses taken in the <strong>afternoon and early evening</strong> produce phase advances (shifting sleep earlier), while doses taken <strong>after peak melatonin</strong> in the middle of the night produce phase delays (pushing sleep later). This is why timing precision matters more than dose size.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Physiological dose: 0.3–0.5 mg · Natural DLMO: ~2h before sleep onset</div>
+        <div class="formula-desc">
+          Phase advance zone: Afternoon – early evening · Phase delay zone: Late night – early morning
+        </div>
+      </div>
+      <p>
+        Ferracioli-Oda et al. (2013) meta-analyzed 19 randomized controlled trials and found melatonin significantly reduced sleep onset latency at doses from 0.1 mg upward. Critically, there was <strong>no dose-response relationship above 0.5 mg</strong> — higher doses produced no additional benefit but increased next-day sedation. The Auger et al. (2015) AASM clinical practice guideline recommends melatonin specifically for circadian rhythm sleep-wake disorders including delayed sleep-wake phase disorder (DSWPD), jet lag disorder, and shift work disorder.
+      </p>
+      <table class="mel-table">
+        <thead>
+          <tr><th>Age group</th><th>Recommended dose</th><th>Maximum dose</th><th>Timing</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Child (4–12)</td><td class="dose-col">0.5 mg</td><td>1 mg</td><td>30 min before bed</td></tr>
+          <tr><td>Teen (13–17)</td><td class="dose-col">0.5–1 mg</td><td>3 mg</td><td>30–60 min before bed</td></tr>
+          <tr><td>Adult (18–65)</td><td class="dose-col">0.5 mg (start)</td><td>5 mg</td><td>30–60 min before bed</td></tr>
+          <tr><td>Older adult (65+)</td><td class="dose-col">0.5 mg</td><td>2 mg</td><td>30 min before bed</td></tr>
+        </tbody>
+      </table>
+      <div class="citation">
+        Ferracioli-Oda, E., Qawasmi, A., &amp; Bloch, M. H. (2013). Meta-analysis: Melatonin for the treatment of primary sleep disorders. <em>PLOS ONE, 8(5), e63773.</em>
+      </div>
+      <div class="citation" style="margin-top: 0.5rem;">
+        Auger, R. R., et al. (2015). Clinical practice guideline for the treatment of intrinsic circadian rhythm sleep-wake disorders. <em>Journal of Clinical Sleep Medicine, 11(10), 1199–1236.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #ecfdf5; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input[type="time"] {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input[type="time"]:focus { border-color: var(--primary); }
+
+  /* Age buttons */
+  .age-btns {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.35rem;
+  }
+  .age-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 0.1rem;
+    padding: 0.55rem 0.3rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--bg); cursor: pointer;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .age-btn:hover { border-color: var(--mint); background: #f0fdf9; }
+  .age-btn.active { border-color: var(--mint); background: #ecfdf5; }
+  .age-label { font-size: 0.73rem; font-weight: 700; color: var(--text); }
+  .age-range { font-size: 0.62rem; color: var(--text-soft); }
+  .age-btn.active .age-label { color: var(--mint); }
+
+  /* Purpose buttons */
+  .purpose-btns { display: flex; flex-direction: column; gap: 0.4rem; }
+  .purpose-btn {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--bg); cursor: pointer;
+    transition: all 0.15s; font-family: inherit; text-align: left;
+  }
+  .purpose-btn:hover { border-color: var(--primary); background: var(--primary-soft); }
+  .purpose-btn.active { border-color: var(--primary); background: var(--primary-soft); }
+  .purpose-icon { width: 1.2rem; height: 1.2rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--text-soft); }
+  .purpose-btn.active .purpose-icon { color: var(--primary); }
+  .purpose-icon svg { width: 100%; height: 100%; }
+  .purpose-text { display: flex; flex-direction: column; gap: 0.05rem; }
+  .purpose-text strong { font-size: 0.76rem; font-weight: 700; color: var(--text); }
+  .purpose-text span { font-size: 0.68rem; color: var(--text-soft); }
+
+  /* Direction buttons */
+  .dir-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .dir-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+    padding: 0.55rem 0.5rem; border: 1.5px solid var(--border);
+    border-radius: 10px; background: var(--bg); cursor: pointer;
+    font-family: inherit; font-size: 0.76rem; font-weight: 600;
+    color: var(--text-mid); transition: all 0.15s;
+  }
+  .dir-btn svg { width: 14px; height: 14px; }
+  .dir-btn:hover { border-color: var(--sky); background: #f0f9ff; }
+  .dir-btn.active { border-color: var(--sky); background: #eaf6ff; color: var(--sky); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Dose hero */
+  .dose-hero {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    border-color: var(--mint);
+  }
+  .dose-hero-top {
+    display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.25rem;
+  }
+  .dose-badge {
+    display: flex; align-items: baseline; gap: 0.2rem;
+    background: #ecfdf5; border-radius: 10px;
+    padding: 0.75rem 1rem; flex-shrink: 0;
+    border: 2px solid var(--mint);
+  }
+  .dose-num {
+    font-size: 2.5rem; font-weight: 900; color: var(--mint);
+    letter-spacing: -0.04em; line-height: 1;
+    font-family: 'Space Grotesk', monospace;
+  }
+  .dose-unit {
+    font-size: 1rem; font-weight: 700; color: var(--mint);
+    align-self: flex-end; margin-bottom: 0.15rem;
+  }
+  .dose-label {
+    font-size: 1rem; font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em; margin-bottom: 0.3rem;
+  }
+  .dose-sub { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Dosage scale */
+  .dose-scale-wrap { }
+  .dose-scale-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-soft); margin-bottom: 0.5rem;
+  }
+  .dose-scale { }
+  .dose-scale-track {
+    height: 14px; border-radius: 7px; overflow: hidden;
+    display: flex; margin-bottom: 0;
+  }
+  .dose-range-physio { width: 4%;  background: #10b981; }
+  .dose-range-low    { width: 5%;  background: #6ee7b7; }
+  .dose-range-mid    { width: 20%; background: #fde68a; }
+  .dose-range-high   { width: 71%; background: #fca5a5; }
+
+  .dose-marker-wrap { position: relative; height: 28px; }
+  .dose-marker {
+    position: absolute; display: flex; flex-direction: column;
+    align-items: center; transform: translateX(-50%);
+    transition: left 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .dm-pin {
+    width: 2px; height: 14px; background: var(--text);
+    border-radius: 1px;
+  }
+  .dm-label {
+    font-size: 0.65rem; font-weight: 700; color: var(--text);
+    white-space: nowrap; margin-top: 2px;
+    background: var(--card); padding: 1px 4px; border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .dose-scale-ticks {
+    display: flex; justify-content: space-between;
+    font-size: 0.62rem; color: var(--text-soft); font-weight: 600;
+    padding: 0.25rem 0 0;
+  }
+  .dose-scale-legend {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem;
+  }
+  .dose-scale-legend span { display: flex; align-items: center; gap: 0.3rem; font-size: 0.68rem; color: var(--text-soft); }
+  .dl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .dl-physio { background: #10b981; }
+  .dl-low    { background: #6ee7b7; }
+  .dl-mid    { background: #fde68a; }
+  .dl-high   { background: #fca5a5; }
+
+  /* Timing card */
+  .timing-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .timing-card h3 {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem;
+  }
+  .timing-card h3 svg { width: 16px; height: 16px; color: var(--primary); }
+  .timing-grid {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+  }
+  .timing-block { text-align: center; min-width: 100px; }
+  .tb-label {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-soft); margin-bottom: 0.25rem;
+  }
+  .tb-time {
+    font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em;
+    color: var(--mint); line-height: 1; font-family: 'Space Grotesk', monospace;
+    margin-bottom: 0.25rem;
+  }
+  .tb-time.tb-bed { color: var(--primary); }
+  .tb-note { font-size: 0.68rem; color: var(--text-soft); }
+  .timing-arrow {
+    flex: 1; display: flex; justify-content: center;
+    color: var(--text-soft); flex-shrink: 0;
+  }
+  .timing-arrow svg { width: 20px; height: 20px; }
+  .timing-insight {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    background: var(--primary-soft); border-radius: 8px;
+    padding: 0.65rem 0.85rem; font-size: 0.78rem; color: var(--text-mid);
+    line-height: 1.55;
+  }
+  .timing-insight svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--primary); margin-top: 1px; }
+
+  /* Warnings */
+  .warnings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .warn-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1rem;
+  }
+  .warn-card.warn-interaction { border-color: #f59e0b; background: #fffbeb; }
+  .warn-card.warn-avoid { border-color: #ff6b52; background: #fff5f3; }
+  .warn-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.78rem; font-weight: 700; margin-bottom: 0.65rem;
+  }
+  .warn-card.warn-interaction .warn-header { color: #92400e; }
+  .warn-card.warn-avoid .warn-header { color: #9a1e0b; }
+  .warn-header svg { width: 15px; height: 15px; }
+  .warn-card.warn-interaction .warn-header svg { stroke: #f59e0b; }
+  .warn-card.warn-avoid .warn-header svg { stroke: #ff6b52; }
+  .warn-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .warn-list li {
+    font-size: 0.72rem; color: var(--text-mid); line-height: 1.4;
+    padding-left: 0.9rem; position: relative;
+  }
+  .warn-card.warn-interaction .warn-list li::before { content: '!'; position: absolute; left: 0; color: #f59e0b; font-weight: 800; font-size: 0.65rem; }
+  .warn-card.warn-avoid .warn-list li::before { content: '×'; position: absolute; left: 0; color: #ff6b52; font-weight: 800; font-size: 0.7rem; }
+
+  /* Medical disclaimer */
+  .disclaimer-card {
+    display: flex; align-items: flex-start; gap: 0.85rem;
+    background: var(--card); border: 2px solid var(--primary);
+    border-radius: var(--radius); padding: 1rem 1.25rem;
+  }
+  .disclaimer-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--primary-soft); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .disclaimer-icon svg { width: 18px; height: 18px; stroke: var(--primary); }
+  .disclaimer-text { font-size: 0.78rem; color: var(--text-mid); line-height: 1.6; }
+  .disclaimer-text strong { display: block; color: var(--text); font-size: 0.82rem; font-weight: 700; margin-bottom: 0.25rem; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.72rem; color: #a8a3be; }
+  .mel-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .mel-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .mel-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .mel-table tr:last-child td { border-bottom: none; }
+  .mel-table .dose-col { font-weight: 700; color: var(--mint); font-family: 'Space Grotesk', monospace; font-size: 0.82rem; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .warnings-grid { grid-template-columns: 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .dose-hero-top { flex-wrap: wrap; }
+    .timing-grid { justify-content: center; }
+  }
+  @media (max-width: 480px) {
+    .age-btns { grid-template-columns: repeat(2, 1fr); }
+    .dose-scale-ticks { font-size: 0.55rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  /* ---- DOM refs ---- */
+  var ageBtns       = document.getElementById('age-btns');
+  var purposeBtns   = document.getElementById('purpose-btns');
+  var dirBtns       = document.getElementById('dir-btns');
+  var jetlagField   = document.getElementById('jetlag-field');
+  var bedtimeInput  = document.getElementById('bedtime-input');
+  var currentInput  = document.getElementById('current-time-input');
+
+  var doseNum       = document.getElementById('dose-num');
+  var doseLabel     = document.getElementById('dose-label');
+  var doseSub       = document.getElementById('dose-sub');
+  var doseMarker    = document.getElementById('dose-marker');
+  var dmLabel       = document.getElementById('dm-label');
+
+  var timingTakeTime   = document.getElementById('timing-take-time');
+  var timingBedTime    = document.getElementById('timing-bed-time');
+  var timingTakeNote   = document.getElementById('timing-take-note');
+  var timingInsightTxt = document.getElementById('timing-insight-text');
+
+  /* ---- State ---- */
+  var ageGroup  = 'adult';
+  var purpose   = 'sleep';
+  var direction = 'east';
+
+  /* ---- Dose tables ---- */
+  var DOSE = {
+    child:  { start: 0.5, min: 0.5, max: 1.0,  label: 'Recommended starting dose (child)',   sub: 'Maximum 1 mg for children 4–12. Pediatric supervision advised.' },
+    teen:   { start: 0.5, min: 0.5, max: 3.0,  label: 'Recommended starting dose (teen)',    sub: 'Begin low. Can increase to 1–3 mg if 0.5 mg has no effect after 2 weeks.' },
+    adult:  { start: 0.5, min: 0.5, max: 5.0,  label: 'Recommended starting dose',           sub: 'Physiological dose — matches natural brain production. Rarely need more.' },
+    older:  { start: 0.5, min: 0.5, max: 2.0,  label: 'Recommended starting dose (65+)',     sub: 'Start 0.5 mg. Older adults are more sensitive to melatonin effects.' },
+  };
+
+  /* Scale positions (% left) for log-ish dose scale 0.1–10mg */
+  /* Scale buckets: physio 0–4%, low 4–9%, mid 9–29%, high 29–100% */
+  function doseToScalePct(mg) {
+    /* Approximate log scale 0.1mg to 10mg mapped to 0–100% */
+    var logMin = Math.log10(0.1);
+    var logMax = Math.log10(10);
+    var pct = (Math.log10(Math.max(0.1, mg)) - logMin) / (logMax - logMin) * 100;
+    return Math.min(98, Math.max(1, pct));
+  }
+
+  /* ---- Time helpers ---- */
+  function parseTime(val) {
+    var parts = val.split(':').map(Number);
+    return parts[0] + parts[1] / 60;
+  }
+  function mod24(h) { return ((h % 24) + 24) % 24; }
+  function fmt12(h) {
+    h = mod24(h);
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = Math.floor(h) % 12; if (hh === 0) hh = 12;
+    var mm = Math.round((h - Math.floor(h)) * 60);
+    return hh + ':' + (mm < 10 ? '0' : '') + mm + ' ' + period;
+  }
+
+  /* ---- Core calculate ---- */
+  function calculate() {
+    var bed     = parseTime(bedtimeInput.value);
+    var current = parseTime(currentInput.value);
+
+    /* --- Dose --- */
+    var d = DOSE[ageGroup];
+
+    /* Purpose-specific dose adjustments */
+    var startDose = d.start;
+    var doseLabelText = d.label;
+    var doseSubText   = d.sub;
+
+    if (purpose === 'jetlag') {
+      /* Jet lag: slightly higher, 0.5–3mg per AASM */
+      startDose     = (ageGroup === 'child') ? 0.5 : 1.0;
+      doseLabelText = 'Recommended dose for jet lag';
+      if (direction === 'east') {
+        doseSubText = 'Take at destination bedtime. Eastward travel is harder — melatonin accelerates circadian advance.';
+      } else {
+        doseSubText = 'Westward travel is easier. Consider morning light exposure at destination instead of, or alongside, melatonin.';
+      }
+    } else if (purpose === 'shift') {
+      startDose     = d.start;
+      doseLabelText = 'Recommended dose for shift work';
+      doseSubText   = 'Take immediately before your daytime sleep window. Keep the bedroom dark and cool.';
+    } else if (purpose === 'reset') {
+      startDose     = (ageGroup === 'child') ? 0.5 : 0.5;
+      doseLabelText = 'Recommended dose for circadian reset';
+      doseSubText   = 'Low physiological dose timed 5–7 hours before desired sleep onset. More effective than pre-bed dosing for phase shifts.';
+    }
+
+    doseNum.textContent   = startDose % 1 === 0 ? startDose.toFixed(0) : startDose.toFixed(1);
+    doseLabel.textContent = doseLabelText;
+    doseSub.textContent   = doseSubText;
+
+    /* Marker position on scale */
+    var pct = doseToScalePct(startDose);
+    doseMarker.style.left = pct + '%';
+    dmLabel.textContent   = 'Start here (' + (startDose % 1 === 0 ? startDose.toFixed(0) : startDose.toFixed(1)) + ' mg)';
+
+    /* --- Timing --- */
+    var takeTime, takeNote, insightText;
+
+    if (purpose === 'sleep') {
+      /* 30–60 min before bed */
+      takeTime   = mod24(bed - 0.75); /* 45 min avg */
+      takeNote   = '30–60 min before bed';
+      insightText = 'Melatonin rises naturally at DLMO, about 2 hours before your habitual bedtime. Supplementing 30–60 minutes before bed amplifies the darkness signal without suppressing your own production.';
+    } else if (purpose === 'jetlag') {
+      if (direction === 'east') {
+        takeTime   = bed;
+        takeNote   = 'At destination bedtime';
+        insightText = 'For eastward travel, take melatonin at the destination bedtime for 2–5 nights. This advances your clock to match the new time zone. Avoid taking it during your home-time daytime hours.';
+      } else {
+        takeTime   = mod24(bed - 1);
+        takeNote   = 'Shortly before destination bedtime';
+        insightText = 'For westward travel, your clock delays naturally. Morning bright light at the destination is the most powerful tool. Low-dose melatonin in the early evening at the destination can supplement this.';
+      }
+    } else if (purpose === 'shift') {
+      /* Take immediately before daytime sleep */
+      takeTime   = mod24(bed - 0.5);
+      takeNote   = '30 min before daytime sleep';
+      insightText = 'Shift workers should take melatonin immediately before their daytime sleep window. Combine with blackout curtains and earplugs to protect against light and noise disruption.';
+    } else {
+      /* Circadian reset: 5–7h before desired sleep onset */
+      takeTime   = mod24(bed - 6);
+      takeNote   = '5–7 hours before target bedtime';
+      insightText = 'For circadian phase resetting, timing early exploits the phase response curve advance zone. This approach is more effective than pre-bed dosing for moving your clock earlier.';
+    }
+
+    timingTakeTime.textContent  = fmt12(takeTime);
+    timingBedTime.textContent   = fmt12(bed);
+    timingTakeNote.textContent  = takeNote;
+    timingInsightTxt.textContent = insightText;
+
+    /* Highlight if take-time has already passed today */
+    var hoursSinceIdeal = current - takeTime;
+    if (hoursSinceIdeal < 0) hoursSinceIdeal += 24;
+    if (hoursSinceIdeal > 0 && hoursSinceIdeal < 12) {
+      timingTakeTime.style.color = 'var(--amber)';
+    } else {
+      timingTakeTime.style.color = 'var(--mint)';
+    }
+  }
+
+  /* ---- Event listeners ---- */
+  ageBtns.addEventListener('click', function (e) {
+    var btn = e.target.closest('.age-btn');
+    if (!btn) return;
+    ageGroup = btn.dataset.age;
+    ageBtns.querySelectorAll('.age-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    calculate();
+  });
+
+  purposeBtns.addEventListener('click', function (e) {
+    var btn = e.target.closest('.purpose-btn');
+    if (!btn) return;
+    purpose = btn.dataset.purpose;
+    purposeBtns.querySelectorAll('.purpose-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    jetlagField.style.display = (purpose === 'jetlag') ? 'block' : 'none';
+    calculate();
+  });
+
+  dirBtns.addEventListener('click', function (e) {
+    var btn = e.target.closest('.dir-btn');
+    if (!btn) return;
+    direction = btn.dataset.dir;
+    dirBtns.querySelectorAll('.dir-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    calculate();
+  });
+
+  bedtimeInput.addEventListener('input', calculate);
+  currentInput.addEventListener('input', calculate);
+
+  /* ---- Init ---- */
+  (function () {
+    var d = new Date();
+    var hh = d.getHours().toString().padStart(2, '0');
+    var mm = d.getMinutes().toString().padStart(2, '0');
+    currentInput.value = hh + ':' + mm;
+  })();
+
+  calculate();
+})();
+</script>

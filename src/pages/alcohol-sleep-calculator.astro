@@ -1,0 +1,982 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How does alcohol affect sleep quality?',
+    answer: `<p>Alcohol disrupts sleep through a well-documented <strong>biphasic effect</strong>. In the first half of the night, alcohol acts as a sedative — it increases deep slow-wave sleep and helps you fall asleep faster. But as your body metabolizes it, the second half of the night becomes fragmented, lighter, and full of awakenings.</p>
+<p>The biggest casualty is <strong>REM sleep</strong>. Ebrahim et al. (2013) found that even low doses suppressed REM sleep, and higher doses caused severe fragmentation. REM is critical for memory consolidation, emotional regulation, and feeling rested — so even if you "slept through the night," you likely missed much of the sleep that matters most.</p>`,
+  },
+  {
+    question: 'How long should I wait to sleep after drinking?',
+    answer: `<p>The rule of thumb is <strong>one hour per standard drink</strong> before sleeping, though this varies by body weight, sex, and metabolism. The goal is to allow your BAC to fall below 0.05 before sleep — at that level, the sedative effect is minimal and sleep architecture is largely preserved.</p>
+<p>For two drinks, that's roughly 2–3 hours. For four drinks, 4–5 hours. This calculator estimates your personal clearance time using the Widmark formula so you can see your specific "safe sleep time" rather than guessing.</p>`,
+  },
+  {
+    question: 'Why do I wake up at 3am after drinking?',
+    answer: `<p>This is the <strong>rebound effect</strong> in action. Alcohol is sedating while your BAC is rising or elevated, but as it clears — typically in the early morning hours — your nervous system rebounds into a hyperactivated state. Cortisol rises, heart rate increases, and you're easily awakened.</p>
+<p>Additionally, as REM sleep that was suppressed early in the night tries to "rebound," it creates more vivid dreams and lighter sleep that's easier to interrupt. Alcohol also relaxes throat muscles, worsening snoring and sleep apnea — another common cause of 3am awakenings.</p>`,
+  },
+  {
+    question: 'Does alcohol help you fall asleep?',
+    answer: `<p>Yes — but it's a trap. Alcohol does reduce the time it takes to fall asleep (sleep onset latency) and increases deep sleep in the first half of the night. This creates the convincing illusion that alcohol is a sleep aid.</p>
+<p>The problem is the second half of the night. Research consistently shows that what alcohol gives with the right hand (faster sleep onset), it takes with the left (fragmented, REM-suppressed sleep after 2–4am). Over time, tolerance builds, you need more alcohol for the same sedative effect, and sleep quality deteriorates further.</p>`,
+  },
+  {
+    question: 'How much alcohol disrupts sleep?',
+    answer: `<p>Even <strong>low doses</strong> (below 0.05 BAC at sleep) produce measurable REM suppression, according to Ebrahim et al. (2013). At moderate doses (0.05–0.10 BAC), REM is reduced by 20–30%, and the second half of the night becomes significantly fragmented. High doses (above 0.10 BAC) cause severe suppression of REM, increased awakenings, and reduced total sleep quality scores.</p>
+<p>There is no dose of alcohol that <em>improves</em> overall sleep quality. The sedative effect of the first half always comes at the cost of the second half.</p>`,
+  },
+  {
+    question: 'Is one glass of wine before bed okay?',
+    answer: `<p>One glass of wine (roughly 0.5 standard drinks for a 5 oz pour at 12% ABV) produces a very low BAC in most adults — often below 0.02–0.03 within an hour of drinking. At that level, the research shows <strong>mild but measurable REM suppression</strong>, particularly in the first sleep cycle.</p>
+<p>Whether that's "okay" depends on your priorities. If you're optimizing for sleep quality, the science says even one drink before bed slightly degrades REM. If you enjoy a glass and feel fine, your personal experience is valid — but don't expect it to be neutral. Drinking it 3+ hours before bed dramatically reduces the impact compared to drinking it right before sleep.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Alcohol Sleep Calculator — The Sleep Math"
+  description="See how alcohol affects your sleep quality. Enter your drinks, weight, and timing to estimate the impact on your sleep stages."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Alcohol Sleep Impact
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/>
+          <path d="M12 15a5 5 0 0 0 5-5L18 3H6l1 7a5 5 0 0 0 5 5z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Alcohol Sleep Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">See how alcohol affects your sleep quality tonight. Enter your drinks, weight, and timing to estimate the impact on your sleep stages.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Ebrahim et al. meta-analysis
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Sleep stage research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your details</h2>
+
+      <!-- Drinks slider -->
+      <div class="field">
+        <div class="label-row">
+          <label>Number of drinks</label>
+          <span class="field-val" id="drinks-val">2</span>
+        </div>
+        <input type="range" id="drinks" min="1" max="10" step="1" value="2">
+        <div class="drink-btns" id="drink-btns">
+          <button data-v="1">1</button>
+          <button data-v="2" class="active">2</button>
+          <button data-v="3">3</button>
+          <button data-v="4">4</button>
+          <button data-v="5">5</button>
+          <button data-v="6">6</button>
+          <button data-v="7">7</button>
+          <button data-v="8">8</button>
+        </div>
+      </div>
+
+      <!-- Drink type -->
+      <div class="field">
+        <label for="drink-type">Drink type</label>
+        <select id="drink-type">
+          <option value="beer">Beer (5% ABV, 12 oz)</option>
+          <option value="wine" selected>Wine (12% ABV, 5 oz)</option>
+          <option value="spirits">Spirits (40% ABV, 1.5 oz)</option>
+          <option value="cocktail">Cocktail (~15% ABV, 4 oz)</option>
+        </select>
+        <div class="hint" id="drink-hint">Each glass of wine = ~1.0 standard drink (14g alcohol)</div>
+      </div>
+
+      <!-- Weight + unit toggle -->
+      <div class="field">
+        <div class="label-row">
+          <label for="weight">Body weight</label>
+          <div class="unit-toggle">
+            <button id="unit-lbs" class="active">lbs</button>
+            <button id="unit-kg">kg</button>
+          </div>
+        </div>
+        <input type="number" id="weight" min="80" max="400" value="160" placeholder="160">
+      </div>
+
+      <!-- Sex -->
+      <div class="field">
+        <label>Biological sex</label>
+        <div class="sex-toggle">
+          <button id="sex-male" class="active">Male</button>
+          <button id="sex-female">Female</button>
+        </div>
+        <div class="hint">Affects Widmark r-factor (0.68 male / 0.55 female)</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Last drink time -->
+      <div class="field">
+        <label for="last-drink">Time of last drink</label>
+        <input type="time" id="last-drink" value="22:00">
+      </div>
+
+      <!-- Bedtime -->
+      <div class="field">
+        <label for="bedtime">Target bedtime</label>
+        <input type="time" id="bedtime" value="23:30">
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- BAC Hero -->
+      <div class="result-hero" id="result-hero">
+        <div class="result-label">Estimated BAC at bedtime</div>
+        <div class="bac-display">
+          <span class="bac-num" id="bac-num">0.04</span>
+          <span class="bac-unit">g/dL</span>
+        </div>
+        <div class="quality-badge" id="quality-badge">Moderate Impact</div>
+        <div class="bac-sub" id="bac-sub">Your BAC will be elevated at bedtime — expect reduced REM sleep and some fragmentation in the second half of the night.</div>
+      </div>
+
+      <!-- Stat grid -->
+      <div class="stat-grid">
+        <div class="stat-card s-coral">
+          <div class="stat-num" id="stat-rem">-24%</div>
+          <div class="stat-label">REM suppression</div>
+        </div>
+        <div class="stat-card s-amber">
+          <div class="stat-num" id="stat-wake">+3x</div>
+          <div class="stat-label">wake episodes</div>
+        </div>
+        <div class="stat-card s-primary">
+          <div class="stat-num" id="stat-safe">1:45 AM</div>
+          <div class="stat-label">safe sleep time</div>
+        </div>
+      </div>
+
+      <!-- BAC decay timeline -->
+      <div class="chart-card">
+        <h3>BAC decay timeline</h3>
+        <div class="bac-timeline" id="bac-timeline"></div>
+        <div class="timeline-labels">
+          <span id="tl-start"></span>
+          <span id="tl-end"></span>
+        </div>
+      </div>
+
+      <!-- Sleep stage visualization -->
+      <div class="stage-card">
+        <h3>Sleep stage impact tonight</h3>
+        <p class="stage-desc">Comparing a typical night vs. your alcohol-affected night</p>
+        <div class="stage-compare">
+          <div class="stage-row">
+            <div class="stage-row-label">Normal night</div>
+            <div class="stage-bars" id="normal-bars">
+              <div class="sb sb-light" style="width:10%" title="Awake/Light">Light</div>
+              <div class="sb sb-deep" style="width:25%" title="Deep Sleep">Deep</div>
+              <div class="sb sb-rem" style="width:20%" title="REM">REM</div>
+              <div class="sb sb-light" style="width:15%" title="Light Sleep">Light</div>
+              <div class="sb sb-deep" style="width:10%" title="Deep Sleep">Deep</div>
+              <div class="sb sb-rem" style="width:20%" title="REM">REM</div>
+            </div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-row-label">Tonight</div>
+            <div class="stage-bars" id="alcohol-bars"></div>
+          </div>
+        </div>
+        <div class="stage-legend">
+          <span><span class="legend-dot ld-deep"></span>Deep sleep</span>
+          <span><span class="legend-dot ld-rem"></span>REM sleep</span>
+          <span><span class="legend-dot ld-light"></span>Light sleep</span>
+          <span><span class="legend-dot ld-frag"></span>Fragmented</span>
+        </div>
+      </div>
+
+      <!-- Specific impacts -->
+      <div class="impact-card" id="impact-card">
+        <h3>Specific sleep impacts</h3>
+        <div id="impact-items"></div>
+      </div>
+
+      <!-- What if card -->
+      <div class="whatif-card">
+        <div class="whatif-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>What if you wait to sleep?</span>
+        </div>
+        <div class="whatif-body" id="whatif-body">
+          If you delay bedtime to <strong id="safe-sleep-time">1:45 AM</strong>, your BAC will be below 0.02 — the threshold where alcohol has negligible impact on sleep architecture.
+        </div>
+        <div class="whatif-tip" id="whatif-tip"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this calculator</h2>
+      <p>
+        Alcohol has a <strong>biphasic effect on sleep</strong>: it first acts as a sedative (increasing deep sleep and reducing sleep onset time), then transitions into a sleep disruptor as it metabolizes. This rebound activation in the second half of the night is why you often wake at 3–4am after drinking.
+      </p>
+      <p>
+        This calculator uses the <strong>Widmark formula</strong> to estimate blood alcohol concentration:
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">BAC = (drinks × 14g) / (weight<sub>kg</sub> × r) − (0.015 × hours)</div>
+        <div class="formula-desc">r = 0.68 (male) or 0.55 (female) · 14g = one standard drink · 0.015 = hourly elimination rate</div>
+      </div>
+      <p>
+        Sleep stage impacts are modeled from <strong>Ebrahim et al. (2013)</strong>, a meta-analysis of 27 studies examining alcohol's dose-dependent effects on sleep architecture. Low-dose alcohol (&lt;0.05 BAC) causes mild REM suppression; moderate doses (0.05–0.10) significantly fragment the second half of the night; high doses (&gt;0.10) cause severe REM suppression and substantially reduced sleep quality.
+      </p>
+
+      <table class="drink-table">
+        <thead>
+          <tr><th>Drink type</th><th>Serving</th><th>Standard drinks</th><th>Alcohol (g)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Beer (5% ABV)</td><td>12 oz</td><td class="mg">1.0</td><td>14g</td></tr>
+          <tr><td>Wine (12% ABV)</td><td>5 oz</td><td class="mg">1.0</td><td>14g</td></tr>
+          <tr><td>Spirits (40% ABV)</td><td>1.5 oz</td><td class="mg">1.0</td><td>14g</td></tr>
+          <tr><td>Cocktail (~15% ABV)</td><td>4 oz</td><td class="mg">~0.9</td><td>~13g</td></tr>
+        </tbody>
+      </table>
+
+      <div class="citation">
+        Ebrahim, I. O., Shapiro, C. M., Williams, A. J., &amp; Fenwick, P. B. (2013). Alcohol and sleep I: Effects on normal sleep. <em>Alcoholism: Clinical and Experimental Research, 37(4), 539–549.</em>
+      </div>
+      <div class="citation" style="margin-top:0.5rem">
+        Roehrs, T., &amp; Roth, T. (2001). Sleep, sleepiness, and alcohol use. <em>Alcohol Research &amp; Health, 25(2), 101–109.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fff0ed; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .label-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.35rem;
+  }
+  .label-row label { margin-bottom: 0; }
+  .field-val {
+    font-size: 0.92rem; font-weight: 800; color: var(--coral);
+    background: #fff0ed; border-radius: 6px; padding: 0.1rem 0.45rem;
+  }
+  .field input[type="number"], .field input[type="time"], .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input:focus, .field select:focus { border-color: var(--primary); }
+  .field select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+  }
+  .field .hint { font-size: 0.72rem; color: var(--text-soft); margin-top: 0.3rem; line-height: 1.4; }
+  input[type="range"] {
+    width: 100%; height: 6px; -webkit-appearance: none; appearance: none;
+    background: var(--border); border-radius: 3px; outline: none; cursor: pointer;
+    margin-bottom: 0.6rem;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--coral); border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+
+  /* Drink quick-select buttons */
+  .drink-btns {
+    display: flex; gap: 0.3rem; flex-wrap: wrap; margin-top: 0.25rem;
+  }
+  .drink-btns button {
+    width: 32px; height: 32px; border-radius: 7px;
+    border: 1.5px solid var(--border); background: var(--bg);
+    font-size: 0.82rem; font-weight: 600; color: var(--text-mid);
+    cursor: pointer; font-family: inherit; transition: all 0.15s;
+  }
+  .drink-btns button:hover { border-color: var(--coral); color: var(--coral); }
+  .drink-btns button.active {
+    border-color: var(--coral); background: #fff0ed; color: var(--coral);
+  }
+
+  /* Unit & Sex toggles */
+  .unit-toggle, .sex-toggle {
+    display: flex; gap: 0; border-radius: 8px;
+    border: 1.5px solid var(--border); overflow: hidden;
+  }
+  .unit-toggle button, .sex-toggle button {
+    padding: 0.28rem 0.7rem; border: none; background: transparent;
+    font-size: 0.75rem; font-weight: 600; color: var(--text-soft);
+    cursor: pointer; font-family: inherit; transition: all 0.15s;
+  }
+  .unit-toggle button.active, .sex-toggle button.active {
+    background: var(--primary); color: #fff;
+  }
+  .sex-toggle { margin-top: 0.35rem; width: fit-content; }
+
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* BAC hero */
+  .result-hero {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.75rem; text-align: center;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .result-hero.level-good { border-color: var(--mint); background: #ecfdf5; }
+  .result-hero.level-moderate { border-color: var(--amber); background: #fffdf5; }
+  .result-hero.level-poor { border-color: #f97316; background: #fff7ed; }
+  .result-hero.level-severe { border-color: #ef4444; background: #fef2f2; }
+  .result-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 0.5rem;
+  }
+  .bac-display { display: flex; align-items: baseline; gap: 0.25rem; justify-content: center; }
+  .bac-num {
+    font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1; color: var(--text);
+  }
+  .bac-unit { font-size: 1rem; font-weight: 600; color: var(--text-mid); }
+  .quality-badge {
+    display: inline-block; margin-top: 0.6rem; padding: 0.25rem 0.85rem;
+    border-radius: 20px; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.02em; background: var(--amber); color: #fff;
+  }
+  .quality-badge.badge-good { background: var(--mint); }
+  .quality-badge.badge-moderate { background: var(--amber); }
+  .quality-badge.badge-poor { background: #f97316; }
+  .quality-badge.badge-severe { background: #ef4444; }
+  .bac-sub {
+    font-size: 0.85rem; color: var(--text-mid); margin-top: 0.75rem;
+    line-height: 1.55; max-width: 380px; margin-left: auto; margin-right: auto;
+  }
+
+  /* Stat grid */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 1.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+  .stat-card .stat-label { font-size: 0.7rem; color: var(--text-soft); font-weight: 500; }
+  .stat-card.s-coral .stat-num { color: var(--coral); }
+  .stat-card.s-amber .stat-num { color: var(--amber); }
+  .stat-card.s-primary .stat-num { color: var(--primary); }
+
+  /* BAC timeline */
+  .chart-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .chart-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .bac-timeline {
+    display: flex; gap: 3px; height: 72px; align-items: flex-end;
+    overflow: hidden; border-radius: 6px;
+  }
+  .bac-bar {
+    flex: 1; border-radius: 3px 3px 0 0;
+    transition: height 0.4s ease; min-width: 4px;
+    position: relative;
+  }
+  .bac-bar.asleep { opacity: 0.7; }
+  .bac-bar.bac-safe { background: var(--mint); }
+  .bac-bar.bac-low { background: var(--amber); }
+  .bac-bar.bac-moderate { background: #f97316; }
+  .bac-bar.bac-high { background: #ef4444; }
+  .timeline-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.68rem; color: var(--text-soft); font-weight: 500;
+    margin-top: 0.35rem;
+  }
+  .timeline-bedtime-marker {
+    font-size: 0.65rem; color: var(--primary); font-weight: 700;
+    text-align: center; white-space: nowrap;
+  }
+
+  /* Sleep stage visualization */
+  .stage-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .stage-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .stage-desc { font-size: 0.75rem; color: var(--text-soft); margin-bottom: 1rem; }
+  .stage-compare { display: flex; flex-direction: column; gap: 0.75rem; }
+  .stage-row { display: flex; align-items: center; gap: 0.75rem; }
+  .stage-row-label {
+    font-size: 0.72rem; font-weight: 600; color: var(--text-mid);
+    width: 72px; flex-shrink: 0; text-align: right;
+  }
+  .stage-bars {
+    flex: 1; display: flex; height: 32px; border-radius: 6px; overflow: hidden; gap: 1px;
+  }
+  .sb {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; color: rgba(255,255,255,0.85);
+    overflow: hidden; white-space: nowrap; transition: width 0.5s ease;
+    letter-spacing: 0.03em; text-transform: uppercase;
+  }
+  .sb-deep { background: #5b5bd6; }
+  .sb-rem { background: var(--primary); }
+  .sb-light { background: var(--sky); }
+  .sb-frag { background: var(--coral); opacity: 0.85; }
+  .sb-wake { background: #e2e0ea; }
+  .stage-legend {
+    display: flex; gap: 0.85rem; flex-wrap: wrap;
+    margin-top: 0.85rem; font-size: 0.7rem; color: var(--text-soft); font-weight: 500;
+  }
+  .stage-legend span { display: flex; align-items: center; gap: 0.3rem; }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0;
+  }
+  .ld-deep { background: #5b5bd6; }
+  .ld-rem { background: var(--primary); }
+  .ld-light { background: var(--sky); }
+  .ld-frag { background: var(--coral); }
+
+  /* Specific impacts */
+  .impact-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .impact-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .impact-item {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.5;
+    padding: 0.4rem 0; border-bottom: 1px solid var(--border);
+  }
+  .impact-item:last-child { border-bottom: none; }
+  .impact-dot {
+    width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 0.38rem;
+  }
+  .impact-dot.green { background: var(--mint); }
+  .impact-dot.yellow { background: var(--amber); }
+  .impact-dot.red { background: var(--coral); }
+
+  /* What if card */
+  .whatif-card {
+    background: var(--primary-soft); border: 1.5px solid #c9c1ff;
+    border-radius: var(--radius); padding: 1.15rem;
+  }
+  .whatif-header {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.85rem; font-weight: 700; color: #4a38d6; margin-bottom: 0.6rem;
+  }
+  .whatif-body {
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.55;
+  }
+  .whatif-body strong { color: var(--text); }
+  .whatif-tip {
+    font-size: 0.78rem; color: #4a38d6; margin-top: 0.5rem;
+    font-weight: 500; line-height: 1.45;
+  }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.9rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .drink-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .drink-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .drink-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .drink-table tr:last-child td { border-bottom: none; }
+  .drink-table .mg { font-weight: 700; color: var(--text); }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .stat-grid .stat-card:last-child { grid-column: 1 / -1; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .stage-row-label { width: 56px; font-size: 0.68rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  /* ---- DOM refs ---- */
+  var drinksSlider = document.getElementById('drinks');
+  var drinksVal    = document.getElementById('drinks-val');
+  var drinkBtns    = document.querySelectorAll('#drink-btns button');
+  var drinkType    = document.getElementById('drink-type');
+  var drinkHint    = document.getElementById('drink-hint');
+  var weightInput  = document.getElementById('weight');
+  var unitLbs      = document.getElementById('unit-lbs');
+  var unitKg       = document.getElementById('unit-kg');
+  var sexMale      = document.getElementById('sex-male');
+  var sexFemale    = document.getElementById('sex-female');
+  var lastDrinkIn  = document.getElementById('last-drink');
+  var bedtimeIn    = document.getElementById('bedtime');
+
+  var bacNum       = document.getElementById('bac-num');
+  var resultHero   = document.getElementById('result-hero');
+  var qualityBadge = document.getElementById('quality-badge');
+  var bacSub       = document.getElementById('bac-sub');
+  var statRem      = document.getElementById('stat-rem');
+  var statWake     = document.getElementById('stat-wake');
+  var statSafe     = document.getElementById('stat-safe');
+  var bacTimeline  = document.getElementById('bac-timeline');
+  var tlStart      = document.getElementById('tl-start');
+  var tlEnd        = document.getElementById('tl-end');
+  var alcoholBars  = document.getElementById('alcohol-bars');
+  var impactItems  = document.getElementById('impact-items');
+  var safeSleepTime= document.getElementById('safe-sleep-time');
+  var whatifTip    = document.getElementById('whatif-tip');
+
+  /* ---- State ---- */
+  var state = {
+    drinks: 2,
+    drinkType: 'wine',
+    weightLbs: 160,
+    unitIsLbs: true,
+    isMale: true,
+    lastDrinkHour: 22,
+    bedtimeHour: 23.5,
+  };
+
+  /* ---- Helpers ---- */
+  function parseTime(val) {
+    var parts = val.split(':').map(Number);
+    return parts[0] + parts[1] / 60;
+  }
+
+  function formatHour(h) {
+    h = ((h % 24) + 24) % 24;
+    var ampm = h >= 12 ? 'AM' : 'PM';
+    var hh = Math.floor(h) % 12;
+    if (hh === 0) hh = 12;
+    var mm = Math.round((h - Math.floor(h)) * 60);
+    return hh + ':' + (mm < 10 ? '0' : '') + mm + ' ' + ampm;
+  }
+
+  /* Standard drinks multiplier per drink type */
+  var DRINK_STD = { beer: 1.0, wine: 1.0, spirits: 1.0, cocktail: 0.9 };
+  var DRINK_HINTS = {
+    beer:     'Each 12 oz beer (5% ABV) = 1.0 standard drink (14g alcohol)',
+    wine:     'Each glass of wine (5 oz, 12% ABV) = 1.0 standard drink (14g alcohol)',
+    spirits:  'Each 1.5 oz shot (40% ABV) = 1.0 standard drink (14g alcohol)',
+    cocktail: 'Each 4 oz cocktail (~15% ABV) = ~0.9 standard drinks (13g alcohol)',
+  };
+
+  /* Widmark BAC formula */
+  function calcBAC(drinks, drinkType, weightKg, isMale, hoursElapsed) {
+    var r = isMale ? 0.68 : 0.55;
+    var stdDrinks = drinks * DRINK_STD[drinkType];
+    var alcoholGrams = stdDrinks * 14;
+    var bac = (alcoholGrams / (weightKg * r)) - (0.015 * hoursElapsed);
+    return Math.max(0, bac);
+  }
+
+  /* Hours until BAC drops below threshold (Widmark linear clearance) */
+  function hoursToReach(drinks, drinkType, weightKg, isMale, startBac, threshold) {
+    /* BAC = rawBAC - 0.015 * t  =>  t = (rawBAC - threshold) / 0.015 */
+    var r = isMale ? 0.68 : 0.55;
+    var stdDrinks = drinks * DRINK_STD[drinkType];
+    var alcoholGrams = stdDrinks * 14;
+    var rawBac = alcoholGrams / (weightKg * r);
+    if (rawBac <= threshold) return 0;
+    return (rawBac - threshold) / 0.015;
+  }
+
+  /* ---- Main calculate ---- */
+  function calculate() {
+    var drinks     = state.drinks;
+    var dt         = state.drinkType;
+    var weightKg   = state.unitIsLbs ? state.weightLbs / 2.2046 : state.weightLbs;
+    var isMale     = state.isMale;
+    var lastH      = state.lastDrinkHour;
+    var bedH       = state.bedtimeHour;
+
+    /* Clamp bedtime past last-drink (handle midnight crossings) */
+    if (bedH <= lastH) bedH += 24;
+    var hoursAtBed = bedH - lastH;
+
+    var bac = calcBAC(drinks, dt, weightKg, isMale, hoursAtBed);
+
+    /* Safe sleep time = when BAC reaches 0.02 */
+    var hrsToSafe = hoursToReach(drinks, dt, weightKg, isMale, 0, 0.02);
+    var safeHour  = lastH + hrsToSafe;
+
+    /* BAC tier */
+    var tier;
+    if (bac < 0.02)       tier = 'good';
+    else if (bac < 0.05)  tier = 'moderate';
+    else if (bac < 0.10)  tier = 'poor';
+    else                  tier = 'severe';
+
+    /* REM suppression % from Ebrahim et al. dose-response */
+    var remPct, wakeFactor, apneaRisk;
+    if (bac < 0.02) {
+      remPct = 0; wakeFactor = 1.0; apneaRisk = 'minimal';
+    } else if (bac < 0.05) {
+      remPct = Math.round(bac / 0.05 * 12); wakeFactor = 1.5; apneaRisk = 'mild';
+    } else if (bac < 0.10) {
+      remPct = Math.round(12 + (bac - 0.05) / 0.05 * 20); wakeFactor = 2.5; apneaRisk = 'moderate';
+    } else {
+      remPct = Math.min(55, Math.round(32 + (bac - 0.10) / 0.05 * 8)); wakeFactor = 4.0; apneaRisk = 'significant';
+    }
+
+    /* ---- Update hero ---- */
+    bacNum.textContent = bac.toFixed(3);
+    resultHero.className = 'result-hero level-' + tier;
+
+    var labels = { good: 'Minimal Impact', moderate: 'Mild Impact', poor: 'Moderate Impact', severe: 'Severe Impact' };
+    var badgeClass = { good: 'badge-good', moderate: 'badge-moderate', poor: 'badge-poor', severe: 'badge-severe' };
+    qualityBadge.textContent = labels[tier];
+    qualityBadge.className = 'quality-badge ' + badgeClass[tier];
+
+    var subs = {
+      good:     'Your BAC at bedtime is very low. Sleep architecture will be largely normal — any effect is minimal.',
+      moderate: 'Some REM suppression is expected, mostly in the first sleep cycle. The second half of the night may be slightly lighter.',
+      poor:     'Your BAC is elevated at bedtime. Expect reduced REM, increased deep sleep early on, and fragmentation after 3am.',
+      severe:   'High BAC at bedtime will significantly disrupt sleep architecture — severely reduced REM, fragmented second half, and waking episodes.',
+    };
+    bacSub.textContent = subs[tier];
+
+    /* ---- Stat grid ---- */
+    statRem.textContent  = remPct > 0 ? '-' + remPct + '%' : 'None';
+    var wakeLabel = wakeFactor === 1.0 ? 'Normal' : '+' + Math.round((wakeFactor - 1) * 100) + '%';
+    statWake.textContent = wakeLabel;
+    statSafe.textContent = formatHour(safeHour);
+
+    /* ---- BAC timeline bars ---- */
+    var startHour = lastH;
+    var endHour   = Math.max(bedH + 2, lastH + 8);
+    var steps     = Math.ceil((endHour - startHour) * 4); /* 15-min intervals */
+    var bars      = [];
+    var maxBac    = calcBAC(drinks, dt, weightKg, isMale, 0);
+    maxBac        = Math.max(maxBac, 0.01);
+
+    for (var i = 0; i < steps; i++) {
+      var t = i / 4;
+      var b = calcBAC(drinks, dt, weightKg, isMale, t);
+      var heightPct = Math.round((b / maxBac) * 100);
+      var col;
+      if (b < 0.02)      col = 'bac-safe';
+      else if (b < 0.05) col = 'bac-low';
+      else if (b < 0.10) col = 'bac-moderate';
+      else               col = 'bac-high';
+      var isAsleep = (startHour + t >= bedH) ? ' asleep' : '';
+      bars.push('<div class="bac-bar ' + col + isAsleep + '" style="height:' + Math.max(4, heightPct) + '%" title="' + formatHour(startHour + t) + ': BAC ' + b.toFixed(3) + '"></div>');
+    }
+    bacTimeline.innerHTML = bars.join('');
+    tlStart.textContent   = formatHour(startHour);
+    tlEnd.textContent     = formatHour(endHour);
+
+    /* ---- Sleep stage bars ---- */
+    renderStageBars(tier, remPct);
+
+    /* ---- Safe sleep ---- */
+    safeSleepTime.textContent = formatHour(safeHour);
+    var hoursAfterBed = safeHour - bedH;
+    if (hoursAfterBed <= 0) {
+      whatifTip.textContent = 'You\'re already at a safe BAC by bedtime.';
+    } else if (hoursAfterBed < 2) {
+      whatifTip.textContent = 'Waiting just ' + Math.round(hoursAfterBed * 60) + ' minutes more gives your body significantly more time to process the alcohol.';
+    } else {
+      whatifTip.textContent = 'Waiting ' + hoursAfterBed.toFixed(1) + ' hours after your planned bedtime eliminates most alcohol disruption.';
+    }
+
+    /* ---- Impact items ---- */
+    renderImpacts(bac, tier, remPct, wakeFactor, apneaRisk, drinks, hoursAtBed);
+  }
+
+  function renderStageBars(tier, remPct) {
+    /* Alcohol effect: more deep early, reduced REM, fragmented 2nd half */
+    var configs = {
+      good: [
+        { cls: 'sb-light', w: 10, label: 'Light' },
+        { cls: 'sb-deep',  w: 23, label: 'Deep' },
+        { cls: 'sb-rem',   w: 19, label: 'REM' },
+        { cls: 'sb-light', w: 14, label: 'Light' },
+        { cls: 'sb-deep',  w: 10, label: 'Deep' },
+        { cls: 'sb-rem',   w: 19, label: 'REM' },
+        { cls: 'sb-light', w: 5,  label: '' },
+      ],
+      moderate: [
+        { cls: 'sb-light', w: 8,  label: '' },
+        { cls: 'sb-deep',  w: 30, label: 'Deep' },
+        { cls: 'sb-rem',   w: 12, label: 'REM' },
+        { cls: 'sb-light', w: 12, label: 'Light' },
+        { cls: 'sb-frag',  w: 10, label: 'Frag' },
+        { cls: 'sb-rem',   w: 15, label: 'REM' },
+        { cls: 'sb-frag',  w: 8,  label: '' },
+        { cls: 'sb-light', w: 5,  label: '' },
+      ],
+      poor: [
+        { cls: 'sb-deep',  w: 36, label: 'Deep' },
+        { cls: 'sb-rem',   w: 8,  label: 'REM' },
+        { cls: 'sb-frag',  w: 14, label: 'Frag' },
+        { cls: 'sb-light', w: 8,  label: 'Light' },
+        { cls: 'sb-frag',  w: 14, label: 'Frag' },
+        { cls: 'sb-rem',   w: 10, label: 'REM' },
+        { cls: 'sb-frag',  w: 10, label: '' },
+      ],
+      severe: [
+        { cls: 'sb-deep',  w: 40, label: 'Deep' },
+        { cls: 'sb-frag',  w: 20, label: 'Frag' },
+        { cls: 'sb-light', w: 8,  label: '' },
+        { cls: 'sb-frag',  w: 18, label: 'Frag' },
+        { cls: 'sb-rem',   w: 6,  label: 'REM' },
+        { cls: 'sb-frag',  w: 8,  label: '' },
+      ],
+    };
+
+    var segments = configs[tier];
+    alcoholBars.innerHTML = segments.map(function (s) {
+      return '<div class="sb ' + s.cls + '" style="width:' + s.w + '%">' + s.label + '</div>';
+    }).join('');
+  }
+
+  function renderImpacts(bac, tier, remPct, wakeFactor, apneaRisk, drinks, hoursAtBed) {
+    var items = [];
+
+    if (tier === 'good') {
+      items.push({ c: 'green', t: 'BAC is very low at bedtime — sleep architecture largely unaffected.' });
+      items.push({ c: 'green', t: 'REM suppression is negligible at this dose and timing.' });
+      if (drinks > 1) {
+        items.push({ c: 'yellow', t: 'Light first-half deep sleep increase is possible but minor.' });
+      }
+    } else {
+      if (remPct > 0) {
+        items.push({ c: 'red', t: 'REM sleep suppressed by ~' + remPct + '% — expect less vivid dreaming and reduced memory consolidation overnight.' });
+      }
+      if (tier === 'moderate' || tier === 'poor') {
+        items.push({ c: 'yellow', t: 'Deep slow-wave sleep increased in the first 3 hours — this is the sedative phase.' });
+        items.push({ c: 'red', t: 'Second half of the night (after ~3am): sleep becomes fragmented and lighter as alcohol clears.' });
+      }
+      if (tier === 'severe') {
+        items.push({ c: 'red', t: 'Severe REM suppression throughout the night — REM rebound in morning may cause vivid, anxious dreams.' });
+        items.push({ c: 'red', t: 'Expect multiple full awakenings in the second half of the night as the nervous system rebounds.' });
+        items.push({ c: 'red', t: 'Total sleep quality significantly reduced — you may sleep 6-8 hours but feel unrested.' });
+      }
+      items.push({ c: 'yellow', t: 'Wake episode frequency ~' + Math.round(wakeFactor * 100) + '% of baseline — ' + (wakeFactor > 2 ? 'significant' : 'mild') + ' increase in nighttime awakenings.' });
+    }
+
+    /* Snoring / apnea */
+    if (apneaRisk !== 'minimal') {
+      items.push({ c: apneaRisk === 'significant' ? 'red' : 'yellow', t: 'Throat muscle relaxation increases snoring and sleep apnea risk (' + apneaRisk + ').' });
+    }
+
+    /* Dehydration */
+    if (drinks >= 2) {
+      items.push({ c: 'yellow', t: 'Alcohol is a diuretic — drink ' + Math.ceil(drinks * 1.5) + '+ oz of water before bed to reduce sleep disruption from dehydration.' });
+    }
+
+    /* Temperature */
+    if (bac > 0.03) {
+      items.push({ c: 'yellow', t: 'Body temperature regulation is disrupted — you may feel hot and sweaty in the second half of the night.' });
+    }
+
+    items.push({ c: 'green', t: 'Roehrs & Roth (2001): The sedative effect is real, but tolerance builds within a few nights of use.' });
+
+    impactItems.innerHTML = items.map(function (i) {
+      return '<div class="impact-item"><div class="impact-dot ' + i.c + '"></div><span>' + i.t + '</span></div>';
+    }).join('');
+  }
+
+  /* ---- Event listeners ---- */
+  drinksSlider.addEventListener('input', function () {
+    state.drinks = parseInt(this.value);
+    drinksVal.textContent = state.drinks;
+    drinkBtns.forEach(function (b) {
+      b.classList.toggle('active', parseInt(b.dataset.v) === state.drinks);
+    });
+    calculate();
+  });
+
+  drinkBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.drinks = parseInt(this.dataset.v);
+      drinksVal.textContent = state.drinks;
+      drinksSlider.value = state.drinks;
+      drinkBtns.forEach(function (btn) {
+        btn.classList.toggle('active', parseInt(btn.dataset.v) === state.drinks);
+      });
+      calculate();
+    });
+  });
+
+  drinkType.addEventListener('change', function () {
+    state.drinkType = this.value;
+    drinkHint.textContent = DRINK_HINTS[state.drinkType];
+    calculate();
+  });
+
+  weightInput.addEventListener('input', function () {
+    state.weightLbs = parseFloat(this.value) || 160;
+    calculate();
+  });
+
+  unitLbs.addEventListener('click', function () {
+    if (state.unitIsLbs) return;
+    var kg = parseFloat(weightInput.value) || 70;
+    state.weightLbs = Math.round(kg * 2.2046);
+    weightInput.value = state.weightLbs;
+    weightInput.min = 80; weightInput.max = 400; weightInput.placeholder = '160';
+    state.unitIsLbs = true;
+    unitLbs.classList.add('active'); unitKg.classList.remove('active');
+    calculate();
+  });
+
+  unitKg.addEventListener('click', function () {
+    if (!state.unitIsLbs) return;
+    var lbs = parseFloat(weightInput.value) || 160;
+    var kg = Math.round(lbs / 2.2046);
+    weightInput.value = kg;
+    weightInput.min = 36; weightInput.max = 180; weightInput.placeholder = '73';
+    state.weightLbs = lbs;
+    state.unitIsLbs = false;
+    unitKg.classList.add('active'); unitLbs.classList.remove('active');
+    calculate();
+  });
+
+  sexMale.addEventListener('click', function () {
+    state.isMale = true;
+    sexMale.classList.add('active'); sexFemale.classList.remove('active');
+    calculate();
+  });
+
+  sexFemale.addEventListener('click', function () {
+    state.isMale = false;
+    sexFemale.classList.add('active'); sexMale.classList.remove('active');
+    calculate();
+  });
+
+  lastDrinkIn.addEventListener('input', function () {
+    state.lastDrinkHour = parseTime(this.value);
+    calculate();
+  });
+
+  bedtimeIn.addEventListener('input', function () {
+    state.bedtimeHour = parseTime(this.value);
+    calculate();
+  });
+
+  /* ---- Initial parse ---- */
+  state.lastDrinkHour = parseTime(lastDrinkIn.value);
+  state.bedtimeHour   = parseTime(bedtimeIn.value);
+
+  calculate();
+})();
+</script>

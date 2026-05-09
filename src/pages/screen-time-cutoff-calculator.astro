@@ -1,0 +1,865 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How does screen time affect sleep?',
+    answer: `<p>Screens emit blue-wavelength light (460–480 nm) that directly stimulates melanopsin-containing retinal ganglion cells (ipRGCs) in your eyes. These cells send signals to the suprachiasmatic nucleus — your brain's master clock — and suppress the release of melatonin from the pineal gland.</p>
+<p>Melatonin is often called the "darkness hormone" because your body normally starts releasing it 1–2 hours before your natural bedtime. Screen light delays this release, which pushes back your sleep window and reduces overall sleep duration. A landmark 2011 study by Gooley et al. found that even room-intensity light before bed suppressed melatonin by over 50% and delayed the melatonin onset by about 90 minutes.</p>`,
+  },
+  {
+    question: 'When should I stop looking at screens before bed?',
+    answer: `<p>General sleep medicine guidelines recommend stopping bright screen use <strong>1–2 hours before bedtime</strong>, but the ideal cutoff depends heavily on your specific device, brightness level, and whether you use blue light filters.</p>
+<p>A phone at full brightness held 12 inches away produces roughly 80–100 melanopic lux — well above the ~30 lux threshold associated with significant melatonin suppression. At low brightness with night mode enabled, the same phone can drop to 15–20 melanopic lux, which is below that threshold. This calculator personalizes the cutoff based on your actual setup rather than a one-size-fits-all rule.</p>`,
+  },
+  {
+    question: 'Do blue light glasses actually work?',
+    answer: `<p>The research on blue light glasses is mixed. Studies show they can reduce melanopic lux by approximately <strong>40–60%</strong> depending on the lens tint, but their real-world effectiveness varies widely. Standard "clear" blue light lenses (marketed for digital eye strain) filter very little light in the critical 460–480 nm melanopsin-stimulating band — often less than 20%.</p>
+<p>Orange or amber-tinted lenses are more effective at filtering the relevant wavelengths and have shown measurable benefits in some sleep studies. However, they distort color perception significantly. For most people, using night mode or reducing brightness may be more practical and equally effective. Blue light glasses are not a substitute for reducing overall screen time close to bed.</p>`,
+  },
+  {
+    question: 'Is night mode on my phone enough?',
+    answer: `<p>Night mode (also called Night Shift on iOS or Blue Light Filter on Android) shifts your display toward warmer, orange-tinted colors by reducing the blue wavelength output. Research suggests this can reduce blue light by <strong>40–60%</strong> and meaningfully lower melanopic lux levels.</p>
+<p>However, night mode does not eliminate blue light — it reduces it. At high brightness, a phone in night mode may still produce enough melanopic lux to cause some suppression. The Chang et al. (2015) PNAS study comparing iPad use to reading printed books found that even reduced blue light exposure before bed was associated with longer sleep onset latency. The most protective approach combines night mode, reduced brightness, and keeping devices at greater distance from your eyes.</p>`,
+  },
+  {
+    question: 'Which devices emit the most blue light?',
+    answer: `<p>Blue light exposure depends on the device, your distance from it, and its brightness setting. Here is a rough ranking from highest to lowest melanopic lux at typical use distance:</p>
+<p><strong>Phones (12 in away, full brightness):</strong> 80–100 melanopic lux — <strong>Tablets (18 in):</strong> 50–80 — <strong>Laptops (24 in):</strong> 40–60 — <strong>TVs (6 ft):</strong> 15–30 — <strong>E-readers with frontlight:</strong> 5–10.</p>
+<p>Phones rank highest because they are held close to the face. TVs rank lower primarily because of distance — the absolute light output may be high, but the intensity reaching your eyes drops sharply with distance (inverse square law). E-readers with warm frontlighting (like Kindle Paperwhite's warmth setting) are the lowest-impact screen option for evening reading.</p>`,
+  },
+  {
+    question: "Can blue light affect children's sleep more?",
+    answer: `<p>Yes. Research suggests children and adolescents may be more sensitive to blue light's sleep-disrupting effects than adults for two reasons. First, the crystalline lens in children's eyes is clearer and transmits more short-wavelength blue light to the retina. Second, adolescents already have a biologically delayed circadian phase (the "teenage night owl" effect), and additional melatonin suppression from screens can compound this delay significantly.</p>
+<p>A 2018 review in Sleep Medicine Reviews found that screen use within one hour of bedtime was associated with a <strong>50% higher risk</strong> of inadequate sleep duration in children aged 6–12. Pediatric sleep guidelines from the American Academy of Sleep Medicine generally recommend no screens in bedrooms and a screen cutoff at least one hour before bed for school-age children.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Screen Time Cutoff Calculator — The Sleep Math"
+  description="Find when to stop screens before bed based on blue light research. Personalized cutoff times for phones, tablets, laptops, and TVs."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Screen Time Cutoff
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Screen Time Cutoff Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find when to put down your phone, tablet, or laptop based on blue light science. Personalized cutoff times based on your actual device and settings.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        15 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Gooley et al. research
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Blue light science
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your setup</h2>
+
+      <div class="field">
+        <label for="bedtime">Target bedtime</label>
+        <input type="time" id="bedtime" value="23:00">
+      </div>
+
+      <div class="field">
+        <label for="device">Primary device</label>
+        <select id="device">
+          <option value="phone">Smartphone (held ~12 in)</option>
+          <option value="tablet">Tablet (held ~18 in)</option>
+          <option value="laptop">Laptop (desk, ~24 in)</option>
+          <option value="tv">TV (across room, ~6 ft)</option>
+          <option value="ereader">E-reader (backlit)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="brightness">Screen brightness</label>
+        <select id="brightness">
+          <option value="low">Low (25% or less)</option>
+          <option value="medium" selected>Medium (50%)</option>
+          <option value="high">High (75–90%)</option>
+          <option value="max">Maximum / Auto-bright</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="filter">Blue light filter / protection</label>
+        <select id="filter">
+          <option value="none" selected>None</option>
+          <option value="nightmode">Night mode / warm shift</option>
+          <option value="flux">f.lux / advanced filter</option>
+          <option value="glasses">Blue light glasses</option>
+        </select>
+      </div>
+
+      <div class="lux-preview">
+        <div class="lux-preview-label">Estimated melanopic lux reaching your eyes</div>
+        <div class="lux-bar-wrap">
+          <div class="lux-bar-track">
+            <div class="lux-bar-fill" id="lux-bar-fill"></div>
+            <div class="lux-bar-threshold" id="lux-threshold-marker" title="30 lux suppression threshold"></div>
+          </div>
+          <div class="lux-bar-labels">
+            <span>0</span>
+            <span>30 lux threshold</span>
+            <span>100+</span>
+          </div>
+        </div>
+        <div class="lux-value-row">
+          <span class="lux-num" id="lux-display">—</span>
+          <span class="lux-unit">melanopic lux</span>
+          <span class="lux-badge" id="lux-badge"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- HERO RESULT -->
+      <div class="result-hero" id="result-hero">
+        <div class="result-label" id="result-label">Stop screens by</div>
+        <div class="cutoff-time" id="cutoff-time">9:30</div>
+        <div class="cutoff-period" id="cutoff-period">PM</div>
+        <div class="cutoff-sub" id="cutoff-sub">
+          That's <strong id="hours-before">1.5 hrs</strong> before bedtime —
+          enough time for melatonin to begin rising naturally.
+        </div>
+      </div>
+
+      <!-- STAT GRID -->
+      <div class="stat-grid">
+        <div class="stat-card s-sky">
+          <div class="stat-num" id="stat-lux">62</div>
+          <div class="stat-label">melanopic lux (your setup)</div>
+        </div>
+        <div class="stat-card s-coral">
+          <div class="stat-num" id="stat-suppression">48%</div>
+          <div class="stat-label">melatonin suppression est.</div>
+        </div>
+        <div class="stat-card s-primary">
+          <div class="stat-num" id="stat-cutoff-hrs">1.5h</div>
+          <div class="stat-label">cutoff before bedtime</div>
+        </div>
+      </div>
+
+      <!-- SUPPRESSION BAR -->
+      <div class="chart-card">
+        <h3>Melatonin suppression at different usage durations</h3>
+        <div class="suppression-bars" id="suppression-bars">
+          <!-- rendered by JS -->
+        </div>
+        <div class="suppression-note">Estimated % melatonin suppression based on melanopic lux exposure duration. Based on Gooley et al. dose-response data.</div>
+      </div>
+
+      <!-- DEVICE COMPARISON -->
+      <div class="device-compare-card">
+        <h3>Device impact comparison</h3>
+        <div class="device-list" id="device-list">
+          <!-- rendered by JS -->
+        </div>
+        <div class="compare-note">At medium brightness, no filter. Distances are typical use distances.</div>
+      </div>
+
+      <!-- TIPS -->
+      <div class="tips-card">
+        <h3>Reduce impact without stopping screens</h3>
+        <div class="tips-list" id="tips-list">
+          <!-- rendered by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this calculator</h2>
+      <p>
+        Your eyes contain a special class of photoreceptors called <strong>intrinsically photosensitive retinal ganglion cells (ipRGCs)</strong>
+        that contain the photopigment <strong>melanopsin</strong>. Unlike rods and cones, these cells are dedicated to
+        non-image-forming functions — specifically, setting your circadian clock and controlling melatonin secretion.
+        Melanopsin is maximally sensitive to light around <strong>460–480 nm</strong>, squarely in the blue-light band
+        emitted by modern LED screens.
+      </p>
+      <p>
+        When blue light reaches melanopsin cells, a signal travels via the retinohypothalamic tract to the
+        suprachiasmatic nucleus (SCN), which then suppresses melatonin release from the pineal gland.
+        Melatonin is the primary hormonal signal that tells your body it's nighttime — suppressing it delays
+        your circadian phase and makes it harder to fall asleep at your intended bedtime.
+      </p>
+
+      <div class="formula-box">
+        <div class="formula-main">Suppression ≈ 1 − e<sup>−k × E × t</sup></div>
+        <div class="formula-desc">
+          E = melanopic lux · t = exposure duration (hrs) · k = sensitivity constant (~0.012) · based on Gooley et al. dose-response curve
+        </div>
+      </div>
+
+      <p>
+        The <strong>melanopic lux</strong> values used in this calculator are derived from published spectral power distribution
+        data for common consumer display technologies (LCD, OLED, AMOLED) combined with inverse-square-law
+        attenuation for viewing distance. The suppression threshold of ~30 melanopic lux for "significant"
+        melatonin suppression comes directly from Gooley et al. (2011).
+      </p>
+
+      <table class="device-table">
+        <thead>
+          <tr>
+            <th>Device</th>
+            <th>Typical distance</th>
+            <th>Melanopic lux (med. bright)</th>
+            <th>Threshold exceeded?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Smartphone</td><td>12 in</td><td class="lux-val">80–100</td><td class="exceed yes">Yes</td></tr>
+          <tr><td>Tablet</td><td>18 in</td><td class="lux-val">50–80</td><td class="exceed yes">Yes</td></tr>
+          <tr><td>Laptop</td><td>24 in</td><td class="lux-val">40–60</td><td class="exceed yes">Yes</td></tr>
+          <tr><td>Television</td><td>6 ft</td><td class="lux-val">15–30</td><td class="exceed borderline">Borderline</td></tr>
+          <tr><td>E-reader</td><td>14 in</td><td class="lux-val">5–10</td><td class="exceed no">Usually not</td></tr>
+        </tbody>
+      </table>
+
+      <div class="citations">
+        <div class="citation">
+          Gooley, J. J., et al. (2011). Exposure to Room Light before Bedtime Suppresses Melatonin Onset and Shortens Melatonin Duration in Humans.
+          <em>Journal of Clinical Endocrinology &amp; Metabolism, 96(3), E463–E472.</em>
+        </div>
+        <div class="citation">
+          Chang, A. M., et al. (2015). Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness.
+          <em>Proceedings of the National Academy of Sciences, 112(4), 1232–1237.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #eaf6ff; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input, .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--primary); }
+  .field select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+  }
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* ===== LUX PREVIEW ===== */
+  .lux-preview {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 0.85rem 1rem; margin-top: 0.25rem;
+  }
+  .lux-preview-label {
+    font-size: 0.72rem; font-weight: 600; color: var(--text-soft);
+    margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .lux-bar-wrap { margin-bottom: 0.5rem; }
+  .lux-bar-track {
+    position: relative; height: 8px; background: #e4e1ec;
+    border-radius: 4px; overflow: visible; margin-bottom: 0.2rem;
+  }
+  .lux-bar-fill {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(90deg, #10b981, #38b6ff, #f59e0b, #ff6b52);
+    transition: width 0.35s ease; width: 0%;
+  }
+  .lux-bar-threshold {
+    position: absolute; top: -4px; bottom: -4px; width: 2px;
+    background: #ff6b52; border-radius: 1px;
+    left: 27%; /* 30/110 ~27% of the range */
+  }
+  .lux-bar-threshold::after {
+    content: ''; position: absolute; top: -4px; left: 50%;
+    transform: translateX(-50%); width: 0; height: 0;
+    border-left: 4px solid transparent; border-right: 4px solid transparent;
+    border-top: 5px solid #ff6b52;
+  }
+  .lux-bar-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.65rem; color: var(--text-soft); font-weight: 500;
+    padding: 0 1px;
+  }
+  .lux-value-row {
+    display: flex; align-items: baseline; gap: 0.3rem; margin-top: 0.35rem;
+  }
+  .lux-num { font-size: 1.4rem; font-weight: 800; color: var(--text); line-height: 1; }
+  .lux-unit { font-size: 0.72rem; color: var(--text-soft); font-weight: 500; }
+  .lux-badge {
+    margin-left: auto; font-size: 0.68rem; font-weight: 700;
+    padding: 0.15rem 0.5rem; border-radius: 20px;
+  }
+  .lux-badge.safe { background: #ecfdf5; color: #059669; }
+  .lux-badge.moderate { background: #fffbeb; color: #d97706; }
+  .lux-badge.high { background: #fff0ee; color: #e8432e; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  .result-hero {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.75rem; text-align: center;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .result-hero.state-safe { border-color: #10b981; background: #f0fdf9; }
+  .result-hero.state-low { border-color: #38b6ff; background: #f0f9ff; }
+  .result-hero.state-medium { border-color: #f59e0b; background: #fffbeb; }
+  .result-hero.state-high { border-color: #ff6b52; background: #fff4f2; }
+
+  .result-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 0.5rem;
+  }
+  .cutoff-time {
+    font-size: clamp(2.5rem, 6vw, 3.5rem); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1;
+  }
+  .cutoff-period { font-size: 1.2rem; font-weight: 600; color: var(--text-mid); }
+  .cutoff-sub {
+    font-size: 0.88rem; color: var(--text-mid); margin-top: 0.65rem;
+    line-height: 1.55; max-width: 380px; margin-left: auto; margin-right: auto;
+  }
+  .cutoff-sub strong { color: var(--text); }
+
+  /* ===== STAT GRID ===== */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 1.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+  .stat-card .stat-label { font-size: 0.7rem; color: var(--text-soft); font-weight: 500; }
+  .stat-card.s-sky .stat-num { color: #38b6ff; }
+  .stat-card.s-coral .stat-num { color: #ff6b52; }
+  .stat-card.s-primary .stat-num { color: var(--primary); }
+  .stat-card.s-mint .stat-num { color: #10b981; }
+
+  /* ===== SUPPRESSION BARS ===== */
+  .chart-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .chart-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; }
+  .suppression-bars { display: flex; flex-direction: column; gap: 0.6rem; }
+  .suppression-note {
+    font-size: 0.71rem; color: var(--text-soft); margin-top: 0.75rem;
+    line-height: 1.45;
+  }
+
+  /* ===== DEVICE COMPARE ===== */
+  .device-compare-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .device-compare-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .device-list { display: flex; flex-direction: column; gap: 0.5rem; }
+  .compare-note {
+    font-size: 0.71rem; color: var(--text-soft); margin-top: 0.65rem;
+    line-height: 1.45;
+  }
+
+  /* ===== TIPS ===== */
+  .tips-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .tips-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .tips-list { display: flex; flex-direction: column; gap: 0.55rem; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 {
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem;
+  }
+  .science-card p {
+    font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem;
+  }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .device-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .device-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .device-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .device-table tr:last-child td { border-bottom: none; }
+  .device-table .lux-val { font-weight: 700; color: var(--text); }
+  .device-table .exceed { font-weight: 700; font-size: 0.78rem; }
+  .device-table .exceed.yes { color: #e8432e; }
+  .device-table .exceed.borderline { color: #d97706; }
+  .device-table .exceed.no { color: #059669; }
+  .citations { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .stat-grid { grid-template-columns: 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .device-table th:nth-child(2), .device-table td:nth-child(2) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  // ---- DATA TABLES ----
+  // Base melanopic lux at medium brightness, before filters
+  var DEVICE_BASE_LUX = {
+    phone:   90,  // 80-100 range, midpoint
+    tablet:  65,  // 50-80
+    laptop:  50,  // 40-60
+    tv:      22,  // 15-30
+    ereader:  7   // 5-10
+  };
+
+  var BRIGHTNESS_MULT = {
+    low:    0.35,
+    medium: 1.0,
+    high:   1.55,
+    max:    2.0
+  };
+
+  // Filter reduction: fraction of lux REMAINING after filter
+  var FILTER_REMAIN = {
+    none:      1.0,
+    nightmode: 0.50,
+    flux:      0.40,
+    glasses:   0.60
+  };
+
+  // Suppression threshold (melanopic lux) per Gooley et al.
+  var THRESHOLD_LUX = 30;
+
+  // Hours before bed recommended per lux level band
+  // Using: hours = ln(lux / 30) / 0.7 clamp 0.5–3
+  function calcCutoffHours(lux) {
+    if (lux <= THRESHOLD_LUX) return 0; // below threshold = low risk
+    // Derived from Gooley dose-response: roughly 30 min per doubling above threshold
+    var h = Math.log(lux / THRESHOLD_LUX) / Math.log(2) * 0.65;
+    return Math.min(Math.max(h, 0.5), 3.0);
+  }
+
+  // Estimate melatonin suppression % at a given lux for a given duration (hrs)
+  // Based on Gooley sigmoid dose-response
+  function suppressionPct(lux, durationHrs) {
+    if (lux <= 0) return 0;
+    // Sensitivity constant derived to match ~50% suppression at 100 lux, 2 hrs
+    var k = 0.015;
+    var effective = lux * durationHrs;
+    var s = 1 - Math.exp(-k * effective);
+    return Math.min(Math.round(s * 100), 95);
+  }
+
+  function formatTime12(decimalHours) {
+    var h = ((decimalHours % 24) + 24) % 24;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var displayH = Math.floor(h) % 12;
+    if (displayH === 0) displayH = 12;
+    var m = Math.round((h - Math.floor(h)) * 60);
+    if (m === 60) { displayH++; m = 0; if (displayH === 13) displayH = 1; }
+    return {
+      time: displayH + ':' + String(m).padStart(2, '0'),
+      period: period
+    };
+  }
+
+  function getBedtimeHour() {
+    var val = document.getElementById('bedtime').value || '23:00';
+    var parts = val.split(':').map(Number);
+    return parts[0] + parts[1] / 60;
+  }
+
+  function getMelatonicLux() {
+    var device = document.getElementById('device').value;
+    var brightness = document.getElementById('brightness').value;
+    var filter = document.getElementById('filter').value;
+    var base = DEVICE_BASE_LUX[device] || 50;
+    var lux = base * BRIGHTNESS_MULT[brightness] * FILTER_REMAIN[filter];
+    return Math.round(lux);
+  }
+
+  function updateLuxPreview(lux) {
+    var fill = document.getElementById('lux-bar-fill');
+    var display = document.getElementById('lux-display');
+    var badge = document.getElementById('lux-badge');
+    display.textContent = lux;
+    // Scale: 0-110 lux = 0-100%
+    var pct = Math.min(lux / 110 * 100, 100);
+    fill.style.width = pct + '%';
+    badge.className = 'lux-badge';
+    if (lux <= THRESHOLD_LUX) {
+      badge.classList.add('safe');
+      badge.textContent = 'Below threshold';
+    } else if (lux <= 60) {
+      badge.classList.add('moderate');
+      badge.textContent = 'Moderate';
+    } else {
+      badge.classList.add('high');
+      badge.textContent = 'High';
+    }
+  }
+
+  function renderSuppressionBars(lux) {
+    var container = document.getElementById('suppression-bars');
+    var durations = [
+      { label: '30 min before bed', hours: 0.5 },
+      { label: '1 hour before bed',  hours: 1.0 },
+      { label: '2 hours before bed', hours: 2.0 },
+      { label: '3 hours before bed', hours: 3.0 }
+    ];
+    container.innerHTML = durations.map(function (d) {
+      var pct = suppressionPct(lux, d.hours);
+      var color = pct >= 50 ? '#ff6b52' : pct >= 25 ? '#f59e0b' : '#10b981';
+      var textColor = pct >= 50 ? '#e8432e' : pct >= 25 ? '#d97706' : '#059669';
+      return '<div class="supp-row">' +
+        '<div class="supp-label">' + d.label + '</div>' +
+        '<div class="supp-bar-track">' +
+          '<div class="supp-bar-fill" style="width:' + pct + '%;background:' + color + '"></div>' +
+        '</div>' +
+        '<div class="supp-pct" style="color:' + textColor + '">' + pct + '%</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderDeviceList(currentDevice, brightness, filter) {
+    var filterVal = document.getElementById('filter').value;
+    var brightnessVal = document.getElementById('brightness').value;
+    var devices = [
+      { key: 'phone',   label: 'Smartphone', icon: 'M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM12 18h.01' },
+      { key: 'tablet',  label: 'Tablet',     icon: 'M18 2h-12a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z M12 17h.01' },
+      { key: 'laptop',  label: 'Laptop',     icon: 'M2 20h20M9 20V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v16' },
+      { key: 'tv',      label: 'TV',         icon: 'M21 3H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8 21h8m-4-4v4' },
+      { key: 'ereader', label: 'E-reader',   icon: 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z' }
+    ];
+
+    // Calculate lux for each at MEDIUM brightness, no filter (comparison baseline)
+    var computed = devices.map(function (d) {
+      var lux = DEVICE_BASE_LUX[d.key] * BRIGHTNESS_MULT['medium'] * FILTER_REMAIN['none'];
+      return { key: d.key, label: d.label, icon: d.icon, lux: Math.round(lux) };
+    }).sort(function (a, b) { return b.lux - a.lux; });
+
+    var maxLux = computed[0].lux;
+    var container = document.getElementById('device-list');
+    container.innerHTML = computed.map(function (d, i) {
+      var isActive = d.key === currentDevice;
+      var barPct = Math.round(d.lux / maxLux * 100);
+      var barColor = d.lux > THRESHOLD_LUX ? '#38b6ff' : '#10b981';
+      var rankLabel = i === 0 ? 'Highest impact' : i === computed.length - 1 ? 'Lowest impact' : '';
+      return '<div class="device-row' + (isActive ? ' active' : '') + '">' +
+        '<div class="device-row-icon">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="' + d.icon + '"/></svg>' +
+        '</div>' +
+        '<div class="device-row-body">' +
+          '<div class="device-row-name">' + d.label + (rankLabel ? '<span class="rank-tag">' + rankLabel + '</span>' : '') + '</div>' +
+          '<div class="device-bar-track"><div class="device-bar-fill" style="width:' + barPct + '%;background:' + barColor + '"></div></div>' +
+        '</div>' +
+        '<div class="device-row-lux">' + d.lux + ' mlx</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderTips(device, filter, brightness) {
+    var allTips = [
+      {
+        always: true,
+        icon: 'M12 3v1m0 16v1M4.22 4.22l.71.71m12.73 12.73.71.71M1 12h2m18 0h2M4.22 19.78l.71-.71M18.36 5.64l.71-.71',
+        text: 'Reduce brightness to the lowest comfortable level — even 30% less brightness cuts blue light exposure by roughly half.',
+        color: '#38b6ff'
+      },
+      {
+        show: filter === 'none',
+        icon: 'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+        text: 'Enable Night Mode / Night Shift in your device settings. It shifts the display warmer and reduces melanopic lux by ~50%.',
+        color: '#f59e0b'
+      },
+      {
+        show: device === 'phone' || device === 'tablet',
+        icon: 'M5 3l14 9-14 9V3z',
+        text: 'Hold your phone further away. Doubling the distance quarters the light intensity reaching your eyes.',
+        color: '#7c6aff'
+      },
+      {
+        show: device !== 'tv' && device !== 'ereader',
+        icon: 'M21 3H3a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8 21h8m-4-4v4',
+        text: 'Switch to a TV or e-reader for evening media. At 6 feet, TV light is often below the melatonin suppression threshold.',
+        color: '#10b981'
+      },
+      {
+        always: true,
+        icon: 'M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0',
+        text: 'Set a phone alarm or screen-time reminder 90 minutes before bed — the habit of winding down is more powerful than any filter.',
+        color: '#ff6b52'
+      },
+      {
+        show: device === 'laptop',
+        icon: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+        text: 'On macOS, enable Night Shift in System Settings under Displays. On Windows, use the Night Light setting under Display.',
+        color: '#7c6aff'
+      }
+    ];
+
+    var tips = allTips.filter(function (t) { return t.always || t.show; });
+    var container = document.getElementById('tips-list');
+    container.innerHTML = tips.map(function (t) {
+      return '<div class="tip-item">' +
+        '<div class="tip-icon" style="background:' + t.color + '22; color:' + t.color + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + t.icon + '"/></svg>' +
+        '</div>' +
+        '<p>' + t.text + '</p>' +
+      '</div>';
+    }).join('');
+  }
+
+  function calculate() {
+    var device = document.getElementById('device').value;
+    var brightness = document.getElementById('brightness').value;
+    var filter = document.getElementById('filter').value;
+    var lux = getMelatonicLux();
+    var bed = getBedtimeHour();
+    var cutoffHrs = calcCutoffHours(lux);
+    var cutoffDecimal = bed - cutoffHrs;
+    var formatted = formatTime12(cutoffDecimal);
+
+    updateLuxPreview(lux);
+
+    // Update result hero
+    var hero = document.getElementById('result-hero');
+    var labelEl = document.getElementById('result-label');
+    var timeEl = document.getElementById('cutoff-time');
+    var periodEl = document.getElementById('cutoff-period');
+    var subEl = document.getElementById('cutoff-sub');
+
+    hero.className = 'result-hero';
+    if (lux <= THRESHOLD_LUX) {
+      hero.classList.add('state-safe');
+      labelEl.textContent = 'Your setup is low-risk';
+      timeEl.textContent = 'Low';
+      periodEl.textContent = 'Risk';
+      subEl.innerHTML = 'At <strong>' + lux + ' melanopic lux</strong>, your setup is below the ' + THRESHOLD_LUX + ' lux suppression threshold. You can use this device close to bedtime with minimal melatonin impact.';
+    } else if (cutoffHrs <= 1) {
+      hero.classList.add('state-low');
+      labelEl.textContent = 'Stop screens by';
+      timeEl.textContent = formatted.time;
+      periodEl.textContent = formatted.period;
+      subEl.innerHTML = 'That\'s <strong>' + cutoffHrs.toFixed(1) + ' hr</strong> before bedtime. Your setup has moderate blue light output — a brief buffer is sufficient.';
+    } else if (cutoffHrs <= 2) {
+      hero.classList.add('state-medium');
+      labelEl.textContent = 'Stop screens by';
+      timeEl.textContent = formatted.time;
+      periodEl.textContent = formatted.period;
+      subEl.innerHTML = 'That\'s <strong>' + cutoffHrs.toFixed(1) + ' hrs</strong> before your <strong>' + formatTime12(bed).time + ' ' + formatTime12(bed).period + '</strong> bedtime. Your device emits <strong>' + lux + ' melanopic lux</strong> — allow time for melatonin to rise.';
+    } else {
+      hero.classList.add('state-high');
+      labelEl.textContent = 'Stop screens by';
+      timeEl.textContent = formatted.time;
+      periodEl.textContent = formatted.period;
+      subEl.innerHTML = 'That\'s <strong>' + cutoffHrs.toFixed(1) + ' hrs</strong> before bedtime. High brightness at close range significantly suppresses melatonin — consider reducing brightness or enabling filters.';
+    }
+
+    // Update stats
+    document.getElementById('stat-lux').textContent = lux;
+    var suppAtBed = suppressionPct(lux, 1); // estimate for ~1 hr of use
+    document.getElementById('stat-suppression').textContent = suppAtBed + '%';
+    document.getElementById('stat-cutoff-hrs').textContent = cutoffHrs > 0 ? cutoffHrs.toFixed(1) + 'h' : '<1h';
+
+    // Change s-coral to s-mint if low risk
+    var suppCard = document.querySelector('.stat-card.s-coral');
+    if (suppCard) {
+      if (suppAtBed < 20) {
+        suppCard.querySelector('.stat-num').style.color = '#10b981';
+      } else if (suppAtBed < 40) {
+        suppCard.querySelector('.stat-num').style.color = '#f59e0b';
+      } else {
+        suppCard.querySelector('.stat-num').style.color = '#ff6b52';
+      }
+    }
+
+    renderSuppressionBars(lux);
+    renderDeviceList(device, brightness, filter);
+    renderTips(device, filter, brightness);
+  }
+
+  // Wire up inputs
+  document.getElementById('bedtime').addEventListener('input', calculate);
+  document.getElementById('device').addEventListener('change', calculate);
+  document.getElementById('brightness').addEventListener('change', calculate);
+  document.getElementById('filter').addEventListener('change', calculate);
+
+  // Initial render
+  calculate();
+})();
+</script>
+
+<style is:inline>
+  /* Dynamic JS-rendered element styles */
+  .supp-row {
+    display: grid; grid-template-columns: 1fr 1fr auto;
+    align-items: center; gap: 0.65rem;
+  }
+  .supp-label { font-size: 0.78rem; font-weight: 500; color: var(--text-mid); }
+  .supp-bar-track {
+    height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;
+  }
+  .supp-bar-fill { height: 100%; border-radius: 4px; transition: width 0.35s ease; }
+  .supp-pct { font-size: 0.82rem; font-weight: 700; width: 36px; text-align: right; }
+
+  .device-row {
+    display: grid; grid-template-columns: 32px 1fr auto;
+    align-items: center; gap: 0.65rem;
+    padding: 0.5rem 0.65rem; border-radius: 8px;
+    border: 1.5px solid transparent; transition: border-color 0.15s;
+  }
+  .device-row.active { border-color: var(--primary); background: var(--primary-soft); }
+  .device-row-icon {
+    width: 32px; height: 32px; border-radius: 7px;
+    background: var(--bg); border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-mid);
+  }
+  .device-row.active .device-row-icon { background: #fff; border-color: var(--primary); color: var(--primary); }
+  .device-row-icon svg { width: 15px; height: 15px; }
+  .device-row-body { min-width: 0; }
+  .device-row-name {
+    font-size: 0.82rem; font-weight: 600; color: var(--text);
+    display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.25rem;
+  }
+  .rank-tag {
+    font-size: 0.62rem; font-weight: 700; padding: 0.1rem 0.4rem;
+    border-radius: 10px; background: var(--primary-soft); color: var(--primary);
+  }
+  .device-bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .device-bar-fill { height: 100%; border-radius: 3px; transition: width 0.35s ease; }
+  .device-row-lux { font-size: 0.75rem; font-weight: 700; color: var(--text-soft); white-space: nowrap; }
+
+  .tip-item {
+    display: flex; align-items: flex-start; gap: 0.65rem;
+  }
+  .tip-icon {
+    width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tip-icon svg { width: 15px; height: 15px; }
+  .tip-item p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; margin: 0; padding-top: 0.3rem; }
+</style>

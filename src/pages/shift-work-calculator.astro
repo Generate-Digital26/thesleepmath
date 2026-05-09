@@ -1,0 +1,979 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is the best sleep schedule for night shift?',
+    answer: `<p>The best night shift sleep schedule uses an <strong>anchor sleep block of 5–6 hours immediately after your shift ends</strong>, combined with an optional short nap (20–30 min) before the shift starts. For a shift ending at 7 AM, this means sleeping from roughly 7:30 AM to 1:30 PM, then adding a prophylactic nap around 6–7 PM before your next shift.</p>
+<p>Research by Boivin &amp; Boudreau (2014) shows that a consistent, predictable sleep window — even if it differs from the social norm — produces far better circadian adaptation than irregular sleep. The key is keeping the window stable on both work days and days off. Blackout curtains, a white noise machine, and a "do not disturb" phone profile are non-negotiable for daytime sleep quality.</p>`,
+  },
+  {
+    question: 'How do I adjust to rotating shifts?',
+    answer: `<p>Rotating shifts are genuinely the hardest type of schedule for circadian biology, because the clock never fully adapts before it is shifted again. The most protective strategy is <strong>forward rotation</strong> — moving from days to evenings to nights (clockwise) rather than the reverse. Forward rotation follows the natural tendency of the human circadian clock to drift later.</p>
+<p>For each rotation, use strategic light exposure to help the clock shift: bright light during the first few hours of each new shift, and light-blocking glasses during the commute home. Prioritize a consistent sleep window even if it is shorter than ideal. Research (Wickwire et al., 2017) confirms that sleep disorders affect over 25% of rotating shift workers; a structured schedule reduces this risk substantially even if full adaptation is never achieved.</p>`,
+  },
+  {
+    question: 'Should I nap before a night shift?',
+    answer: `<p>Yes — a <strong>prophylactic (pre-shift) nap of 20–30 minutes taken 1–2 hours before your shift starts</strong> is one of the most evidence-backed strategies for shift workers. It reduces sleepiness during the highest-risk hours of the shift (typically 3–5 AM) without causing significant sleep inertia if kept under 30 minutes.</p>
+<p>A longer 90-minute nap can provide a full sleep cycle's benefit but requires careful timing to avoid heavy sleep inertia at shift start. The NASA Fatigue Countermeasures Program found that even a 40-minute nap improved performance by 34% and alertness by 100%. Set an alarm, allow 5–10 minutes to wake fully, and avoid napping within 4 hours of your planned main sleep window to prevent fragmentation.</p>`,
+  },
+  {
+    question: 'How does shift work affect health?',
+    answer: `<p>Shift work — especially night shift and rotating schedules — is associated with a range of health effects driven by <strong>chronic circadian misalignment</strong>: the persistent mismatch between your internal biological clock and your behavioral schedule. The most well-documented risks include a 40% elevated risk of cardiovascular disease, increased rates of metabolic syndrome and type 2 diabetes, and impaired immune function.</p>
+<p>Wickwire et al. (2017) document that shift work sleep disorder (SWSD) affects 10–38% of shift workers and is characterized by insomnia during intended sleep and excessive sleepiness during the shift. The mechanisms involve chronic sleep deprivation layered on top of circadian misalignment — both independently harmful, and compounding each other. Structured sleep scheduling, strategic light use, and careful meal timing can mitigate but not eliminate these risks for workers who must maintain irregular schedules long-term.</p>`,
+  },
+  {
+    question: 'When should I use light exposure for shift work?',
+    answer: `<p>Light is the most powerful tool for shifting your circadian clock, but timing is everything. For <strong>night shift workers</strong>, the goal is to delay the clock: seek bright light during the first half of your shift (roughly 10 PM–2 AM) and use amber-tinted blue-light-blocking glasses on your commute home to avoid the morning light that would re-anchor your clock to the day schedule.</p>
+<p>For <strong>early morning shift workers</strong> (starting before 6 AM), the goal is to advance the clock: use a bright light box immediately on waking (4–5 AM), even if it feels dark outside. For rotating shift workers, re-read the light prescription with each rotation — light at the wrong time can shift your clock in the wrong direction, making adaptation actively worse. Boivin &amp; Boudreau (2014) emphasize that properly timed light therapy is as effective as any pharmacological intervention for circadian adjustment.</p>`,
+  },
+  {
+    question: 'How to manage caffeine on night shift?',
+    answer: `<p>Caffeine is effective for reducing shift work sleepiness but requires a strict cutoff to protect your post-shift sleep. The rule of thumb: <strong>stop caffeine 6 hours before your intended sleep window</strong>. For a night shift worker sleeping from 8 AM–2 PM, the last caffeine should be no later than 2 AM. Caffeine's half-life is 5–7 hours, meaning a 200 mg dose at 2 AM still has 100 mg active at 8 AM.</p>
+<p>Strategic dosing is more effective than continuous intake: a moderate dose (100–150 mg) at shift start, another at the 3–4 AM drowsiness trough if needed, then stopping. Avoid "topping up" in the last third of the shift. Pairing caffeine with a short nap — drink the coffee, then nap for 20 minutes while it absorbs — produces better alertness than either strategy alone. This "nap-a-latte" or "coffee nap" technique is backed by multiple studies and particularly useful for shift workers who can find a quiet rest space mid-shift.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Shift Work Sleep Calculator — The Sleep Math"
+  description="Personalized sleep, light, and meal schedules for night shifts and rotating shifts. Science-backed strategies for shift workers."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb">
+    <a href="/">Home</a>
+    <span class="sep">/</span>
+    <a href="/#calcs">Calculators</a>
+    <span class="sep">/</span>
+    Shift Work Sleep Planner
+  </div>
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon" style="background:#edeaff;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+          <polyline points="21 3 21 9 15 9"/>
+          <circle cx="12" cy="12" r="1"/>
+          <polyline points="12 7 12 12 15 14"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Shift Work Sleep Planner</h1>
+      </div>
+    </div>
+    <p class="subtitle">Get a personalized sleep, light, meal, and caffeine schedule designed around your shift. Science-backed strategies to minimize circadian disruption.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        1 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Circadian adaptation
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Shift work research
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR UI -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your shift details</h2>
+
+      <div class="field">
+        <label for="shift-type">Shift type</label>
+        <select id="shift-type">
+          <option value="night">Fixed night shift</option>
+          <option value="rotating">Rotating shifts</option>
+          <option value="early">Early morning shift</option>
+          <option value="evening">Evening shift</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="shift-start">Shift start time</label>
+        <input type="time" id="shift-start" value="22:00">
+      </div>
+
+      <div class="field">
+        <label for="shift-end">Shift end time</label>
+        <input type="time" id="shift-end" value="06:00">
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="days-on">Days on this shift</label>
+        <input type="number" id="days-on" min="1" max="7" value="5">
+        <div class="hint">Number of consecutive shift days (1–7)</div>
+      </div>
+
+      <div class="field">
+        <label for="days-off">Days off before next shift</label>
+        <input type="number" id="days-off" min="1" max="7" value="2">
+        <div class="hint">Recovery days before returning to work</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="caffeine-pref">Caffeine sensitivity</label>
+        <select id="caffeine-pref">
+          <option value="normal">Normal (6h half-life)</option>
+          <option value="sensitive">Sensitive (8h half-life)</option>
+          <option value="fast">Fast metabolizer (4h half-life)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- RESULT HERO -->
+      <div class="result-hero" id="result-hero">
+        <div class="hero-left">
+          <div class="result-label">Shift type</div>
+          <div class="shift-display" id="shift-type-display">Night shift</div>
+          <div class="severity-badge severity-moderate" id="difficulty-badge">Moderate adaptation</div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-stat">
+            <div class="hero-stat-num" id="shift-duration-display">8h</div>
+            <div class="hero-stat-label">shift duration</div>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-num" id="adaptation-days-display">~14 days</div>
+            <div class="hero-stat-label">full adaptation</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KEY TIMES GRID -->
+      <div class="stat-grid">
+        <div class="stat-card s-primary">
+          <div class="stat-num" id="stat-sleep-start">07:30</div>
+          <div class="stat-label">sleep start</div>
+        </div>
+        <div class="stat-card s-mint">
+          <div class="stat-num" id="stat-nap-time">19:30</div>
+          <div class="stat-label">pre-shift nap</div>
+        </div>
+        <div class="stat-card s-amber">
+          <div class="stat-num" id="stat-caffeine-cutoff">02:00</div>
+          <div class="stat-label">caffeine cutoff</div>
+        </div>
+      </div>
+
+      <!-- 24-HOUR TIMELINE -->
+      <div class="plan-card">
+        <div class="plan-header">
+          <h3>24-hour schedule timeline</h3>
+          <p class="plan-subtitle" id="timeline-subtitle">Visual overview of your shift, sleep, and activity windows</p>
+        </div>
+        <div class="timeline-wrap" id="timeline-wrap">
+          <div class="timeline-bar" id="timeline-bar"></div>
+          <div class="timeline-labels" id="timeline-labels"></div>
+          <div class="timeline-legend" id="timeline-legend"></div>
+        </div>
+      </div>
+
+      <!-- DAY-BY-DAY CARDS -->
+      <div class="plan-card">
+        <div class="plan-header">
+          <h3>Day-by-day schedule</h3>
+          <p class="plan-subtitle">Exact times for sleep, light, meals, and caffeine on each day</p>
+        </div>
+        <div id="day-cards"></div>
+      </div>
+
+      <!-- TRANSITION GUIDANCE -->
+      <div class="transition-card" id="transition-card">
+        <div class="transition-header">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          Days-off transition plan
+        </div>
+        <div id="transition-content"></div>
+      </div>
+
+      <!-- DROWSY DRIVING WARNING -->
+      <div class="warning-card" id="warning-card">
+        <div class="warning-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="warning-body">
+          <div class="warning-title">Post-shift drowsy driving risk</div>
+          <div id="warning-text" class="warning-text">Night shift workers are at significantly elevated risk of drowsy driving during the morning commute home. Consider arranging a carpool, using public transit, or napping in your car for 20 minutes before driving home if you feel impaired.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind shift work schedules</h2>
+      <p>
+        Shift work disrupts the circadian rhythm — the approximately 24-hour internal clock governed by the suprachiasmatic nucleus (SCN) in the hypothalamus. The SCN takes its primary timing cue from light, which is why night workers face a constant conflict: their biological clock remains anchored to the day-night cycle even as their behavioral schedule is inverted. This chronic circadian misalignment is the root cause of shift work health effects.
+      </p>
+      <p>
+        The <strong>core body temperature (CBT) rhythm</strong> is the most robust marker of circadian phase. CBT reaches its minimum (Tmin) roughly 2 hours before natural waking — typically around 4–6 AM for day-oriented people. Alertness tracks closely with CBT: it rises as temperature rises, and falls as temperature falls. For night shift workers, maximum alertness therefore occurs at the wrong time relative to their schedule until the clock has shifted.
+      </p>
+      <div class="science-pillars">
+        <div class="pillar pillar-primary">
+          <div class="pillar-title">Strategic napping — Wickwire et al. (2017)</div>
+          <div class="pillar-desc">Prophylactic napping before a shift reduces subjective sleepiness and performance impairment during the circadian trough (3–5 AM). A 20–30 minute nap 1–2 hours before shift start is optimal — long enough to confer benefit, short enough to avoid sleep inertia at shift start.</div>
+        </div>
+        <div class="pillar pillar-amber">
+          <div class="pillar-title">Light therapy — Boivin &amp; Boudreau (2014)</div>
+          <div class="pillar-desc">Timed bright light exposure (2,500–10,000 lux) during the first half of a night shift delays the circadian clock by 1–2 hours per day. Combined with light-blocking on the morning commute home, this is the most effective non-pharmacological intervention for night shift adaptation.</div>
+        </div>
+        <div class="pillar pillar-mint">
+          <div class="pillar-title">Meal timing and metabolic health</div>
+          <div class="pillar-desc">Eating at circadian-misaligned times (e.g., a full meal at 3 AM) elevates postprandial glucose and triglycerides beyond what the same meal would produce at noon. Keeping meals lighter at night, and concentrating caloric intake during the waking half of the shift, partially mitigates metabolic disruption.</div>
+        </div>
+        <div class="pillar pillar-coral">
+          <div class="pillar-title">Melatonin for daytime sleep</div>
+          <div class="pillar-desc">For night shift workers who sleep during the day, melatonin (0.5–3 mg) taken 30 minutes before daytime sleep improves sleep onset and duration. The circadian system suppresses melatonin during daylight hours; exogenous melatonin partially restores the sleep-promoting signal.</div>
+        </div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-main">Full night-shift adaptation ≈ 7–14 days | Clock shift rate ≈ 1–2h/day with light therapy</div>
+        <div class="formula-desc">Without structured light management, most shift workers achieve &lt;25% circadian adaptation even after weeks on the same schedule</div>
+      </div>
+      <div class="citation">
+        Boivin, D.B. &amp; Boudreau, P. (2014). Impacts of shift work on sleep and circadian rhythms. <em>Pathologie Biologie, 62(5), 292–301.</em>
+      </div>
+      <div class="citation" style="margin-top:0.5rem;">
+        Wickwire, E.M., Geiger-Brown, J., Scharf, S.M., &amp; Drake, C.L. (2017). Shift work and shift work sleep disorder. <em>Chest, 151(5), 1156–1172.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input[type="time"],
+  .field input[type="number"],
+  .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 8px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input:focus, .field select:focus { border-color: var(--primary); }
+  .field select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem; background-size: 12px;
+  }
+  .field .hint { font-size: 0.72rem; color: var(--text-soft); margin-top: 0.3rem; line-height: 1.4; }
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Result hero */
+  .result-hero {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .result-hero.night { border-color: var(--primary); background: linear-gradient(135deg, #f5f3ff 0%, #fff 100%); }
+  .result-hero.rotating { border-color: var(--coral); background: linear-gradient(135deg, #fff5f3 0%, #fff 100%); }
+  .result-hero.early { border-color: var(--amber); background: linear-gradient(135deg, #fffbeb 0%, #fff 100%); }
+  .result-hero.evening { border-color: var(--sky); background: linear-gradient(135deg, #f0faff 0%, #fff 100%); }
+  .hero-left { flex: 1; }
+  .result-label {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 0.35rem;
+  }
+  .shift-display {
+    font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.1; color: var(--text);
+  }
+  .severity-badge {
+    display: inline-block; margin-top: 0.5rem;
+    padding: 0.2rem 0.65rem; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 700;
+  }
+  .severity-mild { background: #d1fae5; color: #065f46; }
+  .severity-moderate { background: #fef3c7; color: #92400e; }
+  .severity-severe { background: #fee2e2; color: #991b1b; }
+  .severity-extreme { background: #fce7f3; color: #9d174d; }
+  .hero-right {
+    display: flex; flex-direction: column; gap: 0.75rem;
+    border-left: 1.5px solid var(--border); padding-left: 1.5rem;
+    min-width: 140px;
+  }
+  .hero-divider { height: 1px; background: var(--border); }
+  .hero-stat-num { font-size: 1.15rem; font-weight: 800; color: var(--text); }
+  .hero-stat-label { font-size: 0.7rem; color: var(--text-soft); font-weight: 500; }
+
+  /* Stat grid */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 1.3rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+  .stat-card .stat-label { font-size: 0.68rem; color: var(--text-soft); font-weight: 500; }
+  .stat-card.s-primary .stat-num { color: var(--primary); }
+  .stat-card.s-mint .stat-num { color: var(--mint); }
+  .stat-card.s-amber .stat-num { color: var(--amber); }
+  .stat-card.s-coral .stat-num { color: var(--coral); }
+
+  /* Plan card */
+  .plan-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .plan-header { padding: 1.25rem 1.25rem 0.75rem; border-bottom: 1px solid var(--border); }
+  .plan-header h3 { font-size: 0.96rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .plan-subtitle { font-size: 0.75rem; color: var(--text-soft); font-weight: 500; }
+
+  /* Timeline */
+  .timeline-wrap { padding: 1.25rem; }
+  .timeline-bar {
+    position: relative; height: 44px;
+    background: #f1f0f8; border-radius: 8px; overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+  .tl-segment {
+    position: absolute; top: 0; height: 100%;
+    border-radius: 0;
+  }
+  .tl-segment:first-child { border-radius: 8px 0 0 8px; }
+  .tl-segment:last-child { border-radius: 0 8px 8px 0; }
+  .tl-shift { background: var(--primary); opacity: 0.85; }
+  .tl-sleep { background: #1e1b2e; opacity: 0.8; }
+  .tl-nap { background: var(--sky); opacity: 0.85; }
+  .tl-light { background: var(--amber); opacity: 0.75; }
+  .tl-avoid-light { background: #374151; opacity: 0.5; }
+  .tl-meal { background: var(--mint); opacity: 0.75; }
+  .timeline-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.65rem; color: var(--text-soft); font-weight: 600;
+    padding: 0 2px; margin-bottom: 0.75rem;
+  }
+  .timeline-legend {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+    font-size: 0.7rem; color: var(--text-mid); font-weight: 500;
+  }
+  .tl-legend-item { display: flex; align-items: center; gap: 0.3rem; }
+  .tl-legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  /* Day cards */
+  #day-cards { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.65rem; }
+  .day-card {
+    border-radius: 10px; padding: 1rem 1rem 0.9rem;
+    border: 1.5px solid var(--border); border-left-width: 4px;
+    background: var(--bg);
+  }
+  .day-card.shift-day { border-left-color: var(--primary); }
+  .day-card.off-day { border-left-color: var(--mint); border-style: dashed; border-left-style: solid; }
+  .day-card-title {
+    font-size: 0.8rem; font-weight: 700; color: var(--text);
+    margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+  }
+  .day-tag {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 0.1rem 0.45rem; border-radius: 100px;
+  }
+  .day-tag-shift { background: var(--primary-soft); color: var(--primary); }
+  .day-tag-off { background: #d1fae5; color: #065f46; }
+  .day-tag-transition { background: #fef3c7; color: #92400e; }
+  .day-rows { display: flex; flex-direction: column; gap: 0.45rem; }
+  .day-row {
+    display: flex; align-items: baseline; gap: 0.5rem;
+    font-size: 0.8rem; line-height: 1.4;
+  }
+  .day-row-icon {
+    flex-shrink: 0; width: 1.1rem; height: 1.1rem;
+    display: flex; align-items: center; justify-content: center; color: var(--primary);
+  }
+  .day-row-icon svg { width: 100%; height: 100%; }
+  .day-row-label { color: var(--text-soft); font-weight: 600; min-width: 130px; flex-shrink: 0; }
+  .day-row-val { color: var(--text-mid); }
+  .day-row-val strong { color: var(--text); font-weight: 700; }
+
+  /* Transition card */
+  .transition-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .transition-header {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 1rem 1.25rem; border-bottom: 1px solid var(--border);
+    font-size: 0.9rem; font-weight: 700; color: var(--text);
+  }
+  .transition-header svg { width: 18px; height: 18px; color: var(--mint); flex-shrink: 0; }
+  #transition-content { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .transition-tip {
+    display: flex; gap: 0.65rem; align-items: flex-start;
+    font-size: 0.8rem; color: var(--text-mid); line-height: 1.5;
+  }
+  .transition-tip-icon { flex-shrink: 0; margin-top: 1px; }
+  .transition-tip-icon svg { width: 16px; height: 16px; }
+
+  /* Warning card */
+  .warning-card {
+    background: #fff7ed; border: 1.5px solid #fed7aa;
+    border-radius: var(--radius); padding: 1.1rem 1.25rem;
+    display: flex; align-items: flex-start; gap: 0.85rem;
+  }
+  .warning-icon { flex-shrink: 0; color: #f59e0b; margin-top: 2px; }
+  .warning-icon svg { width: 20px; height: 20px; }
+  .warning-title { font-size: 0.85rem; font-weight: 700; color: #92400e; margin-bottom: 0.3rem; }
+  .warning-text { font-size: 0.78rem; color: #b45309; line-height: 1.55; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .science-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 1.25rem 0; }
+  .pillar { border-radius: 10px; padding: 1rem 1.1rem; }
+  .pillar-primary { background: var(--primary-soft); border: 1.5px solid #c4b8ff; }
+  .pillar-amber { background: #fffbeb; border: 1.5px solid #fde68a; }
+  .pillar-mint { background: #ecfdf5; border: 1.5px solid #a7f3d0; }
+  .pillar-coral { background: #fff5f3; border: 1.5px solid #ffbfb3; }
+  .pillar-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+  .pillar-desc { font-size: 0.78rem; color: var(--text-mid); line-height: 1.55; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.72rem; color: #a8a3be; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .result-hero { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .hero-right { border-left: none; border-top: 1.5px solid var(--border); padding-left: 0; padding-top: 0.85rem; width: 100%; flex-direction: row; align-items: center; gap: 1rem; }
+    .hero-divider { display: none; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-pillars { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  // ---- DOM refs ----
+  var shiftTypeEl    = document.getElementById('shift-type');
+  var shiftStartEl   = document.getElementById('shift-start');
+  var shiftEndEl     = document.getElementById('shift-end');
+  var daysOnEl       = document.getElementById('days-on');
+  var daysOffEl      = document.getElementById('days-off');
+  var caffPrefEl     = document.getElementById('caffeine-pref');
+
+  var resultHeroEl        = document.getElementById('result-hero');
+  var shiftTypeDisplay    = document.getElementById('shift-type-display');
+  var difficultyBadge     = document.getElementById('difficulty-badge');
+  var shiftDurationDisplay= document.getElementById('shift-duration-display');
+  var adaptDaysDisplay    = document.getElementById('adaptation-days-display');
+  var statSleepStart      = document.getElementById('stat-sleep-start');
+  var statNapTime         = document.getElementById('stat-nap-time');
+  var statCaffCutoff      = document.getElementById('stat-caffeine-cutoff');
+  var timelineSubtitle    = document.getElementById('timeline-subtitle');
+  var timelineBar         = document.getElementById('timeline-bar');
+  var timelineLabels      = document.getElementById('timeline-labels');
+  var timelineLegend      = document.getElementById('timeline-legend');
+  var dayCardsEl          = document.getElementById('day-cards');
+  var transitionContent   = document.getElementById('transition-content');
+  var warningText         = document.getElementById('warning-text');
+
+  // ---- Helpers ----
+  function parseTime(str) {
+    var parts = str.split(':');
+    return parseInt(parts[0], 10) + parseInt(parts[1], 10) / 60;
+  }
+
+  function fmtTime(h) {
+    h = ((h % 24) + 24) % 24;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = Math.floor(h) % 12;
+    if (hh === 0) hh = 12;
+    var mm = Math.round((h - Math.floor(h)) * 60);
+    if (mm === 60) { hh = (hh % 12) + 1; mm = 0; }
+    return hh + ':' + (mm < 10 ? '0' + mm : mm) + ' ' + period;
+  }
+
+  function fmtRange(start, end) {
+    return fmtTime(start) + '–' + fmtTime(end);
+  }
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  function hoursToPct(h) {
+    // Map 0-24h to 0-100%
+    return ((h % 24) + 24) % 24 / 24 * 100;
+  }
+
+  function durationPct(dur) {
+    return dur / 24 * 100;
+  }
+
+  // ---- Shift type metadata ----
+  var SHIFT_META = {
+    night: {
+      label: 'Fixed Night Shift',
+      difficulty: 'High difficulty',
+      diffClass: 'severity-severe',
+      heroClass: 'night',
+      adaptation: '7–14 days',
+      drowsyRisk: 'HIGH',
+      drowsyMsg: 'Night shift workers are at significantly elevated risk of drowsy driving during the morning commute. Your circadian alertness is at its nadir between 4–6 AM. If your shift ends in this window, nap 20 minutes in your car or use alternative transport before driving home.'
+    },
+    rotating: {
+      label: 'Rotating Shifts',
+      difficulty: 'Very high difficulty',
+      diffClass: 'severity-extreme',
+      heroClass: 'rotating',
+      adaptation: 'Ongoing',
+      drowsyRisk: 'HIGH',
+      drowsyMsg: 'Rotating shift workers often operate in a state of chronic partial circadian misalignment. Your drowsy driving risk is elevated regardless of shift timing. Prioritize a pre-commute nap whenever you finish a night or early morning shift.'
+    },
+    early: {
+      label: 'Early Morning Shift',
+      difficulty: 'Moderate difficulty',
+      diffClass: 'severity-moderate',
+      heroClass: 'early',
+      adaptation: '3–7 days',
+      drowsyRisk: 'MODERATE',
+      drowsyMsg: 'Early morning shift start times often require waking before your natural circadian rise time. Drowsiness during your commute to work and in the first 1–2 hours of shift is common. Use a light box immediately on waking to advance your clock over several days.'
+    },
+    evening: {
+      label: 'Evening Shift',
+      difficulty: 'Low-moderate difficulty',
+      diffClass: 'severity-mild',
+      heroClass: 'evening',
+      adaptation: '2–5 days',
+      drowsyRisk: 'LOW',
+      drowsyMsg: 'Evening shifts generally align more naturally with the circadian tendency to delay. Primary risk is sleeping late on days off, making early commitments difficult. Keep a consistent wake time on days off within 1–2 hours of your work-day wake time.'
+    }
+  };
+
+  // ---- Main calculation ----
+  function calculate() {
+    var shiftType  = shiftTypeEl.value;
+    var startH     = parseTime(shiftStartEl.value);
+    var endH       = parseTime(shiftEndEl.value);
+    var daysOn     = clamp(parseInt(daysOnEl.value, 10) || 5, 1, 7);
+    var daysOff    = clamp(parseInt(daysOffEl.value, 10) || 2, 1, 7);
+    var caffPref   = caffPrefEl.value;
+
+    // Determine shift duration (handle overnight)
+    var shiftDur = endH - startH;
+    if (shiftDur <= 0) shiftDur += 24;
+
+    // Caffeine half-life
+    var halfLife = caffPref === 'sensitive' ? 8 : (caffPref === 'fast' ? 4 : 6);
+
+    // Sleep window: anchor sleep starts ~30 min after shift end, lasts 5.5-6h
+    var sleepStart = endH + 0.5;
+    var sleepEnd   = sleepStart + 5.75;
+    // Caffeine cutoff: halfLife hours before sleep such that 1/4 dose remains at sleep
+    var caffCutoff = sleepStart - halfLife;
+
+    // Prophylactic nap: 1.5h before shift start, 25-min nap
+    var napStart = startH - 2.0;
+    var napEnd   = napStart + 0.4167; // ~25 min
+
+    // Melatonin: 30 min before sleep start (daytime sleep)
+    var melatoninTime = sleepStart - 0.5;
+
+    // Light exposure: bright light during first half of shift (avoid light near sleep)
+    var lightStart = startH;
+    var lightEnd   = startH + shiftDur * 0.5;
+    // Avoid light window: last 2 hours of shift + commute home
+    var avoidLightStart = endH - 2;
+    var avoidLightEnd   = endH + 1.5;
+
+    // Meal windows: main meal at shift start, lighter snack mid-shift, avoid 2h pre-sleep
+    var meal1Start = startH + 0.5;
+    var meal1End   = startH + 1.25;
+    var meal2Start = startH + shiftDur * 0.45;
+    var meal2End   = meal2Start + 0.75;
+    var mealAvoidStart = sleepStart - 2;
+    var mealAvoidEnd   = sleepStart;
+
+    // Meta
+    var meta = SHIFT_META[shiftType];
+
+    // ---- Update hero ----
+    shiftTypeDisplay.textContent = meta.label;
+    difficultyBadge.textContent = meta.difficulty;
+    difficultyBadge.className = 'severity-badge ' + meta.diffClass;
+    resultHeroEl.className = 'result-hero ' + meta.heroClass;
+    shiftDurationDisplay.textContent = Math.round(shiftDur) + 'h';
+    adaptDaysDisplay.textContent = meta.adaptation;
+
+    // ---- Update stat cards ----
+    statSleepStart.textContent = fmtTime(sleepStart);
+    var napDisplay = (shiftType === 'evening') ? 'N/A' : fmtTime(napStart);
+    statNapTime.textContent = napDisplay;
+    statCaffCutoff.textContent = fmtTime(caffCutoff);
+
+    // ---- Update timeline subtitle ----
+    timelineSubtitle.textContent = 'Shift: ' + fmtRange(startH, endH) + ' · Sleep: ' + fmtRange(sleepStart, sleepEnd);
+
+    // ---- Build timeline ----
+    buildTimeline(shiftType, startH, endH, sleepStart, sleepEnd, napStart, napEnd, lightStart, lightEnd, avoidLightStart, avoidLightEnd);
+
+    // ---- Build day cards ----
+    buildDayCards(shiftType, daysOn, daysOff, startH, endH, sleepStart, sleepEnd, napStart, napEnd, lightStart, lightEnd, avoidLightStart, avoidLightEnd, caffCutoff, melatoninTime, meal1Start, meal1End, meal2Start, meal2End);
+
+    // ---- Transition card ----
+    buildTransition(shiftType, daysOff, sleepStart, sleepEnd, startH);
+
+    // ---- Warning ----
+    warningText.textContent = meta.drowsyMsg;
+  }
+
+  // ---- Timeline builder ----
+  function buildTimeline(shiftType, startH, endH, sleepStart, sleepEnd, napStart, napEnd, lightStart, lightEnd, avoidStart, avoidEnd) {
+    timelineBar.innerHTML = '';
+
+    // Helper to add a segment
+    function addSeg(h, dur, cls, title) {
+      var leftPct = hoursToPct(h);
+      var widthPct = durationPct(dur);
+      // Handle wrapping
+      if (leftPct + widthPct > 100) {
+        // Split into two
+        var first = 100 - leftPct;
+        addSegRaw(leftPct, first, cls, title);
+        addSegRaw(0, widthPct - first, cls, title);
+      } else {
+        addSegRaw(leftPct, widthPct, cls, title);
+      }
+    }
+
+    function addSegRaw(left, width, cls, title) {
+      if (width <= 0) return;
+      var el = document.createElement('div');
+      el.className = 'tl-segment ' + cls;
+      el.style.left = left.toFixed(2) + '%';
+      el.style.width = width.toFixed(2) + '%';
+      el.title = title;
+      timelineBar.appendChild(el);
+    }
+
+    var shiftDur = endH - startH;
+    if (shiftDur <= 0) shiftDur += 24;
+    var sleepDur = sleepEnd - sleepStart;
+    var napDur   = napEnd - napStart;
+    var lightDur = lightEnd - lightStart;
+    var avoidDur = avoidEnd - avoidStart;
+
+    // Layer order: sleep, shift, nap, light, avoid
+    addSeg(sleepStart, sleepDur, 'tl-sleep', 'Main sleep ' + fmtRange(sleepStart, sleepEnd));
+    addSeg(startH, shiftDur, 'tl-shift', 'Shift ' + fmtRange(startH, endH));
+    if (shiftType !== 'evening') {
+      addSeg(napStart, napDur, 'tl-nap', 'Pre-shift nap');
+    }
+    addSeg(lightStart, lightDur, 'tl-light', 'Bright light exposure');
+    addSeg(avoidStart, avoidDur, 'tl-avoid-light', 'Avoid bright light');
+
+    // Hour labels: every 4 hours
+    timelineLabels.innerHTML = '';
+    var hours = ['12AM','4AM','8AM','12PM','4PM','8PM','12AM'];
+    hours.forEach(function(lbl) {
+      var span = document.createElement('span');
+      span.textContent = lbl;
+      timelineLabels.appendChild(span);
+    });
+
+    // Legend
+    var legendItems = [
+      { cls: 'tl-shift', label: 'Shift' },
+      { cls: 'tl-sleep', label: 'Main sleep' },
+      { cls: 'tl-nap', label: 'Pre-shift nap' },
+      { cls: 'tl-light', label: 'Bright light' },
+      { cls: 'tl-avoid-light', label: 'Avoid light' },
+    ];
+    if (shiftType === 'evening') {
+      legendItems = legendItems.filter(function(i) { return i.cls !== 'tl-nap'; });
+    }
+    timelineLegend.innerHTML = '';
+    legendItems.forEach(function(item) {
+      var div = document.createElement('div');
+      div.className = 'tl-legend-item';
+      var dot = document.createElement('div');
+      dot.className = 'tl-legend-dot ' + item.cls;
+      var lbl = document.createElement('span');
+      lbl.textContent = item.label;
+      div.appendChild(dot);
+      div.appendChild(lbl);
+      timelineLegend.appendChild(div);
+    });
+  }
+
+  // ---- Day cards builder ----
+  function buildDayCards(shiftType, daysOn, daysOff, startH, endH, sleepStart, sleepEnd, napStart, napEnd, lightStart, lightEnd, avoidStart, avoidEnd, caffCutoff, melatoninTime, meal1S, meal1E, meal2S, meal2E) {
+    dayCardsEl.innerHTML = '';
+
+    var totalDays = daysOn + daysOff;
+
+    for (var d = 1; d <= totalDays; d++) {
+      var isShiftDay = d <= daysOn;
+      var isLastShift = d === daysOn;
+      var isFirstOff  = d === daysOn + 1;
+
+      var tag = isShiftDay
+        ? '<span class="day-tag day-tag-shift">Shift day</span>'
+        : (isFirstOff ? '<span class="day-tag day-tag-transition">Transition</span>' : '<span class="day-tag day-tag-off">Day off</span>');
+
+      var cardClass = 'day-card ' + (isShiftDay ? 'shift-day' : 'off-day');
+
+      var html = '<div class="' + cardClass + '">';
+      html += '<div class="day-card-title">Day ' + d + ' ' + tag + '</div>';
+      html += '<div class="day-rows">';
+
+      if (isShiftDay) {
+        // Shift row
+        var shiftDur = endH - startH;
+        if (shiftDur <= 0) shiftDur += 24;
+        html += dayRow('clock', 'Shift', '<strong>' + fmtRange(startH, endH) + '</strong> (' + Math.round(shiftDur) + 'h)', 'var(--primary)');
+
+        // Main sleep
+        html += dayRow('moon', 'Anchor sleep', '<strong>' + fmtRange(sleepStart, sleepEnd) + '</strong> (5– 6h)', '#7c6aff');
+
+        // Pre-shift nap
+        if (shiftType !== 'evening') {
+          html += dayRow('zap', 'Pre-shift nap', '<strong>' + fmtRange(napStart, napEnd) + '</strong> (~25 min)', 'var(--sky)');
+        }
+
+        // Light exposure
+        html += dayRow('sun', 'Bright light', '<strong>' + fmtRange(lightStart, lightEnd) + '</strong> (first half of shift)', 'var(--amber)');
+
+        // Avoid light
+        html += dayRow('eye-off', 'Avoid light', '<strong>' + fmtRange(avoidStart, avoidEnd) + '</strong> (use blue-light glasses)', 'var(--text-soft)');
+
+        // Caffeine cutoff
+        html += dayRow('coffee', 'Caffeine cutoff', 'Last caffeine by <strong>' + fmtTime(caffCutoff) + '</strong>', 'var(--coral)');
+
+        // Melatonin
+        html += dayRow('pill', 'Melatonin 0.5mg', '<strong>' + fmtTime(melatoninTime) + '</strong> (30 min before sleep)', 'var(--mint)');
+
+        // Meals
+        html += dayRow('utensils', 'Meal 1 (main)', '<strong>' + fmtRange(meal1S, meal1E) + '</strong>', 'var(--mint)');
+        html += dayRow('utensils', 'Meal 2 (light)', '<strong>' + fmtRange(meal2S, meal2E) + '</strong>', 'var(--mint)');
+        html += dayRow('x-circle', 'Avoid heavy meals', 'No large meals after <strong>' + fmtTime(sleepStart - 2) + '</strong>', 'var(--coral)');
+
+      } else {
+        // Days off
+        var offDayNum = d - daysOn;
+
+        // On first off-day, shift sleep later gradually
+        var offSleepDelay = isFirstOff ? 0 : Math.min(offDayNum - 1, 3) * 1.5;
+        var offSleepStart = sleepStart + offSleepDelay;
+        var offSleepEnd   = sleepEnd + offSleepDelay;
+
+        html += dayRow('moon', 'Sleep window', '<strong>' + fmtRange(offSleepStart, offSleepEnd) + '</strong>' + (isFirstOff ? ' (same as shift)' : ' (+' + (offDayNum > 1 ? (offDayNum - 1) * 1.5 + 'h later' : 'same') + ')'), '#7c6aff');
+        html += dayRow('sun', 'Morning light', isFirstOff ? 'Maintain blackout curtains, avoid early light' : ('<strong>' + fmtTime(offSleepEnd) + '</strong> – bright light to re-anchor daytime'), 'var(--amber)');
+
+        if (offDayNum >= 2) {
+          html += dayRow('zap', 'Nap (optional)', 'Short 20-min nap if needed, before <strong>' + fmtTime(offSleepStart - 4) + '</strong>', 'var(--sky)');
+        }
+
+        html += dayRow('coffee', 'Caffeine', 'Resume normal caffeine timing; cutoff by <strong>' + fmtTime(offSleepStart - 6) + '</strong>', 'var(--coral)');
+        html += dayRow('utensils', 'Meals', 'Gradually shift meal times toward daytime schedule', 'var(--mint)');
+
+        if (isLastShift) {
+          html += dayRow('alert', 'Note', 'Last shift day — avoid extra sleep debt tonight', 'var(--amber)');
+        }
+      }
+
+      html += '</div></div>';
+      dayCardsEl.insertAdjacentHTML('beforeend', html);
+    }
+  }
+
+  // ---- Icon SVGs ----
+  var ICONS = {
+    clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+    zap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+    'eye-off': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>',
+    coffee: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>',
+    pill: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5L10 17h4l-.5 3.5"/><path d="M8.5 14h7"/><path d="M6 10c0-3.5 2.5-6 6-6s6 2.5 6 6c0 2-1 3.5-2.5 4.5H8.5C7 13.5 6 12 6 10z"/></svg>',
+    utensils: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="2" x2="3" y2="22"/><path d="M7 2v7a4 4 0 0 1-4 4"/><line x1="21" y1="2" x2="21" y2="22"/><line x1="17" y1="2" x2="17" y2="12"/><path d="M17 12a4 4 0 0 1-4-4V2"/></svg>',
+    'x-circle': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    alert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+  };
+
+  function dayRow(iconKey, label, val, iconColor) {
+    var svg = ICONS[iconKey] || ICONS['clock'];
+    return '<div class="day-row">' +
+      '<span class="day-row-icon" style="color:' + iconColor + '">' + svg + '</span>' +
+      '<span class="day-row-label">' + label + '</span>' +
+      '<span class="day-row-val">' + val + '</span>' +
+      '</div>';
+  }
+
+  // ---- Transition tips builder ----
+  function buildTransition(shiftType, daysOff, sleepStart, sleepEnd, shiftStartH) {
+    transitionContent.innerHTML = '';
+
+    var tips = [];
+
+    if (shiftType === 'night' || shiftType === 'rotating') {
+      tips.push({
+        icon: 'sun',
+        color: 'var(--amber)',
+        text: 'On your first day off, keep the same sleep window as your last shift day. Abruptly switching to a night schedule confuses the clock and creates social jet lag.'
+      });
+      tips.push({
+        icon: 'moon',
+        color: 'var(--primary)',
+        text: 'Shift your sleep window by no more than 2 hours per off-day toward a daytime schedule. A gradual transition prevents the acute misalignment that causes next-shift drowsiness.'
+      });
+      tips.push({
+        icon: 'sun',
+        color: 'var(--amber)',
+        text: 'Use bright morning light from Day 2 of your time off to advance the clock back toward day orientation. Aim for 30–60 minutes outdoors or with a light box within 30 minutes of waking.'
+      });
+      if (daysOff >= 3) {
+        tips.push({
+          icon: 'zap',
+          color: 'var(--sky)',
+          text: 'With ' + daysOff + ' days off, you have enough time for significant clock recovery. Prioritize consistent sleep/wake times over those days rather than "catching up" with long irregular sleep.'
+        });
+      }
+    } else if (shiftType === 'early') {
+      tips.push({
+        icon: 'moon',
+        color: 'var(--primary)',
+        text: 'On days off, resist sleeping in more than 1 hour past your work wake time. Sleeping in delays the circadian clock, making Monday morning feel like jet lag.'
+      });
+      tips.push({
+        icon: 'sun',
+        color: 'var(--amber)',
+        text: 'Continue using a light box or getting outdoor light within 30 minutes of waking, even on days off, to maintain your clock advancement.'
+      });
+    } else {
+      // Evening
+      tips.push({
+        icon: 'moon',
+        color: 'var(--primary)',
+        text: 'Evening shift workers typically have delayed circadian rhythms. On days off, keep your wake time within 2 hours of your work schedule to avoid re-entraining to a day schedule that will clash on return.'
+      });
+      tips.push({
+        icon: 'sun',
+        color: 'var(--amber)',
+        text: 'Avoid early morning bright light on days off if you want to maintain evening-shift alignment. Keep blackout curtains until your natural wake time.'
+      });
+    }
+
+    tips.push({
+      icon: 'coffee',
+      color: 'var(--coral)',
+      text: 'Reset caffeine use on your first off-day. Keep caffeine to morning hours (relative to your wake time) and avoid it after midday to ensure good quality sleep regardless of schedule.'
+    });
+
+    tips.forEach(function(tip) {
+      var svg = ICONS[tip.icon] || ICONS['clock'];
+      var div = document.createElement('div');
+      div.className = 'transition-tip';
+      div.innerHTML = '<span class="transition-tip-icon" style="color:' + tip.color + '">' + svg + '</span><span>' + tip.text + '</span>';
+      transitionContent.appendChild(div);
+    });
+  }
+
+  // ---- Event listeners ----
+  [shiftTypeEl, shiftStartEl, shiftEndEl, daysOnEl, daysOffEl, caffPrefEl].forEach(function(el) {
+    el.addEventListener('change', calculate);
+    if (el.tagName === 'INPUT') el.addEventListener('input', calculate);
+  });
+
+  // ---- Initial run ----
+  calculate();
+})();
+</script>
