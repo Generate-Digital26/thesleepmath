@@ -1,0 +1,64 @@
+---
+import { roadmapItems } from '@/data/calculators';
+---
+
+<section class="roadmap-section">
+  <div class="container">
+    <h2>Coming next</h2>
+    <p>New tools shipping regularly. Here's what's on the roadmap.</p>
+    <div class="roadmap-grid">
+      {roadmapItems.map((item) => (
+        <span class="roadmap-chip">{item}</span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .roadmap-section {
+    padding: 4rem 0 4.5rem;
+  }
+
+  h2 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+  }
+
+  .roadmap-section > :global(.container) > p {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    margin-bottom: 1.75rem;
+  }
+
+  .roadmap-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .roadmap-chip {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    transition: all 0.15s;
+    cursor: default;
+  }
+
+  .roadmap-chip:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-soft);
+  }
+
+  @media (max-width: 768px) {
+    .roadmap-grid {
+      gap: 0.4rem;
+    }
+  }
+</style>

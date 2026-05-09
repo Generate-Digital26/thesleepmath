@@ -1,0 +1,125 @@
+---
+import { papers } from '@/data/calculators';
+---
+
+<section class="research-section">
+  <div class="container">
+    <div class="research-card">
+      <div>
+        <h2>Built on published research</h2>
+        <p>
+          Every formula comes from a peer-reviewed paper. Not a wellness blog,
+          not a mattress company's content team. Actual science.
+        </p>
+        <div class="papers">
+          {papers.map((paper) => (
+            <div class="paper">
+              {paper.citation} <em>{paper.journal}</em>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="research-stats">
+        <div class="r-stat">
+          <div class="num">6</div>
+          <div class="label">peer-reviewed papers behind the tools</div>
+        </div>
+        <div class="r-stat fun">
+          <div class="num">0</div>
+          <div class="label">formulas from "sleep influencers"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .research-section {
+    padding: 4.5rem 0;
+  }
+
+  .research-card {
+    background: var(--bg-tint);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  h2 {
+    font-size: 1.55rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .research-card > div > p {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .papers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .paper {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.45;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--border);
+  }
+
+  .paper em {
+    color: var(--text-mid);
+  }
+
+  .research-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .r-stat {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+  }
+
+  .r-stat .num {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .r-stat .label {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .r-stat.fun .num {
+    color: var(--text);
+  }
+
+  @media (max-width: 768px) {
+    .research-card {
+      grid-template-columns: 1fr;
+    }
+    .research-stats {
+      flex-direction: row;
+    }
+  }
+</style>

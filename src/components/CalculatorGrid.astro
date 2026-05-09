@@ -1,0 +1,189 @@
+---
+import { calculators, iconStrokeColors } from '@/data/calculators';
+---
+
+<section class="calcs-section" id="calcs">
+  <div class="container">
+    <div class="section-top">
+      <h2>The calculators</h2>
+      <p>Each one solves a specific sleep question in under 2 minutes. Pick your problem.</p>
+    </div>
+
+    <div class="calc-grid">
+      {calculators.filter(c => c.phase === 1).map((calc) => (
+        <a href={`/${calc.slug}`} class={`calc-card ${calc.color}`}>
+          <div class="calc-card-head">
+            <div class={`calc-icon ${calc.iconColor}`}>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke={iconStrokeColors[calc.iconColor]}
+                stroke-width="1.75"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                set:html={calc.iconPath}
+              />
+            </div>
+            <div class="info">
+              <h3>{calc.title}</h3>
+              <span class={`tag ${calc.tag.class}`}>{calc.tag.label}</span>
+            </div>
+          </div>
+          <p class="desc">{calc.description}</p>
+          <div class="calc-card-foot">
+            <span class="calc-meta">{calc.meta}</span>
+            <span class="calc-go">{calc.cta}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .calcs-section {
+    padding: 4.5rem 0 5rem;
+    background: var(--bg-calcs);
+    color: var(--text-on-dark);
+  }
+
+  .section-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.25rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .section-top h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    color: var(--text-on-dark);
+  }
+
+  .section-top p {
+    font-size: 0.95rem;
+    color: var(--text-on-dark-mid);
+    max-width: 380px;
+    line-height: 1.55;
+  }
+
+  .calc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 0.85rem;
+  }
+
+  .calc-card {
+    background: var(--card-dark);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    transition: all 0.22s;
+    cursor: pointer;
+    color: var(--text-on-dark);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .calc-card:hover {
+    background: var(--card-dark-hover);
+    border-color: var(--border-dark-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .calc-card:hover::before {
+    opacity: 1;
+  }
+
+  .calc-card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .calc-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .calc-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .calc-card-head .info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .calc-card-head h3 {
+    font-size: 1.02rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    color: var(--text-on-dark);
+  }
+
+  .desc {
+    font-size: 0.87rem;
+    color: var(--text-on-dark-mid);
+    line-height: 1.55;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  .calc-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--border-dark);
+  }
+
+  .calc-meta {
+    font-size: 0.74rem;
+    color: var(--text-on-dark-soft);
+    font-weight: 500;
+  }
+
+  .calc-go {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .calc-card:hover .calc-go {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .calc-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
