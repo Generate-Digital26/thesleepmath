@@ -1,4 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <circle cx="16" cy="16" r="14" fill="#7c6aff"/>
-  <circle cx="22" cy="10" r="10" fill="#faf9f7"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#907fff"/>
+      <stop offset="100%" stop-color="#6858e8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+
+  <!-- Crescent moon: outer arc r=125, inner arc r=150 -->
+  <path d="M 215 72 A 125 125 0 1 0 215 335 A 150 150 0 1 1 215 72 Z" fill="white"/>
+
+  <!-- Sine wave — sleep cycles meets math -->
+  <path d="M78 405 C128 352,175 352,225 405 C275 458,322 458,368 405 C405 360,430 360,448 405"
+        stroke="white" stroke-width="20" stroke-linecap="round" fill="none" opacity="0.55"/>
+
+  <!-- Star accents -->
+  <circle cx="368" cy="105" r="12" fill="white" opacity="0.6"/>
+  <circle cx="415" cy="190" r="8" fill="white" opacity="0.4"/>
+  <circle cx="400" cy="290" r="5" fill="white" opacity="0.25"/>
 </svg>

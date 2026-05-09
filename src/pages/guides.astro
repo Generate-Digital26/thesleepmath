@@ -1,0 +1,258 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+
+const upcomingGuides = [
+  'The Complete Guide to Sleep Hygiene',
+  'Understanding Your Circadian Rhythm',
+  'Sleep & Exercise: The Research',
+  'Caffeine & Sleep: What Science Says',
+  'Sleep for New Parents',
+];
+---
+
+<BaseLayout
+  title="Sleep Science Guides — The Sleep Math"
+  description="In-depth guides on sleep science, circadian rhythms, and evidence-based sleep optimization. Coming soon from The Sleep Math — better sleep, calculated."
+>
+  <Nav />
+
+  <main class="guides-main">
+    <div class="guides-inner">
+
+      <!-- Icon -->
+      <div class="icon-wrap">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <!-- Open book -->
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+        </svg>
+      </div>
+
+      <!-- Heading -->
+      <h1>Sleep Guides</h1>
+      <p class="subtitle">
+        In-depth guides on sleep science, habits, and optimization.<br />Coming soon.
+      </p>
+
+      <!-- Upcoming topics -->
+      <div class="topics-section">
+        <span class="topics-label">Upcoming guides</span>
+        <div class="chips">
+          {upcomingGuides.map((guide) => (
+            <span class="chip">{guide}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Newsletter CTA -->
+      <div class="cta-box">
+        <p class="cta-heading">Get notified when guides launch</p>
+        <form class="cta-form" data-newsletter>
+          <input type="email" placeholder="you@email.com" required aria-label="Email address" />
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <!-- Back link -->
+      <a href="/#calcs" class="back-link">
+        Browse calculators →
+      </a>
+
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .guides-main {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 1.5rem;
+  }
+
+  .guides-inner {
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Icon */
+  .icon-wrap {
+    width: 80px;
+    height: 80px;
+    border-radius: 22px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Heading */
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 0.65rem;
+    line-height: 1.15;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Upcoming topics */
+  .topics-section {
+    width: 100%;
+    margin-bottom: 2.5rem;
+  }
+
+  .topics-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-soft);
+    margin-bottom: 0.85rem;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .chip {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    transition: all 0.15s;
+    cursor: default;
+  }
+
+  .chip:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-soft);
+  }
+
+  /* Newsletter CTA */
+  .cta-box {
+    width: 100%;
+    background: var(--bg-tint);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .cta-form {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .cta-form input {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .cta-form input:focus {
+    border-color: var(--primary);
+  }
+
+  .cta-form input::placeholder {
+    color: var(--text-soft);
+  }
+
+  .cta-form button {
+    padding: 0.7rem 1.25rem;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.88rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+
+  .cta-form button:hover {
+    background: var(--primary-hover);
+  }
+
+  /* Back link */
+  .back-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover {
+    color: var(--primary-hover);
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.9rem;
+    }
+
+    .cta-form {
+      flex-direction: column;
+    }
+
+    .guides-main {
+      padding: 3.5rem 1.25rem;
+    }
+  }
+</style>

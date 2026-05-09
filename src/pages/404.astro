@@ -1,0 +1,191 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="Page Not Found — The Sleep Math"
+  description="This page doesn't exist or has moved. Head back to The Sleep Math for free sleep calculators and guides."
+>
+  <Nav />
+
+  <main class="not-found">
+    <div class="container">
+      <div class="inner">
+
+        <!-- SVG illustration: moon + stars + Zzz -->
+        <div class="illustration" aria-hidden="true">
+          <svg
+            width="120"
+            height="120"
+            viewBox="0 0 120 120"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <!-- Stars -->
+            <line x1="18" y1="22" x2="18" y2="28" stroke="var(--primary)" stroke-width="1.75" stroke-linecap="round"/>
+            <line x1="15" y1="25" x2="21" y2="25" stroke="var(--primary)" stroke-width="1.75" stroke-linecap="round"/>
+
+            <line x1="96" y1="16" x2="96" y2="22" stroke="var(--coral)" stroke-width="1.75" stroke-linecap="round"/>
+            <line x1="93" y1="19" x2="99" y2="19" stroke="var(--coral)" stroke-width="1.75" stroke-linecap="round"/>
+
+            <line x1="104" y1="44" x2="104" y2="48" stroke="var(--primary)" stroke-width="1.75" stroke-linecap="round"/>
+            <line x1="102" y1="46" x2="106" y2="46" stroke="var(--primary)" stroke-width="1.75" stroke-linecap="round"/>
+
+            <line x1="14" y1="58" x2="14" y2="62" stroke="var(--text-soft)" stroke-width="1.75" stroke-linecap="round"/>
+            <line x1="12" y1="60" x2="16" y2="60" stroke="var(--text-soft)" stroke-width="1.75" stroke-linecap="round"/>
+
+            <!-- Moon crescent -->
+            <path
+              d="M68 28 C54 28 44 39 44 53 C44 67 54 78 68 78 C58 76 52 66 52 53 C52 40 58 31 68 28Z"
+              fill="var(--primary-soft)"
+              stroke="var(--primary)"
+              stroke-width="1.75"
+              stroke-linejoin="round"
+            />
+
+            <!-- Zzz floating up-right -->
+            <!-- Z1 (largest, bottom) -->
+            <text x="72" y="66" font-family="'Sora', sans-serif" font-size="14" font-weight="700" fill="var(--primary)" opacity="0.85">Z</text>
+            <!-- Z2 (medium, middle) -->
+            <text x="84" y="52" font-family="'Sora', sans-serif" font-size="11" font-weight="700" fill="var(--primary)" opacity="0.55">Z</text>
+            <!-- Z3 (small, top) -->
+            <text x="93" y="40" font-family="'Sora', sans-serif" font-size="8" font-weight="700" fill="var(--primary)" opacity="0.3">Z</text>
+          </svg>
+        </div>
+
+        <!-- 404 number -->
+        <p class="four-oh-four">404</p>
+
+        <!-- Headline -->
+        <h1 class="headline">This page drifted off</h1>
+
+        <!-- Subtext -->
+        <p class="subtext">
+          The page you're looking for doesn't exist or has moved.<br class="br-desktop" />
+          Let's get you back to counting sheep the right way.
+        </p>
+
+        <!-- CTAs -->
+        <div class="cta-row">
+          <a href="/" class="btn btn-fill">Back to homepage</a>
+          <a href="/#calcs" class="btn btn-ghost">Browse calculators</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ── Layout ── */
+  .not-found {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0 5rem;
+    min-height: calc(100vh - 57px - 220px); /* viewport minus nav + footer approx */
+  }
+
+  /* Make body a column so footer is pushed to bottom */
+  :global(body) {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  :global(body > *:last-child) {
+    margin-top: auto;
+  }
+
+  .not-found .container {
+    text-align: center;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ── Illustration ── */
+  .illustration {
+    margin-bottom: 1.25rem;
+    opacity: 0.92;
+  }
+
+  /* ── 404 number ── */
+  .four-oh-four {
+    font-size: clamp(5rem, 16vw, 9rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+
+    /* Subtle background tint that bleeds into the number */
+    background: linear-gradient(135deg, var(--primary) 0%, #a895ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Headline ── */
+  .headline {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 0.85rem;
+  }
+
+  /* ── Subtext ── */
+  .subtext {
+    font-size: 1rem;
+    color: var(--text-soft);
+    line-height: 1.65;
+    max-width: 420px;
+    margin-bottom: 2.25rem;
+  }
+
+  .br-desktop {
+    display: none;
+  }
+
+  @media (min-width: 480px) {
+    .br-desktop {
+      display: block;
+    }
+  }
+
+  /* ── CTA row ── */
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 480px) {
+    .not-found {
+      padding: 3rem 0 4rem;
+    }
+
+    .cta-row {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .cta-row .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

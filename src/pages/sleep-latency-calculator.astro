@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -40,19 +42,13 @@ const faqs: FAQItem[] = [
 ---
 
 <BaseLayout
-  title="Sleep Latency Calculator — How Long Should It Take to Fall Asleep?"
+  title="Sleep Latency Calculator — Time to Fall Asleep | The Sleep Math"
   description="Find out if your sleep latency is normal, indicates insomnia, or signals sleep deprivation. Clinical benchmarks based on MSLT research by Carskadon & Dement."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Sleep Latency Calculator
-  </div>
+  <Breadcrumb current="Sleep Latency Calculator" currentPath="/sleep-latency-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -308,6 +304,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Sleep Latency Calculator" description="Find out if your sleep latency is normal, indicates insomnia, or signals sleep deprivation. Clinical benchmarks based on MSLT research by Carskadon & Dement." slug="sleep-latency-calculator" />
   <Footer />
 </BaseLayout>
 

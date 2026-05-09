@@ -1,0 +1,698 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How do you calculate sleep debt?',
+    answer: `<p>Sleep debt is calculated by comparing how much sleep you <strong>needed</strong> versus how much you actually <strong>got</strong>, then summing the deficits across multiple nights. The formula is straightforward:</p>
+<p><strong>Nightly deficit = Sleep need − Actual sleep</strong></p>
+<p>For example, if your sleep need is 8 hours but you slept 6.5 hours on Monday, you accumulated a 1.5-hour deficit for that night. Sum all seven days and you have your weekly sleep debt. This calculator does that automatically: enter your bedtime and wake time for each day, and the running total is computed in real time.</p>
+<p>Researchers use a similar model to measure <strong>total sleep deprivation</strong> across study periods — the cumulative deficit tracks better with cognitive impairment than any single night's data does.</p>`,
+  },
+  {
+    question: 'What is cumulative sleep debt?',
+    answer: `<p>Cumulative sleep debt refers to the way sleep deficits <strong>stack up across consecutive nights</strong> and progressively worsen performance — even when each individual night seems only mildly short.</p>
+<p>Van Dongen et al. (2003) demonstrated this compounding effect in a landmark study: participants restricted to 6 hours of sleep per night showed continuous, day-over-day declines in psychomotor vigilance over 14 days. By the end of the study, their cognitive performance was equivalent to being <strong>completely awake for 24 hours straight</strong> — yet most participants reported feeling only slightly sleepy, unaware of how impaired they had become.</p>
+<p>The key insight is that the brain adapts its <em>perception</em> of sleepiness faster than it recovers actual cognitive capacity. You may feel fine after a week of 6-hour nights, but your reaction time, memory consolidation, and decision-making can all be significantly compromised.</p>`,
+  },
+  {
+    question: 'Can you recover from sleep debt?',
+    answer: `<p>Yes — but recovery takes longer than most people expect, and the relationship between sleep debt and recovery is <strong>not one-to-one</strong>.</p>
+<p>Research shows that sleeping an extra 1–2 hours per night above your normal need can pay down debt over several days. Attempting to recover all at once (e.g., sleeping 12 hours on Saturday) helps acutely but doesn't fully restore the cognitive damage accumulated over the week. Studies by Dinges et al. suggest that a single "recovery night" restores subjective sleepiness faster than it restores <strong>objective performance measures</strong> like reaction time and working memory.</p>
+<p>Practical approach: <strong>add 1–2 hours of extra sleep per night</strong> over several days rather than banking it all in one sleep marathon. A debt of 10 hours might require 5–7 nights of extended sleep to fully resolve. This calculator estimates recovery time using that 1–2 hour/night model.</p>`,
+  },
+  {
+    question: 'How much sleep debt is dangerous?',
+    answer: `<p>Van Dongen et al. mapped cumulative sleep debt to cognitive impairment equivalencies using blood alcohol concentration (BAC) as a reference point:</p>
+<p><strong>0–7 hours debt:</strong> Mild impairment, roughly equivalent to 0.02 BAC. Noticeable in complex tasks but manageable.<br>
+<strong>7–14 hours debt:</strong> Moderate impairment, roughly equivalent to 0.05 BAC — the legal driving limit in many countries. Reaction time, attention, and judgment are all measurably reduced.<br>
+<strong>14–21 hours debt:</strong> Severe impairment, roughly equivalent to 0.08 BAC — legally drunk in the United States. Decision-making and motor control are significantly compromised.<br>
+<strong>21+ hours debt:</strong> Critical impairment, equivalent to 0.10+ BAC. Risk of microsleeps, significantly elevated accident risk, serious physiological stress.</p>
+<p>Any sustained debt beyond 7 hours warrants genuine concern, especially for people who drive, operate machinery, or make high-stakes decisions at work.</p>`,
+  },
+  {
+    question: 'Is the sleep deficit calculator accurate?',
+    answer: `<p>This sleep deficit calculator is a <strong>science-based estimation tool</strong>, not a medical diagnostic. It uses the Van Dongen model for cumulative debt and standard sleep science research for recovery estimates. That said, several real-world variables affect individual results:</p>
+<p><strong>Sleep need varies:</strong> The population average is 7–9 hours, but some people are genuine short sleepers (6 hours) or long sleepers (10 hours) due to genetics. The calculator lets you set your own need. <strong>Sleep quality matters:</strong> 8 hours of fragmented, low-quality sleep may leave more debt than the calculator shows. <strong>Age and health:</strong> Sleep efficiency declines with age; medical conditions like sleep apnea can inflate real-world debt beyond what clock hours suggest.</p>
+<p>Use this tool as a <em>directional guide</em> — a strong signal that your sleep pattern is or isn't meeting your biological needs. For persistent fatigue or suspected sleep disorders, consult a sleep specialist.</p>`,
+  },
+  {
+    question: 'Does sleeping in on weekends fix sleep debt?',
+    answer: `<p>Partially — but the research is more nuanced than the popular belief that a long Saturday sleep "resets" the week.</p>
+<p>Leger et al. and other researchers found that sleeping in on weekends does provide short-term cognitive recovery. Subjective alertness improves, and some reaction-time measures rebound. However, studies tracking metabolic markers, inflammatory cytokines, and long-term health outcomes show that <strong>weekend recovery does not fully reverse the physiological effects of chronic weekday sleep restriction</strong>.</p>
+<p>A 2019 study in <em>Current Biology</em> by Depner et al. found that people who tried to "catch up" on weekends still gained weight and showed persistent insulin insensitivity compared to people who got consistent 9-hour nights — suggesting metabolic damage from sleep debt isn't fully undone by weekend sleep.</p>
+<p>The verdict: weekend sleep-ins are better than nothing and help acutely, but the only reliable fix for chronic sleep debt is <strong>consistently meeting your nightly sleep need</strong> throughout the week.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Debt Calculator — The Sleep Math"
+  description="Calculate your cumulative sleep debt from the past 7 days. See cognitive impairment equivalencies, recovery timeline, and a personalized payback plan."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb current="Sleep Debt" currentPath="/sleep-debt-calculator" />
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/>
+          <polyline points="16 17 22 17 22 11"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Debt Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Enter your bedtime and wake time for each day of the past week. See your total sleep debt, cognitive impact, and how long recovery will take.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        1 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Van Dongen et al., 2003
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Peer-reviewed formula
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your sleep log</h2>
+
+      <div class="field">
+        <label for="sleep-need">Your sleep need</label>
+        <select id="sleep-need">
+          <option value="7">7 hours</option>
+          <option value="7.5">7.5 hours</option>
+          <option value="8" selected>8 hours (recommended)</option>
+          <option value="8.5">8.5 hours</option>
+          <option value="9">9 hours</option>
+        </select>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="day-log-header">
+        <span class="day-col">Day</span>
+        <span class="time-col">Bedtime</span>
+        <span class="time-col">Wake</span>
+        <span class="hrs-col">Hrs</span>
+      </div>
+
+      <div id="day-rows">
+        <!-- Mon -->
+        <div class="day-row" data-day="0">
+          <span class="day-label">Mon</span>
+          <input type="time" class="bed-input" value="23:00" aria-label="Monday bedtime">
+          <input type="time" class="wake-input" value="07:00" aria-label="Monday wake time">
+          <span class="day-hours">8.0</span>
+        </div>
+        <!-- Tue -->
+        <div class="day-row" data-day="1">
+          <span class="day-label">Tue</span>
+          <input type="time" class="bed-input" value="23:00" aria-label="Tuesday bedtime">
+          <input type="time" class="wake-input" value="07:00" aria-label="Tuesday wake time">
+          <span class="day-hours">8.0</span>
+        </div>
+        <!-- Wed -->
+        <div class="day-row" data-day="2">
+          <span class="day-label">Wed</span>
+          <input type="time" class="bed-input" value="23:00" aria-label="Wednesday bedtime">
+          <input type="time" class="wake-input" value="07:00" aria-label="Wednesday wake time">
+          <span class="day-hours">8.0</span>
+        </div>
+        <!-- Thu -->
+        <div class="day-row" data-day="3">
+          <span class="day-label">Thu</span>
+          <input type="time" class="bed-input" value="23:00" aria-label="Thursday bedtime">
+          <input type="time" class="wake-input" value="07:00" aria-label="Thursday wake time">
+          <span class="day-hours">8.0</span>
+        </div>
+        <!-- Fri -->
+        <div class="day-row" data-day="4">
+          <span class="day-label">Fri</span>
+          <input type="time" class="bed-input" value="23:00" aria-label="Friday bedtime">
+          <input type="time" class="wake-input" value="07:00" aria-label="Friday wake time">
+          <span class="day-hours">8.0</span>
+        </div>
+        <!-- Sat -->
+        <div class="day-row" data-day="5">
+          <span class="day-label">Sat</span>
+          <input type="time" class="bed-input" value="23:00" aria-label="Saturday bedtime">
+          <input type="time" class="wake-input" value="07:00" aria-label="Saturday wake time">
+          <span class="day-hours">8.0</span>
+        </div>
+        <!-- Sun -->
+        <div class="day-row" data-day="6">
+          <span class="day-label">Sun</span>
+          <input type="time" class="bed-input" value="23:00" aria-label="Sunday bedtime">
+          <input type="time" class="wake-input" value="07:00" aria-label="Sunday wake time">
+          <span class="day-hours">8.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- Result hero -->
+      <div class="result-hero s-green" id="result-hero">
+        <div class="result-label">Total sleep debt this week</div>
+        <div class="result-value" id="result-debt">0.0 hrs</div>
+        <div class="result-sub" id="result-sub">You're sleeping well. Keep it up.</div>
+      </div>
+
+      <!-- Stat grid -->
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-num s-rose" id="stat-avg">8.0 hrs</div>
+          <div class="stat-label">avg nightly sleep</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num s-amber" id="stat-deficit">0.0 hrs</div>
+          <div class="stat-label">daily deficit</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num s-primary" id="stat-recovery">0 nights</div>
+          <div class="stat-label">recovery time</div>
+        </div>
+      </div>
+
+      <!-- Cognitive impairment card -->
+      <div class="impairment-card" id="impairment-card">
+        <h3>Cognitive impairment level</h3>
+        <div class="impairment-level" id="impairment-level">None detected</div>
+        <div class="bac-meter-wrap">
+          <div class="bac-meter-track">
+            <div class="bac-meter-fill" id="bac-meter-fill"></div>
+            <div class="bac-meter-marker" id="bac-meter-marker"></div>
+          </div>
+          <div class="bac-meter-labels">
+            <span>None</span>
+            <span>Mild</span>
+            <span>Moderate</span>
+            <span>Severe</span>
+            <span>Critical</span>
+          </div>
+        </div>
+        <div class="impairment-comparison" id="impairment-comparison">
+          After 7 days of 8 hours sleep, your cognitive performance is at full capacity.
+        </div>
+      </div>
+
+      <!-- Daily breakdown bars -->
+      <div class="breakdown-card">
+        <h3>Daily sleep breakdown</h3>
+        <div class="bar-chart" id="bar-chart">
+          <!-- populated by JS -->
+        </div>
+        <div class="bar-legend">
+          <span class="legend-dot legend-dot-sleep"></span> Actual sleep
+          <span class="legend-dot legend-dot-need" style="margin-left:1rem;"></span> Sleep need
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this calculator</h2>
+      <p>
+        The cumulative cost of sleep restriction was rigorously quantified by Van Dongen and colleagues in their 2003 study published in <em>Sleep</em>. Participants were assigned to sleep 4, 6, or 8 hours per night for 14 consecutive days. The results were striking: those sleeping 6 hours per night showed steadily worsening performance on psychomotor vigilance tests — and by day 14, their impairment was indistinguishable from participants who had been kept awake for 24 hours straight.
+      </p>
+      <p>
+        Critically, participants in the restricted-sleep groups reported feeling only <strong>slightly sleepy</strong>, even as their objective performance degraded dramatically. This dissociation between perceived and actual impairment is what makes sleep debt so insidious — you feel fine, but you're not.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Debt = Σ (Need − Actual)<sub>i</sub> &nbsp;for i = 1..7</div>
+        <div class="formula-desc">
+          Sum of nightly deficits over the week · Recovery ≈ debt ÷ 1.5 extra hours/night
+        </div>
+      </div>
+      <p>
+        The BAC equivalency mapping is derived from the impairment data in Van Dongen et al. (2003) and Williamson &amp; Feyer (2000), who compared sleep-deprived performance directly against alcohol-impaired performance on driving simulators.
+      </p>
+      <div class="citation">
+        Van Dongen, H. P. A., Maislin, G., Mullington, J. M., &amp; Dinges, D. F. (2003). The cumulative cost of additional wakefulness: dose-response effects on neurobehavioral functions and sleep physiology from chronic sleep restriction and total sleep deprivation.
+        <em>Sleep, 26(2), 117–126.</em>
+      </div>
+      <div class="citation" style="margin-top:0.6rem;">
+        Williamson, A. M., &amp; Feyer, A.-M. (2000). Moderate sleep deprivation produces impairments in cognitive and motor performance equivalent to legally prescribed levels of alcohol intoxication.
+        <em>Occupational and Environmental Medicine, 57(10), 649–655.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <CalcSchema name="Sleep Debt Calculator" description="Calculate your cumulative sleep debt from the past 7 days. See cognitive impairment equivalencies, recovery time, and daily breakdowns. Based on Van Dongen et al., 2003." slug="sleep-debt-calculator" />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #fdf2f8; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem;
+  }
+  .field select:focus { border-color: var(--primary); }
+  .divider { height: 1px; background: var(--border); margin: 1.1rem 0 1rem; }
+
+  /* ===== DAY LOG ===== */
+  .day-log-header {
+    display: grid; grid-template-columns: 36px 1fr 1fr 42px;
+    gap: 0.35rem; align-items: center;
+    padding: 0 0 0.4rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.3rem;
+  }
+  .day-log-header span {
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--text-soft);
+  }
+  .day-col { }
+  .time-col { text-align: center; }
+  .hrs-col { text-align: right; }
+
+  .day-row {
+    display: grid; grid-template-columns: 36px 1fr 1fr 42px;
+    gap: 0.35rem; align-items: center;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(228,225,236,0.5);
+  }
+  .day-row:last-child { border-bottom: none; }
+  .day-label { font-size: 0.78rem; font-weight: 700; color: var(--text-mid); }
+  .day-row input[type="time"] {
+    width: 100%; padding: 0.35rem 0.4rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 8px; font-family: inherit;
+    font-size: 0.75rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; text-align: center;
+  }
+  .day-row input[type="time"]:focus { border-color: var(--rose); }
+  .day-hours {
+    font-size: 0.78rem; font-weight: 700; text-align: right;
+    font-family: 'Space Grotesk', monospace;
+    color: var(--text);
+  }
+  .day-hours.under { color: var(--coral); }
+  .day-hours.over { color: var(--mint); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Result hero */
+  .result-hero {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: 14px; padding: 1.75rem; text-align: center;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .result-hero.s-green { border-color: #10b981; background: #f0fdf8; }
+  .result-hero.s-amber { border-color: #f59e0b; background: #fffbeb; }
+  .result-hero.s-red   { border-color: #ef4444; background: #fef2f2; }
+  .result-label {
+    font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 0.5rem;
+  }
+  .result-value {
+    font-size: clamp(2.4rem, 6vw, 3.25rem); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.35rem;
+    font-family: 'Space Grotesk', monospace;
+  }
+  .result-hero.s-green .result-value { color: #10b981; }
+  .result-hero.s-amber .result-value { color: #f59e0b; }
+  .result-hero.s-red   .result-value { color: #ef4444; }
+  .result-sub { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Stat grid */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .stat-num {
+    font-size: 1.45rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem;
+    font-family: 'Space Grotesk', monospace;
+  }
+  .stat-num.s-rose   { color: var(--rose); }
+  .stat-num.s-amber  { color: var(--amber); }
+  .stat-num.s-primary { color: var(--primary); }
+  .stat-label { font-size: 0.7rem; color: var(--text-soft); font-weight: 500; }
+
+  /* Impairment card */
+  .impairment-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .impairment-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .impairment-level {
+    font-size: 1rem; font-weight: 700; margin-bottom: 0.85rem; color: var(--text);
+  }
+  .bac-meter-wrap { margin-bottom: 0.65rem; }
+  .bac-meter-track {
+    position: relative; height: 10px; border-radius: 5px; overflow: visible;
+    background: linear-gradient(to right, #10b981 0%, #f59e0b 40%, #ef4444 75%, #991b1b 100%);
+    margin-bottom: 0.3rem;
+  }
+  .bac-meter-fill {
+    position: absolute; left: 0; top: 0; height: 100%;
+    border-radius: 5px; background: transparent;
+    /* visual fill is the gradient itself — marker shows position */
+  }
+  .bac-meter-marker {
+    position: absolute; top: 50%; transform: translate(-50%, -50%);
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #fff; border: 3px solid #1e1b2e;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+    transition: left 0.4s ease;
+    left: 0%;
+  }
+  .bac-meter-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.62rem; color: var(--text-soft); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  .impairment-comparison {
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.55;
+    padding: 0.65rem 0.85rem; background: var(--bg-tint);
+    border-radius: 8px; margin-top: 0.5rem;
+    border-left: 3px solid var(--rose);
+  }
+
+  /* Daily breakdown */
+  .breakdown-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .breakdown-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .bar-chart { display: flex; flex-direction: column; gap: 0.55rem; }
+  .bar-row { display: grid; grid-template-columns: 32px 1fr 48px; gap: 0.5rem; align-items: center; }
+  .bar-day { font-size: 0.72rem; font-weight: 700; color: var(--text-mid); }
+  .bar-track { position: relative; height: 22px; background: var(--bg); border-radius: 5px; overflow: hidden; }
+  .bar-need-line {
+    position: absolute; top: 0; bottom: 0; width: 2px;
+    background: rgba(0,0,0,0.12);
+  }
+  .bar-actual {
+    height: 100%; border-radius: 5px;
+    transition: width 0.4s ease;
+  }
+  .bar-actual.under { background: var(--coral); }
+  .bar-actual.over  { background: var(--mint); }
+  .bar-actual.met   { background: #10b981; }
+  .bar-hrs { font-size: 0.72rem; font-weight: 700; color: var(--text-mid); font-family: 'Space Grotesk', monospace; text-align: right; }
+  .bar-legend {
+    display: flex; align-items: center; font-size: 0.72rem; color: var(--text-soft);
+    font-weight: 500; margin-top: 0.75rem;
+  }
+  .legend-dot {
+    display: inline-block; width: 10px; height: 10px;
+    border-radius: 2px; margin-right: 0.35rem;
+  }
+  .legend-dot-sleep { background: var(--coral); }
+  .legend-dot-need  { background: rgba(0,0,0,0.12); width: 3px; height: 14px; border-radius: 1px; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg-tint); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .stat-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .day-log-header,
+    .day-row { grid-template-columns: 32px 1fr 1fr 38px; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  const sleepNeedSelect = document.getElementById('sleep-need');
+  const dayRows = document.querySelectorAll('#day-rows .day-row');
+  const resultHero = document.getElementById('result-hero');
+  const resultDebt = document.getElementById('result-debt');
+  const resultSub = document.getElementById('result-sub');
+  const statAvg = document.getElementById('stat-avg');
+  const statDeficit = document.getElementById('stat-deficit');
+  const statRecovery = document.getElementById('stat-recovery');
+  const impairmentLevel = document.getElementById('impairment-level');
+  const bacMarker = document.getElementById('bac-meter-marker');
+  const impairmentComparison = document.getElementById('impairment-comparison');
+  const barChart = document.getElementById('bar-chart');
+
+  function parseTimeToHours(val) {
+    if (!val) return null;
+    const parts = val.split(':');
+    return parseInt(parts[0]) + parseInt(parts[1]) / 60;
+  }
+
+  function calcSleep(bedVal, wakeVal) {
+    const bed = parseTimeToHours(bedVal);
+    const wake = parseTimeToHours(wakeVal);
+    if (bed === null || wake === null) return 0;
+    // handle overnight: if wake <= bed, add 24 hours
+    let diff = wake - bed;
+    if (diff <= 0) diff += 24;
+    // cap at 16 hours (sanity)
+    return Math.min(diff, 16);
+  }
+
+  function updateDayHours() {
+    dayRows.forEach(function (row) {
+      const bedInput = row.querySelector('.bed-input');
+      const wakeInput = row.querySelector('.wake-input');
+      const hoursEl = row.querySelector('.day-hours');
+      const hrs = calcSleep(bedInput.value, wakeInput.value);
+      const need = parseFloat(sleepNeedSelect.value);
+      hoursEl.textContent = hrs.toFixed(1);
+      hoursEl.className = 'day-hours';
+      if (hrs < need - 0.15) hoursEl.classList.add('under');
+      else if (hrs > need + 0.15) hoursEl.classList.add('over');
+    });
+  }
+
+  function getSleepHours() {
+    var result = [];
+    dayRows.forEach(function (row) {
+      const bedInput = row.querySelector('.bed-input');
+      const wakeInput = row.querySelector('.wake-input');
+      result.push(calcSleep(bedInput.value, wakeInput.value));
+    });
+    return result;
+  }
+
+  function getImpairmentData(debt) {
+    if (debt < 2) {
+      return {
+        level: 'None — performing at full capacity',
+        pct: 0,
+        comparison: 'After this week of sleep, your cognitive performance is at full capacity. Keep maintaining your sleep schedule.',
+        color: 'green'
+      };
+    } else if (debt < 7) {
+      return {
+        level: 'Mild — like 0.02 BAC',
+        pct: Math.min((debt / 7) * 25, 25),
+        comparison: 'Your reaction time and attention are slightly reduced — similar to a blood alcohol level of 0.02. Fine for routine tasks, but complex decision-making is subtly affected.',
+        color: 'amber'
+      };
+    } else if (debt < 14) {
+      return {
+        level: 'Moderate — like 0.05 BAC (legal limit in many countries)',
+        pct: 25 + Math.min(((debt - 7) / 7) * 30, 30),
+        comparison: 'After ' + debt.toFixed(1) + ' hours of sleep debt, your reaction time is similar to someone at the legal driving limit in many countries (0.05 BAC). Judgment and working memory are measurably impaired.',
+        color: 'amber'
+      };
+    } else if (debt < 21) {
+      return {
+        level: 'Severe — like 0.08 BAC (legally drunk in the US)',
+        pct: 55 + Math.min(((debt - 14) / 7) * 25, 25),
+        comparison: 'After ' + debt.toFixed(1) + ' hours of accumulated sleep debt, your cognitive performance is equivalent to being legally drunk in the US (0.08 BAC). Reaction time, decision-making, and motor control are all significantly compromised.',
+        color: 'red'
+      };
+    } else {
+      return {
+        level: 'Critical — like 0.10+ BAC (significant impairment)',
+        pct: 90,
+        comparison: 'With ' + debt.toFixed(1) + ' hours of sleep debt, your impairment exceeds the legal intoxication limit in the US. Risk of microsleeps is high. Avoid driving and high-stakes decisions until you recover.',
+        color: 'red'
+      };
+    }
+  }
+
+  function buildBarChart(sleepHours, need) {
+    var maxHours = Math.max(need * 1.15, 10);
+    var html = '';
+    for (var i = 0; i < 7; i++) {
+      var hrs = sleepHours[i];
+      var pct = Math.min((hrs / maxHours) * 100, 100);
+      var needPct = Math.min((need / maxHours) * 100, 100);
+      var cls = hrs >= need - 0.1 ? 'met' : 'under';
+      if (hrs > need + 0.1) cls = 'over';
+      html += '<div class="bar-row">' +
+        '<span class="bar-day">' + days[i] + '</span>' +
+        '<div class="bar-track">' +
+          '<div class="bar-actual ' + cls + '" style="width:' + pct + '%"></div>' +
+          '<div class="bar-need-line" style="left:' + needPct + '%"></div>' +
+        '</div>' +
+        '<span class="bar-hrs">' + hrs.toFixed(1) + 'h</span>' +
+      '</div>';
+    }
+    barChart.innerHTML = html;
+  }
+
+  function calculate() {
+    updateDayHours();
+    var need = parseFloat(sleepNeedSelect.value);
+    var sleepHours = getSleepHours();
+    var totalSleep = sleepHours.reduce(function (a, b) { return a + b; }, 0);
+    var totalNeed = need * 7;
+    var totalDebt = Math.max(0, totalNeed - totalSleep);
+    var avgNightly = totalSleep / 7;
+    var dailyDeficit = Math.max(0, need - avgNightly);
+    // recovery: each night sleep extra 1.5h above need to pay off debt
+    var recoveryNights = dailyDeficit > 0.05 ? Math.ceil(totalDebt / 1.5) : 0;
+
+    // Update hero
+    resultDebt.textContent = totalDebt.toFixed(1) + ' hrs debt';
+    resultHero.className = 'result-hero';
+    if (totalDebt < 2) {
+      resultHero.classList.add('s-green');
+      resultSub.textContent = 'You\'re sleeping well. Keep it up.';
+    } else if (totalDebt < 5) {
+      resultHero.classList.add('s-amber');
+      resultSub.textContent = 'Moderate debt. Aim for extra sleep over the next few nights.';
+    } else {
+      resultHero.classList.add('s-red');
+      resultSub.textContent = 'Significant debt. Cognitive performance is measurably impaired.';
+    }
+
+    // Stat cards
+    statAvg.textContent = avgNightly.toFixed(1) + ' hrs';
+    statDeficit.textContent = dailyDeficit > 0.05 ? dailyDeficit.toFixed(1) + ' hrs/night' : 'None';
+    statRecovery.textContent = recoveryNights > 0 ? '~' + recoveryNights + ' nights' : 'None needed';
+
+    // Impairment
+    var imp = getImpairmentData(totalDebt);
+    impairmentLevel.textContent = imp.level;
+    bacMarker.style.left = imp.pct + '%';
+    impairmentComparison.textContent = imp.comparison;
+
+    // Bar chart
+    buildBarChart(sleepHours, need);
+  }
+
+  // Attach listeners
+  sleepNeedSelect.addEventListener('change', calculate);
+  dayRows.forEach(function (row) {
+    row.querySelector('.bed-input').addEventListener('change', calculate);
+    row.querySelector('.wake-input').addEventListener('change', calculate);
+    row.querySelector('.bed-input').addEventListener('input', calculate);
+    row.querySelector('.wake-input').addEventListener('input', calculate);
+  });
+
+  // Initial render
+  calculate();
+})();
+</script>

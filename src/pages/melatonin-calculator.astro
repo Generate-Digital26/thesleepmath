@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -44,18 +46,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Melatonin Calculator — The Sleep Math"
-  description="Find your optimal melatonin dose and timing. Evidence-based recommendations by age and purpose. Most people take too much."
+  description="Find your optimal melatonin dose and timing. Evidence-based recommendations by age and purpose — most people take too much. Free tool, no sign-up needed."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Melatonin Calculator
-  </div>
+  <Breadcrumb current="Melatonin Calculator" currentPath="/melatonin-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -349,6 +345,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Melatonin Calculator" description="Find your optimal melatonin dose and timing. Evidence-based recommendations by age and purpose. Most people take too much." slug="melatonin-calculator" />
   <Footer />
 </BaseLayout>
 

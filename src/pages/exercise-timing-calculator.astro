@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -40,19 +42,13 @@ const faqs: FAQItem[] = [
 ---
 
 <BaseLayout
-  title="Exercise Timing Calculator — Best Time to Exercise for Sleep | The Sleep Math"
-  description="Find the best time to exercise for better sleep. This chronotype-aware exercise timing tool shows optimal workout windows based on your chronotype and exercise type — backed by sleep research."
+  title="Exercise Timing Calculator — The Sleep Math"
+  description="Find the best time to work out for better sleep based on your chronotype. Three optimized exercise windows with intensity guidance from Stutz et al."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Exercise Timing Optimizer
-  </div>
+  <Breadcrumb current="Exercise Timing Optimizer" currentPath="/exercise-timing-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -262,6 +258,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Exercise Timing Optimizer" description="Find the best time to exercise for better sleep. This chronotype-aware exercise timing tool shows optimal workout windows based on your chronotype and exercise type — backed by sleep research." slug="exercise-timing-calculator" />
   <Footer />
 </BaseLayout>
 

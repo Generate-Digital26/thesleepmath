@@ -1,0 +1,601 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy — The Sleep Math"
+  description="How The Sleep Math handles your data — plain English, no surprises. We use Google Analytics, store nothing personally identifiable, and run zero ads."
+  canonical="https://thesleepmath.com/privacy"
+>
+  <Nav />
+
+  <main class="privacy-page">
+    <div class="privacy-wrap">
+
+      <!-- Header -->
+      <header class="pp-header">
+        <div class="pp-eyebrow">Legal</div>
+        <h1>Privacy Policy</h1>
+        <p class="pp-intro">
+          We built The Sleep Math to help people sleep better — not to harvest their data.
+          This policy explains exactly what we collect, why, and what we don't do with it.
+          Written in plain English, no legalese required.
+        </p>
+        <div class="pp-meta">Last updated: <strong>May 2026</strong></div>
+      </header>
+
+      <div class="pp-body">
+
+        <!-- 1. What data we collect -->
+        <section class="pp-section">
+          <h2><span class="sec-num">1</span> What data we collect</h2>
+
+          <h3>Your email address — only if you sign up for our newsletter</h3>
+          <p>
+            If you choose to subscribe to our newsletter, we collect your email address and
+            nothing else. We don't ask for your name, location, age, or any other personal
+            information. Signing up is completely optional.
+          </p>
+
+          <h3>Calculator inputs — processed entirely in your browser</h3>
+          <p>
+            Every calculator on this site (sleep timing, chronotype quiz, caffeine cutoff,
+            sleep debt tracker, and any future tools) runs 100% client-side. When you enter
+            a bedtime, a wake-up goal, or answers to quiz questions, that data is computed
+            locally in your browser and is <strong>never sent to our servers</strong>.
+            We have no idea what you typed. Once you close the tab, it's gone.
+          </p>
+
+          <h3>Basic analytics data</h3>
+          <p>
+            We use Google Analytics 4 to understand how people use the site — which
+            calculators are popular, how visitors find us, and whether the site is working
+            correctly. Google Analytics collects anonymized usage data including approximate
+            location (country/region level), device type, browser, and pages visited. This
+            data does not identify you personally. See Section 4 for details.
+          </p>
+
+          <div class="pp-callout">
+            <strong>Short version:</strong> We collect your email only if you subscribe.
+            Calculator inputs never leave your device. Basic anonymous analytics help us
+            improve the site.
+          </div>
+        </section>
+
+        <!-- 2. How we use your data -->
+        <section class="pp-section">
+          <h2><span class="sec-num">2</span> How we use your data</h2>
+
+          <p>
+            If you subscribe to our newsletter, we use your email address for one thing:
+            <strong>sending you the newsletter</strong>. That's it.
+          </p>
+
+          <ul class="pp-list">
+            <li>We send occasional emails about new calculators, sleep science content, and site updates.</li>
+            <li>We do not send promotional emails for third-party products.</li>
+            <li>We do not use your email for advertising or ad targeting of any kind.</li>
+            <li>We do not share your email with any other business or individual.</li>
+            <li>We do not profile you or build any kind of user record.</li>
+          </ul>
+
+          <p>
+            Analytics data is used solely to understand how the site is being used so we
+            can improve it — for example, identifying which calculators are confusing,
+            which pages load slowly, or whether a mobile layout is broken.
+          </p>
+        </section>
+
+        <!-- 3. Cookies and analytics -->
+        <section class="pp-section">
+          <h2><span class="sec-num">3</span> Cookies and analytics</h2>
+
+          <h3>Google Analytics 4</h3>
+          <p>
+            We currently use Google Analytics 4 (GA4) to collect anonymized usage
+            statistics. GA4 sets cookies in your browser to track sessions and measure
+            site behavior over time. These cookies do not personally identify you.
+          </p>
+          <p>
+            GA4 data is processed by Google and subject to
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+            We have configured GA4 with IP anonymization enabled and do not use any
+            advertising or remarketing features.
+          </p>
+
+          <h3>Opting out of analytics</h3>
+          <p>
+            You can opt out of Google Analytics tracking across all sites by installing
+            the official
+            <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.
+            Most modern browsers also let you block third-party cookies or enable
+            "Do Not Track" signals.
+          </p>
+
+          <h3>No other tracking cookies</h3>
+          <p>
+            We don't use advertising cookies, social media tracking pixels, or any other
+            third-party cookies beyond the analytics described above. No cookies are used
+            to store or transmit your calculator inputs — that data stays in your browser's
+            memory and is never persisted.
+          </p>
+        </section>
+
+        <!-- 4. Third-party services -->
+        <section class="pp-section">
+          <h2><span class="sec-num">4</span> Third-party services</h2>
+
+          <p>
+            We work with a small number of third-party services to operate the site. Each
+            one has its own privacy policy, and we only share the minimum data necessary
+            for the service to function.
+          </p>
+
+          <div class="pp-service-list">
+            <div class="pp-service">
+              <div class="pp-service-name">Newsletter provider</div>
+              <div class="pp-service-desc">
+                We use a third-party email service provider to send our newsletter and
+                store subscriber email addresses. We share only your email address — no
+                names, no behavioral data, no device info. We choose providers that comply
+                with GDPR and do not use subscriber data for their own marketing.
+              </div>
+            </div>
+            <div class="pp-service">
+              <div class="pp-service-name">Web hosting &amp; CDN</div>
+              <div class="pp-service-desc">
+                The Sleep Math is a static site hosted on a modern infrastructure provider.
+                Their servers process standard web request data (your IP address, browser,
+                requested URL) in order to serve pages to you. This is the same as any
+                website you visit and is not used to identify you.
+              </div>
+            </div>
+            <div class="pp-service">
+              <div class="pp-service-name">Google Analytics 4</div>
+              <div class="pp-service-desc">
+                As described in Section 3, we use GA4 for anonymous usage statistics. See
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>
+                for details on how Google processes this data.
+              </div>
+            </div>
+          </div>
+
+          <p>
+            We do not sell data to any third party, full stop. We do not participate in
+            any data brokerage, advertising network, or cross-site tracking scheme.
+          </p>
+        </section>
+
+        <!-- 5. Data retention -->
+        <section class="pp-section">
+          <h2><span class="sec-num">5</span> Data retention</h2>
+
+          <h3>Newsletter emails</h3>
+          <p>
+            We keep your email address for as long as you remain subscribed. Every
+            newsletter email we send includes an <strong>unsubscribe link</strong>. The
+            moment you click it, your email is removed from our list and deleted from
+            our newsletter provider's database. We do not retain it in any other system,
+            archive, or backup after deletion is requested.
+          </p>
+
+          <h3>Analytics data</h3>
+          <p>
+            Google Analytics retains aggregated, anonymized usage data for up to 14 months
+            by default. After that period, it is automatically deleted from Google's
+            systems. Since this data is not personally identifiable, it cannot be tied
+            back to you.
+          </p>
+
+          <h3>Calculator inputs</h3>
+          <p>
+            We have no data to retain. Calculator inputs are never sent to us and exist
+            only in your browser's memory during your session.
+          </p>
+        </section>
+
+        <!-- 6. Children's privacy -->
+        <section class="pp-section">
+          <h2><span class="sec-num">6</span> Children's privacy</h2>
+
+          <p>
+            The Sleep Math is not directed at children under the age of 13 and we do
+            not knowingly collect personal information from anyone under 13. Sleep science
+            content on this site is written for adults. If you are a parent or guardian
+            and believe your child has provided us with an email address without your
+            consent, please contact us at
+            <a href="mailto:hello@thesleepmath.com">hello@thesleepmath.com</a>
+            and we will delete it promptly.
+          </p>
+        </section>
+
+        <!-- 7. Your rights -->
+        <section class="pp-section">
+          <h2><span class="sec-num">7</span> Your rights</h2>
+
+          <p>
+            Regardless of where you live, we believe you should have control over your
+            personal data. Here's what you can do:
+          </p>
+
+          <ul class="pp-list">
+            <li>
+              <strong>Unsubscribe anytime.</strong> Every newsletter includes a one-click
+              unsubscribe link. No confirmation email, no dark patterns.
+            </li>
+            <li>
+              <strong>Request access.</strong> You can ask us what data we hold about you.
+              Because we only store email addresses (for subscribers), the answer is
+              usually very simple.
+            </li>
+            <li>
+              <strong>Request deletion.</strong> You can ask us to delete your email
+              address at any time — even if you'd prefer not to use the newsletter's
+              unsubscribe link.
+            </li>
+            <li>
+              <strong>Opt out of analytics.</strong> Use the Google Analytics opt-out
+              add-on or configure your browser to block cookies from
+              <code>google-analytics.com</code>.
+            </li>
+            <li>
+              <strong>Portability.</strong> If you want a copy of the data we hold on you
+              in a machine-readable format, just ask.
+            </li>
+          </ul>
+
+          <p>
+            To exercise any of these rights, email us at
+            <a href="mailto:hello@thesleepmath.com">hello@thesleepmath.com</a>.
+            We'll respond within 7 business days. We won't ask you to jump through hoops
+            or fill out lengthy forms.
+          </p>
+
+          <p>
+            If you're in the European Union or UK, you also have rights under the GDPR /
+            UK GDPR including the right to lodge a complaint with your local data
+            protection authority. We'd prefer to resolve any concerns directly, but
+            that right is always available to you.
+          </p>
+        </section>
+
+        <!-- 8. Changes to this policy -->
+        <section class="pp-section">
+          <h2><span class="sec-num">8</span> Changes to this policy</h2>
+
+          <p>
+            If we ever change how we collect or use data in a meaningful way, we'll update
+            this page and revise the "Last updated" date at the top. If the changes are
+            significant — for example, if we ever started using advertising — we would
+            notify newsletter subscribers directly by email before the changes took effect.
+          </p>
+
+          <p>
+            Minor changes like fixing a typo or clarifying existing language won't require
+            a notification.
+          </p>
+        </section>
+
+        <!-- 9. Contact -->
+        <section class="pp-section pp-section--last">
+          <h2><span class="sec-num">9</span> Contact us</h2>
+
+          <p>
+            Questions about this policy, the data we hold, or anything else privacy-related?
+            We're a small team and we respond to real emails.
+          </p>
+
+          <div class="pp-contact-card">
+            <div class="pp-contact-label">Email</div>
+            <a href="mailto:hello@thesleepmath.com" class="pp-contact-email">
+              hello@thesleepmath.com
+            </a>
+            <div class="pp-contact-note">
+              We aim to respond within 2 business days.
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /.pp-body -->
+    </div><!-- /.privacy-wrap -->
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ---- Page shell ---- */
+  .privacy-page {
+    background: var(--bg);
+    min-height: 60vh;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .privacy-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ---- Header ---- */
+  .pp-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  .pp-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .pp-header h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .pp-intro {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .pp-meta {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+  }
+
+  .pp-meta strong {
+    color: var(--text-mid);
+  }
+
+  /* ---- Body ---- */
+  .pp-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ---- Section ---- */
+  .pp-section {
+    padding: 2.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pp-section--last {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .pp-section h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.1rem;
+  }
+
+  .sec-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .pp-section h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 1.4rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .pp-section h3:first-child,
+  .pp-section > p:first-child {
+    margin-top: 0;
+  }
+
+  .pp-section p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-top: 0.75rem;
+  }
+
+  .pp-section p:first-child {
+    margin-top: 0;
+  }
+
+  .pp-section a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.15s;
+  }
+
+  .pp-section a:hover {
+    color: var(--primary-hover);
+  }
+
+  /* ---- Callout box ---- */
+  .pp-callout {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--primary-soft);
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .pp-callout strong {
+    color: var(--primary);
+  }
+
+  /* ---- List ---- */
+  .pp-list {
+    margin-top: 0.85rem;
+    padding-left: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .pp-list li {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .pp-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 7px;
+    height: 7px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.55;
+  }
+
+  .pp-list li strong {
+    color: var(--text);
+  }
+
+  /* ---- Code inline ---- */
+  .pp-section code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82rem;
+    background: var(--bg-tint);
+    border: 1px solid var(--border);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    color: var(--text-mid);
+  }
+
+  /* ---- Third-party service list ---- */
+  .pp-service-list {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .pp-service {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pp-service:last-child {
+    border-bottom: none;
+  }
+
+  .pp-service-name {
+    font-size: 0.87rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .pp-service-desc {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  .pp-service-desc a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .pp-service-desc a:hover {
+    color: var(--primary-hover);
+  }
+
+  /* ---- Contact card ---- */
+  .pp-contact-card {
+    margin-top: 1.25rem;
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .pp-contact-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+  }
+
+  .pp-contact-email {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary) !important;
+    text-decoration: none !important;
+    transition: color 0.15s;
+  }
+
+  .pp-contact-email:hover {
+    color: var(--primary-hover) !important;
+  }
+
+  .pp-contact-note {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-top: 0.1rem;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .privacy-page {
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    .pp-header h1 {
+      font-size: 1.85rem;
+    }
+
+    .pp-section h2 {
+      font-size: 1.1rem;
+    }
+
+    .pp-contact-email {
+      font-size: 1rem;
+    }
+  }
+</style>

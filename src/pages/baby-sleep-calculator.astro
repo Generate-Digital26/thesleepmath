@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -35,18 +37,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Baby Sleep Calculator — The Sleep Math"
-  description="Find your baby's ideal sleep schedule by age. Nap times, wake windows, and bedtime recommendations based on AAP guidelines."
+  description="Find your baby's ideal sleep schedule by age. Nap times, wake windows, and bedtime recommendations based on AAP guidelines for newborns through toddlers."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Baby Sleep Calculator
-  </div>
+  <Breadcrumb current="Baby Sleep Calculator" currentPath="/baby-sleep-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -263,6 +259,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Baby Sleep Calculator" description="Find your baby's ideal sleep schedule by age. Nap times, wake windows, and bedtime recommendations based on AAP guidelines." slug="baby-sleep-calculator" />
   <Footer />
 </BaseLayout>
 

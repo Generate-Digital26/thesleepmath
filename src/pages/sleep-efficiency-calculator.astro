@@ -1,0 +1,702 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is a good sleep efficiency score?',
+    answer: `<p>A <strong>sleep efficiency score of 85% or higher</strong> is considered the clinical benchmark by sleep researchers and CBT-I therapists. Most healthy sleepers fall between 85% and 95%.</p>
+<p>Clinical ranges: <strong>90–100%</strong> is excellent; <strong>85–89%</strong> is good and within the healthy target; <strong>75–84%</strong> is fair and suggests mild sleep fragmentation worth monitoring; <strong>below 75%</strong> is considered poor and is a common diagnostic marker for insomnia disorder. Scores above 95% in adults may occasionally indicate insufficient time in bed rather than truly excellent sleep.</p>`,
+  },
+  {
+    question: "What's the difference between time in bed and time asleep?",
+    answer: `<p><strong>Time in bed (TIB)</strong> is the total duration from when you get into bed until you get out — including the time it takes to fall asleep, any time you're awake during the night, and any time you lie in bed after your final wake-up. <strong>Total sleep time (TST)</strong> is only the time you're actually asleep.</p>
+<p>The gap between these two numbers is the foundation of sleep efficiency. People with insomnia often spend significantly more time in bed than they actually sleep, reinforcing the association between bed and wakefulness. CBT-I therapy specifically targets this gap by temporarily restricting time in bed to match actual sleep time, consolidating sleep and building efficiency.</p>`,
+  },
+  {
+    question: 'What is CBT-I and how does sleep efficiency relate to it?',
+    answer: `<p><strong>Cognitive Behavioral Therapy for Insomnia (CBT-I)</strong> is the first-line treatment recommended by the American Academy of Sleep Medicine for chronic insomnia — preferred over sleep medications. It is a structured program that addresses the thoughts and behaviors that perpetuate insomnia.</p>
+<p>Sleep efficiency is the central metric CBT-I uses to guide treatment. Two core CBT-I techniques directly target efficiency: <strong>sleep restriction therapy</strong> (temporarily reducing time in bed to consolidate sleep and drive efficiency above 85%) and <strong>stimulus control</strong> (reserving bed exclusively for sleep to break conditioned wakefulness). When efficiency rises above 90%, the CBT-I protocol gradually extends time in bed.</p>`,
+  },
+  {
+    question: 'Why is 85% the target for sleep efficiency?',
+    answer: `<p>The <strong>85% threshold</strong> emerged from clinical research into insomnia treatment. Researchers found that below 85%, patients reported significant daytime impairment, and CBT-I protocols using sleep restriction did not begin titrating time in bed upward until efficiency reached 85–90%.</p>
+<p>The figure also has a practical basis: an average adult sleeping 7–8 hours can tolerate around 60–70 minutes of pre-sleep, wake-after-sleep-onset, and morning-in-bed time before efficiency drops below 85%. Reed and Sacco (2016) note that the choice of denominator (time in bed vs. total recording time) matters, but the 85% clinical target is well-established using the time-in-bed denominator used in this calculator.</p>`,
+  },
+  {
+    question: 'How can I improve my sleep efficiency?',
+    answer: `<p>The most evidence-based strategies come directly from CBT-I:</p>
+<p><strong>Stimulus control:</strong> Use bed only for sleep and sex. If you're awake in bed for more than 20 minutes, get up and do something calming in dim light until sleepy, then return to bed. This rebuilds the mental association between bed and sleep.</p>
+<p><strong>Consistent wake time:</strong> Set a fixed wake time every day — including weekends. This anchors your circadian rhythm and builds sleep pressure, making it easier to fall and stay asleep the next night.</p>
+<p><strong>Limit time in bed:</strong> Avoid going to bed too early "just in case." Lying awake in bed lowers efficiency and reinforces wakefulness. Go to bed only when genuinely sleepy.</p>
+<p><strong>Reduce clock-watching:</strong> Checking the clock during the night increases arousal and anxiety, prolonging wakefulness.</p>`,
+  },
+  {
+    question: 'Is it bad to spend too much time in bed?',
+    answer: `<p>Yes — counterintuitively, <strong>spending excessive time in bed can worsen insomnia</strong>. When you lie in bed awake for long periods, your brain learns to associate the bed with wakefulness and arousal rather than sleep. This conditioned wakefulness is one of the main mechanisms that turns short-term sleep problems into chronic insomnia.</p>
+<p>Sleep restriction therapy — one of the most effective CBT-I components — deliberately reduces time in bed to approximately match actual sleep time. This initially causes some mild sleep deprivation that builds sleep pressure, which consolidates sleep, raises efficiency above 85%, and then allows time in bed to be gradually extended. While it sounds paradoxical, restricting time in bed is one of the fastest ways to improve long-term sleep quality.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Sleep Efficiency Calculator — The Sleep Math"
+  description="Calculate your sleep efficiency percentage instantly. Enter time in bed and asleep for a clinical CBT-I grade with personalized improvement strategies."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb current="Sleep Efficiency" currentPath="/sleep-efficiency-calculator" />
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 20V10M12 20V4M6 20v-6"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Sleep Efficiency Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">The metric CBT-I therapists use to assess and treat insomnia. Enter your sleep times and get an instant clinical assessment with personalized guidance.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Clinical benchmark
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        CBT-I based
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR UI -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your sleep last night</h2>
+
+      <div class="field">
+        <label for="time-in-bed">What time did you get into bed?</label>
+        <input type="time" id="time-in-bed" value="22:30">
+      </div>
+
+      <div class="field">
+        <label for="time-try-sleep">What time did you try to fall asleep?</label>
+        <input type="time" id="time-try-sleep" value="23:00">
+      </div>
+
+      <div class="field">
+        <label for="sleep-onset">How long did it take to fall asleep?</label>
+        <div class="input-unit-wrap">
+          <input type="number" id="sleep-onset" min="0" max="240" value="15">
+          <span class="unit">min</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="wake-count">How many times did you wake up?</label>
+        <div class="servings-row">
+          <button id="wake-minus" aria-label="Decrease">−</button>
+          <span class="count" id="wake-count-display">1</span>
+          <button id="wake-plus" aria-label="Increase">+</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="wake-time">Total time awake during the night?</label>
+        <div class="input-unit-wrap">
+          <input type="number" id="wake-time" min="0" max="480" value="10">
+          <span class="unit">min</span>
+        </div>
+        <div class="hint">Combined duration of all wake periods, excluding falling asleep and morning.</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="final-wake">What time did you finally wake up?</label>
+        <input type="time" id="final-wake" value="06:30">
+      </div>
+
+      <div class="field">
+        <label for="out-of-bed">What time did you get out of bed?</label>
+        <input type="time" id="out-of-bed" value="07:00">
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- RESULT HERO -->
+      <div class="result-hero" id="result-hero">
+        <div class="hero-ring-wrap">
+          <svg class="progress-ring" viewBox="0 0 140 140" id="progress-svg">
+            <circle class="ring-track" cx="70" cy="70" r="58"/>
+            <circle class="ring-fill" cx="70" cy="70" r="58" id="ring-fill"/>
+          </svg>
+          <div class="ring-center">
+            <div class="eff-pct" id="eff-pct">87%</div>
+            <div class="eff-rating" id="eff-rating">Good</div>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-label">Sleep Efficiency Score</div>
+          <div class="hero-benchmark">Clinical target: <strong>&ge;85%</strong></div>
+          <div class="hero-detail" id="hero-detail">
+            You slept for <strong id="hero-tst">—</strong> out of <strong id="hero-tib">—</strong> in bed.
+          </div>
+        </div>
+      </div>
+
+      <!-- STAT GRID -->
+      <div class="stat-grid">
+        <div class="stat-card s-mint">
+          <div class="stat-num" id="stat-tib">8h 30m</div>
+          <div class="stat-label">Time in bed</div>
+        </div>
+        <div class="stat-card s-primary">
+          <div class="stat-num" id="stat-tst">7h 5m</div>
+          <div class="stat-label">Total sleep time</div>
+        </div>
+        <div class="stat-card s-amber">
+          <div class="stat-num" id="stat-sol">15 min</div>
+          <div class="stat-label">Sleep onset latency</div>
+        </div>
+      </div>
+
+      <!-- TIMELINE BREAKDOWN -->
+      <div class="breakdown-card">
+        <h3>Night breakdown</h3>
+        <div class="timeline-bar" id="timeline-bar">
+          <!-- segments injected by JS -->
+        </div>
+        <div class="timeline-legend" id="timeline-legend">
+          <!-- legend injected by JS -->
+        </div>
+      </div>
+
+      <!-- CBT-I GUIDANCE -->
+      <div class="guidance-card" id="guidance-card">
+        <div class="guidance-icon" id="guidance-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+          </svg>
+        </div>
+        <div class="guidance-body" id="guidance-body">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind sleep efficiency</h2>
+      <p>
+        Sleep efficiency is the ratio of time actually asleep to total time spent in bed,
+        expressed as a percentage. It is the core metric used by CBT-I therapists to
+        diagnose insomnia severity and guide treatment decisions — more clinically
+        meaningful than sleep duration alone.
+      </p>
+      <p>
+        The formula is straightforward:
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">SE = (TST &divide; TIB) &times; 100</div>
+        <div class="formula-desc">
+          TST = Total Sleep Time (min) &nbsp;&middot;&nbsp; TIB = Time In Bed (min)
+        </div>
+      </div>
+      <p>
+        Where <strong>TST = TIB &minus; sleep onset latency &minus; wake after sleep onset &minus; morning wake time</strong>.
+        A score of <strong>85% or above</strong> is the clinical target. Below 85%, CBT-I therapists
+        typically recommend stimulus control; below 75%, sleep restriction therapy is considered.
+      </p>
+      <p>
+        Sleep restriction therapy works by temporarily reducing time in bed to approximately match
+        actual sleep time. This builds homeostatic sleep pressure, consolidates fragmented sleep,
+        and drives efficiency upward. Once efficiency exceeds 90% for a week, time in bed is
+        extended in 15-minute increments.
+      </p>
+      <div class="citation">
+        Reed, D. &amp; Sacco, W. (2016). Measuring Sleep Efficiency: What Should the Denominator Be?
+        <em>Journal of Clinical Sleep Medicine, 12(2), 263–266.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <CalcSchema name="Sleep Efficiency Calculator" description="Calculate your sleep efficiency score instantly. Enter your sleep times and get a clinical CBT-I assessment with personalized guidance. The metric sleep therapists actually use." slug="sleep-efficiency-calculator" />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #ecfdf5; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 600px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.1rem; }
+  .field:last-child { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem; line-height: 1.35;
+  }
+  .field input[type="time"],
+  .field input[type="number"] {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input[type="time"]:focus,
+  .field input[type="number"]:focus { border-color: var(--primary); }
+  .input-unit-wrap { position: relative; }
+  .input-unit-wrap input { padding-right: 3rem; }
+  .input-unit-wrap .unit {
+    position: absolute; right: 0.85rem; top: 50%;
+    transform: translateY(-50%); font-size: 0.78rem;
+    font-weight: 600; color: var(--text-soft); pointer-events: none;
+  }
+  .field .hint { font-size: 0.72rem; color: var(--text-soft); margin-top: 0.25rem; line-height: 1.4; }
+  .divider { height: 1px; background: var(--border); margin: 1.1rem 0; }
+  .servings-row { display: flex; align-items: center; gap: 0.5rem; }
+  .servings-row button {
+    width: 34px; height: 34px; border-radius: 8px;
+    border: 1.5px solid var(--border); background: var(--bg);
+    font-size: 1.1rem; font-weight: 600; color: var(--text-mid);
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: center; font-family: inherit; transition: all 0.15s;
+  }
+  .servings-row button:hover { border-color: var(--primary); color: var(--primary); }
+  .servings-row .count { flex: 1; text-align: center; font-size: 1.15rem; font-weight: 700; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* RESULT HERO */
+  .result-hero {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem 1.75rem;
+    display: flex; align-items: center; gap: 1.75rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .result-hero.r-excellent { border-color: #10b981; background: #f0fdf4; }
+  .result-hero.r-good      { border-color: #34d399; background: #f0fdf4; }
+  .result-hero.r-fair      { border-color: #f59e0b; background: #fffbeb; }
+  .result-hero.r-poor      { border-color: #ef4444; background: #fef2f2; }
+
+  /* Progress ring */
+  .hero-ring-wrap { position: relative; flex-shrink: 0; width: 140px; height: 140px; }
+  .progress-ring { width: 140px; height: 140px; transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: var(--border); stroke-width: 10; }
+  .ring-fill {
+    fill: none; stroke: #10b981; stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 364.4; stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.6s ease, stroke 0.3s;
+  }
+  .ring-center {
+    position: absolute; inset: 0; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+  }
+  .eff-pct {
+    font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1;
+    transition: color 0.3s;
+  }
+  .eff-rating { font-size: 0.72rem; font-weight: 700; color: var(--text-soft); margin-top: 0.15rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* Hero right */
+  .hero-right { flex: 1; }
+  .hero-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 0.3rem; }
+  .hero-benchmark { font-size: 0.85rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+  .hero-benchmark strong { color: var(--text); }
+  .hero-detail { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
+  .hero-detail strong { color: var(--text); }
+
+  /* STAT GRID */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 1.35rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+  .stat-card .stat-label { font-size: 0.7rem; color: var(--text-soft); font-weight: 500; line-height: 1.3; }
+  .stat-card.s-mint .stat-num    { color: #10b981; }
+  .stat-card.s-primary .stat-num { color: var(--primary); }
+  .stat-card.s-amber .stat-num   { color: #f59e0b; }
+
+  /* BREAKDOWN CARD */
+  .breakdown-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .breakdown-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .timeline-bar {
+    width: 100%; height: 36px; border-radius: 8px; overflow: hidden;
+    display: flex; margin-bottom: 0.75rem;
+  }
+  .tl-seg {
+    height: 100%; transition: width 0.5s ease;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .tl-seg-label {
+    font-size: 0.62rem; font-weight: 700; color: rgba(255,255,255,0.9);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    padding: 0 0.3rem;
+  }
+  .timeline-legend {
+    display: flex; flex-wrap: wrap; gap: 0.5rem 1rem;
+  }
+  .tl-legend-item {
+    display: flex; align-items: center; gap: 0.3rem;
+    font-size: 0.72rem; color: var(--text-mid); font-weight: 500;
+  }
+  .tl-legend-dot {
+    width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0;
+  }
+
+  /* GUIDANCE CARD */
+  .guidance-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-left-width: 4px; border-radius: 14px; padding: 1.25rem;
+    display: flex; gap: 0.875rem; align-items: flex-start;
+    transition: border-color 0.3s;
+  }
+  .guidance-card.g-excellent { border-left-color: #10b981; }
+  .guidance-card.g-good      { border-left-color: #34d399; }
+  .guidance-card.g-fair      { border-left-color: #f59e0b; }
+  .guidance-card.g-poor      { border-left-color: #ef4444; }
+  .guidance-icon { flex-shrink: 0; margin-top: 0.1rem; }
+  .guidance-icon.gi-excellent svg { stroke: #10b981; }
+  .guidance-icon.gi-good      svg { stroke: #34d399; }
+  .guidance-icon.gi-fair      svg { stroke: #f59e0b; }
+  .guidance-icon.gi-poor      svg { stroke: #ef4444; }
+  .guidance-body { flex: 1; }
+  .guidance-body h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .guidance-body p { font-size: 0.83rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 0.5rem; }
+  .guidance-body p:last-child { margin-bottom: 0; }
+  .guidance-body strong { color: var(--text); }
+  .guidance-tip {
+    background: var(--bg-tint); border-radius: 8px; padding: 0.65rem 0.85rem;
+    font-size: 0.8rem; color: var(--text-mid); line-height: 1.5; margin-top: 0.65rem;
+  }
+  .guidance-tip strong { color: var(--text); }
+
+  /* ===== SCIENCE SECTION ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg-tint); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .science-card p:last-of-type { margin-bottom: 0; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1.5rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .result-hero { flex-direction: column; text-align: center; gap: 1rem; }
+    .hero-right { text-align: center; }
+    .stat-grid { grid-template-columns: 1fr; }
+    .science-section { padding: 0 1.25rem 2rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  // ── helpers ──────────────────────────────────────────────────────────────
+  function parseTime(val) {
+    // returns decimal hours (0–47 to handle overnight)
+    if (!val) return null;
+    const [h, m] = val.split(':').map(Number);
+    return h + m / 60;
+  }
+
+  function fmtHM(totalMin) {
+    totalMin = Math.round(totalMin);
+    const h = Math.floor(Math.abs(totalMin) / 60);
+    const m = Math.abs(totalMin) % 60;
+    if (h === 0) return m + ' min';
+    if (m === 0) return h + 'h';
+    return h + 'h ' + m + 'm';
+  }
+
+  function fmtMinOnly(totalMin) {
+    return Math.round(totalMin) + ' min';
+  }
+
+  // ── DOM refs ─────────────────────────────────────────────────────────────
+  const inBed        = document.getElementById('time-in-bed');
+  const trySleep     = document.getElementById('time-try-sleep');
+  const solInput     = document.getElementById('sleep-onset');
+  const wakeTimeInp  = document.getElementById('wake-time');
+  const finalWake    = document.getElementById('final-wake');
+  const outOfBed     = document.getElementById('out-of-bed');
+  const wakeMinusBtn = document.getElementById('wake-minus');
+  const wakePlusBtn  = document.getElementById('wake-plus');
+  const wakeDisplay  = document.getElementById('wake-count-display');
+
+  const resultHero  = document.getElementById('result-hero');
+  const ringFill    = document.getElementById('ring-fill');
+  const effPct      = document.getElementById('eff-pct');
+  const effRating   = document.getElementById('eff-rating');
+  const heroTst     = document.getElementById('hero-tst');
+  const heroTib     = document.getElementById('hero-tib');
+  const statTib     = document.getElementById('stat-tib');
+  const statTst     = document.getElementById('stat-tst');
+  const statSol     = document.getElementById('stat-sol');
+  const timelineBar = document.getElementById('timeline-bar');
+  const timelineLeg = document.getElementById('timeline-legend');
+  const guidanceCard = document.getElementById('guidance-card');
+  const guidanceIcon = document.getElementById('guidance-icon');
+  const guidanceBody = document.getElementById('guidance-body');
+
+  let wakeCount = 1;
+
+  // Ring circumference for r=58: 2π×58 ≈ 364.4
+  const CIRC = 2 * Math.PI * 58;
+
+  // ── wake count buttons ────────────────────────────────────────────────────
+  wakeMinusBtn.addEventListener('click', function () {
+    if (wakeCount > 0) { wakeCount--; wakeDisplay.textContent = wakeCount; calculate(); }
+  });
+  wakePlusBtn.addEventListener('click', function () {
+    if (wakeCount < 20) { wakeCount++; wakeDisplay.textContent = wakeCount; calculate(); }
+  });
+
+  // ── all input listeners ───────────────────────────────────────────────────
+  [inBed, trySleep, solInput, wakeTimeInp, finalWake, outOfBed].forEach(function (el) {
+    el.addEventListener('input', calculate);
+    el.addEventListener('change', calculate);
+  });
+
+  // ── main calculation ──────────────────────────────────────────────────────
+  function calculate() {
+    var tibStart = parseTime(inBed.value);
+    var tryStart = parseTime(trySleep.value);
+    var sol      = parseFloat(solInput.value) || 0;   // minutes
+    var waso     = parseFloat(wakeTimeInp.value) || 0; // minutes (wake after sleep onset)
+    var fwTime   = parseTime(finalWake.value);
+    var tibEnd   = parseTime(outOfBed.value);
+
+    if (tibStart === null || tryStart === null || fwTime === null || tibEnd === null) return;
+
+    // Handle overnight: push times forward if they wrap past midnight
+    // tibStart is the anchor; everything after should be >= it
+    function normalise(t, anchor) {
+      while (t < anchor) t += 24;
+      return t;
+    }
+
+    tryStart = normalise(tryStart, tibStart);
+    fwTime   = normalise(fwTime, tryStart);
+    tibEnd   = normalise(tibEnd, fwTime);
+
+    // Segments in minutes
+    var preAttempt  = (tryStart - tibStart) * 60;         // in bed before trying
+    var solMin      = Math.max(0, sol);                    // falling asleep
+    var wakeMin     = Math.max(0, waso);                   // awake mid-night
+    var morningMin  = (tibEnd - fwTime) * 60;              // in bed after final wake
+    morningMin      = Math.max(0, morningMin);
+
+    // Total time in bed (minutes)
+    var tibMin = (tibEnd - tibStart) * 60;
+    if (tibMin <= 0) tibMin = 480; // fallback
+
+    // Total sleep time
+    var tstMin = tibMin - preAttempt - solMin - wakeMin - morningMin;
+    tstMin = Math.max(0, tstMin);
+
+    // Efficiency
+    var efficiency = tibMin > 0 ? (tstMin / tibMin) * 100 : 0;
+    efficiency = Math.min(100, Math.max(0, efficiency));
+
+    // ── ring ──────────────────────────────────────────────────────────────
+    var pct = efficiency / 100;
+    var dashOffset = CIRC * (1 - pct);
+    ringFill.style.strokeDashoffset = dashOffset;
+
+    var color, ratingText, rClass;
+    if (efficiency >= 90) {
+      color = '#10b981'; ratingText = 'Excellent'; rClass = 'r-excellent';
+    } else if (efficiency >= 85) {
+      color = '#34d399'; ratingText = 'Good'; rClass = 'r-good';
+    } else if (efficiency >= 75) {
+      color = '#f59e0b'; ratingText = 'Needs improvement'; rClass = 'r-fair';
+    } else {
+      color = '#ef4444'; ratingText = 'Poor'; rClass = 'r-poor';
+    }
+    ringFill.style.stroke = color;
+    effPct.textContent = Math.round(efficiency) + '%';
+    effPct.style.color = color;
+    effRating.textContent = ratingText;
+    resultHero.className = 'result-hero ' + rClass;
+
+    heroTst.textContent = fmtHM(tstMin);
+    heroTib.textContent = fmtHM(tibMin);
+    statTib.textContent = fmtHM(tibMin);
+    statTst.textContent = fmtHM(tstMin);
+    statSol.textContent = fmtMinOnly(solMin);
+
+    // ── timeline bar ─────────────────────────────────────────────────────
+    var segments = [];
+    var sleepBlock = tibMin - preAttempt - solMin - wakeMin - morningMin;
+    sleepBlock = Math.max(0, sleepBlock);
+
+    // Divide sleep block around wake periods
+    var sleepFirst = sleepBlock * 0.5;
+    var sleepLast  = sleepBlock - sleepFirst;
+    if (wakeCount === 0 || wakeMin === 0) {
+      sleepFirst = sleepBlock;
+      sleepLast  = 0;
+    }
+
+    if (preAttempt > 0) segments.push({ min: preAttempt, color: '#c4b5fd', label: 'Wind-down', key: 'wind' });
+    if (solMin > 0)     segments.push({ min: solMin,     color: '#818cf8', label: 'Falling asleep', key: 'sol' });
+    if (sleepFirst > 0) segments.push({ min: sleepFirst, color: '#10b981', label: 'Sleep', key: 'sleep' });
+    if (wakeMin > 0)    segments.push({ min: wakeMin,    color: '#ef4444', label: 'Awake', key: 'wake' });
+    if (sleepLast > 0)  segments.push({ min: sleepLast,  color: '#059669', label: 'Sleep', key: 'sleep2' });
+    if (morningMin > 0) segments.push({ min: morningMin, color: '#fbbf24', label: 'Morning', key: 'morn' });
+
+    var total = segments.reduce(function (s, x) { return s + x.min; }, 0);
+    if (total <= 0) return;
+
+    timelineBar.innerHTML = segments.map(function (s) {
+      var w = (s.min / total * 100).toFixed(2);
+      return '<div class="tl-seg" style="width:' + w + '%;background:' + s.color + '">' +
+        (parseFloat(w) > 8 ? '<span class="tl-seg-label">' + fmtHM(s.min) + '</span>' : '') +
+        '</div>';
+    }).join('');
+
+    // legend — deduplicate
+    var seen = {};
+    var legendItems = segments.filter(function (s) {
+      if (seen[s.key]) return false;
+      seen[s.key] = true;
+      return true;
+    });
+    timelineLeg.innerHTML = legendItems.map(function (s) {
+      return '<div class="tl-legend-item">' +
+        '<div class="tl-legend-dot" style="background:' + s.color + '"></div>' +
+        s.label +
+        '</div>';
+    }).join('');
+
+    // ── CBT-I guidance ────────────────────────────────────────────────────
+    var gClass, giClass, heading, body;
+    var trackTip = '<div class="guidance-tip"><strong>Tip:</strong> Track nightly for 1–2 weeks for the most accurate picture. Single-night scores can vary by 10–15%.</div>';
+
+    if (efficiency >= 90) {
+      gClass = 'g-excellent'; giClass = 'gi-excellent';
+      heading = 'Excellent sleep efficiency';
+      body = '<p>Your sleep efficiency of <strong>' + Math.round(efficiency) + '%</strong> is well above the clinical target of 85%. Your bed time is being used almost entirely for sleep — this is exactly what CBT-I aims for.</p>' +
+             '<p>To maintain this: keep a consistent wake time every day, avoid lingering in bed after waking, and protect the stimulus control you\'ve built.</p>' +
+             trackTip;
+    } else if (efficiency >= 85) {
+      gClass = 'g-good'; giClass = 'gi-good';
+      heading = 'Good — at the clinical target';
+      body = '<p>Your efficiency of <strong>' + Math.round(efficiency) + '%</strong> meets the clinical benchmark used in CBT-I research. Most nights in this range will feel restorative.</p>' +
+             '<p>To push toward excellent: try reducing morning time in bed and keep a fixed wake time, even on weekends. Consistency reinforces your circadian anchor.</p>' +
+             trackTip;
+    } else if (efficiency >= 75) {
+      gClass = 'g-fair'; giClass = 'gi-fair';
+      heading = 'Needs improvement — consider stimulus control';
+      body = '<p>Your efficiency of <strong>' + Math.round(efficiency) + '%</strong> is below the 85% target. CBT-I therapists typically introduce <strong>stimulus control</strong> at this stage.</p>' +
+             '<p><strong>Stimulus control rules:</strong> (1) Only go to bed when sleepy — not just tired. (2) If awake for more than 20 minutes, get up and do something calm in dim light until sleepy, then return to bed. (3) Use your bed only for sleep and sex — no screens, reading, or lying awake.</p>' +
+             '<p>These rules rebuild the mental association between your bed and sleep onset.</p>' +
+             trackTip;
+    } else {
+      gClass = 'g-poor'; giClass = 'gi-poor';
+      heading = 'Poor efficiency — sleep restriction may help';
+      body = '<p>Your efficiency of <strong>' + Math.round(efficiency) + '%</strong> is significantly below the clinical threshold. At this level, CBT-I therapists often recommend <strong>sleep restriction therapy</strong> in addition to stimulus control.</p>' +
+             '<p><strong>Sleep restriction:</strong> Temporarily reduce your time in bed to match your actual sleep time (your TST is <strong>' + fmtHM(tstMin) + '</strong>). This builds sleep pressure, consolidates fragmented sleep, and drives efficiency above 85%. Once efficiency holds above 90% for a week, extend time in bed by 15 minutes.</p>' +
+             '<p><strong>Important:</strong> Sleep restriction should ideally be guided by a CBT-I trained therapist, especially if you have a health condition or need to drive.</p>' +
+             trackTip;
+    }
+
+    guidanceCard.className = 'guidance-card ' + gClass;
+    guidanceIcon.className = 'guidance-icon ' + giClass;
+    guidanceBody.innerHTML = '<h4>' + heading + '</h4>' + body;
+  }
+
+  // ── initial render ────────────────────────────────────────────────────────
+  calculate();
+})();
+</script>

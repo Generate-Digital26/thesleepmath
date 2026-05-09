@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -41,18 +43,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Sleep Cycle Calculator — The Sleep Math"
-  description="Find the best times to sleep and wake based on 90-minute sleep cycles. Wake between cycles to feel refreshed — not groggy."
+  description="Find the best times to sleep and wake based on 90-minute sleep cycles. Align your alarm with natural cycle endings to wake refreshed instead of groggy."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Sleep Cycle Calculator
-  </div>
+  <Breadcrumb current="Sleep Cycle Calculator" currentPath="/sleep-cycle-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -197,6 +193,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Sleep Cycle Calculator" description="Find the best times to sleep and wake based on 90-minute sleep cycles. Wake between cycles to feel refreshed — not groggy." slug="sleep-cycle-calculator" />
   <Footer />
 </BaseLayout>
 

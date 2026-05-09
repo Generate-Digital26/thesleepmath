@@ -1,0 +1,1099 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is a chronotype?',
+    answer: `<p>A <strong>chronotype</strong> is your biological preference for sleeping and waking at certain times of day. It reflects the timing of your internal circadian clock relative to the solar day. Someone with an early chronotype naturally feels alert in the morning and sleepy by 9–10 PM, while a late chronotype (sometimes called a night owl) feels most alive after dark and struggles to wake before 9 AM.</p>
+<p>The science of chronotyping was popularized by <strong>Till Roenneberg</strong>, a chronobiologist at Ludwig Maximilian University of Munich, who developed the Munich ChronoType Questionnaire (MCTQ). His large-scale research across hundreds of thousands of people showed that chronotype is a continuous spectrum — not a simple binary — and is heavily influenced by genetics, age, and light exposure.</p>`,
+  },
+  {
+    question: 'What are the 4 chronotype animals?',
+    answer: `<p>The <strong>lion, bear, wolf, and dolphin</strong> chronotype framework — popularized by sleep researcher Dr. Michael Breus — maps Roenneberg's chronotype spectrum onto four animal archetypes:</p>
+<p><strong>Lion (early chronotype):</strong> Wakes naturally at 5:30–6:30 AM, peak cognitive performance 8 AM–12 PM, sleeps by 10 PM. Driven, detail-oriented, often achieves most before noon. About 15–20% of the population.</p>
+<p><strong>Bear (intermediate chronotype):</strong> Follows the solar cycle — up at 7–8 AM, peak energy 10 AM–2 PM, sleeps around 11 PM. The most common type (~50% of people). Socially adaptable and generally well-rested on standard schedules.</p>
+<p><strong>Wolf (late chronotype):</strong> Struggles before 9 AM, peak performance from 5–9 PM, rarely sleepy before midnight. Creative, nocturnal tendencies. Represents ~15–20% of people. Often suffers "social jetlag" on standard 9-to-5 schedules.</p>
+<p><strong>Dolphin (irregular/light sleeper):</strong> Named for the half-brain sleep dolphins use. Light, easily disrupted sleep, often anxious about sleep, variable schedule with no clear preference. Represents ~10% of people.</p>`,
+  },
+  {
+    question: 'How do I find my chronotype?',
+    answer: `<p>The most reliable way to determine <strong>what your chronotype is</strong> is to assess your natural sleep timing on completely free days — days with no alarm clocks, obligations, or social pressure. The Munich ChronoType Questionnaire (MCTQ) uses your "mid-sleep on free days" (MSF) as its primary metric.</p>
+<p>Practically, this means asking: if you could sleep and wake whenever you wanted, what time would you naturally go to bed and get up? If that's 11 PM and 7 AM, your mid-sleep is 3 AM — a bear or mild wolf. If it's 9 PM and 5 AM, mid-sleep is 1 AM — a lion.</p>
+<p>This quiz uses a multi-question approach modeled on the MCTQ, covering sleep timing, alertness patterns, peak performance windows, and direct self-assessment. Answering honestly — especially imagining days free from alarms — gives the most accurate result.</p>`,
+  },
+  {
+    question: 'Can your chronotype change over time?',
+    answer: `<p>Yes — and dramatically so. Research by Roenneberg and colleagues shows a clear lifespan trajectory: children are early chronotypes, adolescents shift to extremely late chronotypes (peaking around age 19–21), and then gradually shift earlier again through adulthood. By your 50s, most people are back to an early or intermediate chronotype.</p>
+<p><strong>Age</strong> is the strongest predictor of chronotype shift. But other factors matter too: <strong>light exposure</strong> (spending more time outdoors nudges you earlier), <strong>shift work</strong>, <strong>caffeine</strong> (which can suppress the circadian signal), and <strong>social schedules</strong> that force you to override your natural clock — creating "social jetlag." Genetics sets the range, but lifestyle determines where within that range you land.</p>`,
+  },
+  {
+    question: 'What is the MCTQ quiz?',
+    answer: `<p>The <strong>Munich ChronoType Questionnaire (MCTQ)</strong> is a validated scientific instrument developed by Till Roenneberg and colleagues at Ludwig Maximilian University of Munich. Unlike sleep diaries, the MCTQ focuses on actual sleep timing on free days — days without alarm clocks — to estimate the phase of your internal circadian clock.</p>
+<p>The key measure is <strong>MSF<sub>sc</sub></strong> (mid-sleep on free days, sleep-corrected), which accounts for sleep debt accumulated during the work week. This gives a more accurate picture of your true biological clock than workday sleep alone. The MCTQ has been administered to over 200,000 participants, revealing that chronotype follows a near-normal distribution with a slight late bias, and that <strong>social jetlag</strong> — the mismatch between your biological clock and social obligations — affects roughly two-thirds of the working population.</p>`,
+  },
+  {
+    question: 'How accurate are online chronotype tests?',
+    answer: `<p>Online <strong>chronotype tests</strong> like this one are useful screening tools, but they have real limitations. The gold standard is a multi-week sleep diary on free days or, more precisely, actigraphy (wrist-worn motion tracking). Lab-based DLMO (dim-light melatonin onset) testing is the most accurate but impractical for everyday use.</p>
+<p>Validated questionnaire-based chronotype tests — including the MCTQ and the Morningness-Eveningness Questionnaire (MEQ) — show good correlation with objective measures in research settings. Self-report accuracy drops when people have significant sleep debt, irregular schedules, or consume caffeine or alcohol regularly. For the most reliable result: answer based on how you <em>naturally</em> feel on completely free, unscheduled days — not your weekday pattern driven by alarms.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Chronotype Quiz: Lion, Bear, Wolf, or Dolphin — The Sleep Math"
+  description="Discover your chronotype in 3 minutes. Science-based quiz reveals if you are a Lion, Bear, Wolf, or Dolphin — with personalized peak-performance schedules."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb current="Chronotype Quiz" currentPath="/chronotype-quiz" />
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Chronotype Quiz</h1>
+      </div>
+    </div>
+    <p class="subtitle">Discover whether you're a Lion, Bear, Wolf, or Dolphin — and get a personalized daily schedule matched to your biological clock. 15 questions, 3 minutes.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        3 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Roenneberg MCTQ
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Science-backed
+      </span>
+    </div>
+  </div>
+
+  <!-- QUIZ UI -->
+  <div class="quiz-outer">
+    <!-- QUIZ CARD (question view) -->
+    <div class="quiz-card" id="quiz-card">
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+
+      <div class="quiz-top">
+        <span class="q-counter" id="q-counter">1 / 15</span>
+        <span class="q-category" id="q-category">Sleep timing</span>
+      </div>
+
+      <div class="question-area">
+        <p class="question-text" id="question-text"></p>
+        <div class="answers-grid" id="answers-grid"></div>
+      </div>
+
+      <div class="quiz-nav">
+        <button class="btn-back" id="btn-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <div class="nav-dots" id="nav-dots"></div>
+        <button class="btn-next" id="btn-next" disabled>
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- RESULTS CARD -->
+    <div class="results-card" id="results-card" style="display:none;">
+      <div class="result-emoji" id="result-emoji"></div>
+      <div class="result-badge" id="result-badge"></div>
+      <h2 class="result-name" id="result-name"></h2>
+      <p class="result-desc" id="result-desc"></p>
+
+      <div class="score-row" id="score-row"></div>
+
+      <div class="schedule-block">
+        <h3>Your personalized daily schedule</h3>
+        <table class="schedule-table" id="schedule-table">
+          <thead>
+            <tr>
+              <th>Time slot</th>
+              <th>Recommendation</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-body"></tbody>
+        </table>
+      </div>
+
+      <div class="tips-block" id="tips-block"></div>
+
+      <!-- EMAIL CAPTURE -->
+      <div class="email-capture" id="email-capture">
+        <div class="email-capture-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 7L2 7"/></svg>
+        </div>
+        <h4>Get your results & schedule by email</h4>
+        <p class="email-sub">We'll send your chronotype profile, personalized daily schedule, and science-backed tips straight to your inbox.</p>
+        <form class="email-form" id="email-form">
+          <input type="email" placeholder="your@email.com" required id="email-input" />
+          <button type="submit">Send</button>
+        </form>
+        <label class="email-checkbox">
+          <input type="checkbox" id="email-subscribe" checked />
+          <span>Also join The Sleep Math newsletter — weekly sleep science, no spam</span>
+        </label>
+        <div class="email-success" id="email-success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span>Check your inbox — your results are on the way!</span>
+        </div>
+      </div>
+
+      <button class="btn-retake" id="btn-retake">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
+        Retake quiz
+      </button>
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this quiz</h2>
+      <p>
+        This quiz is based on the <strong>Munich ChronoType Questionnaire (MCTQ)</strong>, developed
+        by chronobiologist <strong>Till Roenneberg</strong> and colleagues at Ludwig Maximilian
+        University of Munich. The MCTQ has been administered to over 200,000 participants worldwide
+        and is the most widely used tool for measuring circadian phenotype in large populations.
+      </p>
+      <p>
+        The core insight of the MCTQ is that your true chronotype is best measured by your sleep
+        timing on <strong>free days</strong> — days without alarm clocks or social obligations —
+        when your biological clock is allowed to express itself. The key metric is
+        <strong>MSF<sub>sc</sub></strong>: mid-sleep on free days, corrected for sleep debt
+        accumulated during the work week.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">MSF<sub>sc</sub> = MSF − (SD<sub>f</sub> − SD<sub>week</sub>) / 2</div>
+        <div class="formula-desc">
+          MSF = mid-sleep on free days · SD<sub>f</sub> = sleep duration on free days · SD<sub>week</sub> = average weekly sleep duration
+        </div>
+      </div>
+      <p>
+        The four-animal framework (Lion, Bear, Wolf, Dolphin) was popularized by sleep psychologist
+        <strong>Dr. Michael Breus</strong> as an accessible way to communicate Roenneberg's
+        chronotype spectrum. Lions map to the early quartile (MSF before 2:30 AM), Bears to the
+        middle 50%, Wolves to the late quartile (MSF after 5:30 AM), and Dolphins to the
+        light-sleeping, anxiety-prone subset that doesn't fit neatly on the spectrum.
+      </p>
+      <div class="citation">
+        Roenneberg, T., Wirz-Justice, A., &amp; Merrow, M. (2003). Life between clocks: daily temporal patterns of human chronotypes. <em>Journal of Biological Rhythms, 18(1), 80–90.</em>
+        <br>Breus, M. (2016). <em>The Power of When.</em> Little, Brown and Company.
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <CalcSchema name="Chronotype Quiz" description="Discover your chronotype in 3 minutes. Science-based quiz using the Roenneberg MCTQ framework. Find out if you're a Lion, Bear, Wolf, or Dolphin — and get your personalized daily schedule." slug="chronotype-quiz" />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #edeaff; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== QUIZ OUTER ===== */
+  .quiz-outer {
+    max-width: 640px; margin: 1.75rem auto; padding: 0 2rem 2rem;
+  }
+
+  /* ===== QUIZ CARD ===== */
+  .quiz-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 4px 24px rgba(124,106,255,0.06);
+  }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    height: 4px; background: var(--bg-tint); width: 100%;
+  }
+  .progress-bar-fill {
+    height: 100%; background: var(--primary);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+
+  /* Quiz top row */
+  .quiz-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 1.5rem 0.5rem;
+  }
+  .q-counter {
+    font-size: 0.75rem; font-weight: 700; color: var(--primary);
+    font-family: 'Space Grotesk', monospace; letter-spacing: 0.05em;
+  }
+  .q-category {
+    font-size: 0.72rem; font-weight: 600; color: var(--text-soft);
+    background: var(--bg-tint); padding: 0.2rem 0.6rem;
+    border-radius: 20px; letter-spacing: 0.02em;
+  }
+
+  /* Question area */
+  .question-area { padding: 0.75rem 1.5rem 1rem; }
+  .question-text {
+    font-size: 1.05rem; font-weight: 700; line-height: 1.45;
+    letter-spacing: -0.01em; color: var(--text);
+    margin-bottom: 1.25rem; min-height: 2.5em;
+  }
+
+  /* Answer buttons */
+  .answers-grid {
+    display: flex; flex-direction: column; gap: 0.55rem;
+  }
+  .answer-btn {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.8rem 1rem; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border); background: var(--bg);
+    cursor: pointer; text-align: left; font-family: inherit;
+    font-size: 0.88rem; color: var(--text-mid); font-weight: 500;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+    line-height: 1.4;
+  }
+  .answer-btn:hover {
+    border-color: var(--primary); color: var(--text);
+    background: var(--card);
+  }
+  .answer-btn.selected {
+    border-color: var(--primary); background: var(--primary-soft);
+    color: var(--text);
+  }
+  .answer-btn.selected .ans-letter {
+    background: var(--primary); color: #fff; border-color: var(--primary);
+  }
+  .answer-btn.flash {
+    background: var(--primary-soft); border-color: var(--primary);
+  }
+  .ans-letter {
+    width: 26px; height: 26px; border-radius: 6px;
+    border: 1.5px solid var(--border); background: var(--card);
+    font-size: 0.72rem; font-weight: 700; color: var(--text-soft);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-family: 'Space Grotesk', monospace;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+
+  /* Nav row */
+  .quiz-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.85rem 1.5rem 1.25rem; border-top: 1px solid var(--border);
+    gap: 1rem;
+  }
+  .btn-back, .btn-next {
+    display: flex; align-items: center; gap: 0.35rem;
+    padding: 0.55rem 1rem; border-radius: var(--radius-sm);
+    font-family: inherit; font-size: 0.83rem; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .btn-back svg, .btn-next svg { width: 15px; height: 15px; }
+  .btn-back {
+    background: transparent; border: 1.5px solid var(--border); color: var(--text-mid);
+  }
+  .btn-back:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-back:disabled { opacity: 0.3; pointer-events: none; }
+  .btn-next {
+    background: var(--primary); border: 1.5px solid var(--primary); color: #fff;
+  }
+  .btn-next:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+  .btn-next:disabled { opacity: 0.35; pointer-events: none; }
+
+  /* Dot indicators */
+  .nav-dots {
+    display: flex; align-items: center; gap: 4px; flex-wrap: wrap;
+    justify-content: center; max-width: 200px;
+  }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border); transition: background 0.2s, transform 0.2s;
+  }
+  .dot.done { background: var(--primary); opacity: 0.45; }
+  .dot.active { background: var(--primary); transform: scale(1.35); }
+
+  /* ===== RESULTS CARD ===== */
+  .results-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem 2rem 1.75rem;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(124,106,255,0.06);
+    animation: fadeSlideIn 0.4s ease both;
+  }
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .result-emoji {
+    width: 96px; height: 96px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 0.75rem;
+  }
+  .result-emoji svg { width: 52px; height: 52px; }
+  .result-badge {
+    display: inline-block; font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 0.25rem 0.85rem; border-radius: 20px;
+    margin-bottom: 0.85rem;
+  }
+  .result-name {
+    font-size: clamp(1.75rem, 5vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; margin-bottom: 0.75rem;
+  }
+  .result-desc {
+    font-size: 0.92rem; color: var(--text-mid); line-height: 1.65;
+    max-width: 480px; margin: 0 auto 1.5rem;
+  }
+
+  /* Score row */
+  .score-row {
+    display: flex; gap: 0.5rem; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 1.75rem;
+  }
+  .score-chip {
+    display: flex; align-items: center; gap: 0.35rem;
+    padding: 0.3rem 0.75rem; border-radius: 20px;
+    border: 1.5px solid var(--border); font-size: 0.78rem;
+    font-weight: 600; background: var(--bg);
+  }
+  .score-chip.winner {
+    border-color: var(--primary); background: var(--primary-soft); color: var(--primary);
+  }
+
+  /* Schedule */
+  .schedule-block {
+    text-align: left; margin-bottom: 1.5rem;
+  }
+  .schedule-block h3 {
+    font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-soft);
+  }
+  .schedule-table {
+    width: 100%; border-collapse: collapse; font-size: 0.85rem;
+  }
+  .schedule-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.45rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .schedule-table td {
+    padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border);
+    color: var(--text-mid); vertical-align: top;
+  }
+  .schedule-table tr:last-child td { border-bottom: none; }
+  .schedule-table td:first-child {
+    font-weight: 700; color: var(--text); white-space: nowrap; width: 40%;
+  }
+  .time-tag {
+    display: inline-block; font-family: 'Space Grotesk', monospace;
+    font-size: 0.78rem; font-weight: 700; color: var(--primary);
+    background: var(--primary-soft); padding: 0.1rem 0.45rem;
+    border-radius: 5px; margin-right: 0.35rem;
+  }
+
+  /* Tips */
+  .tips-block {
+    text-align: left; background: var(--bg-tint);
+    border-radius: var(--radius-sm); padding: 1rem 1.15rem;
+    margin-bottom: 1.5rem;
+  }
+  .tips-block h4 {
+    font-size: 0.78rem; font-weight: 700; color: var(--text-soft);
+    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.6rem;
+  }
+  .tip-item {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.5;
+    margin-bottom: 0.4rem;
+  }
+  .tip-item:last-child { margin-bottom: 0; }
+  .tip-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--primary); margin-top: 0.45rem; flex-shrink: 0;
+  }
+
+  /* Email capture */
+  .email-capture {
+    background: linear-gradient(135deg, #f5f3ff 0%, #eef6ff 100%);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .email-capture-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--primary-soft); display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 0.75rem;
+  }
+  .email-capture-icon svg { width: 22px; height: 22px; }
+  .email-capture h4 {
+    font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+  }
+  .email-capture .ec-sub {
+    font-size: 0.82rem; color: var(--text-mid); margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .email-form {
+    display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto 0.75rem;
+  }
+  .email-form input[type="email"] {
+    flex: 1; padding: 0.6rem 0.85rem;
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.86rem; color: var(--text); outline: none;
+    transition: border-color 0.15s;
+  }
+  .email-form input[type="email"]:focus { border-color: var(--primary); }
+  .email-form input[type="email"]::placeholder { color: var(--text-soft); }
+  .email-form button {
+    padding: 0.6rem 1.15rem; border-radius: var(--radius-sm);
+    background: var(--primary); border: none; color: #fff;
+    font-family: inherit; font-size: 0.86rem; font-weight: 600;
+    cursor: pointer; transition: background 0.15s; white-space: nowrap;
+  }
+  .email-form button:hover { background: var(--primary-hover); }
+  .email-form button:disabled { opacity: 0.5; pointer-events: none; }
+  .email-checkbox {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.5rem; font-size: 0.78rem; color: var(--text-soft);
+  }
+  .email-checkbox input[type="checkbox"] {
+    width: 16px; height: 16px; accent-color: var(--primary);
+    cursor: pointer;
+  }
+  .email-checkbox label { cursor: pointer; }
+  .email-success {
+    display: none; padding: 0.75rem; background: #ecfdf5;
+    border: 1px solid #10b981; border-radius: var(--radius-sm);
+    font-size: 0.86rem; color: #065f46; font-weight: 500;
+  }
+
+  /* Retake */
+  .btn-retake {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1.5rem; border-radius: var(--radius-sm);
+    background: var(--primary); border: none; color: #fff;
+    font-family: inherit; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .btn-retake svg { width: 16px; height: 16px; }
+  .btn-retake:hover { background: var(--primary-hover); }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg-tint); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.6;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .quiz-outer { padding: 1.25rem 1.25rem 1.5rem; }
+    .quiz-card { border-radius: 12px; }
+    .question-area { padding: 0.5rem 1.1rem 0.75rem; }
+    .quiz-top { padding: 0.9rem 1.1rem 0.4rem; }
+    .quiz-nav { padding: 0.75rem 1.1rem 1rem; }
+    .results-card { padding: 1.5rem 1.25rem 1.25rem; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-card { padding: 1.5rem; }
+    .score-row { gap: 0.4rem; }
+    .schedule-table td:first-child { width: 45%; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* =========================================
+     QUIZ DATA
+  ========================================= */
+  var TYPES = ['lion', 'bear', 'wolf', 'dolphin'];
+  var LETTERS = ['A', 'B', 'C', 'D'];
+
+  var questions = [
+    {
+      text: 'If you were entirely free to plan your day, what time would you get up?',
+      category: 'Sleep timing',
+      answers: [
+        { text: 'Before 6:30 AM — I wake up early naturally', type: 'lion' },
+        { text: '6:30 – 8:00 AM — a fairly normal morning', type: 'bear' },
+        { text: '8:00 – 9:30 AM — I like a later start', type: 'wolf' },
+        { text: 'It varies wildly — no consistent wake time', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'If you were entirely free to choose, what time would you go to bed?',
+      category: 'Sleep timing',
+      answers: [
+        { text: 'Before 10:00 PM — I get sleepy early', type: 'lion' },
+        { text: '10:30 PM – 12:00 AM — standard bedtime', type: 'bear' },
+        { text: 'After midnight — I get my second wind late', type: 'wolf' },
+        { text: 'Highly irregular — depends on the day', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'If you had to wake up at 6:00 AM for an important commitment, how difficult would it be?',
+      category: 'Morning alertness',
+      answers: [
+        { text: 'Not difficult at all — I\'m usually up by then', type: 'lion' },
+        { text: 'Manageable with an alarm — I adapt fine', type: 'bear' },
+        { text: 'Very hard — I feel like a zombie that early', type: 'wolf' },
+        { text: 'Somewhat hard — I\'m a light sleeper so I\'d probably be up anyway', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'How alert and mentally sharp do you feel 30 minutes after waking up?',
+      category: 'Morning alertness',
+      answers: [
+        { text: 'Fully awake and ready to tackle the day', type: 'lion' },
+        { text: 'Somewhat groggy for 20–30 min, then fine', type: 'bear' },
+        { text: 'Foggy for at least an hour — I need time', type: 'wolf' },
+        { text: 'Anxious or unsettled — mornings feel stressful', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'How tired do you feel 30 minutes after waking?',
+      category: 'Morning alertness',
+      answers: [
+        { text: 'Not tired at all — I feel refreshed', type: 'lion' },
+        { text: 'Mildly tired but it passes quickly', type: 'bear' },
+        { text: 'Quite tired — mornings feel rough', type: 'wolf' },
+        { text: 'Tired but also wired or anxious — strange combo', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'When do you feel your absolute peak mental energy and focus?',
+      category: 'Energy patterns',
+      answers: [
+        { text: 'Early morning — 8 AM to 12 PM is my best window', type: 'lion' },
+        { text: 'Mid-morning to early afternoon — 10 AM to 2 PM', type: 'bear' },
+        { text: 'Late afternoon or evening — 5 PM to 9 PM', type: 'wolf' },
+        { text: 'Hard to say — it\'s random and inconsistent', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'If you could choose, when would you schedule a 90-minute exam that required your best performance?',
+      category: 'Performance timing',
+      answers: [
+        { text: '8:00 – 10:00 AM', type: 'lion' },
+        { text: '11:00 AM – 1:00 PM', type: 'bear' },
+        { text: '6:00 – 9:00 PM', type: 'wolf' },
+        { text: 'I\'d prepare the same regardless of time — performance is always unpredictable for me', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'At what time in the evening do you typically feel tired enough to fall asleep?',
+      category: 'Sleep timing',
+      answers: [
+        { text: 'Before 10:00 PM — I\'m out early', type: 'lion' },
+        { text: '10:30 PM – 11:30 PM', type: 'bear' },
+        { text: 'After midnight — sometimes well after', type: 'wolf' },
+        { text: 'I often feel tired but can\'t fall asleep easily — mind racing', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'What is your appetite like in the first 30 minutes after waking?',
+      category: 'Morning alertness',
+      answers: [
+        { text: 'Hungry right away — I look forward to breakfast', type: 'lion' },
+        { text: 'Mildly hungry after 20–30 minutes', type: 'bear' },
+        { text: 'No appetite — I can\'t eat for hours after waking', type: 'wolf' },
+        { text: 'Nauseous or unsettled — eating early feels uncomfortable', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'How dependent are you on an alarm clock to wake up on time?',
+      category: 'Sleep timing',
+      answers: [
+        { text: 'I rarely need one — my body wakes me naturally', type: 'lion' },
+        { text: 'I set one but usually wake just before it', type: 'bear' },
+        { text: 'Completely dependent — multiple alarms required', type: 'wolf' },
+        { text: 'I set many alarms but still feel exhausted and unrefreshed', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'How easy is it for you to fall asleep if you go to bed at 11:00 PM?',
+      category: 'Sleep quality',
+      answers: [
+        { text: 'Easy — I\'m usually already drowsy by then', type: 'lion' },
+        { text: 'Fairly easy — 15–20 minutes to fall asleep', type: 'bear' },
+        { text: 'Hard — I\'m not tired yet at 11 PM', type: 'wolf' },
+        { text: 'Hit or miss — sometimes I fall asleep, sometimes I lie awake for hours', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'If you had a 2-hour workout session, what time would you ideally schedule it?',
+      category: 'Performance timing',
+      answers: [
+        { text: '6:00 – 8:00 AM — morning workouts energize me', type: 'lion' },
+        { text: '10:00 AM – 1:00 PM — mid-morning feels great', type: 'bear' },
+        { text: '5:00 – 8:00 PM — evening is when I feel strongest', type: 'wolf' },
+        { text: 'Varies — I\'d need to go by how I feel that day', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'At what time of the evening do you typically start feeling fatigue setting in?',
+      category: 'Energy patterns',
+      answers: [
+        { text: 'Around 8:00 – 9:00 PM', type: 'lion' },
+        { text: 'Around 10:00 – 11:00 PM', type: 'bear' },
+        { text: 'After midnight — or I don\'t really get tired', type: 'wolf' },
+        { text: 'I feel fatigued much of the day regardless of the time', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'You have an important mental test at 8:00 AM tomorrow. When would you go to bed to be at your best?',
+      category: 'Performance timing',
+      answers: [
+        { text: '9:30 – 10:00 PM — I\'d sleep well and be sharp by 8', type: 'lion' },
+        { text: '11:00 PM – 12:00 AM — standard schedule works fine', type: 'bear' },
+        { text: 'I\'d stay up and be at peak anyway — early mornings are suboptimal no matter what', type: 'wolf' },
+        { text: 'I\'d be anxious about it all night regardless', type: 'dolphin' }
+      ]
+    },
+    {
+      text: 'Which description fits your natural sleep and energy pattern most accurately?',
+      category: 'Self-assessment',
+      answers: [
+        { text: 'I\'m a morning person through and through — up early, productive before noon, asleep early', type: 'lion' },
+        { text: 'I follow a pretty normal day — up at a reasonable time, tired by a reasonable hour', type: 'bear' },
+        { text: 'I come alive at night — energy builds after dark, mornings are painful', type: 'wolf' },
+        { text: 'My sleep is light, unpredictable, or anxiety-driven — I never feel fully rested', type: 'dolphin' }
+      ]
+    }
+  ];
+
+  /* =========================================
+     CHRONOTYPE DATA
+  ========================================= */
+  var chronotypes = {
+    lion: {
+      icon: '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="26" r="10" stroke="#f59e0b" stroke-width="2"/><path d="M24 16V10M18.3 17.3L14 13M29.7 17.3L34 13M15 22H9M39 22h-6M16 30l-4 4M32 30l4 4" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><circle cx="20.5" cy="24.5" r="1.5" fill="#f59e0b"/><circle cx="27.5" cy="24.5" r="1.5" fill="#f59e0b"/><path d="M22 29a2 2 0 0 0 4 0" stroke="#f59e0b" stroke-width="1.5" stroke-linecap="round"/></svg>',
+      iconBg: '#fffbeb',
+      name: 'The Lion',
+      badge: 'Early Chronotype',
+      badgeColor: '#f59e0b',
+      badgeBg: '#fffbeb',
+      desc: 'You\'re a natural early riser with a strong morning bias. Your biological clock runs slightly ahead of the sun — you\'re most alert and productive in the morning hours, hit peak cognitive performance before noon, and feel genuinely sleepy well before midnight. Lions are typically driven, disciplined, and goal-oriented. Your challenge: the world\'s social life happens in the evenings, when you\'re already fading.',
+      schedule: [
+        { slot: 'Wake up', time: '5:30 – 6:30 AM', rec: 'Natural wake window — no alarm needed. Light exposure immediately helps lock in your early clock.' },
+        { slot: 'Peak focus work', time: '8:00 – 12:00 PM', rec: 'Schedule your hardest cognitive tasks, important meetings, and creative work here.' },
+        { slot: 'Exercise', time: '6:00 – 8:00 AM', rec: 'Morning workouts align with your cortisol peak and set up sustained energy.' },
+        { slot: 'Last caffeine', time: 'By 12:00 PM', rec: 'With an early bedtime, afternoon caffeine will disrupt your sleep. Cut it at noon.' },
+        { slot: 'Wind-down starts', time: '8:00 – 9:00 PM', rec: 'Dim lights, avoid screens, limit stimulation. Your melatonin rises early.' },
+        { slot: 'Target bedtime', time: '9:30 – 10:30 PM', rec: 'Aiming for 7–8 hours puts you in bed here. Resist the urge to stay up for social reasons.' }
+      ],
+      tips: [
+        'Use your early hours ruthlessly — do your most important work before 10 AM.',
+        'Protect evening wind-down. Late social events will cost you real sleep debt.',
+        'Blue-light glasses or screen curfew at 8 PM prevents melatonin suppression.',
+        'On weekends, try not to sleep in more than 60 minutes — social jetlag applies to early birds too.'
+      ]
+    },
+    bear: {
+      icon: '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="15" cy="14" r="5" stroke="#10b981" stroke-width="2"/><circle cx="33" cy="14" r="5" stroke="#10b981" stroke-width="2"/><rect x="10" y="16" width="28" height="22" rx="14" stroke="#10b981" stroke-width="2"/><circle cx="19.5" cy="26.5" r="2" fill="#10b981"/><circle cx="28.5" cy="26.5" r="2" fill="#10b981"/><ellipse cx="24" cy="31" rx="3" ry="2" stroke="#10b981" stroke-width="1.5"/></svg>',
+      iconBg: '#ecfdf5',
+      name: 'The Bear',
+      badge: 'Intermediate Chronotype',
+      badgeColor: '#10b981',
+      badgeBg: '#ecfdf5',
+      desc: 'You follow the solar cycle closely — the most common chronotype, representing about half the population. Your sleep and wake times align well with standard work and school schedules, which means you experience less social jetlag than Lions or Wolves. Bears feel groggy for the first 30 minutes but recover quickly, hit peak performance mid-morning through early afternoon, and feel naturally sleepy around 11 PM.',
+      schedule: [
+        { slot: 'Wake up', time: '7:00 – 8:00 AM', rec: 'A single alarm usually does it. Getting morning light within 30 min sharpens your circadian signal.' },
+        { slot: 'Peak focus work', time: '10:00 AM – 2:00 PM', rec: 'Your cognitive peak. Schedule demanding tasks, writing, and analysis in this window.' },
+        { slot: 'Exercise', time: '10:00 AM – 12:00 PM', rec: 'Late morning exercise matches your rising body temperature for best performance.' },
+        { slot: 'Last caffeine', time: 'By 2:00 PM', rec: 'With an 11 PM bedtime and 5-hour half-life, 2 PM is a safe cutoff.' },
+        { slot: 'Wind-down starts', time: '9:30 – 10:00 PM', rec: 'Dim lights, cool the room, and start winding down for a smooth transition to sleep.' },
+        { slot: 'Target bedtime', time: '10:30 – 11:30 PM', rec: '7–8 hours from here gets you to your natural wake time without an alarm.' }
+      ],
+      tips: [
+        'Your mid-afternoon (2–3 PM) slump is biological — a 20-min nap or a short walk beats another coffee.',
+        'Consistent wake times — even on weekends — keep your Bear rhythm sharp.',
+        'Morning light within 30 minutes of waking amplifies your already-good circadian anchoring.',
+        'Avoid heavy meals within 2 hours of bed — Bears are prone to disrupted sleep from late eating.'
+      ]
+    },
+    wolf: {
+      icon: '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 12l6 10h16l6-10" stroke="#7c6aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 22v10a8 8 0 0 0 16 0V22" stroke="#7c6aff" stroke-width="2"/><circle cx="20" cy="27" r="1.5" fill="#7c6aff"/><circle cx="28" cy="27" r="1.5" fill="#7c6aff"/><path d="M22 33l2 2 2-2" stroke="#7c6aff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+      iconBg: '#edeaff',
+      name: 'The Wolf',
+      badge: 'Late Chronotype',
+      badgeColor: '#7c6aff',
+      badgeBg: '#edeaff',
+      desc: 'Your biological clock runs late — you\'re a night owl in every sense. Mornings feel like an assault, your brain doesn\'t fully come online until late morning or early afternoon, and you hit genuine peak performance in the late afternoon and evening. You likely experience significant social jetlag — the chronic mismatch between your natural clock and the 9-to-5 world. This isn\'t laziness; it\'s genetics and chronobiology.',
+      schedule: [
+        { slot: 'Wake up', time: '8:00 – 9:30 AM', rec: 'Natural wake window on free days. If work forces earlier, prioritize morning light to shift your clock.' },
+        { slot: 'Peak focus work', time: '5:00 – 9:00 PM', rec: 'Your cognitive golden hour. Use evenings for creative work, deep writing, and complex problem-solving.' },
+        { slot: 'Exercise', time: '5:00 – 7:00 PM', rec: 'Evening exercise matches your late body temperature peak. Avoid it after 9 PM or it delays sleep further.' },
+        { slot: 'Last caffeine', time: 'By 3:00 PM', rec: 'With a late bedtime, you have some leeway — but 3 PM is the safe limit to protect sleep quality.' },
+        { slot: 'Wind-down starts', time: '11:00 PM – 12:00 AM', rec: 'Dim all lights significantly. Wolves are especially sensitive to evening light keeping them up.' },
+        { slot: 'Target bedtime', time: '12:00 – 1:00 AM', rec: 'Your natural sleep onset. If you must wake at 7 AM, this still gives 6–7 hours — but prioritize weekends to repay debt.' }
+      ],
+      tips: [
+        'Morning light therapy (10,000 lux lamp for 20–30 min) can gradually shift your clock earlier if needed.',
+        'On work days, avoid closing blackout curtains — natural light after waking accelerates your circadian phase advance.',
+        'Fight the social stigma. Your chronotype is largely genetic (CLOCK gene variants). It\'s not a character flaw.',
+        'If possible, negotiate flex hours or remote work — even 90 minutes of schedule flexibility dramatically reduces social jetlag.'
+      ]
+    },
+    dolphin: {
+      icon: '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 26c4-8 12-12 20-10 4 1 8 4 10 8-2 0-4 1-5 3-3 5-10 8-18 6S6 28 8 26z" stroke="#38b6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M28 16c2-4 6-6 6-6s-1 4-3 6" stroke="#38b6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="26" r="1.5" fill="#38b6ff"/><path d="M8 26c-2 1-4 3-4 3" stroke="#38b6ff" stroke-width="2" stroke-linecap="round"/></svg>',
+      iconBg: '#e0f4ff',
+      name: 'The Dolphin',
+      badge: 'Irregular / Light Sleeper',
+      badgeColor: '#38b6ff',
+      badgeBg: '#e0f4ff',
+      desc: 'Named for dolphins\' unihemispheric sleep (one brain half stays alert at all times), Dolphins are light, easily-disrupted sleepers who often report anxiety around sleep. You don\'t fit neatly on the early-to-late chronotype spectrum — your sleep timing is irregular, you\'re highly sensitive to noise and environment, and you may feel tired much of the day despite spending adequate time in bed. Sleep anxiety and hypervigilance are common.',
+      schedule: [
+        { slot: 'Wake up', time: '6:30 – 7:30 AM', rec: 'Dolphins often wake early despite late bedtimes. A consistent anchor wake time (same every day) is your most powerful tool.' },
+        { slot: 'Peak focus work', time: '10:00 AM – 12:00 PM', rec: 'A brief mid-morning window when anxiety tends to subside. Protect it from interruptions.' },
+        { slot: 'Exercise', time: 'Late morning', rec: 'Moderate aerobic exercise (30 min) is one of the most effective treatments for Dolphin-type insomnia. Avoid high-intensity evening workouts.' },
+        { slot: 'Last caffeine', time: 'By 12:00 PM', rec: 'Dolphins are often highly caffeine-sensitive. Strict early cutoff prevents the anxiety-caffeine spiral.' },
+        { slot: 'Wind-down ritual', time: '9:30 – 10:30 PM', rec: 'A consistent 30–45 min wind-down ritual (reading, light stretching, cool shower) signals safety to your nervous system.' },
+        { slot: 'Target bedtime', time: '11:00 PM – 12:00 AM', rec: 'Consistent bedtime matters more than the exact hour. Stimulus control (bed = sleep only) is critical.' }
+      ],
+      tips: [
+        'CBT-I (Cognitive Behavioral Therapy for Insomnia) has the strongest evidence base for Dolphin-type sleep — more effective than sleep medication.',
+        'Strict stimulus control: use your bed for sleep only. No reading, screens, or worrying in bed.',
+        'Sleep restriction therapy (temporarily reducing time in bed to build sleep pressure) is often transformative for Dolphins.',
+        'Magnesium glycinate (200–400 mg) before bed may reduce the nervous system hyperarousal that keeps Dolphins awake.'
+      ]
+    }
+  };
+
+  /* =========================================
+     STATE
+  ========================================= */
+  var currentQ = 0;
+  var answers = new Array(questions.length).fill(null); // index of chosen answer per question
+  var scores = { lion: 0, bear: 0, wolf: 0, dolphin: 0 };
+
+  /* =========================================
+     DOM REFS
+  ========================================= */
+  var quizCard = document.getElementById('quiz-card');
+  var resultsCard = document.getElementById('results-card');
+  var progressFill = document.getElementById('progress-fill');
+  var qCounter = document.getElementById('q-counter');
+  var qCategory = document.getElementById('q-category');
+  var questionText = document.getElementById('question-text');
+  var answersGrid = document.getElementById('answers-grid');
+  var btnBack = document.getElementById('btn-back');
+  var btnNext = document.getElementById('btn-next');
+  var navDots = document.getElementById('nav-dots');
+  var btnRetake = document.getElementById('btn-retake');
+
+  /* =========================================
+     RENDER QUESTION
+  ========================================= */
+  function renderQuestion() {
+    var q = questions[currentQ];
+    qCounter.textContent = (currentQ + 1) + ' / ' + questions.length;
+    qCategory.textContent = q.category;
+    questionText.textContent = q.text;
+
+    answersGrid.innerHTML = '';
+    q.answers.forEach(function (ans, i) {
+      var btn = document.createElement('button');
+      btn.className = 'answer-btn' + (answers[currentQ] === i ? ' selected' : '');
+      btn.innerHTML = '<span class="ans-letter">' + LETTERS[i] + '</span>' + ans.text;
+      btn.addEventListener('click', function () {
+        selectAnswer(i);
+      });
+      answersGrid.appendChild(btn);
+    });
+
+    // progress
+    progressFill.style.width = (currentQ / questions.length * 100) + '%';
+
+    // nav state
+    btnBack.disabled = currentQ === 0;
+    btnNext.disabled = answers[currentQ] === null;
+    btnNext.textContent = currentQ === questions.length - 1 ? 'See results' : 'Next';
+    // re-add arrow
+    var arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    arrow.setAttribute('viewBox', '0 0 24 24');
+    arrow.setAttribute('fill', 'none');
+    arrow.setAttribute('stroke', 'currentColor');
+    arrow.setAttribute('stroke-width', '2.5');
+    arrow.setAttribute('stroke-linecap', 'round');
+    arrow.setAttribute('stroke-linejoin', 'round');
+    var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    poly.setAttribute('points', '9 18 15 12 9 6');
+    arrow.appendChild(poly);
+    btnNext.appendChild(arrow);
+
+    renderDots();
+  }
+
+  function renderDots() {
+    navDots.innerHTML = '';
+    questions.forEach(function (_, i) {
+      var dot = document.createElement('span');
+      dot.className = 'dot' + (i < currentQ ? ' done' : '') + (i === currentQ ? ' active' : '');
+      navDots.appendChild(dot);
+    });
+  }
+
+  /* =========================================
+     SELECT ANSWER
+  ========================================= */
+  function selectAnswer(idx) {
+    answers[currentQ] = idx;
+    btnNext.disabled = false;
+
+    // flash highlight
+    var btns = answersGrid.querySelectorAll('.answer-btn');
+    btns.forEach(function (b, i) {
+      b.classList.remove('selected', 'flash');
+      if (i === idx) b.classList.add('selected', 'flash');
+    });
+
+    // auto-advance after short delay (unless last question)
+    if (currentQ < questions.length - 1) {
+      setTimeout(function () {
+        advance();
+      }, 380);
+    }
+  }
+
+  /* =========================================
+     NAVIGATION
+  ========================================= */
+  function advance() {
+    if (currentQ < questions.length - 1) {
+      currentQ++;
+      renderQuestion();
+    } else {
+      showResults();
+    }
+  }
+
+  btnNext.addEventListener('click', function () {
+    if (answers[currentQ] === null) return;
+    advance();
+  });
+
+  btnBack.addEventListener('click', function () {
+    if (currentQ > 0) {
+      currentQ--;
+      renderQuestion();
+    }
+  });
+
+  /* =========================================
+     CALCULATE & SHOW RESULTS
+  ========================================= */
+  function calcScores() {
+    scores = { lion: 0, bear: 0, wolf: 0, dolphin: 0 };
+    answers.forEach(function (ans, qi) {
+      if (ans !== null) {
+        var type = questions[qi].answers[ans].type;
+        scores[type]++;
+      }
+    });
+  }
+
+  function getWinner() {
+    var max = -1;
+    var winner = 'bear';
+    TYPES.forEach(function (t) {
+      if (scores[t] > max) { max = scores[t]; winner = t; }
+    });
+    // tiebreak: question 15 (index 14) overrides if tied
+    var q15ans = answers[14];
+    if (q15ans !== null) {
+      var q15type = questions[14].answers[q15ans].type;
+      if (scores[q15type] === max && q15type !== winner) {
+        winner = q15type;
+      }
+    }
+    return winner;
+  }
+
+  function showResults() {
+    calcScores();
+    var winner = getWinner();
+    var ct = chronotypes[winner];
+
+    // progress to 100%
+    progressFill.style.width = '100%';
+
+    // populate results card — SVG icon in tinted circle
+    var emojiEl = document.getElementById('result-emoji');
+    emojiEl.style.background = ct.iconBg;
+    emojiEl.innerHTML = ct.icon;
+
+    var badge = document.getElementById('result-badge');
+    badge.textContent = ct.badge;
+    badge.style.background = ct.badgeBg;
+    badge.style.color = ct.badgeColor;
+
+    document.getElementById('result-name').textContent = ct.name;
+    document.getElementById('result-desc').textContent = ct.desc;
+
+    // score chips
+    var scoreRow = document.getElementById('score-row');
+    scoreRow.innerHTML = '';
+    var labels = { lion: 'Lion', bear: 'Bear', wolf: 'Wolf', dolphin: 'Dolphin' };
+    TYPES.forEach(function (t) {
+      var chip = document.createElement('div');
+      chip.className = 'score-chip' + (t === winner ? ' winner' : '');
+      chip.textContent = labels[t] + '  ' + scores[t];
+      scoreRow.appendChild(chip);
+    });
+
+    // schedule
+    var tbody = document.getElementById('schedule-body');
+    tbody.innerHTML = '';
+    ct.schedule.forEach(function (row) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><span class="time-tag">' + row.time + '</span><br>' + row.slot + '</td><td>' + row.rec + '</td>';
+      tbody.appendChild(tr);
+    });
+
+    // tips
+    var tipsBlock = document.getElementById('tips-block');
+    tipsBlock.innerHTML = '<h4>Personalized tips for ' + ct.name + 's</h4>' +
+      ct.tips.map(function (tip) {
+        return '<div class="tip-item"><div class="tip-dot"></div><span>' + tip + '</span></div>';
+      }).join('');
+
+    // swap cards
+    quizCard.style.display = 'none';
+    resultsCard.style.display = 'block';
+  }
+
+  /* =========================================
+     EMAIL CAPTURE
+  ========================================= */
+  var emailForm = document.getElementById('email-form');
+  var emailInput = document.getElementById('email-input');
+  var emailSubscribe = document.getElementById('email-subscribe');
+  var emailSuccess = document.getElementById('email-success');
+  var emailCapture = document.getElementById('email-capture');
+
+  emailForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = emailInput.value.trim();
+    if (!email) return;
+
+    var subscribe = emailSubscribe.checked;
+    var winner = getWinner();
+    var ct = chronotypes[winner];
+
+    // Store submission data (integrate with your email service later)
+    var payload = {
+      email: email,
+      chronotype: winner,
+      chronotypeName: ct.name,
+      scores: Object.assign({}, scores),
+      subscribe: subscribe,
+      timestamp: new Date().toISOString()
+    };
+
+    // For now, log and show success (replace with API call)
+    console.log('Email capture:', JSON.stringify(payload));
+
+    // Show success state
+    emailForm.style.display = 'none';
+    document.querySelector('.email-checkbox').style.display = 'none';
+    document.querySelector('.email-sub').style.display = 'none';
+    emailSuccess.style.display = 'flex';
+    emailCapture.querySelector('h4').textContent = 'Results sent!';
+  });
+
+  /* =========================================
+     RETAKE
+  ========================================= */
+  btnRetake.addEventListener('click', function () {
+    currentQ = 0;
+    answers = new Array(questions.length).fill(null);
+    scores = { lion: 0, bear: 0, wolf: 0, dolphin: 0 };
+    progressFill.style.width = '0%';
+    resultsCard.style.display = 'none';
+    quizCard.style.display = 'block';
+    // reset email capture
+    emailForm.style.display = 'flex';
+    document.querySelector('.email-checkbox').style.display = 'flex';
+    document.querySelector('.email-sub').style.display = 'block';
+    emailSuccess.style.display = 'none';
+    emailCapture.querySelector('h4').textContent = 'Get your results & schedule by email';
+    emailInput.value = '';
+    renderQuestion();
+    // scroll back to quiz
+    quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  /* =========================================
+     INIT
+  ========================================= */
+  renderQuestion();
+
+})();
+</script>

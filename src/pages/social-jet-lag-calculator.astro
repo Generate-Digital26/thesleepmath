@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -41,18 +43,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Social Jet Lag Calculator — The Sleep Math"
-  description="Calculate your social jet lag score using Roenneberg's formula. Compare workday vs weekend sleep midpoints to quantify your sleep schedule misalignment and its health implications."
+  description="Calculate your social jet lag using Roenneberg's formula. Compare workday vs. weekend sleep to quantify circadian misalignment and understand health risks."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Social Jet Lag Calculator
-  </div>
+  <Breadcrumb current="Social Jet Lag Calculator" currentPath="/social-jet-lag-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -243,6 +239,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Social Jet Lag Calculator" description="Calculate your social jet lag score using Roenneberg's formula. Compare workday vs weekend sleep midpoints to quantify your sleep schedule misalignment and its health implications." slug="social-jet-lag-calculator" />
   <Footer />
 </BaseLayout>
 

@@ -1,0 +1,47 @@
+---
+/**
+ * Outputs SoftwareApplication JSON-LD for calculator pages.
+ * Tells Google this page is an interactive tool, not just an article.
+ */
+interface Props {
+  name: string;
+  description: string;
+  slug: string;
+  datePublished?: string;
+  citation?: string;
+}
+
+const {
+  name,
+  description,
+  slug,
+  datePublished = '2026-05-09',
+  citation,
+} = Astro.props;
+
+const siteUrl = 'https://thesleepmath.com';
+
+const appSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name,
+  description,
+  url: `${siteUrl}/${slug}`,
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'Any',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: siteUrl,
+  },
+  datePublished,
+  ...(citation ? { citation } : {}),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(appSchema)} />

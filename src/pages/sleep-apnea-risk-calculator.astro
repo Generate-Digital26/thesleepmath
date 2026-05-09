@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -43,18 +45,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Sleep Apnea Risk Calculator — The Sleep Math"
-  description="Free STOP-Bang sleep apnea screening tool. Answer 8 validated questions to assess your risk for obstructive sleep apnea."
+  description="Free STOP-Bang sleep apnea screening tool. Answer 8 validated questions to assess your risk for obstructive sleep apnea and get next-step recommendations."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Sleep Apnea Risk
-  </div>
+  <Breadcrumb current="Sleep Apnea Risk" currentPath="/sleep-apnea-risk-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -331,6 +327,7 @@ const faqs: FAQItem[] = [
   </div>
 
   <FAQ items={faqs} />
+  <CalcSchema name="Sleep Apnea Risk Calculator" description="Free STOP-Bang sleep apnea screening tool. Answer 8 validated questions to assess your risk for obstructive sleep apnea." slug="sleep-apnea-risk-calculator" />
   <Footer />
 </BaseLayout>
 

@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -42,18 +44,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Screen Time Cutoff Calculator — The Sleep Math"
-  description="Find when to stop screens before bed based on blue light research. Personalized cutoff times for phones, tablets, laptops, and TVs."
+  description="Find when to stop screens before bed based on blue light research. Personalized cutoff times for phones, tablets, laptops, and TVs by device and brightness."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Screen Time Cutoff
-  </div>
+  <Breadcrumb current="Screen Time Cutoff" currentPath="/screen-time-cutoff-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -275,6 +271,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Screen Time Cutoff Calculator" description="Find when to stop screens before bed based on blue light research. Personalized cutoff times for phones, tablets, laptops, and TVs." slug="screen-time-cutoff-calculator" />
   <Footer />
 </BaseLayout>
 

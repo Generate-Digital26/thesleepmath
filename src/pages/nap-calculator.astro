@@ -1,0 +1,933 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How long should I nap for the best results?',
+    answer: `<p>The best nap length depends on your goal. <strong>10–20 minutes (power nap)</strong> is ideal for a quick energy boost — you stay in light sleep (stages 1–2), so you wake up refreshed with no grogginess. <strong>60 minutes</strong> reaches slow-wave (deep) sleep for stronger memory consolidation, but expect 10–15 minutes of grogginess (sleep inertia) on waking. <strong>90 minutes</strong> completes a full sleep cycle and is the gold standard for restoration — you naturally surface from light sleep at the end, so grogginess is minimal.</p>
+<p>Avoid waking mid-cycle at 45–75 minutes; that is where sleep inertia is worst. If you only have time for a short nap, set your alarm for 20 minutes — the benefits arrive fast and you wake up sharp.</p>`,
+  },
+  {
+    question: 'What is a power nap and how long should it be?',
+    answer: `<p>A power nap is a <strong>10–20 minute nap</strong> deliberately timed to end before you enter deep (slow-wave) sleep. Sleep stages progress roughly as follows: stage 1 (light dozing, ~5 min) → stage 2 (light sleep, ~15–20 min) → stage 3 (slow-wave deep sleep, ~20–30 min in). Waking during stage 2 leaves you alert because adenosine clearance has already begun but sleep inertia — the grogginess of waking from deep sleep — has not yet set in.</p>
+<p>Research by Mednick et al. (2003) found that even a 20-minute nap improved performance on perceptual tasks comparably to a full night of sleep in sleep-deprived subjects. For the sharpest power nap, try the "nappuccino" trick: drink coffee immediately before lying down. Caffeine takes about 20 minutes to kick in, so you wake naturally as it activates — no alarm jolt required.</p>`,
+  },
+  {
+    question: 'When is the best time to nap?',
+    answer: `<p>The optimal nap window is <strong>6–8 hours after waking</strong>, which coincides with the circadian post-lunch dip. This dip is not caused by eating — it is a hardwired feature of the circadian clock, driven by a brief suppression of the alerting signal from the suprachiasmatic nucleus (SCN). Dijk and Czeisler (1994) identified this as a period of heightened sleep propensity that occurs even in people who skip lunch entirely.</p>
+<p>For most people who wake at 7:00 AM, the sweet spot is roughly <strong>1:00–3:00 PM</strong>. Napping earlier than 6 hours after wake yields lower sleep pressure and lighter, less restorative sleep. Napping later than 3 PM risks encroaching on the "forbidden zone" — the 2–3 hours before your target bedtime — when napping can delay sleep onset and reduce overnight sleep quality.</p>`,
+  },
+  {
+    question: 'Why do I feel groggy after napping?',
+    answer: `<p>Post-nap grogginess is called <strong>sleep inertia</strong> — a temporary state of reduced alertness and cognitive performance that occurs when you wake from deep (slow-wave) sleep. It typically lasts 15–30 minutes and is caused by residual adenosine clearing from the brain plus elevated levels of delta-wave brain activity that continue briefly after waking.</p>
+<p>The worst sleep inertia happens when you wake during stage 3 sleep, which begins around 20–30 minutes into a nap. To avoid it: <strong>keep naps under 25 minutes</strong> (stay in light sleep) or <strong>go the full 90 minutes</strong> (complete the cycle and wake naturally in light sleep). Setting your alarm for exactly 30–75 minutes is the danger zone. If you wake feeling groggy regardless, try a short walk in bright light — it accelerates adenosine clearance and resets the circadian alerting signal.</p>`,
+  },
+  {
+    question: 'Is napping bad for nighttime sleep?',
+    answer: `<p>It depends entirely on timing. Napping <strong>6–8 hours after waking</strong> has minimal impact on overnight sleep quality because sleep pressure (adenosine) is high enough that the nap does not significantly reduce it for bedtime. In fact, a well-timed 20-minute nap may improve nighttime sleep by reducing over-tiredness and stress-driven hyperarousal.</p>
+<p>However, napping within <strong>2–3 hours of your target bedtime</strong> — the "circadian forbidden zone" — directly competes with nighttime sleep. You spend adenosine that your body needs to fall asleep efficiently at night, delaying sleep onset by 30–60 minutes or more. Long naps (90+ min) taken after 4 PM can fragment overnight sleep by reducing the amount of slow-wave sleep in the first part of the night. This calculator flags when your proposed nap time falls in the forbidden zone and recommends skipping it.</p>`,
+  },
+  {
+    question: 'How does this nap calculator work?',
+    answer: `<p>This calculator uses the two-process model of sleep regulation, specifically the circadian component described by <strong>Dijk and Czeisler (1994)</strong>. That research identified a "paradoxical" circadian rhythm of sleep propensity: while the homeostatic pressure (process S, driven by adenosine) rises continuously from wake, the circadian alerting signal (process C) dips mid-afternoon regardless of sleep pressure, creating a natural window of increased sleepiness.</p>
+<p>The calculator estimates your optimal nap window as <strong>6–8 hours after wake time</strong> (the post-lunch dip peak), adjusts the recommended nap duration based on your tiredness level and sleep goal, and checks whether the proposed nap time falls within the <strong>forbidden zone</strong> (2–3 hours before bedtime). It then classifies the result as "Nap now," "Wait until [time]," or "Skip the nap" and recommends a nap type — power nap (10–20 min), restorative nap (60 min), or full cycle (90 min) — based on the combination of your goal and how many hours you have been awake.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Nap Calculator — Optimal Nap Time & Length | The Sleep Math"
+  description="Find your ideal nap time and duration based on wake time and circadian rhythm. Science-backed recommendations for power naps, full cycles, and coffee naps."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb current="Nap Calculator" currentPath="/nap-calculator" />
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Nap Calculator</h1>
+      </div>
+    </div>
+    <p class="subtitle">Find your optimal nap time and length based on your circadian rhythm, sleep pressure, and tonight's bedtime. Beat the afternoon slump without ruining your night.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        30 sec
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Dijk &amp; Czeisler, 1994
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Circadian rhythm model
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your details</h2>
+
+      <div class="field">
+        <label for="wake-time">What time did you wake up today?</label>
+        <input type="time" id="wake-time" value="07:00">
+      </div>
+
+      <div class="field">
+        <label for="now-time">What time is it now?</label>
+        <input type="time" id="now-time" value="14:00">
+      </div>
+
+      <div class="field">
+        <label>How tired are you?</label>
+        <div class="tiredness-grid" id="tiredness-grid">
+          <button class="tired-btn" data-level="1">
+            <span class="tired-emoji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="15" x2="16" y2="15"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span>
+            <span class="tired-label">Fine</span>
+            <span class="tired-sub">Just curious</span>
+          </button>
+          <button class="tired-btn" data-level="2">
+            <span class="tired-emoji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5 1 4 1 4-1 4-1"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></span>
+            <span class="tired-label">A little tired</span>
+            <span class="tired-sub">Could nap</span>
+          </button>
+          <button class="tired-btn active" data-level="3">
+            <span class="tired-emoji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5 2 4 2 4-2 4-2"/><path d="M9.5 9.5L8 11M14.5 9.5L16 11"/></svg></span>
+            <span class="tired-label">Pretty tired</span>
+            <span class="tired-sub">Need a nap</span>
+          </button>
+          <button class="tired-btn" data-level="4">
+            <span class="tired-emoji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><path d="M9 9l1.5 1.5M15 9l-1.5 1.5"/></svg></span>
+            <span class="tired-label">Exhausted</span>
+            <span class="tired-sub">Urgent</span>
+          </button>
+          <button class="tired-btn" data-level="5">
+            <span class="tired-emoji"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="10" x2="9.01" y2="10"/><line x1="15" y1="10" x2="15.01" y2="10"/><path d="M7 3L5 5M17 3l2 2"/></svg></span>
+            <span class="tired-label">Running on fumes</span>
+            <span class="tired-sub">Help</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="bed-time">What time do you need to sleep tonight?</label>
+        <input type="time" id="bed-time" value="23:00">
+      </div>
+
+      <div class="field">
+        <label>What&apos;s the goal?</label>
+        <div class="goal-btns" id="goal-btns">
+          <button class="goal-btn" data-goal="power">
+            <span class="goal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            <span class="goal-text">
+              <strong>Quick recharge</strong>
+              <span>10–20 min power nap</span>
+            </span>
+          </button>
+          <button class="goal-btn" data-goal="full">
+            <span class="goal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="18" rx="2"/><line x1="10" y1="2" x2="14" y2="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/></svg></span>
+            <span class="goal-text">
+              <strong>Full restore</strong>
+              <span>60–90 min with deep sleep</span>
+            </span>
+          </button>
+          <button class="goal-btn active" data-goal="best">
+            <span class="goal-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+            <span class="goal-text">
+              <strong>Whatever works best</strong>
+              <span>Recommend for me</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- RESULT HERO -->
+      <div class="result-hero" id="result-hero">
+        <div class="result-verdict-row">
+          <div class="result-icon" id="result-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="result-verdict" id="result-verdict">Nap now!</div>
+        </div>
+        <div class="result-times" id="result-times">
+          <div class="result-time-block">
+            <div class="rt-label">Nap starts</div>
+            <div class="rt-time" id="nap-start-time">2:00 PM</div>
+          </div>
+          <div class="result-arrow">→</div>
+          <div class="result-time-block">
+            <div class="rt-label">Set alarm for</div>
+            <div class="rt-time alarm" id="nap-alarm-time">2:20 PM</div>
+          </div>
+        </div>
+        <div class="result-sub" id="result-sub">20-min power nap · Wake refreshed, no grogginess</div>
+      </div>
+
+      <!-- NAP TYPE CARDS -->
+      <div class="nap-types" id="nap-types">
+        <div class="nap-card" id="card-power" data-type="power">
+          <div class="nap-card-header">
+            <span class="nap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            <div>
+              <div class="nap-name">Power Nap</div>
+              <div class="nap-dur">10–20 min</div>
+            </div>
+          </div>
+          <div class="nap-desc">Stays in light sleep (stages 1–2). No deep sleep, no grogginess. Instant energy boost and improved focus.</div>
+          <ul class="nap-benefits">
+            <li>Alert on waking</li>
+            <li>Boosts reaction time</li>
+            <li>Safe before evening</li>
+          </ul>
+        </div>
+        <div class="nap-card" id="card-restorative" data-type="restorative">
+          <div class="nap-card-header">
+            <span class="nap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="18" rx="2"/><line x1="10" y1="2" x2="14" y2="2"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="16" y2="16"/></svg></span>
+            <div>
+              <div class="nap-name">Restorative Nap</div>
+              <div class="nap-dur">60 min</div>
+            </div>
+          </div>
+          <div class="nap-desc">Includes slow-wave sleep. Deep memory consolidation and physical repair. Expect 10–15 min grogginess.</div>
+          <ul class="nap-benefits">
+            <li>Strong memory boost</li>
+            <li>Physical recovery</li>
+            <li>Plan for grogginess</li>
+          </ul>
+        </div>
+        <div class="nap-card" id="card-cycle" data-type="cycle">
+          <div class="nap-card-header">
+            <span class="nap-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+            <div>
+              <div class="nap-name">Full Cycle</div>
+              <div class="nap-dur">90 min</div>
+            </div>
+          </div>
+          <div class="nap-desc">Complete sleep cycle. Ends in light sleep so grogginess is minimal. Maximum restoration — REM + deep sleep included.</div>
+          <ul class="nap-benefits">
+            <li>Wakes in light sleep</li>
+            <li>Full REM + deep sleep</li>
+            <li>Maximum restoration</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CIRCADIAN TIMELINE -->
+      <div class="timeline-card">
+        <h3>Your circadian timeline</h3>
+        <div class="timeline-wrap" id="timeline-wrap">
+          <div class="timeline-bar" id="timeline-bar">
+            <!-- segments rendered by JS -->
+          </div>
+          <div class="timeline-labels" id="timeline-labels">
+            <!-- labels rendered by JS -->
+          </div>
+        </div>
+        <div class="timeline-legend">
+          <span class="leg-item"><span class="leg-dot active-color"></span>Active hours</span>
+          <span class="leg-item"><span class="leg-dot dip-color"></span>Post-lunch dip</span>
+          <span class="leg-item"><span class="leg-dot nap-color"></span>Optimal nap window</span>
+          <span class="leg-item"><span class="leg-dot forbidden-color"></span>Forbidden zone</span>
+          <span class="leg-item"><span class="leg-dot sleep-color"></span>Sleep</span>
+        </div>
+      </div>
+
+      <!-- SLEEP PRESSURE CARD -->
+      <div class="pressure-card" id="pressure-card">
+        <h3>Sleep pressure (adenosine level)</h3>
+        <div class="pressure-bar-wrap">
+          <div class="pressure-bar">
+            <div class="pressure-fill" id="pressure-fill" style="width: 55%"></div>
+          </div>
+          <span class="pressure-label" id="pressure-label">Moderate</span>
+        </div>
+        <div class="pressure-desc" id="pressure-desc">Ideal nap window — circadian dip is active and adenosine has built up enough to fall asleep quickly.</div>
+        <div class="pressure-stats">
+          <div class="ps-stat">
+            <div class="ps-num" id="hours-awake-stat">7.0h</div>
+            <div class="ps-label">hours awake</div>
+          </div>
+          <div class="ps-stat">
+            <div class="ps-num" id="hours-to-bed-stat">9.0h</div>
+            <div class="ps-label">until bedtime</div>
+          </div>
+          <div class="ps-stat">
+            <div class="ps-num" id="dip-status-stat">Active</div>
+            <div class="ps-label">circadian dip</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this calculator</h2>
+      <p>
+        Sleep is regulated by two interacting processes: <strong>Process S</strong> (homeostatic sleep pressure, driven by adenosine accumulation during waking) and <strong>Process C</strong> (the circadian alerting signal from your internal clock). Dijk and Czeisler identified a paradoxical property of Process C: even as homeostatic pressure rises continuously throughout the day, the circadian signal dips in the early afternoon — creating a mid-day window of heightened sleep propensity that occurs regardless of how much you slept the night before.
+      </p>
+      <p>
+        This circadian dip peaks approximately <strong>6–8 hours after waking</strong>, which for most morning risers falls between 1–3 PM. Napping during this window requires less effort to fall asleep, produces better-quality sleep, and has the least impact on overnight sleep because Process S has not yet been significantly depleted for the night.
+      </p>
+      <div class="formula-box">
+        <div class="formula-main">Optimal nap start ≈ Wake time + 6–8 hours</div>
+        <div class="formula-desc">
+          Forbidden zone = Bedtime − 2–3 hours · Nap too early = Low sleep pressure, hard to fall asleep
+        </div>
+      </div>
+      <p>
+        The <strong>circadian forbidden zone</strong> is the 2–3 hours before your target bedtime. During this period, the circadian alerting signal surges to its daily maximum to keep you awake until your scheduled sleep time — making napping difficult and, if achieved, directly reducing overnight sleep quality by spending adenosine you need for the night.
+      </p>
+      <table class="nap-table">
+        <thead>
+          <tr><th>Nap type</th><th>Duration</th><th>Sleep stages</th><th>Best for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Power nap</td><td>10–20 min</td><td class="stages">Stages 1–2</td><td>Quick alertness boost, no grogginess</td></tr>
+          <tr><td>Restorative nap</td><td>60 min</td><td class="stages">Stages 1–2–3</td><td>Memory, physical recovery</td></tr>
+          <tr><td>Full cycle</td><td>90 min</td><td class="stages">Stages 1–2–3–REM</td><td>Maximum restoration, wakes in light sleep</td></tr>
+        </tbody>
+      </table>
+      <div class="citation">
+        Dijk, D. &amp; Czeisler, C. (1994). Paradoxical timing of the circadian rhythm of sleep propensity serves to consolidate sleep and wakefulness in humans. <em>Neuroscience Letters, 166(1), 63–68.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <CalcSchema name="Nap Calculator" description="Find the perfect nap time and length based on your wake time, circadian rhythm, and tiredness. Science-backed calculator using Dijk & Czeisler (1994) research. Power nap, restorative nap, or full cycle." slug="nap-calculator" />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALCULATOR HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    background: #eaf6ff; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input[type="time"] {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: 10px; font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input[type="time"]:focus { border-color: var(--primary); }
+
+  /* Tiredness selector */
+  .tiredness-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+  .tiredness-grid .tired-btn:last-child { grid-column: 1 / -1; }
+  .tired-btn {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.15rem; padding: 0.55rem 0.4rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--bg); cursor: pointer;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .tired-btn:hover { border-color: var(--sky); background: #f0f9ff; }
+  .tired-btn.active { border-color: var(--sky); background: #eaf6ff; }
+  .tired-emoji { width: 1.25rem; height: 1.25rem; display: flex; align-items: center; justify-content: center; color: var(--text-soft); }
+  .tired-btn.active .tired-emoji { color: var(--primary); }
+  .tired-emoji svg { width: 100%; height: 100%; }
+  .tired-label { font-size: 0.7rem; font-weight: 700; color: var(--text); text-align: center; }
+  .tired-sub { font-size: 0.62rem; color: var(--text-soft); text-align: center; }
+
+  /* Goal buttons */
+  .goal-btns { display: flex; flex-direction: column; gap: 0.4rem; }
+  .goal-btn {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.65rem 0.75rem;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--bg); cursor: pointer;
+    transition: all 0.15s; font-family: inherit; text-align: left;
+  }
+  .goal-btn:hover { border-color: var(--primary); background: var(--primary-soft); }
+  .goal-btn.active { border-color: var(--primary); background: var(--primary-soft); }
+  .goal-icon { width: 1.25rem; height: 1.25rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--text-soft); }
+  .goal-btn.active .goal-icon { color: var(--primary); }
+  .goal-icon svg { width: 100%; height: 100%; }
+  .goal-text { display: flex; flex-direction: column; gap: 0.05rem; }
+  .goal-text strong { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+  .goal-text span { font-size: 0.7rem; color: var(--text-soft); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Result hero */
+  .result-hero {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .result-hero.state-nap { border-color: #10b981; background: #f0fdf9; }
+  .result-hero.state-wait { border-color: #f59e0b; background: #fffbeb; }
+  .result-hero.state-skip { border-color: #ef4444; background: #fef2f2; }
+
+  .result-verdict-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+  .result-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(16,185,129,0.12); display: flex;
+    align-items: center; justify-content: center; flex-shrink: 0;
+    transition: background 0.25s;
+  }
+  .result-hero.state-wait .result-icon { background: rgba(245,158,11,0.12); }
+  .result-hero.state-skip .result-icon { background: rgba(239,68,68,0.12); }
+  .result-icon svg { width: 20px; height: 20px; stroke: #10b981; transition: stroke 0.25s; }
+  .result-hero.state-wait .result-icon svg { stroke: #f59e0b; }
+  .result-hero.state-skip .result-icon svg { stroke: #ef4444; }
+  .result-verdict {
+    font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1;
+    color: #10b981; transition: color 0.25s;
+  }
+  .result-hero.state-wait .result-verdict { color: #d97706; }
+  .result-hero.state-skip .result-verdict { color: #dc2626; }
+
+  .result-times {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .result-time-block { text-align: center; }
+  .rt-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-soft); margin-bottom: 0.2rem; }
+  .rt-time { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text); font-family: 'Space Grotesk', monospace; }
+  .rt-time.alarm { color: #10b981; }
+  .result-hero.state-wait .rt-time.alarm { color: #d97706; }
+  .result-hero.state-skip .rt-time.alarm { color: #dc2626; }
+  .result-arrow { font-size: 1.25rem; color: var(--text-soft); flex-shrink: 0; }
+  .result-sub { font-size: 0.82rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Nap type cards */
+  .nap-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .nap-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 1rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .nap-card.recommended {
+    border-color: var(--sky); background: #f0f9ff;
+    box-shadow: 0 0 0 2px rgba(56,182,255,0.15);
+  }
+  .nap-card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.65rem; }
+  .nap-icon { width: 1.35rem; height: 1.35rem; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+  .nap-icon svg { width: 100%; height: 100%; }
+  .nap-name { font-size: 0.8rem; font-weight: 700; color: var(--text); }
+  .nap-dur { font-size: 0.7rem; color: var(--text-soft); font-weight: 600; }
+  .nap-desc { font-size: 0.73rem; color: var(--text-mid); line-height: 1.5; margin-bottom: 0.6rem; }
+  .nap-benefits { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+  .nap-benefits li { font-size: 0.7rem; color: var(--text-soft); padding-left: 0.9rem; position: relative; }
+  .nap-benefits li::before { content: '✓'; position: absolute; left: 0; color: var(--mint); font-weight: 700; font-size: 0.65rem; }
+
+  /* Circadian timeline */
+  .timeline-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .timeline-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 1rem; }
+  .timeline-wrap { overflow: hidden; }
+  .timeline-bar {
+    height: 28px; border-radius: 6px; overflow: hidden;
+    display: flex; margin-bottom: 0.4rem; background: var(--bg);
+    border: 1px solid var(--border);
+  }
+  .timeline-seg { height: 100%; position: relative; transition: opacity 0.2s; }
+  .timeline-seg.seg-sleep { background: #312e81; }
+  .timeline-seg.seg-active { background: #bfdbfe; }
+  .timeline-seg.seg-dip { background: #fde68a; }
+  .timeline-seg.seg-nap { background: #6ee7b7; }
+  .timeline-seg.seg-forbidden { background: #fca5a5; }
+  .timeline-seg.seg-bed { background: #312e81; }
+  .timeline-seg.seg-tonight { background: #312e81; }
+
+  .timeline-labels {
+    display: flex; justify-content: space-between;
+    font-size: 0.68rem; color: var(--text-soft);
+    font-weight: 600; padding: 0 0.1rem;
+  }
+  .tl-label { display: flex; flex-direction: column; align-items: center; gap: 0.1rem; }
+  .tl-label .tl-time { font-family: 'Space Grotesk', monospace; font-size: 0.67rem; color: var(--text); }
+  .tl-label .tl-tag { font-size: 0.6rem; color: var(--text-soft); }
+
+  .timeline-legend {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.75rem;
+  }
+  .leg-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; color: var(--text-soft); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .active-color { background: #bfdbfe; }
+  .dip-color { background: #fde68a; }
+  .nap-color { background: #6ee7b7; }
+  .forbidden-color { background: #fca5a5; }
+  .sleep-color { background: #312e81; }
+
+  /* Sleep pressure card */
+  .pressure-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 1.25rem;
+  }
+  .pressure-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .pressure-bar-wrap { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+  .pressure-bar {
+    flex: 1; height: 10px; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 5px; overflow: hidden;
+  }
+  .pressure-fill { height: 100%; border-radius: 5px; transition: width 0.4s ease, background 0.4s ease; background: var(--mint); }
+  .pressure-label { font-size: 0.78rem; font-weight: 700; color: var(--mint); flex-shrink: 0; min-width: 70px; transition: color 0.3s; }
+  .pressure-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.5; margin-bottom: 0.75rem; }
+  .pressure-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .ps-stat {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.6rem; text-align: center;
+  }
+  .ps-num { font-size: 1.15rem; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 0.15rem; font-family: 'Space Grotesk', monospace; }
+  .ps-label { font-size: 0.65rem; color: var(--text-soft); font-weight: 500; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg-tint); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.92rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.75rem; color: #a8a3be; }
+  .nap-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.82rem; }
+  .nap-table th {
+    text-align: left; font-weight: 700; font-size: 0.72rem;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-soft); padding: 0.5rem 0.75rem;
+    border-bottom: 1.5px solid var(--border);
+  }
+  .nap-table td { padding: 0.55rem 0.75rem; color: var(--text-mid); border-bottom: 1px solid var(--border); }
+  .nap-table tr:last-child td { border-bottom: none; }
+  .nap-table .stages { font-weight: 700; color: var(--text); font-family: 'Space Grotesk', monospace; font-size: 0.78rem; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .nap-types { grid-template-columns: 1fr; }
+    .pressure-stats { grid-template-columns: repeat(3, 1fr); }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .tiredness-grid { grid-template-columns: 1fr 1fr; }
+    .result-times { flex-wrap: wrap; }
+  }
+  @media (max-width: 480px) {
+    .pressure-stats { grid-template-columns: 1fr; }
+    .timeline-legend { gap: 0.4rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  /* ---- DOM refs ---- */
+  var wakeInput    = document.getElementById('wake-time');
+  var nowInput     = document.getElementById('now-time');
+  var bedInput     = document.getElementById('bed-time');
+  var tiredGrid    = document.getElementById('tiredness-grid');
+  var goalBtns     = document.getElementById('goal-btns');
+  var resultHero   = document.getElementById('result-hero');
+  var resultVerdict = document.getElementById('result-verdict');
+  var resultIcon   = document.getElementById('result-icon');
+  var napStartEl   = document.getElementById('nap-start-time');
+  var napAlarmEl   = document.getElementById('nap-alarm-time');
+  var resultSub    = document.getElementById('result-sub');
+  var pressureFill = document.getElementById('pressure-fill');
+  var pressureLabel = document.getElementById('pressure-label');
+  var pressureDesc = document.getElementById('pressure-desc');
+  var hoursAwakeStat = document.getElementById('hours-awake-stat');
+  var hoursToBedStat = document.getElementById('hours-to-bed-stat');
+  var dipStatusStat  = document.getElementById('dip-status-stat');
+  var timelineBar    = document.getElementById('timeline-bar');
+  var timelineLabels = document.getElementById('timeline-labels');
+
+  var tiredLevel = 3;
+  var goal = 'best';
+
+  /* ---- helpers ---- */
+  function parseTime(val) {
+    var parts = val.split(':').map(Number);
+    return parts[0] + parts[1] / 60;
+  }
+
+  function mod24(h) { return ((h % 24) + 24) % 24; }
+
+  function fmt12(h) {
+    h = mod24(h);
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = Math.floor(h) % 12; if (hh === 0) hh = 12;
+    var mm = Math.round((h - Math.floor(h)) * 60);
+    return hh + ':' + (mm < 10 ? '0' : '') + mm + ' ' + period;
+  }
+
+  function napDuration(goal, tiredLevel, hoursAwake, hoursToBed) {
+    /* returns minutes */
+    if (goal === 'power') return 20;
+    if (goal === 'full') {
+      /* if less than 2.5h until bed, can't do 90min */
+      if (hoursToBed < 2.5) return 60;
+      return 90;
+    }
+    /* best: decide based on tiredness + hours awake */
+    if (tiredLevel >= 4 || hoursAwake >= 9) {
+      if (hoursToBed >= 2.5) return 90;
+      return 60;
+    }
+    if (tiredLevel >= 3 || hoursAwake >= 6) {
+      if (hoursToBed >= 2.0) return 60;
+      return 20;
+    }
+    return 20;
+  }
+
+  function getRecommendedType(minutes) {
+    if (minutes <= 20) return 'power';
+    if (minutes <= 60) return 'restorative';
+    return 'cycle';
+  }
+
+  function napBenefitText(minutes) {
+    if (minutes <= 20) return minutes + '-min power nap · Wake refreshed, no grogginess';
+    if (minutes <= 60) return minutes + '-min restorative nap · Deep memory boost, allow 15 min grogginess';
+    return minutes + '-min full cycle · Maximum restoration, wakes from light sleep';
+  }
+
+  /* ---- Main calculate ---- */
+  function calculate() {
+    var wake  = parseTime(wakeInput.value);
+    var now   = parseTime(nowInput.value);
+    var bed   = parseTime(bedInput.value);
+
+    /* handle crossing midnight */
+    var hoursAwake = now - wake;
+    if (hoursAwake < 0) hoursAwake += 24;
+    var hoursToBed = bed - now;
+    if (hoursToBed < 0) hoursToBed += 24;
+    var totalSleepWindow = bed - wake;
+    if (totalSleepWindow < 0) totalSleepWindow += 24;
+
+    /* Optimal dip window: 6–8h after wake */
+    var dipStart = mod24(wake + 6);
+    var dipEnd   = mod24(wake + 8);
+
+    /* Forbidden zone: 2–3h before bed */
+    var forbiddenStart = mod24(bed - 3);
+    var forbiddenEnd   = bed;
+
+    /* Determine nap duration */
+    var napMins  = napDuration(goal, tiredLevel, hoursAwake, hoursToBed);
+    var napHours = napMins / 60;
+
+    /* State logic */
+    var state, verdict, napStart, alarmTime, subText;
+
+    /* Is now in forbidden zone? */
+    var nowForbidden = isInWindow(now, forbiddenStart, bed);
+    /* Is now before the dip starts? */
+    var beforeDip = hoursAwake < 6;
+    /* Is now past dip but not forbidden? */
+    var inDip = isInWindow(now, dipStart, dipEnd) || (hoursAwake >= 6 && hoursAwake <= 10 && !nowForbidden);
+
+    if (nowForbidden || hoursToBed < 2) {
+      /* Too late — skip */
+      state = 'state-skip';
+      verdict = 'Skip the nap';
+      napStart = now;
+      alarmTime = now;
+      var hoursUntilForbidden = forbiddenStart - now; if (hoursUntilForbidden < 0) hoursUntilForbidden += 24;
+      subText = 'You\'re in the circadian forbidden zone — napping now will delay tonight\'s sleep by 30–60 min. Next safe window: ' + fmt12(mod24(bed + 8)) + ' tomorrow.';
+    } else if (beforeDip) {
+      /* Too early — wait */
+      state = 'state-wait';
+      verdict = 'Wait until ' + fmt12(dipStart);
+      napStart = dipStart;
+      alarmTime = mod24(dipStart + napHours);
+      subText = 'Sleep pressure is still building (' + hoursAwake.toFixed(1) + 'h awake). The circadian dip begins at ' + fmt12(dipStart) + ' — that\'s when napping will be easiest and most effective.';
+    } else {
+      /* Good window — nap now */
+      state = 'state-nap';
+      verdict = 'Nap now!';
+      napStart = now;
+      alarmTime = mod24(now + napHours);
+      subText = napBenefitText(napMins);
+    }
+
+    /* Update hero */
+    resultHero.className = 'result-hero ' + state;
+    resultVerdict.textContent = verdict;
+
+    /* Update icon SVG */
+    var iconSvg = '';
+    if (state === 'state-nap') {
+      iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    } else if (state === 'state-wait') {
+      iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+    } else {
+      iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>';
+    }
+    resultIcon.innerHTML = iconSvg;
+
+    napStartEl.textContent = fmt12(napStart);
+    napAlarmEl.textContent  = fmt12(alarmTime);
+    resultSub.textContent   = subText;
+
+    /* Show/hide times when skipping */
+    var timesEl = document.getElementById('result-times');
+    if (state === 'state-skip') {
+      timesEl.style.opacity = '0.4';
+    } else {
+      timesEl.style.opacity = '1';
+    }
+
+    /* Nap type cards */
+    var recommended = getRecommendedType(napMins);
+    document.getElementById('card-power').className       = 'nap-card' + (recommended === 'power' ? ' recommended' : '');
+    document.getElementById('card-restorative').className = 'nap-card' + (recommended === 'restorative' ? ' recommended' : '');
+    document.getElementById('card-cycle').className       = 'nap-card' + (recommended === 'cycle' ? ' recommended' : '');
+
+    /* Sleep pressure */
+    updatePressure(hoursAwake, hoursToBed, state);
+
+    /* Circadian timeline */
+    updateTimeline(wake, now, dipStart, dipEnd, forbiddenStart, bed);
+
+    /* Stats */
+    hoursAwakeStat.textContent = hoursAwake.toFixed(1) + 'h';
+    hoursToBedStat.textContent = hoursToBed.toFixed(1) + 'h';
+    dipStatusStat.textContent  = nowForbidden ? 'Forbidden' : (inDip ? 'Active' : (beforeDip ? 'Not yet' : 'Passed'));
+    dipStatusStat.style.color  = nowForbidden ? '#dc2626' : (inDip ? '#10b981' : 'var(--text)');
+  }
+
+  function isInWindow(t, start, end) {
+    /* handles same-day windows, simple comparison */
+    if (start <= end) return t >= start && t < end;
+    /* wraps midnight */
+    return t >= start || t < end;
+  }
+
+  function updatePressure(hoursAwake, hoursToBed, state) {
+    void hoursToBed;
+    var pct, label, color, desc;
+    if (hoursAwake < 6) {
+      pct = 20; label = 'Low'; color = '#38b6ff';
+      desc = 'Sleep pressure is still low (' + hoursAwake.toFixed(1) + 'h awake). Napping now may be difficult — adenosine hasn\'t built up enough yet.';
+    } else if (hoursAwake < 9) {
+      pct = 55; label = 'Ideal'; color = '#10b981';
+      desc = 'Ideal nap window — circadian dip is active and adenosine has built up enough to fall asleep quickly.';
+    } else if (hoursAwake < 12) {
+      pct = 75; label = 'High'; color = '#f59e0b';
+      desc = 'Sleep pressure is high. Napping is helpful but keep it short to avoid disrupting tonight\'s sleep.';
+    } else {
+      pct = 92; label = 'Very high'; color = '#ef4444';
+      desc = 'Very high sleep pressure — you\'re running on low adenosine reserves. A nap helps but you still need a full night\'s sleep tonight.';
+    }
+    if (state === 'state-skip') {
+      pct = 85; label = 'Too late'; color = '#dc2626';
+      desc = 'Napping now would spend adenosine reserves needed for tonight. Protect your bedtime instead.';
+    }
+    pressureFill.style.width = pct + '%';
+    pressureFill.style.background = color;
+    pressureLabel.style.color = color;
+    pressureLabel.textContent = label;
+    pressureDesc.textContent = desc;
+  }
+
+  function updateTimeline(wake, now, dipStart, dipEnd, forbiddenStart, bed) {
+    /* Build 24h timeline from midnight */
+    /* dipStart and dipEnd params consumed via dipS/dipE derived below */
+    void dipStart; void dipEnd;
+
+    /* segments in order: midnight sleep, active, dip, nap window, forbidden, bed */
+    /* Strategy: build sorted list of events */
+    var segments = [];
+
+    /* pre-wake sleep (midnight to wake) */
+    if (wake > 0) {
+      segments.push({ start: 0, end: wake, cls: 'seg-sleep' });
+    }
+
+    /* active period: wake to dip start */
+    var dipS = mod24(wake + 6);
+    var dipE = mod24(wake + 8);
+    /* clamp dipE to not overlap forbidden */
+    var forbS = mod24(bed - 3);
+
+    /* active: wake → dip start */
+    if (dipS > wake) {
+      segments.push({ start: wake, end: dipS, cls: 'seg-active' });
+    }
+    /* dip: dipStart → dipEnd */
+    segments.push({ start: dipS, end: dipE, cls: 'seg-dip' });
+    /* nap optimal: dipEnd → forbidden start */
+    if (forbS > dipE) {
+      segments.push({ start: dipE, end: forbS, cls: 'seg-nap' });
+    }
+    /* forbidden: forbStart → bed */
+    segments.push({ start: forbS, end: bed, cls: 'seg-forbidden' });
+    /* night sleep after bed */
+    if (bed < 24) {
+      segments.push({ start: bed, end: 24, cls: 'seg-bed' });
+    }
+
+    /* render bar */
+    var barHtml = '';
+    segments.forEach(function(seg) {
+      var width = ((seg.end - seg.start) / 24 * 100).toFixed(2);
+      if (width > 0) {
+        barHtml += '<div class="timeline-seg ' + seg.cls + '" style="width:' + width + '%;" title="' + seg.cls.replace('seg-','') + '"></div>';
+      }
+    });
+
+    /* Add "now" marker */
+    var nowPct = (mod24(now) / 24 * 100).toFixed(2);
+    timelineBar.innerHTML = barHtml;
+    /* overlay now marker */
+    timelineBar.style.position = 'relative';
+    var marker = document.createElement('div');
+    marker.style.cssText = 'position:absolute;top:0;bottom:0;left:' + nowPct + '%;width:2px;background:#7c6aff;border-radius:1px;z-index:2;';
+    var markerLabel = document.createElement('div');
+    markerLabel.style.cssText = 'position:absolute;top:-18px;left:' + nowPct + '%;transform:translateX(-50%);font-size:0.6rem;font-weight:700;color:#7c6aff;white-space:nowrap;';
+    markerLabel.textContent = 'Now';
+    timelineBar.appendChild(marker);
+    timelineBar.appendChild(markerLabel);
+
+    /* Labels */
+    var labelPoints = [
+      { h: wake, label: fmt12(wake), tag: 'Wake' },
+      { h: dipS,  label: fmt12(dipS),  tag: 'Dip start' },
+      { h: forbS, label: fmt12(forbS), tag: 'Zone starts' },
+      { h: bed,   label: fmt12(bed),   tag: 'Bedtime' },
+    ];
+
+    var labelsHtml = '<div style="display:flex;width:100%;position:relative;height:28px;">';
+    labelPoints.forEach(function(pt) {
+      var lpct = (mod24(pt.h) / 24 * 100).toFixed(2);
+      labelsHtml += '<div class="tl-label" style="position:absolute;left:' + lpct + '%;transform:translateX(-50%);">';
+      labelsHtml += '<span class="tl-time">' + pt.label + '</span>';
+      labelsHtml += '<span class="tl-tag">' + pt.tag + '</span>';
+      labelsHtml += '</div>';
+    });
+    labelsHtml += '</div>';
+    timelineLabels.innerHTML = labelsHtml;
+  }
+
+  /* ---- Event listeners ---- */
+  wakeInput.addEventListener('input', calculate);
+  nowInput.addEventListener('input', calculate);
+  bedInput.addEventListener('input', calculate);
+
+  tiredGrid.addEventListener('click', function(e) {
+    var btn = e.target.closest('.tired-btn');
+    if (!btn) return;
+    tiredLevel = parseInt(btn.dataset.level);
+    tiredGrid.querySelectorAll('.tired-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    calculate();
+  });
+
+  goalBtns.addEventListener('click', function(e) {
+    var btn = e.target.closest('.goal-btn');
+    if (!btn) return;
+    goal = btn.dataset.goal;
+    goalBtns.querySelectorAll('.goal-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    calculate();
+  });
+
+  /* ---- Init ---- */
+  /* Set now-time to current time */
+  (function() {
+    var d = new Date();
+    var hh = d.getHours().toString().padStart(2,'0');
+    var mm = d.getMinutes().toString().padStart(2,'0');
+    nowInput.value = hh + ':' + mm;
+  })();
+
+  calculate();
+})();
+</script>

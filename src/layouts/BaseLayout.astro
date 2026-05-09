@@ -15,6 +15,37 @@ const {
 
 const siteUrl = 'https://thesleepmath.com';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+
+// Site-wide structured data
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'The Sleep Math',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  description: 'Free sleep calculators backed by peer-reviewed research.',
+  sameAs: [],
+};
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'The Sleep Math',
+  url: siteUrl,
+  description,
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+  },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${siteUrl}/#calcs`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
 ---
 
 <!doctype html>
@@ -28,6 +59,11 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,6 +82,10 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C29E2KH48G"></script>

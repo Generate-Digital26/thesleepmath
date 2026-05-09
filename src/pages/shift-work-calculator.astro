@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -41,18 +43,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Shift Work Sleep Calculator — The Sleep Math"
-  description="Personalized sleep, light, and meal schedules for night shifts and rotating shifts. Science-backed strategies for shift workers."
+  description="Personalized sleep, light, and meal schedules for night and rotating shifts. Science-backed strategies for shift workers to maximize rest and alertness."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Shift Work Sleep Planner
-  </div>
+  <Breadcrumb current="Shift Work Sleep Planner" currentPath="/shift-work-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -265,6 +261,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Shift Work Sleep Planner" description="Personalized sleep, light, and meal schedules for night shifts and rotating shifts. Science-backed strategies for shift workers." slug="shift-work-calculator" />
   <Footer />
 </BaseLayout>
 

@@ -1,0 +1,733 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'How long does jet lag last?',
+    answer: `<p>Jet lag typically lasts <strong>1 day per time zone crossed when traveling east</strong>, and about <strong>0.75 days per time zone when traveling west</strong>. A 6-hour eastward flight (e.g., New York to London) may take 4–6 days to fully recover from; the same westward trip might take only 3–5 days.</p>
+<p>The difference comes down to the natural drift of your circadian clock. Your body's internal clock runs slightly longer than 24 hours — roughly 24.2 hours — which makes it easier to delay (west travel) than to advance (east travel). Symptoms like daytime fatigue, difficulty sleeping, poor concentration, and digestive disruption typically peak on days 1–2 and fade by day 4–7 depending on the shift size.</p>`,
+  },
+  {
+    question: 'How do you avoid jet lag when traveling?',
+    answer: `<p>The most effective strategies to avoid jet lag combine <strong>pre-trip adjustment, light exposure timing, and melatonin</strong>. Start shifting your sleep schedule 2–3 days before departure: go to bed 1–1.5 hours earlier each night for eastward travel, or later for westward travel.</p>
+<p>Once you arrive, <strong>bright morning light</strong> is the most powerful tool for eastward adjustment — it advances your circadian clock. Avoid bright light in the evening when traveling east. For westward travel, reverse this: seek evening light and avoid early morning light. Taking <strong>0.5 mg of melatonin</strong> 5 hours before your new target bedtime also accelerates clock shifting. Stay hydrated, avoid alcohol on the flight, and spend time outdoors on arrival days to anchor your new schedule.</p>`,
+  },
+  {
+    question: 'Is jet lag worse going east or west?',
+    answer: `<p>Yes — <strong>eastward travel is consistently harder</strong> than westward travel. Research shows that adaptation to eastward shifts takes roughly 33% longer than equivalent westward shifts. A 6-hour eastward journey may need 6 days to resolve; the same westward trip only 4–5 days.</p>
+<p>The reason is biological: your internal clock naturally runs a bit longer than 24 hours, making it easier to extend your day (delay your schedule, i.e., go to bed later — what westward travel requires) than to shorten it (advance your schedule, i.e., go to bed earlier — what eastward travel requires). This is also why night owls tend to suffer more from eastward jet lag: their clocks are already running late and find advancing even harder.</p>`,
+  },
+  {
+    question: 'Does melatonin help with jet lag?',
+    answer: `<p>Yes, <strong>melatonin is one of the best-supported interventions for jet lag</strong>, particularly for eastward travel. The key is dosage and timing: research by Eastman & Burgess (2009) recommends <strong>0.5 mg — a low dose</strong> — taken 5 hours before your desired new bedtime at the destination when traveling east, or at wake time when traveling west.</p>
+<p>Higher doses (3–10 mg) are widely sold but are not more effective and can cause next-day grogginess. The low 0.5 mg dose acts as a circadian signal rather than a sedative, which is why it works better. Melatonin shifts the clock; it does not knock you out. Start taking it on the day of travel and continue for 3–4 days at destination for best results.</p>`,
+  },
+  {
+    question: 'What is a jet lag recovery plan?',
+    answer: `<p>A <strong>jet lag recovery plan</strong> is a day-by-day schedule specifying exactly when to seek bright light, avoid light, take melatonin, and target sleep — tailored to your direction of travel and time zone shift. Rather than relying on willpower or "just pushing through," a structured plan works with your circadian biology.</p>
+<p>The plan this calculator generates is based on the Eastman & Burgess (2009) protocol. For eastward travel, it advances your sleep window and light exposure by roughly 1.5 hours per day. For westward travel, it delays your schedule by the same amount each day. Pre-trip adjustment days (when you have time before departure) are included to give you a head start, so you arrive already partially adapted to the new time zone.</p>`,
+  },
+  {
+    question: 'How does this time zone adjustment calculator work?',
+    answer: `<p>This <strong>time zone adjustment calculator</strong> implements the light-dark cycle shifting method from Eastman & Burgess (2009). You input your home and destination time zones, your habitual sleep schedule, and how many days you have before travel.</p>
+<p>The calculator determines your direction (east or west), computes the total clock shift needed, and generates a day-by-day plan. Each day's card shows a <strong>light exposure window</strong> (when to be in bright sunlight or use a light box), a <strong>light avoidance window</strong> (when to wear sunglasses or stay indoors), a <strong>melatonin time</strong> (0.5 mg at the calculated phase-shifting moment), and a <strong>target sleep window</strong> that shifts 1.5 hours per day toward your destination schedule. Pre-trip days shift your clock before you even board the plane.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Jet Lag Calculator & Recovery Planner — The Sleep Math"
+  description="Get a personalized jet lag recovery plan. Enter your time zones and sleep schedule for day-by-day light, meal timing, and sleep adjustment guidance."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb current="Jet Lag Planner" currentPath="/jet-lag-calculator" />
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon" style="background:#fffbeb;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Jet Lag Planner</h1>
+      </div>
+    </div>
+    <p class="subtitle">Get a personalized day-by-day jet lag recovery plan — with exact light exposure, melatonin, and sleep timing for every day before and after your trip.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        1 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Eastman &amp; Burgess, 2009
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Peer-reviewed protocol
+      </span>
+    </div>
+  </div>
+
+  <!-- CALCULATOR UI -->
+  <div class="calc-layout">
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Your trip details</h2>
+
+      <div class="field">
+        <label for="tz-from">Departure timezone</label>
+        <select id="tz-from">
+          <option value="-12">UTC−12 (Baker Island)</option>
+          <option value="-11">UTC−11 (Pago Pago)</option>
+          <option value="-10">UTC−10 (Honolulu)</option>
+          <option value="-9">UTC−9 (Anchorage)</option>
+          <option value="-8">UTC−8 (Los Angeles)</option>
+          <option value="-7">UTC−7 (Denver)</option>
+          <option value="-6">UTC−6 (Chicago)</option>
+          <option value="-5" selected>UTC−5 (New York)</option>
+          <option value="-4">UTC−4 (Halifax)</option>
+          <option value="-3">UTC−3 (São Paulo)</option>
+          <option value="-2">UTC−2 (Mid-Atlantic)</option>
+          <option value="-1">UTC−1 (Azores)</option>
+          <option value="0">UTC+0 (London)</option>
+          <option value="1">UTC+1 (Paris / Berlin)</option>
+          <option value="2">UTC+2 (Cairo / Athens)</option>
+          <option value="3">UTC+3 (Moscow / Nairobi)</option>
+          <option value="3.5">UTC+3:30 (Tehran)</option>
+          <option value="4">UTC+4 (Dubai)</option>
+          <option value="4.5">UTC+4:30 (Kabul)</option>
+          <option value="5">UTC+5 (Karachi)</option>
+          <option value="5.5">UTC+5:30 (Mumbai / Delhi)</option>
+          <option value="5.75">UTC+5:45 (Kathmandu)</option>
+          <option value="6">UTC+6 (Dhaka)</option>
+          <option value="6.5">UTC+6:30 (Yangon)</option>
+          <option value="7">UTC+7 (Bangkok / Jakarta)</option>
+          <option value="8">UTC+8 (Beijing / Singapore)</option>
+          <option value="9">UTC+9 (Tokyo / Seoul)</option>
+          <option value="9.5">UTC+9:30 (Adelaide)</option>
+          <option value="10">UTC+10 (Sydney)</option>
+          <option value="11">UTC+11 (Solomon Islands)</option>
+          <option value="12">UTC+12 (Auckland)</option>
+          <option value="13">UTC+13 (Tonga)</option>
+          <option value="14">UTC+14 (Line Islands)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="tz-to">Arrival timezone</label>
+        <select id="tz-to">
+          <option value="-12">UTC−12 (Baker Island)</option>
+          <option value="-11">UTC−11 (Pago Pago)</option>
+          <option value="-10">UTC−10 (Honolulu)</option>
+          <option value="-9">UTC−9 (Anchorage)</option>
+          <option value="-8">UTC−8 (Los Angeles)</option>
+          <option value="-7">UTC−7 (Denver)</option>
+          <option value="-6">UTC−6 (Chicago)</option>
+          <option value="-5">UTC−5 (New York)</option>
+          <option value="-4">UTC−4 (Halifax)</option>
+          <option value="-3">UTC−3 (São Paulo)</option>
+          <option value="-2">UTC−2 (Mid-Atlantic)</option>
+          <option value="-1">UTC−1 (Azores)</option>
+          <option value="0">UTC+0 (London)</option>
+          <option value="1" selected>UTC+1 (Paris / Berlin)</option>
+          <option value="2">UTC+2 (Cairo / Athens)</option>
+          <option value="3">UTC+3 (Moscow / Nairobi)</option>
+          <option value="3.5">UTC+3:30 (Tehran)</option>
+          <option value="4">UTC+4 (Dubai)</option>
+          <option value="4.5">UTC+4:30 (Kabul)</option>
+          <option value="5">UTC+5 (Karachi)</option>
+          <option value="5.5">UTC+5:30 (Mumbai / Delhi)</option>
+          <option value="5.75">UTC+5:45 (Kathmandu)</option>
+          <option value="6">UTC+6 (Dhaka)</option>
+          <option value="6.5">UTC+6:30 (Yangon)</option>
+          <option value="7">UTC+7 (Bangkok / Jakarta)</option>
+          <option value="8">UTC+8 (Beijing / Singapore)</option>
+          <option value="9">UTC+9 (Tokyo / Seoul)</option>
+          <option value="9.5">UTC+9:30 (Adelaide)</option>
+          <option value="10">UTC+10 (Sydney)</option>
+          <option value="11">UTC+11 (Solomon Islands)</option>
+          <option value="12">UTC+12 (Auckland)</option>
+          <option value="13">UTC+13 (Tonga)</option>
+          <option value="14">UTC+14 (Line Islands)</option>
+        </select>
+      </div>
+
+      <div class="direction-info" id="direction-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="direction-text">Traveling 6h east — Paris / Berlin</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="bedtime">Your usual bedtime at home</label>
+        <input type="time" id="bedtime" value="23:00">
+      </div>
+
+      <div class="field">
+        <label for="waketime">Your usual wake time at home</label>
+        <input type="time" id="waketime" value="07:00">
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label for="pretrip-days">Days until travel</label>
+        <input type="number" id="pretrip-days" min="0" max="14" value="3">
+        <div class="hint" id="pretrip-hint">Pre-trip adjustment days included in your plan.</div>
+      </div>
+    </div>
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- RESULT HERO -->
+      <div class="result-hero" id="result-hero">
+        <div class="hero-left">
+          <div class="result-label">Timezone shift</div>
+          <div class="shift-display" id="shift-display">6h east</div>
+          <div class="severity-badge" id="severity-badge">Moderate</div>
+        </div>
+        <div class="hero-right">
+          <div class="hero-stat">
+            <div class="hero-stat-num" id="recovery-days">4–6 days</div>
+            <div class="hero-stat-label">estimated recovery</div>
+          </div>
+          <div class="hero-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-num" id="pretrip-gain">2h head start</div>
+            <div class="hero-stat-label">pre-trip possible</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div class="stat-grid">
+        <div class="stat-card s-amber">
+          <div class="stat-num" id="stat-shift">6h</div>
+          <div class="stat-label">timezone difference</div>
+        </div>
+        <div class="stat-card s-coral">
+          <div class="stat-num" id="stat-recovery">4–6 days</div>
+          <div class="stat-label">est. recovery</div>
+        </div>
+        <div class="stat-card s-primary">
+          <div class="stat-num" id="stat-pretrip">2h</div>
+          <div class="stat-label">pre-trip head start</div>
+        </div>
+      </div>
+
+      <!-- DAY-BY-DAY PLAN -->
+      <div class="plan-card">
+        <div class="plan-header">
+          <h3>Your day-by-day plan</h3>
+          <p class="plan-subtitle">Based on Eastman &amp; Burgess light-shifting protocol</p>
+        </div>
+        <div id="plan-days"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind this calculator</h2>
+      <p>
+        Jet lag occurs when your internal circadian clock — governed by the suprachiasmatic nucleus (SCN) in your brain — is misaligned with the local day-night cycle at your destination. The clock resets primarily through light exposure, which suppresses or triggers melatonin production and directly shifts the phase of your circadian rhythm.
+      </p>
+      <p>
+        This calculator implements the <strong>Eastman &amp; Burgess (2009) protocol</strong>, which uses timed light exposure and melatonin to shift the clock at approximately 1–2 hours per day. The two key levers are:
+      </p>
+      <div class="science-pillars">
+        <div class="pillar pillar-amber">
+          <div class="pillar-title">Light exposure timing</div>
+          <div class="pillar-desc">Bright light in the morning advances the clock (eastward adaptation). Bright light in the evening delays the clock (westward adaptation). The advance/delay boundary falls approximately 6 hours before your temperature minimum — typically around 4–6 AM home time.</div>
+        </div>
+        <div class="pillar pillar-primary">
+          <div class="pillar-title">Melatonin (0.5 mg)</div>
+          <div class="pillar-desc">A low 0.5 mg dose acts as a circadian signal, not a sedative. Taken 5 hours before the new target bedtime for eastward travel, or at wake time for westward travel. Higher doses are no more effective and can cause grogginess.</div>
+        </div>
+      </div>
+      <div class="formula-box">
+        <div class="formula-main">Shift per day ≈ 1.5h | Recovery days (east) ≈ Δtz | Recovery days (west) ≈ 0.75 × Δtz</div>
+        <div class="formula-desc">Δtz = total timezone hours crossed · Pre-trip days provide a head start of up to 2–3h</div>
+      </div>
+      <p>
+        For shifts greater than 8 hours, it is sometimes faster to shift in the opposite direction (e.g., a 10h eastward shift is equivalent to a 14h westward shift, so going "west" may be easier). The calculator flags this when relevant.
+      </p>
+      <div class="citation">
+        Eastman, C. &amp; Burgess, H. (2009). How to travel the world without jet lag. <em>Sleep Medicine Clinics, 4(2), 241–255.</em>
+      </div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+
+  <CalcSchema name="Jet Lag Planner" description="Get a day-by-day jet lag recovery plan based on Eastman & Burgess (2009). Enter your time zones and sleep schedule to get exact light exposure, melatonin, and sleep timing for each recovery day." slug="jet-lag-calculator" />
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ===== BREADCRUMB ===== */
+  .breadcrumb {
+    max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
+    font-size: 0.8rem; color: var(--text-soft); font-weight: 500;
+  }
+  .breadcrumb a { color: var(--text-soft); text-decoration: none; transition: color 0.15s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.5; }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 920px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15;
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    max-width: 920px; margin: 0 auto; padding: 1.75rem 2rem 2rem;
+    display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 1.25rem; }
+  .field { margin-bottom: 1.15rem; }
+  .field label {
+    display: block; font-size: 0.78rem; font-weight: 600;
+    color: var(--text-mid); margin-bottom: 0.35rem;
+  }
+  .field input[type="time"],
+  .field input[type="number"],
+  .field select {
+    width: 100%; padding: 0.6rem 0.85rem;
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.9rem; color: var(--text); outline: none;
+    transition: border-color 0.15s; box-sizing: border-box;
+  }
+  .field input:focus, .field select:focus { border-color: var(--primary); }
+  .field select {
+    cursor: pointer; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237c778e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.75rem center;
+    padding-right: 2.25rem; background-size: 12px;
+  }
+  .field .hint { font-size: 0.72rem; color: var(--text-soft); margin-top: 0.3rem; line-height: 1.4; }
+  .divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+
+  /* Direction info pill */
+  .direction-info {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: var(--bg-tint); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.5rem 0.75rem;
+    font-size: 0.78rem; color: var(--text-mid); font-weight: 600;
+    margin-top: -0.4rem;
+  }
+  .direction-info svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--amber); }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Result hero */
+  .result-hero {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+  .result-hero.east { border-color: #f59e0b; background: linear-gradient(135deg, #fffdf5 0%, #fff 100%); }
+  .result-hero.west { border-color: var(--sky); background: linear-gradient(135deg, #f0faff 0%, #fff 100%); }
+  .result-hero.extreme { border-color: var(--coral); background: linear-gradient(135deg, #fff5f3 0%, #fff 100%); }
+  .hero-left { flex: 1; }
+  .result-label {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-soft); margin-bottom: 0.35rem;
+  }
+  .shift-display {
+    font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1; color: var(--text);
+  }
+  .severity-badge {
+    display: inline-block; margin-top: 0.5rem;
+    padding: 0.2rem 0.65rem; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 700;
+  }
+  .severity-mild { background: #d1fae5; color: #065f46; }
+  .severity-moderate { background: #fef3c7; color: #92400e; }
+  .severity-severe { background: #fee2e2; color: #991b1b; }
+  .severity-extreme { background: #fce7f3; color: #9d174d; }
+  .hero-right {
+    display: flex; flex-direction: column; gap: 0.75rem;
+    border-left: 1.5px solid var(--border); padding-left: 1.5rem;
+    min-width: 140px;
+  }
+  .hero-divider { height: 1px; background: var(--border); }
+  .hero-stat-num { font-size: 1.15rem; font-weight: 800; color: var(--text); }
+  .hero-stat-label { font-size: 0.7rem; color: var(--text-soft); font-weight: 500; }
+
+  /* Stat grid */
+  .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+  .stat-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm); padding: 1rem; text-align: center;
+  }
+  .stat-card .stat-num { font-size: 1.4rem; font-weight: 800; line-height: 1; margin-bottom: 0.2rem; }
+  .stat-card .stat-label { font-size: 0.68rem; color: var(--text-soft); font-weight: 500; }
+  .stat-card.s-amber .stat-num { color: var(--amber); }
+  .stat-card.s-coral .stat-num { color: var(--coral); }
+  .stat-card.s-primary .stat-num { color: var(--primary); }
+
+  /* Plan card */
+  .plan-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .plan-header { padding: 1.25rem 1.25rem 0.75rem; border-bottom: 1px solid var(--border); }
+  .plan-header h3 { font-size: 0.96rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .plan-subtitle { font-size: 0.75rem; color: var(--text-soft); font-weight: 500; }
+  #plan-days { padding: 0.75rem; display: flex; flex-direction: column; gap: 0.65rem; }
+
+  /* Day cards */
+  .day-card {
+    border-radius: var(--radius-sm); padding: 1rem 1rem 0.9rem;
+    border: 1.5px solid var(--border); border-left-width: 4px;
+    border-left-color: var(--amber); background: var(--bg);
+  }
+  .day-card.pretrip {
+    border-left-color: var(--primary); border-style: dashed;
+    border-left-style: solid;
+  }
+  .day-card-title {
+    font-size: 0.8rem; font-weight: 700; color: var(--text);
+    margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.4rem;
+  }
+  .day-tag {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 0.1rem 0.45rem; border-radius: 100px;
+  }
+  .day-tag-pretrip { background: var(--primary-soft); color: var(--primary); }
+  .day-tag-arrival { background: #d1fae5; color: #065f46; }
+  .day-tag-recovery { background: #fef3c7; color: #92400e; }
+  .day-rows { display: flex; flex-direction: column; gap: 0.45rem; }
+  .day-row {
+    display: flex; align-items: baseline; gap: 0.5rem;
+    font-size: 0.8rem; line-height: 1.4;
+  }
+  .day-row-icon { flex-shrink: 0; width: 1.1rem; height: 1.1rem; display: flex; align-items: center; justify-content: center; color: var(--primary); }
+  .day-row-icon svg { width: 100%; height: 100%; }
+  .day-row-label { color: var(--text-soft); font-weight: 600; min-width: 90px; flex-shrink: 0; }
+  .day-row-val { color: var(--text-mid); }
+  .day-row-val strong { color: var(--text); font-weight: 700; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 920px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg-tint); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .science-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 1.25rem 0; }
+  .pillar { border-radius: var(--radius-sm); padding: 1rem 1.1rem; }
+  .pillar-amber { background: #fffbeb; border: 1.5px solid #fde68a; }
+  .pillar-primary { background: var(--primary-soft); border: 1.5px solid #c4b8ff; }
+  .pillar-title { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.35rem; }
+  .pillar-desc { font-size: 0.78rem; color: var(--text-mid); line-height: 1.55; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .formula-box .formula-desc { font-size: 0.72rem; color: #a8a3be; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.5;
+    padding-left: 0.85rem; border-left: 2px solid var(--border); margin-top: 1rem;
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .calc-layout { grid-template-columns: 1fr; padding: 1.25rem; }
+    .input-panel { position: static; }
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+    .result-hero { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .hero-right { border-left: none; border-top: 1.5px solid var(--border); padding-left: 0; padding-top: 0.85rem; width: 100%; flex-direction: row; align-items: center; gap: 1rem; }
+    .hero-divider { display: none; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .science-pillars { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  // ---- DOM refs ----
+  var tzFrom       = document.getElementById('tz-from');
+  var tzTo         = document.getElementById('tz-to');
+  var dirInfo      = document.getElementById('direction-info');
+  var dirText      = document.getElementById('direction-text');
+  var bedtimeIn    = document.getElementById('bedtime');
+  var waketimeIn   = document.getElementById('waketime');
+  var pretripIn    = document.getElementById('pretrip-days');
+  var pretripHint  = document.getElementById('pretrip-hint');
+
+  var resultHero   = document.getElementById('result-hero');
+  var shiftDisplay = document.getElementById('shift-display');
+  var severityBadge= document.getElementById('severity-badge');
+  var recoveryDays = document.getElementById('recovery-days');
+  var pretripGain  = document.getElementById('pretrip-gain');
+  var statShift    = document.getElementById('stat-shift');
+  var statRecovery = document.getElementById('stat-recovery');
+  var statPretrip  = document.getElementById('stat-pretrip');
+  var planDays     = document.getElementById('plan-days');
+
+  // ---- Helpers ----
+  function parseTime(str) {
+    var parts = str.split(':');
+    return parseInt(parts[0]) + parseInt(parts[1]) / 60;
+  }
+
+  function fmtTime(h) {
+    h = ((h % 24) + 24) % 24;
+    var period = h >= 12 ? 'PM' : 'AM';
+    var hh = Math.floor(h) % 12;
+    if (hh === 0) hh = 12;
+    var mm = Math.round((h - Math.floor(h)) * 60);
+    if (mm === 60) { hh = (hh % 12) + 1; mm = 0; period = h < 12 || h >= 23 ? 'PM' : 'PM'; }
+    return hh + ':' + (mm < 10 ? '0' + mm : mm) + ' ' + period;
+  }
+
+  function fmtRange(start, end) {
+    return fmtTime(start) + ' – ' + fmtTime(end);
+  }
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  // ---- Core calculation ----
+  function calculate() {
+    var fromTz     = parseFloat(tzFrom.value);
+    var toTz       = parseFloat(tzTo.value);
+    var bedH       = parseTime(bedtimeIn.value);
+    var wakeH      = parseTime(waketimeIn.value);
+    var pretripDays= clamp(parseInt(pretripIn.value) || 0, 0, 14);
+
+    // Normalise wake (in case bedtime is after midnight)
+    if (wakeH >= bedH) wakeH -= 24;
+
+    var rawDiff = toTz - fromTz; // positive = eastward
+    // Find shortest path (could go either direction)
+    var eastShift = ((rawDiff % 24) + 24) % 24;  // 0..23 going east
+    var westShift = (((-rawDiff) % 24) + 24) % 24; // 0..23 going west
+
+    var direction, shiftHours;
+    if (eastShift <= westShift) {
+      direction = 'east';
+      shiftHours = eastShift;
+    } else {
+      direction = 'west';
+      shiftHours = westShift;
+    }
+
+    // For >8h east, check if going west is actually shorter
+    if (eastShift > 8 && westShift < eastShift) {
+      direction = 'west';
+      shiftHours = westShift;
+    }
+    if (shiftHours === 0) {
+      direction = 'none';
+    }
+
+    // Update direction info
+    var destLabel = tzTo.options[tzTo.selectedIndex].text.replace(/^UTC[+−\-\d.:]+\s*/, '').replace(/[()]/g, '').trim();
+    if (direction === 'none') {
+      dirText.textContent = 'Same timezone — no jet lag expected';
+    } else {
+      dirText.textContent = 'Traveling ' + shiftHours.toFixed(1).replace('.0','') + 'h ' + direction + ' — ' + destLabel;
+    }
+
+    // Severity
+    var severity, sevClass;
+    if (shiftHours <= 3) { severity = 'Mild'; sevClass = 'severity-mild'; }
+    else if (shiftHours <= 6) { severity = 'Moderate'; sevClass = 'severity-moderate'; }
+    else if (shiftHours <= 9) { severity = 'Severe'; sevClass = 'severity-severe'; }
+    else { severity = 'Extreme'; sevClass = 'severity-extreme'; }
+    if (shiftHours === 0) { severity = 'None'; sevClass = 'severity-mild'; }
+
+    // Recovery estimate
+    var recovMin, recovMax;
+    if (direction === 'east') {
+      recovMin = Math.max(1, Math.round(shiftHours * 0.8));
+      recovMax = Math.round(shiftHours * 1.2);
+    } else if (direction === 'west') {
+      recovMin = Math.max(1, Math.round(shiftHours * 0.6));
+      recovMax = Math.round(shiftHours * 0.9);
+    } else {
+      recovMin = 0; recovMax = 0;
+    }
+
+    // Pre-trip adjustment: 1.5h per day, capped at shiftHours
+    var pretripShift = Math.min(pretripDays * 1.5, shiftHours);
+    var pretripHours = pretripShift;
+
+    // Update hero
+    shiftDisplay.textContent = shiftHours === 0 ? 'No shift' : (shiftHours.toFixed(1).replace('.0','') + 'h ' + direction);
+    severityBadge.className = 'severity-badge ' + sevClass;
+    severityBadge.textContent = severity;
+    resultHero.className = 'result-hero';
+    if (direction === 'east') resultHero.classList.add('east');
+    else if (direction === 'west') resultHero.classList.add('west');
+    if (shiftHours >= 10) resultHero.classList.add('extreme');
+
+    var recovText = recovMin === 0 ? 'None' : (recovMin === recovMax ? recovMin + ' days' : recovMin + '–' + recovMax + ' days');
+    recoveryDays.textContent = recovText;
+    pretripGain.textContent = pretripHours === 0 ? 'No days available' : (pretripHours.toFixed(1).replace('.0','') + 'h head start');
+
+    statShift.textContent = shiftHours === 0 ? '0h' : (shiftHours.toFixed(1).replace('.0','') + 'h');
+    statRecovery.textContent = recovText;
+    statPretrip.textContent = pretripHours === 0 ? '0h' : (pretripHours.toFixed(1).replace('.0','') + 'h');
+
+    // Update hint
+    if (pretripDays === 0) {
+      pretripHint.textContent = 'Add pre-trip days to get a head start before you fly.';
+    } else {
+      pretripHint.textContent = pretripDays + ' pre-trip day' + (pretripDays !== 1 ? 's' : '') + ' included. Shift up to ' + pretripHours.toFixed(1).replace('.0','') + 'h before departure.';
+    }
+
+    // Build day-by-day plan
+    buildPlan(bedH, wakeH, shiftHours, direction, pretripDays, pretripHours);
+  }
+
+  function buildPlan(bedH, wakeH, shiftHours, direction, pretripDays, pretripShiftApplied) {
+    planDays.innerHTML = '';
+
+    if (shiftHours === 0) {
+      planDays.innerHTML = '<p style="padding:1rem;font-size:0.85rem;color:var(--text-soft);text-align:center;">No time zone adjustment needed — you\'re already home!</p>';
+      return;
+    }
+
+    var stepPerDay = 1.5; // hours clock shift per day
+    var totalDays  = Math.ceil(shiftHours / stepPerDay);
+
+    // Sign: east = advance (sleep earlier), west = delay (sleep later)
+    var sign = direction === 'east' ? -1 : 1;
+
+    var days = [];
+
+    // Pre-trip days: Day -N ... Day -1
+    for (var i = pretripDays; i >= 1; i--) {
+      var dayShift = sign * Math.min((pretripDays - i + 1) * stepPerDay, pretripShiftApplied);
+      days.push({ label: 'Day −' + i, type: 'pretrip', shift: dayShift });
+    }
+
+    // Post-arrival days: Day 1 ... totalDays
+    var shiftSoFar = pretripShiftApplied; // already shifted by pre-trip
+    for (var j = 1; j <= totalDays; j++) {
+      var postShift = shiftSoFar + stepPerDay * j;
+      postShift = Math.min(postShift, shiftHours); // cap at destination
+      days.push({ label: j === 1 ? 'Day 1 (Arrival)' : 'Day ' + j, type: j === 1 ? 'arrival' : 'recovery', shift: sign * postShift });
+    }
+
+    days.forEach(function (day) {
+      var bed  = bedH  + day.shift;
+      var wake = wakeH + day.shift;
+      var midSleep = wake + (bed - wake) / 2; // midpoint of sleep (approx temp min)
+      var tempMin  = midSleep + 2; // temperature min ~2h before natural wake
+
+      // Light and dark windows based on Eastman & Burgess
+      var lightStart, lightEnd, darkStart, darkEnd, melatoninTime;
+
+      if (direction === 'east') {
+        // Advance: seek morning light, avoid evening light
+        lightStart = wake;
+        lightEnd   = wake + 3;
+        darkStart  = bed - 4;
+        darkEnd    = bed;
+        melatoninTime = bed - 5; // 5h before target bedtime
+      } else {
+        // Delay: seek evening light, avoid morning light
+        lightStart = bed - 3;
+        lightEnd   = bed;
+        darkStart  = wake;
+        darkEnd    = wake + 3;
+        melatoninTime = wake; // at wake time for west
+      }
+
+      var tag = '';
+      if (day.type === 'pretrip') tag = '<span class="day-tag day-tag-pretrip">Pre-trip</span>';
+      else if (day.type === 'arrival') tag = '<span class="day-tag day-tag-arrival">Arrival</span>';
+      else tag = '<span class="day-tag day-tag-recovery">Recovery</span>';
+
+      var lightAdvice = direction === 'east'
+        ? 'Bright light (morning)'
+        : 'Bright light (evening)';
+      var darkAdvice = direction === 'east'
+        ? 'Avoid light (evening)'
+        : 'Avoid light (morning)';
+
+      var cardClass = 'day-card' + (day.type === 'pretrip' ? ' pretrip' : '');
+
+      var html = '<div class="' + cardClass + '">';
+      html += '<div class="day-card-title">' + day.label + ' ' + tag + '</div>';
+      html += '<div class="day-rows">';
+      html += '<div class="day-row"><span class="day-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span><span class="day-row-label">' + lightAdvice + '</span><span class="day-row-val"><strong>' + fmtRange(lightStart, lightEnd) + '</strong></span></div>';
+      html += '<div class="day-row"><span class="day-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span><span class="day-row-label">' + darkAdvice + '</span><span class="day-row-val"><strong>' + fmtRange(darkStart, darkEnd) + '</strong></span></div>';
+      html += '<div class="day-row"><span class="day-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5L10 17h4l-.5 3.5"/><path d="M8.5 14h7"/><path d="M6 10c0-3.5 2.5-6 6-6s6 2.5 6 6c0 2-1 3.5-2.5 4.5H8.5C7 13.5 6 12 6 10z"/></svg></span><span class="day-row-label">Melatonin 0.5mg</span><span class="day-row-val"><strong>' + fmtTime(melatoninTime) + '</strong></span></div>';
+      html += '<div class="day-row"><span class="day-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span><span class="day-row-label">Target sleep</span><span class="day-row-val"><strong>' + fmtRange(bed, wake + 24) + '</strong> (' + Math.round(((wake + 24) - bed)) + 'h window)</span></div>';
+      html += '</div>';
+      html += '</div>';
+
+      planDays.insertAdjacentHTML('beforeend', html);
+    });
+  }
+
+  // ---- Event listeners ----
+  tzFrom.addEventListener('change', calculate);
+  tzTo.addEventListener('change', calculate);
+  bedtimeIn.addEventListener('input', calculate);
+  waketimeIn.addEventListener('input', calculate);
+  pretripIn.addEventListener('input', calculate);
+
+  // ---- Initial run ----
+  calculate();
+})();
+</script>

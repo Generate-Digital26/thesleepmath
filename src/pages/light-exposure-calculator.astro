@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -40,19 +42,13 @@ const faqs: FAQItem[] = [
 ---
 
 <BaseLayout
-  title="Light Exposure Calculator — Morning Light Therapy for Sleep | The Sleep Math"
-  description="Calculate your personalized morning light schedule based on location, season, and chronotype. Find out how much lux you need and when to get it for better sleep."
+  title="Morning Light Exposure Calculator — The Sleep Math"
+  description="Calculate your ideal morning light schedule based on location, season, and chronotype. Solar-aware timing with lux targets for circadian health."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Light Exposure Guide
-  </div>
+  <Breadcrumb current="Light Exposure Guide" currentPath="/light-exposure-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -318,6 +314,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Light Exposure Calculator" description="Calculate your personalized morning light schedule based on location, season, and chronotype. Find out how much lux you need and when to get it for better sleep." slug="light-exposure-calculator" />
   <Footer />
 </BaseLayout>
 

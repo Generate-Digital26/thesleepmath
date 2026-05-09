@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -41,18 +43,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Sleep Temperature Calculator — The Sleep Math"
-  description="Find your ideal bedroom temperature for sleep. Personalized recommendations based on your age, bedding, and preferences."
+  description="Find your ideal bedroom temperature for sleep. Personalized recommendations based on age, bedding type, and preferences — backed by peer-reviewed research."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Sleep Temperature
-  </div>
+  <Breadcrumb current="Sleep Temperature" currentPath="/sleep-temperature-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -276,6 +272,7 @@ const faqs: FAQItem[] = [
 
   <FAQ items={faqs} />
 
+  <CalcSchema name="Sleep Temperature Calculator" description="Find your ideal bedroom temperature for sleep. Personalized recommendations based on your age, bedding, and preferences." slug="sleep-temperature-calculator" />
   <Footer />
 </BaseLayout>
 

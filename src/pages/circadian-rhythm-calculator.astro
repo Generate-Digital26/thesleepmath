@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
 
@@ -48,18 +50,12 @@ const faqs: FAQItem[] = [
 
 <BaseLayout
   title="Circadian Rhythm Calculator — The Sleep Math"
-  description="Map your personal 24-hour body clock. See when your energy peaks, when to focus, exercise, and wind down based on chronobiology research."
+  description="Map your personal 24-hour body clock. See when energy peaks, when to focus, exercise, and wind down — all based on your chronotype and wake time."
 >
   <Nav />
 
   <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="/">Home</a>
-    <span class="sep">/</span>
-    <a href="/#calcs">Calculators</a>
-    <span class="sep">/</span>
-    Circadian Rhythm
-  </div>
+  <Breadcrumb current="Circadian Rhythm" currentPath="/circadian-rhythm-calculator" />
 
   <!-- CALC HEADER -->
   <div class="calc-header">
@@ -208,6 +204,7 @@ const faqs: FAQItem[] = [
   </div>
 
   <FAQ items={faqs} />
+  <CalcSchema name="Circadian Rhythm Calculator" description="Map your personal 24-hour body clock. See when your energy peaks, when to focus, exercise, and wind down based on chronobiology research." slug="circadian-rhythm-calculator" />
   <Footer />
 </BaseLayout>
 
