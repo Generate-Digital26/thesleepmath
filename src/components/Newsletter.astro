@@ -8,8 +8,8 @@
     <form class="news-form" data-kit-form>
       <input type="email" placeholder="you@email.com" required aria-label="Email address" />
       <button type="submit">Subscribe</button>
+      <p class="kit-note" data-kit-note aria-live="polite"></p>
     </form>
-    <p class="kit-note" data-kit-note aria-live="polite"></p>
   </div>
 </section>
 
@@ -42,6 +42,7 @@
 
   .news-form {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
   }
 
@@ -84,7 +85,9 @@
   }
 
   .kit-note {
-    margin-top: 0.75rem;
+    width: 100%;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
     font-size: 0.82rem;
     min-height: 1.2em;
   }
