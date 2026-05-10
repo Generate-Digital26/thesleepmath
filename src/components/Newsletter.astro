@@ -5,10 +5,11 @@
   <div class="news-inner">
     <h2>One email a week on sleep</h2>
     <p>New tools, research breakdowns, product reviews. No spam, unsubscribe anytime.</p>
-    <form class="news-form" data-newsletter>
-      <input type="email" placeholder="you@email.com" required />
+    <form class="news-form" data-kit-form>
+      <input type="email" placeholder="you@email.com" required aria-label="Email address" />
       <button type="submit">Subscribe</button>
     </form>
+    <p class="kit-note" data-kit-note aria-live="polite"></p>
   </div>
 </section>
 
@@ -80,6 +81,22 @@
 
   .news-form button:hover {
     background: var(--primary-hover);
+  }
+
+  .kit-note {
+    margin-top: 0.75rem;
+    font-size: 0.82rem;
+    min-height: 1.2em;
+  }
+
+  .kit-note:empty { display: none; }
+
+  :global(.kit-success) { color: var(--mint); }
+  :global(.kit-error) { color: var(--coral); }
+
+  .news-form button:disabled {
+    opacity: 0.6;
+    cursor: wait;
   }
 
   @media (max-width: 768px) {

@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import { KIT_FORM_ID, KIT_API_KEY } from '@/config/newsletter';
 
 interface Props {
   title: string;
@@ -98,5 +99,56 @@ const webSiteSchema = {
   </head>
   <body>
     <slot />
+
+    <!-- Kit (ConvertKit) newsletter handler — works on any form with data-kit-form -->
+    <script define:vars={{ KIT_FORM_ID, KIT_API_KEY }} is:inline>
+      // Expose for pages that need programmatic access (e.g. chronotype quiz)
+      window.__KIT_FORM_ID = KIT_FORM_ID;
+      window.__KIT_API_KEY = KIT_API_KEY;
+    </script>
+    <script define:vars={{ KIT_FORM_ID, KIT_API_KEY }} is:inline>
+      (function () {
+        var API = 'https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe';
+
+        document.addEventListener('submit', function (e) {
+          var form = e.target.closest('[data-kit-form]');
+          if (!form) return;
+          e.preventDefault();
+
+          var input = form.querySelector('input[type="email"]');
+          var btn = form.querySelector('button[type="submit"]');
+          var note = form.querySelector('[data-kit-note]');
+          var email = (input && input.value || '').trim();
+          if (!email) return;
+
+          // Loading state
+          if (btn) { btn.disabled = true; btn.dataset.origText = btn.textContent; btn.textContent = 'Subscribing…'; }
+          if (note) { note.textContent = ''; note.className = note.className.replace(/\s*kit-(success|error)/g, ''); }
+
+          fetch(API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ api_key: KIT_API_KEY, email: email }),
+          })
+            .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+            .then(function (res) {
+              if (res.ok && res.data.subscription) {
+                if (note) { note.textContent = 'You’re in! Check your inbox to confirm.'; note.classList.add('kit-success'); }
+                if (input) input.value = '';
+                // GA4 event
+                if (typeof gtag === 'function') gtag('event', 'newsletter_subscribe', { method: 'kit' });
+              } else {
+                throw new Error(res.data.message || 'Subscription failed');
+              }
+            })
+            .catch(function (err) {
+              if (note) { note.textContent = err.message || 'Something went wrong — try again.'; note.classList.add('kit-error'); }
+            })
+            .finally(function () {
+              if (btn) { btn.disabled = false; btn.textContent = btn.dataset.origText || 'Subscribe'; }
+            });
+        });
+      })();
+    </script>
   </body>
 </html>

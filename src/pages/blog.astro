@@ -67,7 +67,7 @@ import Footer from '@/components/Footer.astro';
         <!-- Newsletter CTA -->
         <div class="newsletter-wrap">
           <p class="newsletter-label">Get notified when we publish</p>
-          <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+          <form class="newsletter-form" data-kit-form>
             <input
               type="email"
               class="email-input"
@@ -77,7 +77,7 @@ import Footer from '@/components/Footer.astro';
             />
             <button type="submit" class="btn btn-fill subscribe-btn">Subscribe</button>
           </form>
-          <p class="form-note" id="form-note" aria-live="polite"></p>
+          <p class="form-note" data-kit-note aria-live="polite"></p>
         </div>
 
         <!-- Back link -->
@@ -315,20 +315,4 @@ import Footer from '@/components/Footer.astro';
   }
 </style>
 
-<script is:inline>
-  function handleSubscribe(e) {
-    e.preventDefault();
-    const form = e.target;
-    const input = form.querySelector('input[type="email"]');
-    const note = document.getElementById('form-note');
-
-    // Basic guard — real integration would POST to an API
-    if (!input.value) return;
-
-    note.textContent = "You're on the list. We'll let you know when the first post drops.";
-    note.classList.add('success');
-    input.value = '';
-    input.disabled = true;
-    form.querySelector('button').disabled = true;
-  }
-</script>
+<!-- Newsletter handled by global Kit script in BaseLayout -->

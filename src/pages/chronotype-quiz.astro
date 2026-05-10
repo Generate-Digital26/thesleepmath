@@ -1057,7 +1057,20 @@ const faqs: FAQItem[] = [
       timestamp: new Date().toISOString()
     };
 
-    // For now, log and show success (replace with API call)
+    // Subscribe to Kit newsletter if checkbox is checked
+    if (subscribe && typeof window.__KIT_FORM_ID !== 'undefined') {
+      fetch('https://api.convertkit.com/v3/forms/' + window.__KIT_FORM_ID + '/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          api_key: window.__KIT_API_KEY,
+          email: email,
+          fields: { chronotype: winner },
+        }),
+      }).catch(function () { /* silent — UX already shows success */ });
+      if (typeof gtag === 'function') gtag('event', 'newsletter_subscribe', { method: 'kit', source: 'chronotype_quiz' });
+    }
+
     console.log('Email capture:', JSON.stringify(payload));
 
     // Show success state
