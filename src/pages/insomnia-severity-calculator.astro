@@ -1,0 +1,962 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import Breadcrumb from '@/components/Breadcrumb.astro';
+import CalcSchema from '@/components/CalcSchema.astro';
+import FAQ from '@/components/FAQ.astro';
+import type { FAQItem } from '@/components/FAQ.astro';
+
+const faqs: FAQItem[] = [
+  {
+    question: 'What is the Insomnia Severity Index (ISI)?',
+    answer: `<p>The <strong>Insomnia Severity Index (ISI)</strong> is a validated, self-report questionnaire developed by Dr. Charles Morin at Universit&eacute; Laval in 1993. It was designed as a brief, reliable clinical measure of perceived insomnia severity that could be administered repeatedly to track treatment response. The ISI consists of seven items targeting the subjective symptoms and consequences of insomnia: difficulty falling asleep, difficulty staying asleep, early morning awakening, sleep dissatisfaction, interference with daytime functioning, noticeability of sleep problems to others, and distress caused by the sleep problem.</p>
+<p>Each item is rated on a 0&ndash;4 Likert scale, yielding a total score between 0 and 28. The ISI was formally validated by <strong>Bastien, Valli&egrave;res, &amp; Morin (2001)</strong> in <em>Sleep Medicine</em>, and a landmark 2011 community validation by Morin et al. in a sample of 1,670 adults confirmed Cronbach&rsquo;s alpha of 0.91, with sensitivity of 86.1% and specificity of 87.7% at a clinical cutoff of 10. The ISI is now one of the most widely used insomnia outcome measures in clinical trials and sleep medicine practice worldwide.</p>`,
+  },
+  {
+    question: 'What does my ISI score mean?',
+    answer: `<p>Your ISI total score maps to four clinical severity categories. A score of <strong>0&ndash;7 indicates no clinically significant insomnia</strong> &mdash; your sleep appears healthy and no intervention is needed beyond maintaining good sleep hygiene. A score of <strong>8&ndash;14 represents subthreshold (mild) insomnia</strong>, where sleep difficulties are present but may not yet meet full diagnostic criteria; targeted sleep hygiene improvements and consistent scheduling often help at this stage.</p>
+<p>A score of <strong>15&ndash;21 indicates moderate clinical insomnia</strong>, where CBT-I (Cognitive Behavioral Therapy for Insomnia) is the recommended first-line treatment per the American Academy of Sleep Medicine. A score of <strong>22&ndash;28 represents severe clinical insomnia</strong> that requires prompt clinical attention &mdash; CBT-I and potentially short-term pharmacotherapy should be discussed with a sleep medicine specialist. These thresholds were established in the 2001 validation study and confirmed in the 2011 community sample, and are used in clinical trials to define treatment response (typically a reduction of 8+ points or crossing below the clinical threshold of 10).</p>`,
+  },
+  {
+    question: 'Is the ISI the same as a sleep study?',
+    answer: `<p><strong>No.</strong> The ISI is a <em>subjective self-report screening tool</em> that measures your perception of insomnia severity over the past two weeks. It captures how you experience your sleep problem &mdash; how difficult it is to fall or stay asleep, how dissatisfied you are, and how much it affects your daytime life. A <strong>polysomnography (PSG)</strong> sleep study, by contrast, is an objective diagnostic test that measures brain waves, eye movements, muscle activity, heart rhythm, blood oxygen, and airflow during an overnight stay in a sleep laboratory.</p>
+<p>The ISI and PSG answer different clinical questions. PSG is essential for diagnosing conditions like <strong>obstructive sleep apnea, narcolepsy, and periodic limb movement disorder</strong> &mdash; conditions where objective measurement of physiological events during sleep is required. The ISI is designed to quantify the subjective burden of insomnia, which correlates only modestly with objective sleep measures because insomnia is fundamentally a disorder of <em>perceived</em> sleep quality and hyperarousal. Many patients with clinical insomnia show relatively normal sleep architecture on PSG, while their subjective distress and daytime impairment are very real. Both tools have distinct and complementary roles in sleep medicine.</p>`,
+  },
+  {
+    question: 'What is CBT-I and why is it recommended?',
+    answer: `<p><strong>Cognitive Behavioral Therapy for Insomnia (CBT-I)</strong> is a structured, evidence-based psychological treatment that targets the thoughts and behaviors that perpetuate chronic insomnia. It typically involves 4&ndash;8 sessions and includes several core components: <em>sleep restriction therapy</em> (temporarily limiting time in bed to match actual sleep time, building sleep pressure), <em>stimulus control</em> (re-associating the bed with sleep by leaving bed when awake), <em>cognitive restructuring</em> (addressing catastrophic beliefs about sleep consequences), <em>sleep hygiene education</em>, and <em>relaxation training</em>.</p>
+<p>The <strong>American Academy of Sleep Medicine (AASM)</strong> recommends CBT-I as the first-line treatment for chronic insomnia disorder in adults, ahead of pharmacotherapy. Multiple randomized controlled trials and meta-analyses have demonstrated that CBT-I produces durable improvements in sleep onset latency, wake after sleep onset, sleep efficiency, and ISI scores &mdash; with effects that persist long after treatment ends, unlike sleep medications whose benefits cease upon discontinuation. CBT-I is available through trained psychologists, sleep medicine clinics, and increasingly through validated digital programs (dCBT-I) that make it accessible to patients without local specialists.</p>`,
+  },
+  {
+    question: 'How often should I retake this assessment?',
+    answer: `<p>If you are <strong>actively undergoing treatment</strong> for insomnia (whether CBT-I, medication, or behavioral changes), retaking the ISI every <strong>2&ndash;4 weeks</strong> is the recommended cadence used in clinical trials. This interval captures meaningful change while accounting for the natural week-to-week variability in sleep patterns. A clinically significant improvement is typically defined as a reduction of 8 or more points on the ISI, or a score that drops below the clinical threshold of 10.</p>
+<p>For <strong>maintenance monitoring</strong> after treatment, monthly ISI assessments for the first 3&ndash;6 months help catch early signs of relapse. After that, quarterly or event-triggered reassessment (e.g., after a major life change, new medication, or return of symptoms) is sufficient. The ISI&rsquo;s two-week recall window makes it ideal for repeated measurement &mdash; unlike tools with a one-month window, it is sensitive enough to detect changes within a single treatment cycle. Tracking your scores over time also provides valuable data to share with your clinician and can reinforce motivation by making progress visible.</p>`,
+  },
+  {
+    question: 'Can insomnia be a symptom of another condition?',
+    answer: `<p>Yes &mdash; insomnia frequently co-occurs with and can be a symptom of other medical and psychiatric conditions. <strong>Obstructive sleep apnea (OSA)</strong> can present as difficulty maintaining sleep, with frequent arousals that the patient may not consciously register. <strong>Depression and anxiety disorders</strong> are among the most common comorbidities: up to 80% of patients with major depression report insomnia, and insomnia itself is a significant risk factor for developing depression. <strong>Chronic pain conditions</strong> (arthritis, fibromyalgia, neuropathy) directly disrupt sleep architecture and increase arousal.</p>
+<p>Medications can also cause or worsen insomnia &mdash; common culprits include <strong>SSRIs, beta-blockers, corticosteroids, stimulant medications, and some asthma drugs</strong>. Hormonal changes during <strong>menopause</strong> (hot flashes, night sweats) are a frequent trigger for new-onset insomnia in women. <strong>Restless legs syndrome</strong> and <strong>circadian rhythm disorders</strong> (such as delayed sleep-wake phase disorder) can mimic insomnia symptoms. If your ISI score is elevated and does not improve with standard sleep hygiene and behavioral changes over 4&ndash;6 weeks, a comprehensive medical evaluation to identify underlying contributors is strongly recommended before assuming primary insomnia.</p>`,
+  },
+];
+---
+
+<BaseLayout
+  title="Insomnia Severity Calculator (ISI) — The Sleep Math"
+  description="Validated Insomnia Severity Index with 7 questions. Rate your sleep difficulties over the past 2 weeks and get a clinical severity score with personalized guidance."
+>
+  <Nav />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb current="Insomnia Severity" currentPath="/insomnia-severity-calculator" />
+
+  <!-- CALC HEADER -->
+  <div class="calc-header">
+    <div class="calc-header-inner">
+      <div class="calc-header-icon">
+        <!-- Moon/cloud icon -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          <path d="M17 5c.6 1.2.6 2.6 0 3.8" opacity="0.5"/>
+        </svg>
+      </div>
+      <div>
+        <h1>Insomnia Severity Index</h1>
+      </div>
+    </div>
+    <p class="subtitle">Answer 7 validated questions about your sleep over the past 2 weeks. Get a clinical severity score, component breakdown, and personalized guidance in under 2 minutes.</p>
+    <div class="calc-meta-row">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        2 min
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Morin et al., 2011
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Clinical screening
+      </span>
+    </div>
+  </div>
+
+  <!-- MEDICAL DISCLAIMER -->
+  <div class="disclaimer-banner">
+    <div class="disclaimer-inner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <div>
+        <strong>Self-assessment tool — not a clinical diagnosis.</strong> The ISI measures perceived insomnia severity over the past 2 weeks. If your score suggests clinical insomnia, consult a sleep medicine specialist or your GP for evaluation.
+      </div>
+    </div>
+  </div>
+
+  <!-- CALCULATOR LAYOUT -->
+  <div class="calc-layout">
+
+    <!-- INPUT PANEL -->
+    <div class="input-panel">
+      <h2>Insomnia Assessment</h2>
+      <p class="panel-hint">Rate each item based on the <strong>past 2 weeks</strong>.</p>
+
+      <!-- Progress bar -->
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+        <span class="progress-label" id="progress-label">Section 1 of 3</span>
+      </div>
+
+      <!-- SECTION 1: Sleep Difficulties -->
+      <div class="section-card active" id="sec-1" data-section="1">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#edeaff;color:#7c6aff;">1</div>
+          <div class="sec-title">
+            <span>Sleep Difficulties</span>
+            <span class="sec-hint">Trouble falling or staying asleep</span>
+          </div>
+        </div>
+
+        <p class="sec-q">Difficulty <strong>falling asleep</strong></p>
+        <div class="option-group">
+          <button class="option-btn" data-comp="q1" data-val="0">None</button>
+          <button class="option-btn" data-comp="q1" data-val="1">Mild</button>
+          <button class="option-btn" data-comp="q1" data-val="2">Moderate</button>
+          <button class="option-btn" data-comp="q1" data-val="3">Severe</button>
+          <button class="option-btn" data-comp="q1" data-val="4">Very Severe</button>
+        </div>
+
+        <p class="sec-q">Difficulty <strong>staying asleep</strong></p>
+        <div class="option-group">
+          <button class="option-btn" data-comp="q2" data-val="0">None</button>
+          <button class="option-btn" data-comp="q2" data-val="1">Mild</button>
+          <button class="option-btn" data-comp="q2" data-val="2">Moderate</button>
+          <button class="option-btn" data-comp="q2" data-val="3">Severe</button>
+          <button class="option-btn" data-comp="q2" data-val="4">Very Severe</button>
+        </div>
+
+        <p class="sec-q">Problem <strong>waking up too early</strong></p>
+        <div class="option-group">
+          <button class="option-btn" data-comp="q3" data-val="0">None</button>
+          <button class="option-btn" data-comp="q3" data-val="1">Mild</button>
+          <button class="option-btn" data-comp="q3" data-val="2">Moderate</button>
+          <button class="option-btn" data-comp="q3" data-val="3">Severe</button>
+          <button class="option-btn" data-comp="q3" data-val="4">Very Severe</button>
+        </div>
+      </div>
+
+      <!-- SECTION 2: Satisfaction & Impact -->
+      <div class="section-card" id="sec-2" data-section="2">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#fff0ed;color:#ff6b52;">2</div>
+          <div class="sec-title">
+            <span>Satisfaction & Impact</span>
+            <span class="sec-hint">How your sleep affects your life</span>
+          </div>
+        </div>
+
+        <p class="sec-q">How <strong>satisfied/dissatisfied</strong> are you with your current sleep pattern?</p>
+        <div class="option-group">
+          <button class="option-btn" data-comp="q4" data-val="0">Very Satisfied</button>
+          <button class="option-btn" data-comp="q4" data-val="1">Satisfied</button>
+          <button class="option-btn" data-comp="q4" data-val="2">Neutral</button>
+          <button class="option-btn" data-comp="q4" data-val="3">Dissatisfied</button>
+          <button class="option-btn" data-comp="q4" data-val="4">Very Dissatisfied</button>
+        </div>
+
+        <p class="sec-q">How <strong>noticeable to others</strong> is your sleep problem in terms of impairing your quality of life?</p>
+        <div class="option-group">
+          <button class="option-btn" data-comp="q5" data-val="0">Not at All</button>
+          <button class="option-btn" data-comp="q5" data-val="1">A Little</button>
+          <button class="option-btn" data-comp="q5" data-val="2">Somewhat</button>
+          <button class="option-btn" data-comp="q5" data-val="3">Much</button>
+          <button class="option-btn" data-comp="q5" data-val="4">Very Much</button>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Worry & Functioning -->
+      <div class="section-card" id="sec-3" data-section="3">
+        <div class="sec-header">
+          <div class="sec-badge" style="background:#ecfdf5;color:#10b981;">3</div>
+          <div class="sec-title">
+            <span>Worry & Functioning</span>
+            <span class="sec-hint">Distress and daily impact</span>
+          </div>
+        </div>
+
+        <p class="sec-q">How <strong>worried/distressed</strong> are you about your current sleep problem?</p>
+        <div class="option-group">
+          <button class="option-btn" data-comp="q6" data-val="0">Not at All</button>
+          <button class="option-btn" data-comp="q6" data-val="1">A Little</button>
+          <button class="option-btn" data-comp="q6" data-val="2">Somewhat</button>
+          <button class="option-btn" data-comp="q6" data-val="3">Much</button>
+          <button class="option-btn" data-comp="q6" data-val="4">Very Much</button>
+        </div>
+
+        <p class="sec-q">To what extent does your sleep problem <strong>interfere with daily functioning</strong>? (e.g., fatigue, mood, concentration, memory)</p>
+        <div class="option-group">
+          <button class="option-btn" data-comp="q7" data-val="0">Not at All</button>
+          <button class="option-btn" data-comp="q7" data-val="1">A Little</button>
+          <button class="option-btn" data-comp="q7" data-val="2">Somewhat</button>
+          <button class="option-btn" data-comp="q7" data-val="3">Much</button>
+          <button class="option-btn" data-comp="q7" data-val="4">Very Much</button>
+        </div>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="nav-buttons">
+        <button class="nav-btn nav-prev" id="btn-prev" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Previous
+        </button>
+        <button class="nav-btn nav-next" id="btn-next">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+    </div>
+    <!-- END INPUT PANEL -->
+
+    <!-- RESULTS PANEL -->
+    <div class="results-panel">
+
+      <!-- Score hero with circular gauge -->
+      <div class="score-hero" id="score-hero">
+        <div class="gauge-wrap">
+          <svg class="gauge-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Track circle (270 deg arc) -->
+            <circle cx="100" cy="100" r="78" fill="none" stroke="#e4e1ec" stroke-width="14"
+              stroke-dasharray="490.09" stroke-dashoffset="122.52"
+              stroke-linecap="round" transform="rotate(135 100 100)"/>
+            <!-- Colored arc — driven by JS -->
+            <circle id="gauge-arc" cx="100" cy="100" r="78" fill="none" stroke="var(--mint)" stroke-width="14"
+              stroke-dasharray="490.09" stroke-dashoffset="490.09"
+              stroke-linecap="round" transform="rotate(135 100 100)"/>
+          </svg>
+          <div class="gauge-center">
+            <div class="gauge-score" id="gauge-score">0</div>
+            <div class="gauge-denom">/ 28</div>
+            <div class="gauge-label-inner" id="gauge-label-inner">No Insomnia</div>
+          </div>
+        </div>
+        <div class="severity-badge" id="severity-badge">No Clinical Insomnia</div>
+        <div class="severity-sub" id="severity-sub">Answer the questions to see your insomnia severity assessment.</div>
+      </div>
+
+      <!-- Component breakdown -->
+      <div class="breakdown-card" id="breakdown-card">
+        <h3>Item breakdown</h3>
+        <div class="comp-list" id="comp-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- Personalized recommendations -->
+      <div class="recs-card" id="recs-card">
+        <h3>Personalized recommendations</h3>
+        <div class="recs-list" id="recs-list">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- ISI reference table -->
+      <div class="info-card">
+        <h3>ISI severity categories</h3>
+        <div class="threshold-table">
+          <div class="thresh-row thresh-row-head">
+            <div>Score</div><div>Severity</div><div>Clinical meaning</div>
+          </div>
+          <div class="thresh-row thresh-row-none">
+            <div class="thresh-range">0 &ndash; 7</div>
+            <div class="thresh-rating">None</div>
+            <div class="thresh-desc">No clinically significant insomnia.</div>
+          </div>
+          <div class="thresh-row thresh-row-sub">
+            <div class="thresh-range">8 &ndash; 14</div>
+            <div class="thresh-rating">Subthreshold</div>
+            <div class="thresh-desc">Mild sleep difficulties; sleep hygiene improvements may help.</div>
+          </div>
+          <div class="thresh-row thresh-row-mod">
+            <div class="thresh-range">15 &ndash; 21</div>
+            <div class="thresh-rating">Moderate</div>
+            <div class="thresh-desc">Clinical insomnia. CBT-I is recommended first-line treatment.</div>
+          </div>
+          <div class="thresh-row thresh-row-sev">
+            <div class="thresh-range">22 &ndash; 28</div>
+            <div class="thresh-rating">Severe</div>
+            <div class="thresh-desc">Severe insomnia requiring prompt clinical attention.</div>
+          </div>
+        </div>
+        <p class="info-cite">Cutoffs from Morin et al. (2011). Sensitivity 86.1%, specificity 87.7% at threshold of 10.</p>
+      </div>
+
+    </div>
+    <!-- END RESULTS PANEL -->
+
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="science-section">
+    <div class="science-card">
+      <h2>The science behind the ISI</h2>
+      <p>The Insomnia Severity Index was developed by Dr. Charles Morin at Laval University in 1993 as a brief, reliable measure of insomnia severity. Unlike sleep diaries, which require 1-2 weeks of tracking, the ISI captures perceived severity in a single 2-minute assessment.</p>
+      <div class="formula-box">
+        <div class="formula-main">ISI Total = Q1 + Q2 + Q3 + Q4 + Q5 + Q6 + Q7</div>
+        <div class="formula-desc">Each item: 0 (none) &ndash; 4 (very severe) &middot; Range: 0&ndash;28</div>
+      </div>
+      <p>The definitive 2011 validation by Morin et al. in a community sample of 1,670 adults showed Cronbach's alpha of 0.91 and sensitivity of 86.1% / specificity of 87.7% at a cutoff of 10. The ISI is now one of the most widely used insomnia outcome measures in clinical trials worldwide.</p>
+      <div class="citation">Bastien, C. H., Vallieres, A., &amp; Morin, C. M. (2001). Validation of the Insomnia Severity Index as an outcome measure for insomnia research. <em>Sleep Medicine, 2(4), 297&ndash;307.</em></div>
+      <div class="citation" style="margin-top:0.6rem;">Morin, C. M. et al. (2011). The Insomnia Severity Index: psychometric indicators to detect insomnia cases and evaluate treatment response. <em>Sleep, 34(5), 601&ndash;608.</em></div>
+    </div>
+  </div>
+
+  <FAQ items={faqs} />
+  <CalcSchema name="Insomnia Severity Calculator" description="Validated Insomnia Severity Index with 7 questions. Rate your sleep difficulties over the past 2 weeks and get a clinical severity score with personalized guidance." slug="insomnia-severity-calculator" />
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* ===== CSS CUSTOM PROPERTIES ===== */
+  :root {
+    --bg: #faf9f7;
+    --bg-tint: #f0eef5;
+    --card: #fff;
+    --border: #e4e1ec;
+    --text: #1e1b2e;
+    --text-mid: #4a4560;
+    --text-soft: #7c778e;
+    --primary: #7c6aff;
+    --primary-soft: #edeaff;
+    --coral: #ff6b52;
+    --mint: #10b981;
+    --sky: #38b6ff;
+    --amber: #f59e0b;
+    --rose: #ec4899;
+    --radius: 14px;
+    --radius-sm: 10px;
+  }
+
+  /* ===== CALC HEADER ===== */
+  .calc-header { max-width: 960px; margin: 0 auto; padding: 1.5rem 2rem 0; }
+  .calc-header-inner { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+  .calc-header-icon {
+    width: 52px; height: 52px; border-radius: var(--radius-sm);
+    background: var(--primary-soft); display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+  }
+  .calc-header-icon svg { width: 26px; height: 26px; }
+  .calc-header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.15; color: var(--text);
+  }
+  .subtitle {
+    font-size: 1rem; color: var(--text-mid); max-width: 620px;
+    line-height: 1.6; margin-bottom: 0.5rem;
+  }
+  .calc-meta-row {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    font-size: 0.78rem; color: var(--text-soft); font-weight: 500;
+  }
+  .calc-meta-row span { display: flex; align-items: center; gap: 0.3rem; }
+  .calc-meta-row svg { width: 14px; height: 14px; }
+
+  /* ===== DISCLAIMER BANNER ===== */
+  .disclaimer-banner {
+    max-width: 960px; margin: 1rem auto 0; padding: 0 2rem;
+  }
+  .disclaimer-inner {
+    display: flex; align-items: flex-start; gap: 0.65rem;
+    background: #fffbeb; border: 1.5px solid #fde68a;
+    border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+    font-size: 0.8rem; color: #78350f; line-height: 1.55;
+  }
+  .disclaimer-inner svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.05rem; }
+  .disclaimer-inner strong { color: #92400e; }
+
+  /* ===== MAIN LAYOUT ===== */
+  .calc-layout {
+    display: grid; grid-template-columns: 380px 1fr; gap: 1.5rem;
+    max-width: 960px; margin: 0 auto; padding: 1.75rem 2rem 2.5rem;
+    align-items: start;
+  }
+
+  /* ===== INPUT PANEL ===== */
+  .input-panel {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem;
+    position: sticky; top: 80px;
+    max-height: calc(100vh - 100px); overflow-y: auto;
+  }
+  .input-panel h2 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .panel-hint { font-size: 0.75rem; color: var(--text-soft); margin-bottom: 0.85rem; line-height: 1.4; }
+
+  /* Progress bar */
+  .progress-wrap {
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem;
+  }
+  .progress-track {
+    flex: 1; height: 5px; background: var(--border); border-radius: 99px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--primary); border-radius: 99px;
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .progress-label {
+    font-size: 0.7rem; font-weight: 700; color: var(--text-soft);
+    white-space: nowrap;
+  }
+
+  /* Section cards */
+  .section-card {
+    display: none; animation: fadeIn 0.25s ease;
+  }
+  .section-card.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .sec-header {
+    display: flex; gap: 0.65rem; align-items: flex-start; margin-bottom: 0.85rem;
+  }
+  .sec-badge {
+    width: 26px; height: 26px; border-radius: 6px;
+    font-size: 0.82rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sec-title {
+    display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .sec-title > span:first-child { font-size: 0.88rem; font-weight: 700; color: var(--text); }
+  .sec-hint { font-size: 0.72rem; color: var(--text-soft); }
+  .sec-q {
+    font-size: 0.83rem; color: var(--text); line-height: 1.5;
+    margin-bottom: 0.6rem; font-weight: 500;
+  }
+
+  /* Option buttons */
+  .option-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+  .option-btn {
+    padding: 0.65rem 1.1rem;
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    background: var(--card); cursor: pointer; text-align: center;
+    font-family: inherit; font-size: 0.82rem; font-weight: 500;
+    color: var(--text-mid); transition: all 0.15s;
+  }
+  .option-btn:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .option-btn.selected {
+    border-color: var(--primary); background: var(--primary-soft);
+    color: var(--primary); font-weight: 700;
+  }
+
+  /* Nav buttons */
+  .nav-buttons {
+    display: flex; gap: 0.5rem; margin-top: 1.1rem; padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    gap: 0.3rem; padding: 0.55rem 1rem;
+    border-radius: var(--radius-sm); font-family: inherit;
+    font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
+    border: 1.5px solid var(--border); background: var(--bg); color: var(--text-mid);
+  }
+  .nav-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .nav-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .nav-next {
+    background: var(--primary); border-color: var(--primary); color: #fff;
+  }
+  .nav-next:hover:not(:disabled) { background: #6858e8; border-color: #6858e8; color: #fff; }
+
+  /* ===== RESULTS PANEL ===== */
+  .results-panel { display: flex; flex-direction: column; gap: 1rem; }
+
+  /* Score hero with circular gauge */
+  .score-hero {
+    background: var(--card); border: 2px solid var(--border);
+    border-radius: var(--radius); padding: 1.5rem 1.5rem 1.25rem;
+    text-align: center; transition: border-color 0.3s, background 0.3s;
+  }
+  .score-hero.sev-none { border-color: var(--mint); background: #f0fdf8; }
+  .score-hero.sev-sub { border-color: var(--amber); background: #fffbeb; }
+  .score-hero.sev-mod { border-color: var(--coral); background: #fff6f4; }
+  .score-hero.sev-sev { border-color: var(--rose); background: #fdf2f8; }
+
+  .gauge-wrap {
+    position: relative; width: 180px; height: 180px;
+    margin: 0 auto 0.85rem;
+  }
+  .gauge-svg { width: 180px; height: 180px; }
+  .gauge-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0;
+  }
+  .gauge-score {
+    font-size: 2.8rem; font-weight: 800; letter-spacing: -0.04em;
+    line-height: 1; font-family: 'Space Grotesk', monospace;
+    color: var(--text);
+  }
+  .score-hero.sev-none .gauge-score { color: var(--mint); }
+  .score-hero.sev-sub .gauge-score { color: var(--amber); }
+  .score-hero.sev-mod .gauge-score { color: var(--coral); }
+  .score-hero.sev-sev .gauge-score { color: var(--rose); }
+  .gauge-denom { font-size: 0.9rem; font-weight: 700; color: var(--text-soft); }
+  .gauge-label-inner {
+    font-size: 0.7rem; font-weight: 700; margin-top: 0.15rem;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-soft);
+  }
+  .score-hero.sev-none .gauge-label-inner { color: var(--mint); }
+  .score-hero.sev-sub .gauge-label-inner { color: var(--amber); }
+  .score-hero.sev-mod .gauge-label-inner { color: var(--coral); }
+  .score-hero.sev-sev .gauge-label-inner { color: var(--rose); }
+
+  /* Severity badge */
+  .severity-badge {
+    display: inline-block; padding: 0.35rem 1rem;
+    border-radius: 20px; font-size: 0.88rem; font-weight: 700;
+    margin-bottom: 0.5rem; background: #f0eef5; color: var(--text-soft);
+    transition: all 0.3s;
+  }
+  .score-hero.sev-none .severity-badge { background: #dcfce7; color: #065f46; }
+  .score-hero.sev-sub .severity-badge { background: #fef3c7; color: #78350f; }
+  .score-hero.sev-mod .severity-badge { background: #ffe4de; color: #9a1c10; }
+  .score-hero.sev-sev .severity-badge { background: #fce7f3; color: #9d174d; }
+
+  .severity-sub {
+    font-size: 0.82rem; color: var(--text-mid); line-height: 1.55;
+    max-width: 360px; margin: 0 auto;
+  }
+
+  /* Component breakdown */
+  .breakdown-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .breakdown-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .comp-list { display: flex; flex-direction: column; gap: 0.55rem; }
+  .comp-item { display: flex; flex-direction: column; gap: 0.25rem; }
+  .comp-top { display: flex; align-items: center; gap: 0.5rem; }
+  .comp-name { font-size: 0.78rem; font-weight: 600; color: var(--text); flex: 1; }
+  .comp-score-badge {
+    font-size: 0.7rem; font-weight: 800; padding: 0.1rem 0.45rem;
+    border-radius: 99px; flex-shrink: 0;
+  }
+  .comp-score-badge.s0 { background: #dcfce7; color: #065f46; }
+  .comp-score-badge.s1 { background: #ecfdf5; color: #047857; }
+  .comp-score-badge.s2 { background: #fef9c3; color: #78350f; }
+  .comp-score-badge.s3 { background: #ffe4de; color: #9a1c10; }
+  .comp-score-badge.s4 { background: #fce7f3; color: #9d174d; }
+  .comp-bar-track {
+    height: 5px; background: var(--border); border-radius: 99px; overflow: hidden;
+  }
+  .comp-bar-fill {
+    height: 100%; border-radius: 99px;
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .comp-bar-fill.s0 { background: var(--mint); }
+  .comp-bar-fill.s1 { background: var(--mint); }
+  .comp-bar-fill.s2 { background: var(--amber); }
+  .comp-bar-fill.s3 { background: var(--coral); }
+  .comp-bar-fill.s4 { background: var(--rose); }
+
+  /* Recommendations card */
+  .recs-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .recs-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.85rem; }
+  .recs-list { display: flex; flex-direction: column; gap: 0.65rem; }
+  .rec-item {
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    padding: 0.85rem; border-radius: var(--radius-sm); border: 1.5px solid;
+  }
+  .rec-item.rec-good { border-color: #a7f3d0; background: #f0fdf8; }
+  .rec-item.rec-fair { border-color: #fde68a; background: #fffbeb; }
+  .rec-item.rec-poor { border-color: #ffd0c8; background: #fff6f4; }
+  .rec-item.rec-severe { border-color: #fbcfe8; background: #fdf2f8; }
+  .rec-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .rec-icon svg { width: 16px; height: 16px; }
+  .rec-good .rec-icon { background: #dcfce7; }
+  .rec-fair .rec-icon { background: #fef9c3; }
+  .rec-poor .rec-icon { background: #ffe4de; }
+  .rec-severe .rec-icon { background: #fce7f3; }
+  .rec-title { font-size: 0.8rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .rec-good .rec-title { color: #065f46; }
+  .rec-fair .rec-title { color: #78350f; }
+  .rec-poor .rec-title { color: #9a1c10; }
+  .rec-severe .rec-title { color: #9d174d; }
+  .rec-desc { font-size: 0.75rem; color: var(--text-mid); line-height: 1.5; }
+
+  /* Info card / threshold table */
+  .info-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem;
+  }
+  .info-card h3 { font-size: 0.88rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .threshold-table { display: flex; flex-direction: column; gap: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .thresh-row { display: grid; grid-template-columns: 60px 90px 1fr; gap: 0; padding: 0.55rem 0.75rem; font-size: 0.75rem; }
+  .thresh-row-head { background: var(--bg-tint); font-weight: 700; color: var(--text-soft); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .thresh-row-none { background: #f0fdf8; border-top: 1px solid var(--border); }
+  .thresh-row-sub { background: #fffbeb; border-top: 1px solid var(--border); }
+  .thresh-row-mod { background: #fff6f4; border-top: 1px solid var(--border); }
+  .thresh-row-sev { background: #fdf2f8; border-top: 1px solid var(--border); }
+  .thresh-range { font-weight: 700; }
+  .thresh-row-none .thresh-range { color: var(--mint); }
+  .thresh-row-sub .thresh-range { color: var(--amber); }
+  .thresh-row-mod .thresh-range { color: var(--coral); }
+  .thresh-row-sev .thresh-range { color: var(--rose); }
+  .thresh-rating { font-weight: 600; color: var(--text-mid); }
+  .thresh-desc { color: var(--text-soft); line-height: 1.45; }
+  .info-cite { font-size: 0.68rem; color: var(--text-soft); margin-top: 0.6rem; font-style: italic; }
+
+  /* ===== SCIENCE ===== */
+  .science-section { max-width: 960px; margin: 0 auto; padding: 0 2rem 3rem; }
+  .science-card {
+    background: var(--bg); border: 1.5px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .science-card h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .science-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 0.85rem; }
+  .formula-box {
+    background: #1e1b2e; color: #edeaff; border-radius: 10px;
+    padding: 1rem 1.25rem; font-family: 'Space Grotesk', monospace;
+    font-size: 0.88rem; margin: 1rem 0; text-align: center;
+  }
+  .formula-box .formula-main { font-size: 0.98rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .formula-box .formula-desc { font-size: 0.72rem; color: #a8a3be; line-height: 1.6; }
+  .citation {
+    font-size: 0.78rem; color: var(--text-soft); line-height: 1.55;
+    padding-left: 0.85rem; border-left: 2px solid var(--border);
+  }
+  .citation em { color: var(--text-mid); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .calc-header { padding: 1rem 1.25rem 0; }
+    .disclaimer-banner { padding: 0 1.25rem; }
+    .calc-layout {
+      grid-template-columns: 1fr; padding: 1.25rem; gap: 1.25rem;
+    }
+    .input-panel { position: static; max-height: none; }
+    .science-section { padding: 0 1.25rem 2rem; }
+    .thresh-row { grid-template-columns: 55px 80px 1fr; font-size: 0.7rem; }
+  }
+  @media (max-width: 480px) {
+    .option-btn { padding: 0.5rem 0.7rem; font-size: 0.75rem; }
+    .gauge-wrap { width: 160px; height: 160px; }
+    .gauge-svg { width: 160px; height: 160px; }
+    .gauge-score { font-size: 2.3rem; }
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  // =====================
+  //   STATE
+  // =====================
+  var state = { q1: -1, q2: -1, q3: -1, q4: -1, q5: -1, q6: -1, q7: -1 };
+
+  var currentSection = 1;
+  var TOTAL_SECTIONS = 3;
+
+  // =====================
+  //   COMPONENT META
+  // =====================
+  var COMP_META = [
+    { key: 'q1', label: 'Falling Asleep' },
+    { key: 'q2', label: 'Staying Asleep' },
+    { key: 'q3', label: 'Early Waking' },
+    { key: 'q4', label: 'Satisfaction' },
+    { key: 'q5', label: 'Noticeability' },
+    { key: 'q6', label: 'Worry' },
+    { key: 'q7', label: 'Daily Impact' }
+  ];
+
+  // =====================
+  //   RECOMMENDATION TEMPLATES PER QUESTION
+  // =====================
+  var ITEM_RECS = {
+    q1: 'Practice stimulus control: only go to bed when sleepy. If you can\'t sleep within 20 minutes, get up.',
+    q2: 'Avoid checking the clock. Consider sleep restriction therapy to consolidate sleep.',
+    q3: 'Ensure your bedroom is dark. Light exposure timing may need adjustment — try our Light Exposure Calculator.',
+    q4: 'Sleep dissatisfaction often improves with better sleep efficiency. Try our Sleep Efficiency Calculator.',
+    q5: 'When sleep problems are visible to others, it\'s a signal to seek professional guidance.',
+    q6: 'Sleep anxiety feeds insomnia. CBT-I specifically targets sleep-related worry with proven techniques.',
+    q7: 'Daytime impairment from poor sleep compounds over time. Prioritize treatment to prevent long-term effects.'
+  };
+
+  // =====================
+  //   SCORING
+  // =====================
+  function getTotal() {
+    var total = 0;
+    for (var i = 1; i <= 7; i++) {
+      var v = state['q' + i];
+      if (v > 0) total += v;
+    }
+    return total;
+  }
+
+  function getSeverity(score) {
+    if (score <= 7) return {
+      cls: 'sev-none', badge: 'No Clinical Insomnia', inner: 'No Insomnia',
+      color: '#10b981', sub: 'Score 0–7: Your sleep appears healthy. Maintain good habits.',
+      level: 'none'
+    };
+    if (score <= 14) return {
+      cls: 'sev-sub', badge: 'Subthreshold Insomnia', inner: 'Subthreshold',
+      color: '#f59e0b', sub: 'Score 8–14: Mild sleep difficulties present. Targeted improvements can help.',
+      level: 'sub'
+    };
+    if (score <= 21) return {
+      cls: 'sev-mod', badge: 'Moderate Clinical Insomnia', inner: 'Moderate',
+      color: '#ff6b52', sub: 'Score 15–21: Clinical insomnia detected. CBT-I is the recommended first-line treatment.',
+      level: 'mod'
+    };
+    return {
+      cls: 'sev-sev', badge: 'Severe Clinical Insomnia', inner: 'Severe',
+      color: '#ec4899', sub: 'Score 22–28: Severe insomnia. Seek clinical evaluation as soon as possible.',
+      level: 'sev'
+    };
+  }
+
+  // =====================
+  //   GAUGE (circular SVG arc)
+  // =====================
+  var CIRC = 2 * Math.PI * 78; // ~490.09
+  var ARC_SWEEP = CIRC * 0.75; // ~367.57 (270 degrees)
+
+  function setGaugeArc(score) {
+    var arc = document.getElementById('gauge-arc');
+    if (!arc) return;
+    var frac = Math.min(1, Math.max(0, score / 28));
+    var drawn = frac * ARC_SWEEP;
+    var offset = CIRC - drawn;
+    arc.setAttribute('stroke-dasharray', CIRC.toFixed(2));
+    arc.setAttribute('stroke-dashoffset', offset.toFixed(2));
+    var sev = getSeverity(score);
+    arc.setAttribute('stroke', sev.color);
+  }
+
+  // =====================
+  //   COMPONENT BREAKDOWN
+  // =====================
+  function buildCompList() {
+    var html = '';
+    for (var i = 0; i < COMP_META.length; i++) {
+      var c = COMP_META[i];
+      var v = state[c.key];
+      var s = v < 0 ? 0 : v;
+      var pct = (s / 4) * 100;
+      var scoreLabels = ['0 — None', '1 — Mild', '2 — Moderate', '3 — Severe', '4 — Very Severe'];
+      html += '<div class="comp-item">' +
+        '<div class="comp-top">' +
+          '<span class="comp-name">' + c.label + '</span>' +
+          '<span class="comp-score-badge s' + s + '">' + scoreLabels[s] + '</span>' +
+        '</div>' +
+        '<div class="comp-bar-track">' +
+          '<div class="comp-bar-fill s' + s + '" style="width:' + pct.toFixed(1) + '%"></div>' +
+        '</div>' +
+      '</div>';
+    }
+    return html;
+  }
+
+  // =====================
+  //   RECOMMENDATIONS
+  // =====================
+  function buildRecCard(level, title, desc) {
+    var iconMap = {
+      good: '<svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+      fair: '<svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+      poor: '<svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+      severe: '<svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+    };
+    var recClass = level === 'severe' ? 'rec-severe' : level === 'poor' ? 'rec-poor' : level === 'fair' ? 'rec-fair' : 'rec-good';
+    return '<div class="rec-item ' + recClass + '">' +
+      '<div class="rec-icon">' + (iconMap[level] || iconMap.fair) + '</div>' +
+      '<div><div class="rec-title">' + title + '</div><div class="rec-desc">' + desc + '</div></div>' +
+    '</div>';
+  }
+
+  function getWorstItems() {
+    var items = [];
+    for (var i = 0; i < COMP_META.length; i++) {
+      var c = COMP_META[i];
+      var v = state[c.key];
+      if (v > 0) items.push({ key: c.key, label: c.label, score: v });
+    }
+    items.sort(function(a, b) { return b.score - a.score; });
+    return items.slice(0, 3);
+  }
+
+  function buildRecs() {
+    var score = getTotal();
+    var sev = getSeverity(score);
+    var html = '';
+
+    // General recommendation based on severity
+    if (sev.level === 'none') {
+      html += buildRecCard('good', 'Your sleep appears healthy',
+        'Your ISI score is in the healthy range. Maintain good sleep hygiene practices: consistent sleep and wake times, a dark and cool bedroom, and limited caffeine after noon.');
+    } else if (sev.level === 'sub') {
+      html += buildRecCard('fair', 'Mild sleep difficulties detected',
+        'You have mild sleep difficulties. Sleep hygiene improvements and consistent sleep scheduling may help. Consider the sleep hygiene audit on this site.');
+    } else if (sev.level === 'mod') {
+      html += buildRecCard('poor', 'Clinical insomnia — CBT-I recommended',
+        'Clinical insomnia detected. CBT-I (Cognitive Behavioral Therapy for Insomnia) is the recommended first-line treatment. Speak to your doctor about a referral to a CBT-I therapist or validated digital program.');
+    } else {
+      html += buildRecCard('severe', 'Severe insomnia — seek help promptly',
+        'Severe insomnia requires clinical attention. CBT-I and/or pharmacotherapy should be discussed with a sleep medicine specialist as soon as possible. Do not delay seeking evaluation.');
+    }
+
+    // Top 3 worst-scoring items with specific recommendations
+    var worst = getWorstItems();
+    for (var i = 0; i < worst.length; i++) {
+      var w = worst[i];
+      var rec = ITEM_RECS[w.key];
+      if (rec) {
+        var itemLevel = w.score >= 4 ? 'severe' : w.score >= 3 ? 'poor' : 'fair';
+        html += buildRecCard(itemLevel, w.label + ' (scored ' + w.score + '/4)', rec);
+      }
+    }
+
+    return html;
+  }
+
+  // =====================
+  //   RENDER
+  // =====================
+  function render() {
+    var score = getTotal();
+    var sev = getSeverity(score);
+
+    // Gauge
+    var scoreEl = document.getElementById('gauge-score');
+    if (scoreEl) scoreEl.textContent = score;
+    setGaugeArc(score);
+
+    var innerEl = document.getElementById('gauge-label-inner');
+    if (innerEl) innerEl.textContent = sev.inner;
+
+    // Hero class
+    var hero = document.getElementById('score-hero');
+    if (hero) hero.className = 'score-hero ' + sev.cls;
+
+    // Badge
+    var badgeEl = document.getElementById('severity-badge');
+    if (badgeEl) badgeEl.textContent = sev.badge;
+
+    // Sub text
+    var subEl = document.getElementById('severity-sub');
+    if (subEl) subEl.textContent = sev.sub;
+
+    // Component breakdown
+    var compList = document.getElementById('comp-list');
+    if (compList) compList.innerHTML = buildCompList();
+
+    // Recommendations
+    var recsList = document.getElementById('recs-list');
+    if (recsList) recsList.innerHTML = buildRecs();
+  }
+
+  // =====================
+  //   SECTION NAVIGATION
+  // =====================
+  function showSection(n) {
+    for (var i = 1; i <= TOTAL_SECTIONS; i++) {
+      var el = document.getElementById('sec-' + i);
+      if (el) el.classList.toggle('active', i === n);
+    }
+    currentSection = n;
+
+    // Progress
+    var pct = ((n - 1) / TOTAL_SECTIONS) * 100;
+    var fill = document.getElementById('progress-fill');
+    if (fill) fill.style.width = pct.toFixed(0) + '%';
+    var lbl = document.getElementById('progress-label');
+    if (lbl) lbl.textContent = 'Section ' + n + ' of ' + TOTAL_SECTIONS;
+
+    // Nav buttons
+    var prev = document.getElementById('btn-prev');
+    var next = document.getElementById('btn-next');
+    if (prev) prev.disabled = n === 1;
+    if (next) {
+      if (n === TOTAL_SECTIONS) {
+        next.innerHTML = 'See Results ✓';
+      } else {
+        next.innerHTML = 'Next <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+      }
+    }
+
+    // Scroll input panel to top
+    var panel = document.querySelector('.input-panel');
+    if (panel) panel.scrollTop = 0;
+
+    render();
+  }
+
+  var prevBtn = document.getElementById('btn-prev');
+  var nextBtn = document.getElementById('btn-next');
+
+  if (prevBtn) prevBtn.addEventListener('click', function () {
+    if (currentSection > 1) showSection(currentSection - 1);
+  });
+
+  if (nextBtn) nextBtn.addEventListener('click', function () {
+    if (currentSection < TOTAL_SECTIONS) {
+      showSection(currentSection + 1);
+    } else {
+      // Mark 100% complete
+      var fill = document.getElementById('progress-fill');
+      if (fill) fill.style.width = '100%';
+      var lbl = document.getElementById('progress-label');
+      if (lbl) lbl.textContent = 'Complete!';
+      render();
+      // Scroll to results on mobile
+      var hero = document.getElementById('score-hero');
+      if (hero && window.innerWidth < 768) {
+        hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+
+  // =====================
+  //   OPTION BUTTONS (event delegation)
+  // =====================
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.option-btn');
+    if (!btn) return;
+
+    var comp = btn.getAttribute('data-comp');
+    var val = parseInt(btn.getAttribute('data-val'), 10);
+    if (!comp || isNaN(val)) return;
+
+    // Deselect siblings in the same option-group
+    var group = btn.closest('.option-group');
+    if (group) {
+      var btns = group.querySelectorAll('.option-btn');
+      for (var i = 0; i < btns.length; i++) btns[i].classList.remove('selected');
+    }
+    btn.classList.add('selected');
+
+    state[comp] = val;
+    render();
+  });
+
+  // =====================
+  //   INIT
+  // =====================
+  showSection(1);
+
+})();
+</script>

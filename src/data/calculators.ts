@@ -239,6 +239,20 @@ export const calculators: Calculator[] = [
     cta: 'Screen now →',
     phase: 2,
   },
+  {
+    slug: 'insomnia-severity-calculator',
+    title: 'Insomnia Severity',
+    description:
+      'Validated ISI questionnaire — rate 7 dimensions of insomnia over the past 2 weeks. Clinical severity score with CBT-I guidance.',
+    tag: { label: 'Clinical', class: 'tag-cbt' },
+    color: 'c-primary',
+    iconColor: 'primary',
+    iconPath:
+      '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    meta: '2 min · Morin et al., 2011',
+    cta: 'Assess now →',
+    phase: 2,
+  },
 
   // ──── Phase 3 ────
 
