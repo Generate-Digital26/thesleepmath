@@ -208,7 +208,7 @@ const faqs: FAQItem[] = [
   <Footer />
 </BaseLayout>
 
-<style is:global>
+<style>
   /* ===== BREADCRUMB ===== */
   .breadcrumb {
     max-width: 920px; margin: 0 auto; padding: 1.25rem 2rem 0;
@@ -516,7 +516,9 @@ const faqs: FAQItem[] = [
     display: none; padding: 0.75rem; background: #ecfdf5;
     border: 1px solid #10b981; border-radius: var(--radius-sm);
     font-size: 0.86rem; color: #065f46; font-weight: 500;
+    align-items: center; gap: 0.5rem;
   }
+  .email-success svg { width: 20px; height: 20px; flex-shrink: 0; }
 
   /* Retake */
   .btn-retake {
