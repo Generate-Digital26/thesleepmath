@@ -138,26 +138,7 @@ const faqs: FAQItem[] = [
 
       <div class="tips-block" id="tips-block"></div>
 
-      <!-- EMAIL CAPTURE -->
-      <div class="email-capture" id="email-capture">
-        <div class="email-capture-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M22 7l-10 7L2 7"/></svg>
-        </div>
-        <h4>Get your results & schedule by email</h4>
-        <p class="email-sub">We'll send your chronotype profile, personalized daily schedule, and science-backed tips straight to your inbox.</p>
-        <form class="email-form" id="email-form">
-          <input type="email" placeholder="your@email.com" required id="email-input" />
-          <button type="submit">Send</button>
-        </form>
-        <label class="email-checkbox">
-          <input type="checkbox" id="email-subscribe" checked />
-          <span>Also join The Sleep Math newsletter — weekly sleep science, no spam</span>
-        </label>
-        <div class="email-success" id="email-success">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <span>Check your inbox — your results are on the way!</span>
-        </div>
-      </div>
+
 
       <button class="btn-retake" id="btn-retake">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.87"/></svg>
@@ -460,65 +441,7 @@ const faqs: FAQItem[] = [
     background: var(--primary); margin-top: 0.45rem; flex-shrink: 0;
   }
 
-  /* Email capture */
-  .email-capture {
-    background: linear-gradient(135deg, #f5f3ff 0%, #eef6ff 100%);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-  .email-capture-icon {
-    width: 44px; height: 44px; border-radius: 10px;
-    background: var(--primary-soft); display: flex; align-items: center;
-    justify-content: center; margin: 0 auto 0.75rem;
-  }
-  .email-capture-icon svg { width: 22px; height: 22px; }
-  .email-capture h4 {
-    font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem;
-    letter-spacing: -0.01em;
-  }
-  .email-capture .ec-sub {
-    font-size: 0.82rem; color: var(--text-mid); margin-bottom: 1rem;
-    line-height: 1.5;
-  }
-  .email-form {
-    display: flex; gap: 0.5rem; max-width: 400px; margin: 0 auto 0.75rem;
-  }
-  .email-form input[type="email"] {
-    flex: 1; padding: 0.6rem 0.85rem;
-    background: var(--card); border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm); font-family: inherit;
-    font-size: 0.86rem; color: var(--text); outline: none;
-    transition: border-color 0.15s;
-  }
-  .email-form input[type="email"]:focus { border-color: var(--primary); }
-  .email-form input[type="email"]::placeholder { color: var(--text-soft); }
-  .email-form button {
-    padding: 0.6rem 1.15rem; border-radius: var(--radius-sm);
-    background: var(--primary); border: none; color: #fff;
-    font-family: inherit; font-size: 0.86rem; font-weight: 600;
-    cursor: pointer; transition: background 0.15s; white-space: nowrap;
-  }
-  .email-form button:hover { background: var(--primary-hover); }
-  .email-form button:disabled { opacity: 0.5; pointer-events: none; }
-  .email-checkbox {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0.5rem; font-size: 0.78rem; color: var(--text-soft);
-  }
-  .email-checkbox input[type="checkbox"] {
-    width: 16px; height: 16px; accent-color: var(--primary);
-    cursor: pointer;
-  }
-  .email-checkbox label { cursor: pointer; }
-  .email-success {
-    display: none; padding: 0.75rem; background: #ecfdf5;
-    border: 1px solid #10b981; border-radius: var(--radius-sm);
-    font-size: 0.86rem; color: #065f46; font-weight: 500;
-    align-items: center; gap: 0.5rem;
-  }
-  .email-success svg { width: 20px; height: 20px; flex-shrink: 0; }
+
 
   /* Retake */
   .btn-retake {
@@ -1031,57 +954,7 @@ const faqs: FAQItem[] = [
     resultsCard.style.display = 'block';
   }
 
-  /* =========================================
-     EMAIL CAPTURE
-  ========================================= */
-  var emailForm = document.getElementById('email-form');
-  var emailInput = document.getElementById('email-input');
-  var emailSubscribe = document.getElementById('email-subscribe');
-  var emailSuccess = document.getElementById('email-success');
-  var emailCapture = document.getElementById('email-capture');
 
-  emailForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var email = emailInput.value.trim();
-    if (!email) return;
-
-    var subscribe = emailSubscribe.checked;
-    var winner = getWinner();
-    var ct = chronotypes[winner];
-
-    // Store submission data (integrate with your email service later)
-    var payload = {
-      email: email,
-      chronotype: winner,
-      chronotypeName: ct.name,
-      scores: Object.assign({}, scores),
-      subscribe: subscribe,
-      timestamp: new Date().toISOString()
-    };
-
-    // Subscribe to Kit newsletter if checkbox is checked
-    if (subscribe && typeof window.__KIT_FORM_ID !== 'undefined') {
-      fetch('https://api.convertkit.com/v3/forms/' + window.__KIT_FORM_ID + '/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          api_key: window.__KIT_API_KEY,
-          email: email,
-          fields: { chronotype: winner },
-        }),
-      }).catch(function () { /* silent — UX already shows success */ });
-      if (typeof gtag === 'function') gtag('event', 'newsletter_subscribe', { method: 'kit', source: 'chronotype_quiz' });
-    }
-
-    console.log('Email capture:', JSON.stringify(payload));
-
-    // Show success state
-    emailForm.style.display = 'none';
-    document.querySelector('.email-checkbox').style.display = 'none';
-    document.querySelector('.email-sub').style.display = 'none';
-    emailSuccess.style.display = 'flex';
-    emailCapture.querySelector('h4').textContent = 'Results sent!';
-  });
 
   /* =========================================
      RETAKE
@@ -1093,13 +966,8 @@ const faqs: FAQItem[] = [
     progressFill.style.width = '0%';
     resultsCard.style.display = 'none';
     quizCard.style.display = 'block';
-    // reset email capture
-    emailForm.style.display = 'flex';
-    document.querySelector('.email-checkbox').style.display = 'flex';
-    document.querySelector('.email-sub').style.display = 'block';
-    emailSuccess.style.display = 'none';
-    emailCapture.querySelector('h4').textContent = 'Get your results & schedule by email';
-    emailInput.value = '';
+
+
     renderQuestion();
     // scroll back to quiz
     quizCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
