@@ -1,0 +1,691 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+
+const title = '5 Bedtime Habits That Are Ruining Your Sleep (And What to Do Instead) — The Sleep Math';
+const description = 'Struggling to fall asleep or waking up exhausted? These 5 common nighttime habits could be the reason — and the science-backed fixes are simpler than you think.';
+const canonical = 'https://thesleepmath.com/blog/5-bedtime-habits-ruining-your-sleep';
+const heroImage = '/images/blog/5-bedtime-habits-hero.jpg';
+const ogImage = '/images/blog/5-bedtime-habits-og.png';
+const publishDate = '2026-05-14';
+const modifiedDate = '2026-05-14';
+
+/* ── Schema: BlogPosting ── */
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: '5 Bedtime Habits That Are Ruining Your Sleep (And What to Do Instead)',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 1850,
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.bottom-line'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Prevalence of Healthy Sleep Duration among Adults — United States, 2014',
+      author: 'Liu Y, Wheaton AG, Chapman DP, Cunningham TJ, Lu H, Croft JB',
+      datePublished: '2016',
+      url: 'https://www.cdc.gov/mmwr/volumes/65/wr/mm6506a1.htm',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness',
+      author: 'Chang A-M, Aeschbach D, Duffy JF, Czeisler CA',
+      datePublished: '2015',
+      url: 'https://www.pnas.org/doi/full/10.1073/pnas.1418490112',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Caffeine Effects on Sleep Taken 0, 3, or 6 Hours Before Going to Bed',
+      author: 'Drake C, Roehrs T, Shambroom J, Roth T',
+      datePublished: '2013',
+      url: 'https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Alcohol and Sleep I: Effects on Normal Sleep',
+      author: 'Ebrahim IO, Shapiro CM, Williams AJ, Fenwick PB',
+      datePublished: '2013',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/23347102/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Social Jetlag: Misalignment of Biological and Social Time',
+      author: 'Wittmann M, Dinich J, Merrow M, Roenneberg T',
+      datePublished: '2006',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/16687322/',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Does scrolling your phone in bed really affect sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Blue light from phone screens suppresses melatonin production, and the content itself keeps your brain in an alert state. Research from Harvard and PNAS shows that light-emitting screens delay circadian timing and reduce next-morning alertness. Sleep specialists recommend switching off screens at least 30 minutes to 2 hours before bed.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How late is too late to eat before bed?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Aim to finish your last substantial meal at least 2-3 hours before bed. Eating close to bedtime forces your body to divert energy toward digestion, raises core body temperature when it should be dropping, and can interfere with deep sleep stages and cause acid reflux.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long before bed should you stop drinking caffeine?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'At least 6 hours before bedtime. Caffeine has a half-life of 5-6 hours, meaning a coffee at 3 p.m. still has half its stimulant effect at 9 p.m. A 2013 study in the Journal of Clinical Sleep Medicine found that caffeine consumed even 6 hours before bed measurably reduced both sleep duration and quality.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does alcohol before bed help or hurt sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It hurts. While alcohol may help you fall asleep faster, research published in Alcoholism: Clinical and Experimental Research shows it fragments sleep architecture, reduces deep restorative sleep, and causes early-morning awakenings. Avoid alcohol within 3 hours of bedtime.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why is keeping a consistent sleep schedule so important?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Your circadian rhythm thrives on consistency. Shifting your sleep and wake times by even 1-2 hours creates "social jet lag," which research links to poorer sleep quality, increased fatigue, and difficulty falling asleep. Waking at the same time every day — including weekends — is one of the most effective things you can do for sleep.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://thesleepmath.com/blog' },
+    { '@type': 'ListItem', position: 3, name: '5 Bedtime Habits That Are Ruining Your Sleep' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science" />
+  <meta slot="head" property="article:tag" content="sleep habits" />
+  <meta slot="head" property="article:tag" content="sleep hygiene" />
+  <meta slot="head" property="article:tag" content="bedtime routine" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is a sleep hygiene blog post on TheSleepMath.com. It covers 5 common bedtime habits that harm sleep quality: phone scrolling (blue light), late eating, caffeine and alcohol timing, irregular sleep schedules (social jet lag), and using the bed for non-sleep activities. Each habit includes the scientific explanation and a practical fix. All claims cite peer-reviewed studies." />
+  <meta slot="head" name="ai-summary" content="5 bedtime habits ruining your sleep: (1) Scrolling phone in bed — blue light suppresses melatonin. (2) Eating heavy meals within 2-3 hours of bed — disrupts deep sleep. (3) Late caffeine (half-life 5-6 hrs) or alcohol (fragments sleep architecture). (4) Irregular sleep schedule — causes social jet lag. (5) Using bed as workspace — weakens sleep association. Fixes: charge phone in another room, set caffeine curfew by 1-2pm, wake at the same time daily including weekends, reserve bed for sleep only." />
+  <meta slot="head" name="nlp-entities" content="sleep hygiene, melatonin, blue light, circadian rhythm, social jet lag, caffeine half-life, sleep architecture, REM sleep, stimulus control, sleep quality, screen time, alcohol and sleep" />
+  <meta slot="head" name="ai-content-type" content="health article, sleep science, evidence-based guide" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="blog-post">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/blog">Blog</a>
+      <span class="sep">/</span>
+      <span>5 Bedtime Habits</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="post-header">
+      <div class="post-meta-top">
+        <span class="post-tag">Sleep Hygiene</span>
+        <time datetime={publishDate}>14 May 2026</time>
+        <span class="read-time">8 min read</span>
+      </div>
+      <h1>5 Bedtime Habits That Are Ruining Your Sleep <span class="pop">(And What to Do Instead)</span></h1>
+      <p class="article-intro">
+        Struggling to fall asleep or waking up exhausted? These common nighttime routines could be the reason — and the fixes are simpler than you think.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="Peaceful bedroom at night with warm lamp light and white bedsheets — no phone in sight"
+      class="hero-img"
+      width="1344"
+      height="768"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="post-body">
+
+      <p>
+        You set your alarm, crawl into bed at a reasonable hour, and fully intend to get a solid night's rest. Yet somehow, you're still lying awake at midnight, or dragging yourself through the next day on fumes. Sound familiar?
+      </p>
+      <p>
+        According to the <a href="https://www.cdc.gov/mmwr/volumes/65/wr/mm6506a1.htm" target="_blank" rel="noopener noreferrer">CDC</a>, roughly one in three adults consistently falls short of the recommended seven hours of sleep per night. And while conditions like <a href="/sleep-apnea-risk-calculator">sleep apnoea</a> or chronic <a href="/insomnia-severity-calculator">insomnia</a> certainly play a role, the culprit for many people is far more mundane: everyday habits that quietly sabotage sleep quality without us realising it.
+      </p>
+      <p>
+        The good news? Once you identify these habits, they're surprisingly easy to fix. Here are five of the most common bedtime behaviours that could be standing between you and a truly restorative night's sleep.
+      </p>
+
+      <!-- ── Habit 1 ── -->
+      <h2>1. Scrolling Your Phone in Bed</h2>
+      <p>
+        This is the big one — and most of us are guilty of it. A quick check of your notifications turns into twenty minutes of doomscrolling, and suddenly your brain is wide awake at the exact moment it should be winding down.
+      </p>
+      <p>
+        The problem is twofold. First, the blue light emitted by phone and tablet screens <a href="https://www.pnas.org/doi/full/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">suppresses the production of melatonin</a>, the hormone your body relies on to signal that it's time to sleep (Chang et al., 2015). Second, the content itself — whether it's social media, news, or work emails — is mentally stimulating and keeps your brain in an active, alert state.
+      </p>
+      <p>
+        Sleep medicine specialists recommend switching off all interactive screens at least one to two hours before bed. If that feels extreme, start with thirty minutes and work your way up. Replace the scroll with a book, a podcast with the screen face-down, or a simple breathing exercise. The difference can be dramatic.
+      </p>
+      <p>
+        Not sure how much screen time is affecting your sleep? Try our <a href="/screen-time-cutoff-calculator">Screen Time Cutoff Calculator</a> to find your personal shut-off time, or explore the <a href="/light-exposure-calculator">Light Exposure Calculator</a> to understand how light timing affects your circadian rhythm.
+      </p>
+      <div class="tip-box">
+        <strong>What to do instead:</strong> Charge your phone in another room overnight. If you use it as an alarm, invest in a basic alarm clock — it's one of the cheapest and most effective sleep upgrades you can make.
+      </div>
+
+      <!-- ── Habit 2 ── -->
+      <h2>2. Eating Heavy Meals Too Close to Bedtime</h2>
+      <p>
+        A late dinner or a generous bedtime snack might feel comforting, but your digestive system doesn't share your enthusiasm for rest. When you eat a large meal shortly before lying down, your body has to divert energy and blood flow toward digestion rather than the restorative processes that happen during sleep.
+      </p>
+      <p>
+        This can raise your core body temperature at precisely the time it should be dropping, and it may also interfere with your deeper sleep stages — including REM sleep, the phase most critical for memory consolidation and cognitive function. On top of that, lying down on a full stomach increases the likelihood of acid reflux, which can wake you repeatedly throughout the night.
+      </p>
+      <p>
+        If you're working on a complete bedtime routine, our <a href="/sleep-hygiene-calculator">Sleep Hygiene Calculator</a> can help you audit all the factors — including meal timing — that affect your sleep quality.
+      </p>
+      <div class="tip-box">
+        <strong>What to do instead:</strong> Aim to finish your last substantial meal at least two to three hours before bed. If you genuinely need a late-night snack, keep it small and choose sleep-friendly foods like a handful of almonds, a banana, or a cup of chamomile tea.
+      </div>
+
+      <!-- ── Habit 3 ── -->
+      <h2>3. Having a Nightcap (or Late-Afternoon Coffee)</h2>
+      <p>
+        Alcohol and caffeine are two of the most widely consumed substances on the planet, and both have a far greater impact on sleep than most people realise.
+      </p>
+      <p>
+        Let's start with alcohol. A glass of wine before bed might make you feel drowsy and help you fall asleep faster, but <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">research consistently shows</a> that it fragments your sleep architecture (Ebrahim et al., 2013). Alcohol disrupts brainwave patterns during the night, reduces the amount of restorative deep sleep you get, and often causes you to wake in the early hours as your body metabolises it. The result is a night that feels restless and a morning that feels rough — even if you technically spent enough time in bed.
+      </p>
+      <p>
+        Caffeine, meanwhile, is a stimulant with a half-life of roughly five to six hours. That means a coffee at 3 p.m. still has half its stimulant effect at 9 p.m. <a href="https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">Studies have demonstrated</a> that caffeine consumed up to six hours before bedtime can measurably reduce both sleep duration and sleep quality (Drake et al., 2013). And it's not just coffee — tea, soft drinks, energy drinks, and even chocolate all contain caffeine.
+      </p>
+      <p>
+        Want to know exactly when to stop? Our <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> works out your personal caffeine curfew based on your bedtime. You can also check how alcohol may be affecting your rest with the <a href="/alcohol-sleep-calculator">Alcohol &amp; Sleep Calculator</a>.
+      </p>
+      <div class="tip-box">
+        <strong>What to do instead:</strong> Set a personal caffeine curfew. For most people, cutting off caffeine by early afternoon (around 1–2 p.m.) is a sensible guideline. As for alcohol, try to avoid it within three hours of bedtime, and notice whether even moderate consumption affects how you feel the next morning.
+      </div>
+
+      <!-- ── Habit 4 ── -->
+      <h2>4. Keeping an Irregular Sleep Schedule</h2>
+      <p>
+        Many people try to "catch up" on sleep over the weekend, sleeping in on Saturday and Sunday mornings and staying up later on Friday and Saturday nights. While this feels restorative in the moment, it actually disrupts your circadian rhythm — the internal 24-hour clock that governs when you feel alert and when you feel sleepy.
+      </p>
+      <p>
+        Your circadian rhythm thrives on consistency. When you shift your sleep and wake times by even an hour or two, you're essentially giving yourself a mild case of jet lag. This phenomenon, sometimes called <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">"social jet lag"</a> (Wittmann et al., 2006), has been linked to poorer sleep quality, increased daytime fatigue, and difficulty falling asleep on Sunday nights (that familiar dread isn't just psychological).
+      </p>
+      <p>
+        Sleep experts are nearly unanimous on this point: waking up at the same time every day — including weekends — is one of the single most effective things you can do for your sleep.
+      </p>
+      <p>
+        Not sure where your body clock naturally sits? Take our <a href="/chronotype-quiz">Chronotype Quiz</a> to discover your biological sleep type, or use the <a href="/circadian-rhythm-calculator">Circadian Rhythm Calculator</a> to map your ideal schedule. The <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> can also help you find the best wake-up time aligned with your natural sleep cycles.
+      </p>
+      <div class="tip-box">
+        <strong>What to do instead:</strong> Pick a wake-up time you can stick with seven days a week and protect it. If you need more sleep, go to bed earlier rather than sleeping in later. Your body clock will thank you within a week or two.
+      </div>
+
+      <!-- ── Habit 5 ── -->
+      <h2>5. Using Your Bed as a Workspace (or Entertainment Centre)</h2>
+      <p>
+        Working from your laptop in bed, watching television under the covers, or even lying in bed worrying about tomorrow's to-do list — these habits all train your brain to associate your bed with wakefulness rather than sleep.
+      </p>
+      <p>
+        Sleep psychologists call this <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.8988" target="_blank" rel="noopener noreferrer">"stimulus control"</a> (Edinger et al., 2021), and the principle is straightforward: the stronger the mental link between your bed and the act of sleeping, the faster your brain will switch off when you get into it. When you blur that boundary by turning your bed into a multi-purpose zone, you weaken the association, and falling asleep becomes harder over time.
+      </p>
+      <p>
+        This is especially relevant for anyone who started working from home in recent years. The temptation to answer emails from bed or finish a project propped up against the pillows is real — but the cost to your sleep is cumulative and significant.
+      </p>
+      <p>
+        Curious how efficiently you're actually sleeping? Our <a href="/sleep-efficiency-calculator">Sleep Efficiency Calculator</a> measures the ratio of time asleep to time in bed — a key metric used in clinical sleep therapy.
+      </p>
+      <div class="tip-box">
+        <strong>What to do instead:</strong> Reserve your bed exclusively for sleep. Do your reading in a chair, watch television in the living room, and if you find yourself lying awake for more than twenty minutes, get up and move to another room until you feel genuinely sleepy. Over time, this retrains your brain to treat your bed as a cue for sleep, not activity.
+      </div>
+
+      <!-- ── Bottom line ── -->
+      <h2 class="bottom-line">The Bottom Line</h2>
+      <p>
+        Poor sleep rarely has a single dramatic cause. More often, it's the result of several small habits stacking up night after night — the phone on the pillow, the late coffee, the irregular weekend schedule. The encouraging thing is that each of these habits is entirely within your control, and even changing one or two can produce a noticeable improvement in how quickly you fall asleep, how deeply you stay asleep, and how you feel when you wake up.
+      </p>
+      <p>
+        Start with the habit that resonates most and give it a genuine two-week trial. Sleep responds well to consistency, so small changes maintained over time tend to yield far better results than dramatic overnight overhauls.
+      </p>
+      <p>
+        If you've made meaningful changes to your sleep habits and still find yourself struggling after several weeks, it's worth speaking with a healthcare professional. Conditions like <a href="/sleep-apnea-risk-calculator">sleep apnoea</a>, restless legs syndrome, and chronic <a href="/insomnia-severity-calculator">insomnia</a> are treatable — but they do require a proper evaluation.
+      </p>
+      <p>
+        Your sleep is one of the most powerful levers you have for your physical health, mental wellbeing, and daily performance. It's worth protecting.
+      </p>
+
+      <!-- ── Related reading ── -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/blog/how-to-build-a-bedtime-routine-that-actually-works">How to Build a Bedtime Routine That Actually Works</a></li>
+          <li><a href="/blog/the-science-of-circadian-rhythms">The Science of Circadian Rhythms</a></li>
+          <li><a href="/blog/when-to-see-a-doctor-about-your-sleep">When to See a Doctor About Your Sleep</a></li>
+        </ul>
+      </div>
+
+      <!-- ── Calculator CTA ── -->
+      <div class="calc-cta">
+        <h3>Tools Mentioned in This Article</h3>
+        <div class="calc-cta-grid">
+          <a href="/caffeine-cutoff-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">☕</span>
+            <span class="calc-cta-name">Caffeine Cutoff Calculator</span>
+          </a>
+          <a href="/screen-time-cutoff-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">📱</span>
+            <span class="calc-cta-name">Screen Time Cutoff</span>
+          </a>
+          <a href="/chronotype-quiz" class="calc-cta-card">
+            <span class="calc-cta-icon">🧬</span>
+            <span class="calc-cta-name">Chronotype Quiz</span>
+          </a>
+          <a href="/alcohol-sleep-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🍷</span>
+            <span class="calc-cta-name">Alcohol &amp; Sleep</span>
+          </a>
+          <a href="/circadian-rhythm-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🌅</span>
+            <span class="calc-cta-name">Circadian Rhythm</span>
+          </a>
+          <a href="/sleep-efficiency-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">📊</span>
+            <span class="calc-cta-name">Sleep Efficiency</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Liu Y, et al. (2016). Prevalence of Healthy Sleep Duration among Adults — United States, 2014. <em>MMWR</em>, 65(6):137–141. <a href="https://www.cdc.gov/mmwr/volumes/65/wr/mm6506a1.htm" target="_blank" rel="noopener noreferrer">CDC.gov</a></li>
+          <li>Chang A-M, et al. (2015). Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness. <em>PNAS</em>, 112(4):1232–1237. <a href="https://www.pnas.org/doi/full/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">pnas.org</a></li>
+          <li>Drake C, et al. (2013). Caffeine Effects on Sleep Taken 0, 3, or 6 Hours Before Going to Bed. <em>J Clin Sleep Med</em>, 9(11):1195–1200. <a href="https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+          <li>Ebrahim IO, et al. (2013). Alcohol and Sleep I: Effects on Normal Sleep. <em>Alcohol Clin Exp Res</em>, 37(4):539–549. <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Wittmann M, et al. (2006). Social Jetlag: Misalignment of Biological and Social Time. <em>Chronobiol Int</em>, 23(1–2):497–509. <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Edinger JD, et al. (2021). Behavioral and Psychological Treatments for Chronic Insomnia Disorder in Adults. <em>J Clin Sleep Med</em>, 17(2):263–298. <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.8988" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This article is for informational purposes only and does not constitute medical advice. If you have persistent sleep difficulties, please consult a qualified healthcare provider.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* ── Blog post layout ── */
+  .blog-post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    padding: 1.25rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+
+  .breadcrumb a {
+    color: var(--text-soft);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .breadcrumb .sep {
+    margin: 0 0.35rem;
+    opacity: 0.4;
+  }
+
+  /* ── Post header ── */
+  .post-header {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .post-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .post-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .read-time::before {
+    content: '·';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .post-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary);
+  }
+
+  .article-intro {
+    font-size: 1.12rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* ── Hero image ── */
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* ── Post body ── */
+  .post-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .post-body p {
+    margin-bottom: 1.35rem;
+  }
+
+  .post-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .post-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .post-body a:hover {
+    color: #5b4ee0;
+  }
+
+  /* ── Tip boxes ── */
+  .tip-box {
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .tip-box strong {
+    color: var(--primary);
+  }
+
+  /* ── Calculator CTA grid ── */
+  .calc-cta {
+    margin: 3rem 0 2rem;
+    padding: 1.75rem;
+    background: var(--bg-alt, #f8f9fb);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+
+  .calc-cta h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .calc-cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .calc-cta-card {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 0.85rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none !important;
+    color: var(--text) !important;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .calc-cta-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(124, 106, 255, 0.1);
+  }
+
+  .calc-cta-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  /* ── Related reading ── */
+  .related-reading {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .related-reading h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+
+  .related-reading li::before {
+    content: '→ ';
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .related-reading a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── References ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .references em {
+    font-style: italic;
+  }
+
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .references a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Disclaimer ── */
+  .disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .blog-post {
+      padding: 0 1.25rem 3rem;
+    }
+
+    .post-meta-top {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .calc-cta-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .calc-cta-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -88,6 +88,9 @@ const webSiteSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(webSiteSchema)} />
 
+    <!-- Per-page head content (schema, OG overrides, AI meta tags, etc.) -->
+    <slot name="head" />
+
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-C29E2KH48G"></script>
     <script is:inline>
