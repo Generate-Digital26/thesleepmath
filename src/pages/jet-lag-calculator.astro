@@ -551,7 +551,7 @@ const faqs: FAQItem[] = [
     var wakeH      = parseTime(waketimeIn.value);
     var pretripDays= clamp(parseInt(pretripIn.value) || 0, 0, 14);
 
-    // Normalise wake (in case bedtime is after midnight)
+    // Normalize wake (in case bedtime is after midnight)
     if (wakeH >= bedH) wakeH -= 24;
 
     var rawDiff = toTz - fromTz; // positive = eastward

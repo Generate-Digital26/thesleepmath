@@ -560,14 +560,14 @@ const faqs: FAQItem[] = [
 
     // Handle overnight: push times forward if they wrap past midnight
     // tibStart is the anchor; everything after should be >= it
-    function normalise(t, anchor) {
+    function normalize(t, anchor) {
       while (t < anchor) t += 24;
       return t;
     }
 
-    tryStart = normalise(tryStart, tibStart);
-    fwTime   = normalise(fwTime, tryStart);
-    tibEnd   = normalise(tibEnd, fwTime);
+    tryStart = normalize(tryStart, tibStart);
+    fwTime   = normalize(fwTime, tryStart);
+    tibEnd   = normalize(tibEnd, fwTime);
 
     // Segments in minutes
     var preAttempt  = (tryStart - tibStart) * 60;         // in bed before trying
