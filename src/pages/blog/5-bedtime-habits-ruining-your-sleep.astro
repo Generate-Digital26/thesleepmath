@@ -41,7 +41,7 @@ const blogPostingSchema = {
   },
   speakable: {
     '@type': 'SpeakableSpecification',
-    cssSelector: ['h1', '.article-intro', '.bottom-line'],
+    cssSelector: ['h1', '.article-intro', '.tldr', '.bottom-line'],
   },
   citation: [
     {
@@ -206,6 +206,10 @@ const breadcrumbSchema = {
 
     <!-- Article body -->
     <div class="post-body">
+
+      <div class="tldr" role="region" aria-label="Summary">
+        <strong>TL;DR —</strong> Five common bedtime habits that hurt sleep quality: <strong>(1)</strong> scrolling your phone in bed (blue light suppresses melatonin), <strong>(2)</strong> eating heavy meals within 2–3 hours of sleep, <strong>(3)</strong> late caffeine (half-life 5–6 hrs) or alcohol (fragments sleep architecture), <strong>(4)</strong> irregular sleep schedules (causes social jet lag), and <strong>(5)</strong> using your bed as a workspace (weakens sleep association). Fixes: charge your phone outside the bedroom, set a caffeine curfew by early afternoon, wake at the same time every day including weekends, and reserve your bed for sleep only.
+      </div>
 
       <p>
         You set your alarm, crawl into bed at a reasonable hour, and fully intend to get a solid night's rest. Yet somehow, you're still lying awake at midnight, or dragging yourself through the next day on fumes. Sound familiar?
@@ -486,6 +490,22 @@ const breadcrumbSchema = {
     margin-bottom: 2.5rem;
     aspect-ratio: 16 / 9;
     object-fit: cover;
+  }
+
+  /* ── TL;DR ── */
+  .tldr {
+    background: var(--bg-tint, #f4f3ff);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.15rem 1.35rem;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+
+  .tldr strong {
+    color: var(--text);
   }
 
   /* ── Post body ── */
