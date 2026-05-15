@@ -1,0 +1,1065 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+
+const title = 'The Complete Guide to Sleep Hygiene — The Sleep Math';
+const description = 'The complete, evidence-based guide to sleep hygiene: what actually works, what is myth, and how to build the habits that move the needle on your sleep.';
+const canonical = 'https://thesleepmath.com/guides/the-complete-guide-to-sleep-hygiene';
+const heroImage = '/images/guides/the-complete-guide-to-sleep-hygiene-hero.jpg';
+const ogImage = '/images/guides/the-complete-guide-to-sleep-hygiene-og.png';
+const publishDate = '2026-05-15';
+const modifiedDate = '2026-05-15';
+
+/* ── Schema: Article (evergreen guide, not dated news) ── */
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'The Complete Guide to Sleep Hygiene',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 4200,
+  articleSection: 'Sleep Science Guide',
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.key-takeaways'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Use of sleep hygiene in the treatment of insomnia',
+      author: 'Stepanski EJ, Wyatt JK',
+      datePublished: '2003',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/12927121/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The role of sleep hygiene in promoting public health: A review of empirical evidence',
+      author: 'Irish LA, Kline CE, Gunn HE, Buysse DJ, Hall MH',
+      datePublished: '2015',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/25454674/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Recommended Amount of Sleep for a Healthy Adult: A Joint Consensus Statement of the American Academy of Sleep Medicine and Sleep Research Society',
+      author: 'Watson NF, Badr MS, Belenky G, Bliwise DL, Buxton OM, Buysse D, Dinges DF, et al.',
+      datePublished: '2015',
+      url: 'https://jcsm.aasm.org/doi/full/10.5664/jcsm.4758',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: "National Sleep Foundation's sleep time duration recommendations: methodology and results summary",
+      author: 'Hirshkowitz M, Whiton K, Albert SM, Alessi C, Bruni O, DonCarlos L, et al.',
+      datePublished: '2015',
+      url: 'https://www.sleephealthjournal.org/article/S2352-7218(15)00015-7/fulltext',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Caffeine Effects on Sleep Taken 0, 3, or 6 Hours Before Going to Bed',
+      author: 'Drake C, Roehrs T, Shambroom J, Roth T',
+      datePublished: '2013',
+      url: 'https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness',
+      author: 'Chang A-M, Aeschbach D, Duffy JF, Czeisler CA',
+      datePublished: '2015',
+      url: 'https://www.pnas.org/doi/full/10.1073/pnas.1418490112',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Alcohol and Sleep I: Effects on Normal Sleep',
+      author: 'Ebrahim IO, Shapiro CM, Williams AJ, Fenwick PB',
+      datePublished: '2013',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/23347102/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Social Jetlag: Misalignment of Biological and Social Time',
+      author: 'Wittmann M, Dinich J, Merrow M, Roenneberg T',
+      datePublished: '2006',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/16687322/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Behavioral and Psychological Treatments for Chronic Insomnia Disorder in Adults',
+      author: 'Edinger JD, Arnedt JT, Bertisch SM, Carney CE, Harrington JJ, Lichstein KL, et al.',
+      datePublished: '2021',
+      url: 'https://jcsm.aasm.org/doi/10.5664/jcsm.8988',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Clinical Practice Guideline for the Pharmacologic Treatment of Chronic Insomnia in Adults',
+      author: 'Sateia MJ, Buysse DJ, Krystal AD, Neubauer DN, Heald JL',
+      datePublished: '2017',
+      url: 'https://jcsm.aasm.org/doi/10.5664/jcsm.6470',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Effects of thermal environment on sleep and circadian rhythm',
+      author: 'Okamoto-Mizuno K, Mizuno K',
+      datePublished: '2012',
+      url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3427038/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The cumulative cost of additional wakefulness: dose-response effects on neurobehavioral functions and sleep physiology from chronic sleep restriction and total sleep deprivation',
+      author: 'Van Dongen HPA, Maislin G, Mullington JM, Dinges DF',
+      datePublished: '2003',
+      url: 'https://academic.oup.com/sleep/article/26/2/117/2709164',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Prevalence of Healthy Sleep Duration among Adults — United States, 2014',
+      author: 'Liu Y, Wheaton AG, Chapman DP, Cunningham TJ, Lu H, Croft JB',
+      datePublished: '2016',
+      url: 'https://www.cdc.gov/mmwr/volumes/65/wr/mm6506a1.htm',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is sleep hygiene?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sleep hygiene is the set of behaviors, environmental conditions, and timing rules that support healthy sleep. The term was coined by sleep researcher Peter Hauri in 1977. Modern sleep hygiene covers four main areas: a consistent schedule, a sleep-friendly bedroom environment, smart substance use (caffeine, alcohol, nicotine), and a wind-down routine that protects the hour before bed.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does sleep hygiene actually work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For most healthy adults with mild sleep problems, yes — the individual components of sleep hygiene (caffeine timing, light exposure, schedule consistency) each have measurable effects on sleep. For chronic insomnia, sleep hygiene alone is not enough. The American Academy of Sleep Medicine recommends cognitive behavioral therapy for insomnia (CBT-I) as the first-line treatment for chronic insomnia, with sleep hygiene as one element of that broader package.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the most important sleep hygiene rule?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Waking up at the same time every day — including weekends. A consistent wake time anchors your circadian rhythm, prevents "social jet lag," and stabilizes when you feel sleepy at night. Almost every other sleep habit gets easier once your wake time is locked in.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long does it take for sleep hygiene changes to work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most people see noticeable improvements within 2 to 4 weeks of consistent practice. Some changes show up faster — cutting caffeine after 1 pm often improves sleep onset within a few nights. Schedule changes take longer because the circadian clock adjusts gradually. Give any new sleep habit a 2-week trial before judging whether it works for you.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'When should I see a doctor instead of trying sleep hygiene?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'See a healthcare professional if you have difficulty sleeping at least three nights per week for three months or more, if you snore loudly or stop breathing during sleep, if you experience excessive daytime sleepiness despite spending enough time in bed, or if your sleep problems significantly affect your mood, work, or relationships. These are signs of chronic insomnia, sleep apnea, or another sleep disorder that needs proper evaluation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the ideal bedroom temperature for sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most adults sleep best in a bedroom temperature between 60 and 67°F (15.5 to 19.5°C). Sleep onset depends partly on a drop in core body temperature, and a cool room supports that drop. Individual preference varies, but high heat and humidity reliably disrupt deep sleep and REM sleep.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://thesleepmath.com/guides' },
+    { '@type': 'ListItem', position: 3, name: 'The Complete Guide to Sleep Hygiene' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science Guide" />
+  <meta slot="head" property="article:tag" content="sleep hygiene" />
+  <meta slot="head" property="article:tag" content="how to sleep better" />
+  <meta slot="head" property="article:tag" content="sleep habits" />
+  <meta slot="head" property="article:tag" content="evidence-based sleep" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is the definitive, evidence-based guide to sleep hygiene on TheSleepMath.com. It covers the origin of the concept (Hauri 1977), the four pillars (bedroom environment, pre-sleep wind-down, substance management, schedule consistency), stimulus control (the 20-minute rule), when sleep hygiene is not enough (chronic insomnia, CBT-I as first-line per AASM, pharmacologic treatment caveats from Sateia 2017), and a 2-week protocol for building a personal plan. The guide cites peer-reviewed sources including Stepanski & Wyatt 2003, Irish 2015, Watson 2015 AASM/SRS, Hirshkowitz 2015 NSF, Drake 2013, Chang 2015, Ebrahim 2013, Wittmann 2006, Edinger 2021, Sateia 2017, Okamoto-Mizuno 2012, Van Dongen 2003, CDC. Internal links to TheSleepMath calculators: sleep-hygiene, caffeine-cutoff, screen-time-cutoff, alcohol-sleep, sleep-cycle, sleep-debt, chronotype-quiz, circadian-rhythm, light-exposure, sleep-temperature, social-jet-lag, insomnia-severity, sleep-latency, sleep-efficiency, wake-time, exercise-timing, sleep-score, sleep-apnea-risk." />
+  <meta slot="head" name="ai-summary" content="Sleep hygiene is the set of behaviors and environmental conditions that support healthy sleep. The four pillars are: (1) a consistent wake time (the single most important habit), (2) a cool dark quiet bedroom (60-67°F), (3) smart substance management (no caffeine after 1-2 pm, no alcohol within 3 hours of bed), and (4) a 30-90 minute wind-down without screens. Sleep hygiene is necessary but not sufficient — chronic insomnia requires CBT-I, recommended by the AASM as first-line treatment. Evidence base: Hauri 1977 origin, Stepanski & Wyatt 2003 and Irish 2015 critical reviews, Watson 2015 AASM/SRS 7+ hour recommendation, Hirshkowitz 2015 NSF 7-9 hour range, Drake 2013 caffeine half-life, Chang 2015 blue light, Edinger 2021 CBT-I, Sateia 2017 pharmacologic guideline." />
+  <meta slot="head" name="nlp-entities" content="sleep hygiene, Peter Hauri, AASM, Sleep Research Society, NSF, CBT-I, cognitive behavioral therapy for insomnia, stimulus control, sleep restriction therapy, circadian rhythm, melatonin, caffeine half-life, social jet lag, chronotype, sleep architecture, REM sleep, slow wave sleep, sleep latency, sleep efficiency, sleep onset, chronic insomnia" />
+  <meta slot="head" name="ai-content-type" content="comprehensive guide, sleep science, evidence-based reference, definitive resource" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="guide">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/guides">Guides</a>
+      <span class="sep">/</span>
+      <span>Sleep Hygiene</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="guide-header">
+      <div class="guide-meta-top">
+        <span class="guide-tag">Definitive Guide</span>
+        <time datetime={publishDate}>Updated 15 May 2026</time>
+        <span class="read-time">17 min read</span>
+      </div>
+      <h1>The Complete Guide to <span class="pop">Sleep Hygiene</span></h1>
+      <p class="article-intro">
+        A definitive, evidence-based reference for building the sleep habits that actually move the needle — what works, what is myth, and when sleep hygiene alone is not enough.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="A neatly made bed at dusk with white linen sheets, a folded wool throw, and a bedside table holding a book, a glass of water, and a single warm lamp — an editorial composition of a deliberate sleep ritual"
+      class="hero-img"
+      width="1344"
+      height="768"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="guide-body">
+
+      <!-- Key takeaways (lead summary) -->
+      <div class="key-takeaways" role="region" aria-label="Key takeaways">
+        <h3>Key takeaways</h3>
+        <ul>
+          <li><strong>Sleep hygiene is a foundation, not a cure.</strong> If you have chronic insomnia, you need CBT-I — not more sleep tips.</li>
+          <li><strong>Consistency beats every other habit.</strong> Same wake time, every day, no exceptions for weekends.</li>
+          <li><strong>The bedroom does the work while you are unconscious.</strong> Cool, dark, quiet. Fix the temperature first.</li>
+          <li><strong>Caffeine and alcohol are bigger sleep disruptors than people think.</strong> Cut caffeine by 1–2 pm, no alcohol within 3 hours of bed.</li>
+          <li><strong>The 20-minute rule rebuilds the bed-to-sleep association faster than any other behavioral fix.</strong></li>
+          <li><strong>Change one thing at a time and hold it for 2 weeks before judging.</strong></li>
+        </ul>
+      </div>
+
+      <!-- Table of Contents -->
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">In this guide</p>
+        <ol>
+          <li><a href="#what-it-is">What sleep hygiene actually is (and isn't)</a></li>
+          <li><a href="#bedroom">The bedroom environment</a></li>
+          <li><a href="#wind-down">The pre-sleep wind-down</a></li>
+          <li><a href="#substances">Substance management</a></li>
+          <li><a href="#schedule">Schedule consistency: the single most important habit</a></li>
+          <li><a href="#stimulus-control">Stimulus control: the 20-minute rule</a></li>
+          <li><a href="#beyond-hygiene">When sleep hygiene isn't enough</a></li>
+          <li><a href="#build-plan">Building your personal sleep hygiene plan</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        Sleep hygiene is one of those phrases that sounds either trivially obvious ("don't drink coffee at midnight, got it") or vaguely judgmental ("clean up your habits, weakling"). In practice, it is neither. Sleep hygiene is the technical name for the set of behaviors, environmental conditions, and timing rules that support good sleep — and a surprising amount of it is settled science.
+      </p>
+      <p>
+        The other surprising thing is what sleep hygiene <em>cannot</em> do. It will not cure chronic insomnia, even when followed perfectly. The peer-reviewed evidence on sleep hygiene as a stand-alone treatment is, charitably, mixed. What works is using sleep hygiene as the foundation underneath everything else — the floor that lets the rest of your sleep system function.
+      </p>
+      <p>
+        This guide is the long-form version. It walks through the eight things that actually matter, the evidence behind each one, and exactly how to build a plan you will still be following in three months.
+      </p>
+
+      <!-- ── Section 1 ── -->
+      <h2 id="what-it-is">1. What Sleep Hygiene Actually Is (And What It Isn't)</h2>
+      <p>
+        The term "sleep hygiene" was coined in 1977 by the sleep researcher Peter Hauri, who wanted a single phrase to describe the behavioral and environmental factors that support healthy sleep. Over the next five decades the list expanded, contracted, and morphed depending on which clinician you asked, but the core has stayed roughly the same: it is the set of habits and conditions that keep your sleep system running well.
+      </p>
+      <p>
+        Modern sleep hygiene covers four areas:
+      </p>
+      <p>
+        <strong>1. Schedule:</strong> consistent bedtime and wake time, including weekends.<br>
+        <strong>2. Environment:</strong> a cool, dark, quiet bedroom; a comfortable bed; minimal light exposure before sleep.<br>
+        <strong>3. Substance use:</strong> sensible timing of caffeine, alcohol, nicotine, and food.<br>
+        <strong>4. Wind-down:</strong> a 30–90 minute pre-sleep buffer that protects your brain from stimulation.
+      </p>
+      <p>
+        Here is the unglamorous truth that most "improve your sleep in 7 days!" articles skip: the 2003 critical review of sleep hygiene in <em>Sleep Medicine Reviews</em> <a href="https://pubmed.ncbi.nlm.nih.gov/12927121/" target="_blank" rel="noopener noreferrer">found no consensus on which rules apply</a>, and no robust evidence that good hygiene alone reliably resolves clinical insomnia. A 2015 follow-up in the same journal looked at sleep hygiene as a public health tool and reached a similar verdict: <a href="https://pubmed.ncbi.nlm.nih.gov/25454674/" target="_blank" rel="noopener noreferrer">individual components are clearly linked to sleep</a>, but the comprehensive package is largely untested outside the clinic.
+      </p>
+      <p>
+        This does not mean sleep hygiene is worthless — far from it. It means sleep hygiene is best understood as a foundation, not a treatment. If you have ordinary, garden-variety bad sleep, hygiene fixes will likely help a lot. If you have chronic clinical insomnia, hygiene alone will not be enough, and pretending otherwise wastes time. We will come back to this in Section 7.
+      </p>
+      <div class="pullquote">
+        Sleep hygiene is the floor that lets the rest of your sleep system function. It is necessary, but it is not a cure.
+      </div>
+
+      <!-- ── Section 2 ── -->
+      <h2 id="bedroom">2. The Bedroom Environment</h2>
+      <p>
+        Your bedroom is the only environment in which you do not actively control your behavior. You are unconscious. The room has to do the work. Get this right and almost everything else gets easier.
+      </p>
+      <p>
+        <strong>Temperature.</strong> Sleep onset is driven partly by a drop in your core body temperature. A 2012 review of thermal environment and sleep in the <em>Journal of Physiological Anthropology</em> showed that <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3427038/" target="_blank" rel="noopener noreferrer">heat exposure reliably increases wakefulness</a> and reduces both slow-wave and REM sleep. The practical target for most adults is 60–67°F (15.5–19.5°C). Humid heat is worse than dry heat. If your bedroom runs warm, fix that before any other intervention. The <a href="/sleep-temperature-calculator">Sleep Temperature Calculator</a> can map your personal target.
+      </p>
+      <p>
+        <strong>Light.</strong> Even moderate light at night suppresses melatonin and shifts your circadian rhythm. The single biggest light source for most people is the screen they are scrolling at bedtime — see Section 3. Beyond that: blackout curtains help in summer; a warm-temperature bedside lamp is fine and far better than overhead lighting in the hour before bed. The <a href="/light-exposure-calculator">Light Exposure Calculator</a> walks through the timing of light during the day, which matters as much as light at night.
+      </p>
+      <p>
+        <strong>Sound.</strong> Quiet helps. If you cannot get quiet — busy street, noisy housemate, snoring partner — masking sound is better than fighting silence. White, pink, or brown noise played at a low constant level evens out the spikes that wake you. Earplugs work too if you can tolerate them.
+      </p>
+      <p>
+        <strong>Bed and bedding.</strong> Do not over-engineer this. A mattress that supports your spine, sheets that feel good to lie on, a pillow that holds your head in line with your spine. Replace your pillow every 1–2 years. Replace your mattress when it noticeably sags or you wake up with new pain — usually 7–10 years.
+      </p>
+      <div class="tip-box">
+        <strong>Do this first:</strong> take the temperature of your bedroom right now. If it is above 70°F at night, you have found your highest-leverage fix. Drop it to the 60–67°F range and reassess in a week.
+      </div>
+
+      <!-- ── Section 3 ── -->
+      <h2 id="wind-down">3. The Pre-Sleep Wind-Down</h2>
+      <p>
+        Most adults need 30 to 90 minutes of low-stimulation time before bed to actually fall asleep on time. Sleep is not a switch — it is a glide path, and you control most of the descent.
+      </p>
+      <p>
+        <strong>What to do:</strong> dim the lights to a warm temperature, read a paper book, take a warm shower or bath about an hour before bed (this paradoxically helps cool your core afterward), do gentle stretching, listen to a podcast or audiobook with the screen face down. Repetitive, low-arousal activities work best. Boredom is genuinely useful here.
+      </p>
+      <p>
+        <strong>What to avoid:</strong> intense exercise within an hour of bed (use the <a href="/exercise-timing-calculator">Exercise Timing Calculator</a> if you are unsure), high-stakes conversations, work emails, financial planning, doomscrolling. Anything that floods your system with adrenaline or cortisol delays sleep.
+      </p>
+      <p>
+        <strong>Screens.</strong> The 2015 PNAS study from Harvard's Brigham & Women's Hospital found that <a href="https://www.pnas.org/doi/full/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">evening eReader use suppresses melatonin</a>, delays circadian timing, and reduces next-morning alertness compared to reading a printed book. The effect is real and replicable. It is not just blue light — the content itself keeps your brain in an alert state. The fix is not a blue-light filter; it is putting the phone in another room. The <a href="/screen-time-cutoff-calculator">Screen Time Cutoff Calculator</a> works out your personal shut-off based on your bedtime.
+      </p>
+      <p>
+        <strong>Food.</strong> Finish your last substantial meal 2–3 hours before bed. Lying down on a full stomach raises core body temperature when it should be dropping, and increases acid reflux. If you genuinely need a late snack, keep it small — a handful of almonds, a banana, a cup of chamomile tea.
+      </p>
+
+      <!-- ── Section 4 ── -->
+      <h2 id="substances">4. Substance Management</h2>
+      <p>
+        Three substances dominate the sleep-disruption charts: caffeine, alcohol, and nicotine. Get the timing right on these and your sleep improves before you have changed anything else.
+      </p>
+      <p>
+        <strong>Caffeine.</strong> The half-life of caffeine is roughly 5–6 hours, meaning a coffee at 3 pm still has half its stimulant effect at 9 pm. A randomized 2013 study in the <em>Journal of Clinical Sleep Medicine</em> showed that <a href="https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">caffeine 6 hours before bed measurably reduces sleep</a> — both duration and quality. The practical rule: cut off caffeine by 1–2 pm. Tea, soft drinks, energy drinks, and chocolate all count. The <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> gives you your personal curfew based on your bedtime and sensitivity.
+      </p>
+      <p>
+        <strong>Alcohol.</strong> A nightcap is one of the most efficient ways to ruin your sleep while feeling like you are helping it. Alcohol does make you fall asleep faster, but it <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">fragments your sleep architecture</a>, suppresses REM sleep, reduces deep sleep, and causes early-morning awakenings as your body metabolizes it. Avoid alcohol within 3 hours of bed. The <a href="/alcohol-sleep-calculator">Alcohol & Sleep Calculator</a> shows the impact of different timing and amounts.
+      </p>
+      <p>
+        <strong>Nicotine.</strong> Nicotine is a stimulant with a half-life of around 2 hours. Smoking or vaping in the evening delays sleep onset and reduces sleep duration. Nicotine withdrawal during the night can also fragment sleep in heavy users.
+      </p>
+      <p>
+        <strong>Late food, again.</strong> Worth repeating because it is often missed. Heavy or spicy meals within 2–3 hours of bed increase acid reflux risk and raise core body temperature at the wrong time. A small protein-rich snack can stabilize blood sugar for some people, but most adults sleep better with an empty-ish stomach.
+      </p>
+
+      <!-- ── Section 5 ── -->
+      <h2 id="schedule">5. Schedule Consistency: The Single Most Important Habit</h2>
+      <p>
+        If you read only one section of this guide, read this one.
+      </p>
+      <p>
+        Your circadian rhythm is a roughly 24-hour internal clock that governs when you feel sleepy, when you feel alert, when your hormones rise and fall, and when your body temperature peaks. It runs on light cues, but the second-most powerful input is the regularity of your sleep schedule. Shift that schedule around, and the clock loses its place.
+      </p>
+      <p>
+        The 2006 Munich research that coined the term <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">"social jet lag"</a> showed that shifting your sleep and wake times by even an hour or two on weekends is biologically equivalent to flying across one or two time zones. People with high social jet lag have worse sleep quality, more daytime fatigue, higher BMI, and a harder time falling asleep on Sunday nights. That dread you feel on Sunday is not psychological — it is a real circadian misalignment.
+      </p>
+      <p>
+        The fix is unfashionably simple: <strong>pick a wake-up time you can stick with seven days a week and protect it</strong>. If you need more sleep, go to bed earlier. Do not sleep in to compensate, because that is the move that costs you the next night.
+      </p>
+      <p>
+        How much sleep should you target? The American Academy of Sleep Medicine and Sleep Research Society 2015 consensus recommends <a href="https://jcsm.aasm.org/doi/full/10.5664/jcsm.4758" target="_blank" rel="noopener noreferrer">7 or more hours per night</a> for healthy adults. The National Sleep Foundation's expert panel set the recommended <a href="https://www.sleephealthjournal.org/article/S2352-7218(15)00015-7/fulltext" target="_blank" rel="noopener noreferrer">range of 7 to 9 hours</a> for adults aged 18 to 64, and 7 to 8 hours for adults over 65. Find your personal number inside that range with the <a href="/blog/why-8-hours-rule-is-wrong">8 Hours Rule guide</a> — your wake time stabilizes naturally within a week or two if you remove the alarm and stop carrying serious sleep debt.
+      </p>
+      <p>
+        The tools to lock this in:
+      </p>
+      <p>
+        <strong>•</strong> Take the <a href="/chronotype-quiz">Chronotype Quiz</a> to learn whether you are biologically wired to bed early or late. Forcing a lark schedule on a night-owl chronotype creates symptoms that look like insomnia.<br>
+        <strong>•</strong> Use the <a href="/circadian-rhythm-calculator">Circadian Rhythm Calculator</a> to map your ideal daily schedule.<br>
+        <strong>•</strong> Set a stable wake target with the <a href="/wake-time-calculator">Wake Time Calculator</a>.<br>
+        <strong>•</strong> Time wake-ups to your sleep cycles with the <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> to reduce grogginess.<br>
+        <strong>•</strong> Quantify your accumulated debt with the <a href="/sleep-debt-calculator">Sleep Debt Calculator</a>.<br>
+        <strong>•</strong> Score your weekend drift with the <a href="/social-jet-lag-calculator">Social Jet Lag Calculator</a>.
+      </p>
+      <div class="pullquote">
+        Waking up at the same time every day — including weekends — is the single most effective change you can make to your sleep.
+      </div>
+
+      <!-- ── Section 6 ── -->
+      <h2 id="stimulus-control">6. Stimulus Control: The 20-Minute Rule</h2>
+      <p>
+        Stimulus control is a behavioral technique developed by Richard Bootzin in the 1970s, and it has aged better than almost anything else in sleep medicine. The principle is simple: your brain learns by association. The more you do non-sleep things in bed, the weaker the link between "bed" and "sleep" becomes — and the harder falling asleep gets.
+      </p>
+      <p>
+        The rule has four parts:
+      </p>
+      <p>
+        <strong>1. Only use your bed for sleep.</strong> No working from bed, no watching TV in bed, no doomscrolling, no worrying-with-eyes-closed. Sex is the only allowed exception.<br>
+        <strong>2. Get into bed only when sleepy.</strong> Not tired. Sleepy. There is a difference. Tired is wanting to stop doing things. Sleepy is your eyelids getting heavy.<br>
+        <strong>3. If you are not asleep within 20 minutes, get up.</strong> Go to another room, do something quiet and boring in dim light. Read a paper book. Do not check the time obsessively. Return to bed only when sleepy again.<br>
+        <strong>4. Get up at the same time every morning.</strong> Yes, even after a bad night. Especially after a bad night — this is what rebuilds the schedule.
+      </p>
+      <p>
+        Stimulus control is the bedrock of cognitive behavioral therapy for insomnia, and it works because it retrains the association between bed and sleep. You can feel the change within 1–2 weeks. To see whether it is working, track your <a href="/sleep-latency-calculator">sleep latency</a> (how long it takes you to fall asleep) and your <a href="/sleep-efficiency-calculator">sleep efficiency</a> (the ratio of time asleep to time in bed). Both improve as the bed-to-sleep link strengthens.
+      </p>
+      <div class="tip-box">
+        <strong>The hardest part:</strong> getting out of bed at 2 am to read in another room feels worse than just lying there. Do it anyway. Two weeks of this rebuilds an association that took years to weaken.
+      </div>
+
+      <!-- ── Section 7 ── -->
+      <h2 id="beyond-hygiene">7. When Sleep Hygiene Isn't Enough</h2>
+      <p>
+        If you have followed every recommendation in this guide for 3–4 weeks and you are still sleeping badly more nights than not, sleep hygiene is no longer the answer. You probably have a treatable sleep disorder, and you need a clinician.
+      </p>
+      <p>
+        <strong>Chronic insomnia.</strong> Defined as difficulty falling or staying asleep at least 3 nights a week for 3 months or more, with daytime consequences. The American Academy of Sleep Medicine's 2021 guideline recommends <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.8988" target="_blank" rel="noopener noreferrer">cognitive behavioral therapy for insomnia (CBT-I)</a> as the first-line treatment. CBT-I bundles stimulus control, sleep restriction therapy, cognitive restructuring, and relaxation training. It works for roughly 70–80% of people who complete it, and the effects last longer than sleeping pills. Where to find it: ask your doctor for a referral, look for AASM-accredited sleep centers, or try evidence-based digital programs.
+      </p>
+      <p>
+        <strong>Sleep aids.</strong> The 2017 AASM clinical practice guideline on pharmacologic treatment of chronic insomnia gives <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.6470" target="_blank" rel="noopener noreferrer">only weak recommendations for sleep medications</a> — including zolpidem (Ambien), eszopiclone (Lunesta), and ramelteon — and recommends against melatonin, trazodone, and diphenhydramine for chronic insomnia. Sleeping pills can have a role for short-term use under clinical supervision; they are not a long-term solution.
+      </p>
+      <p>
+        <strong>Sleep apnea.</strong> If you snore loudly, choke or gasp in your sleep, wake up with a dry mouth or headache, or feel exhausted despite spending plenty of time in bed, you may have obstructive sleep apnea. Take the <a href="/sleep-apnea-risk-calculator">Sleep Apnea Risk Calculator</a> to gauge your risk — and if it is moderate or high, see a doctor for a sleep study. Untreated sleep apnea is dangerous (it raises cardiovascular risk significantly) and very treatable.
+      </p>
+      <p>
+        <strong>Restless legs syndrome, circadian rhythm disorders, narcolepsy, parasomnias.</strong> All real, all treatable. None of them respond to sleep hygiene alone. The <a href="/insomnia-severity-calculator">Insomnia Severity Calculator</a> can help you quantify whether your symptoms are in the range where you should see a clinician.
+      </p>
+
+      <!-- ── Section 8 ── -->
+      <h2 id="build-plan">8. Building Your Personal Sleep Hygiene Plan</h2>
+      <p>
+        The biggest mistake people make with sleep hygiene is trying to change everything at once. The second-biggest is judging the results after three days. Here is a 2-week protocol that actually works:
+      </p>
+      <p>
+        <strong>Days 1–2: Measure.</strong> Track your current sleep without changing anything. Note your bedtime, sleep latency, wake-ups, wake time, total sleep, and how you feel the next day. The <a href="/sleep-score-calculator">Sleep Score Calculator</a> gives you a single number to benchmark against.
+      </p>
+      <p>
+        <strong>Day 3: Pick one change.</strong> Just one. Start with the highest-leverage move you are not currently doing. For most people that is either (a) fixing the bedroom temperature, (b) cutting off caffeine by 1 pm, or (c) locking in a consistent wake time. The <a href="/sleep-hygiene-calculator">Sleep Hygiene Calculator</a> can score your current routine and highlight your weakest area.
+      </p>
+      <p>
+        <strong>Days 4–14: Hold the line.</strong> Stick with the one change for two full weeks. Keep tracking. Resist the urge to layer on more changes.
+      </p>
+      <p>
+        <strong>Day 15: Evaluate.</strong> Compare your baseline measurements to your new ones. If the change helped, keep it and add the next one. If it did not, drop it and try a different one.
+      </p>
+      <p>
+        Repeat. Each cycle takes 2 weeks. Inside 8–12 weeks you will have a stack of habits that genuinely fit you, instead of an aspirational list you never quite executed.
+      </p>
+      <p>
+        Two final principles:
+      </p>
+      <p>
+        <strong>Personalize for chronotype.</strong> A night owl forcing a 6 am wake time will burn out. A morning lark forcing a midnight bedtime will burn out faster. Build your schedule around your biology, not your calendar.
+      </p>
+      <p>
+        <strong>Expect occasional bad nights.</strong> Even people with perfect sleep hygiene have rough nights — stress, travel, illness, a noisy upstairs neighbor. One bad night is not a system failure. Three bad weeks is.
+      </p>
+
+      <!-- FAQ (accordion — semantic HTML details/summary, mirrors schema) -->
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-accordion">
+        <details>
+          <summary>What is sleep hygiene?</summary>
+          <p>Sleep hygiene is the set of behaviors, environmental conditions, and timing rules that support healthy sleep. The term was coined by sleep researcher Peter Hauri in 1977. Modern sleep hygiene covers four main areas: a consistent schedule, a sleep-friendly bedroom environment, smart substance use (caffeine, alcohol, nicotine), and a wind-down routine that protects the hour before bed.</p>
+        </details>
+
+        <details>
+          <summary>Does sleep hygiene actually work?</summary>
+          <p>For most healthy adults with mild sleep problems, yes — the individual components of sleep hygiene (caffeine timing, light exposure, schedule consistency) each have measurable effects on sleep. For chronic insomnia, sleep hygiene alone is not enough. The American Academy of Sleep Medicine recommends cognitive behavioral therapy for insomnia (CBT-I) as the first-line treatment for chronic insomnia, with sleep hygiene as one element of that broader package.</p>
+        </details>
+
+        <details>
+          <summary>What is the most important sleep hygiene rule?</summary>
+          <p>Waking up at the same time every day — including weekends. A consistent wake time anchors your circadian rhythm, prevents "social jet lag," and stabilizes when you feel sleepy at night. Almost every other sleep habit gets easier once your wake time is locked in.</p>
+        </details>
+
+        <details>
+          <summary>How long does it take for sleep hygiene changes to work?</summary>
+          <p>Most people see noticeable improvements within 2 to 4 weeks of consistent practice. Some changes show up faster — cutting caffeine after 1 pm often improves sleep onset within a few nights. Schedule changes take longer because the circadian clock adjusts gradually. Give any new sleep habit a 2-week trial before judging whether it works for you.</p>
+        </details>
+
+        <details>
+          <summary>When should I see a doctor instead of trying sleep hygiene?</summary>
+          <p>See a healthcare professional if you have difficulty sleeping at least three nights per week for three months or more, if you snore loudly or stop breathing during sleep, if you experience excessive daytime sleepiness despite spending enough time in bed, or if your sleep problems significantly affect your mood, work, or relationships. These are signs of chronic insomnia, sleep apnea, or another sleep disorder that needs proper evaluation.</p>
+        </details>
+
+        <details>
+          <summary>What is the ideal bedroom temperature for sleep?</summary>
+          <p>Most adults sleep best in a bedroom temperature between 60 and 67°F (15.5 to 19.5°C). Sleep onset depends partly on a drop in core body temperature, and a cool room supports that drop. Individual preference varies, but high heat and humidity reliably disrupt deep sleep and REM sleep.</p>
+        </details>
+      </div>
+
+      <!-- ── Related reading ── -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the '8 Hours' Rule Is Wrong</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits Ruining Your Sleep</a></li>
+          <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+          <li><a href="/blog/the-science-behind-your-chronotype">The Science Behind Your Chronotype</a></li>
+        </ul>
+      </div>
+
+      <!-- ── Calculator CTA ── -->
+      <div class="calc-cta">
+        <h3>Tools Mentioned in This Guide</h3>
+        <div class="calc-cta-grid">
+          <a href="/sleep-hygiene-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🛏️</span>
+            <span class="calc-cta-name">Sleep Hygiene Score</span>
+          </a>
+          <a href="/sleep-score-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">📊</span>
+            <span class="calc-cta-name">Sleep Score Calculator</span>
+          </a>
+          <a href="/wake-time-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">☀️</span>
+            <span class="calc-cta-name">Wake Time Calculator</span>
+          </a>
+          <a href="/sleep-cycle-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🔄</span>
+            <span class="calc-cta-name">Sleep Cycle Calculator</span>
+          </a>
+          <a href="/chronotype-quiz" class="calc-cta-card">
+            <span class="calc-cta-icon">🧬</span>
+            <span class="calc-cta-name">Chronotype Quiz</span>
+          </a>
+          <a href="/circadian-rhythm-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🌅</span>
+            <span class="calc-cta-name">Circadian Rhythm</span>
+          </a>
+          <a href="/social-jet-lag-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">📅</span>
+            <span class="calc-cta-name">Social Jet Lag</span>
+          </a>
+          <a href="/caffeine-cutoff-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">☕</span>
+            <span class="calc-cta-name">Caffeine Cutoff</span>
+          </a>
+          <a href="/alcohol-sleep-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🍷</span>
+            <span class="calc-cta-name">Alcohol & Sleep</span>
+          </a>
+          <a href="/screen-time-cutoff-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">📱</span>
+            <span class="calc-cta-name">Screen Time Cutoff</span>
+          </a>
+          <a href="/exercise-timing-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🏃</span>
+            <span class="calc-cta-name">Exercise Timing</span>
+          </a>
+          <a href="/light-exposure-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">💡</span>
+            <span class="calc-cta-name">Light Exposure</span>
+          </a>
+          <a href="/sleep-temperature-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🌡️</span>
+            <span class="calc-cta-name">Sleep Temperature</span>
+          </a>
+          <a href="/sleep-debt-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">⏳</span>
+            <span class="calc-cta-name">Sleep Debt</span>
+          </a>
+          <a href="/sleep-latency-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">⏱️</span>
+            <span class="calc-cta-name">Sleep Latency</span>
+          </a>
+          <a href="/sleep-efficiency-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">📈</span>
+            <span class="calc-cta-name">Sleep Efficiency</span>
+          </a>
+          <a href="/insomnia-severity-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">😴</span>
+            <span class="calc-cta-name">Insomnia Severity</span>
+          </a>
+          <a href="/sleep-apnea-risk-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🫁</span>
+            <span class="calc-cta-name">Sleep Apnea Risk</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Hauri P. (1977). Sleep hygiene. In: <em>Current Concepts: The Sleep Disorders</em>. The Upjohn Company; Kalamazoo, MI: pp. 21–35.</li>
+          <li>Stepanski EJ, Wyatt JK. (2003). Use of sleep hygiene in the treatment of insomnia. <em>Sleep Med Rev</em>, 7(3):215–225. <a href="https://pubmed.ncbi.nlm.nih.gov/12927121/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Irish LA, Kline CE, Gunn HE, Buysse DJ, Hall MH. (2015). The role of sleep hygiene in promoting public health: A review of empirical evidence. <em>Sleep Med Rev</em>, 22:23–36. <a href="https://pubmed.ncbi.nlm.nih.gov/25454674/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Watson NF, Badr MS, Belenky G, et al. (2015). Recommended Amount of Sleep for a Healthy Adult: A Joint Consensus Statement of the American Academy of Sleep Medicine and Sleep Research Society. <em>J Clin Sleep Med</em>, 11(6):591–592. <a href="https://jcsm.aasm.org/doi/full/10.5664/jcsm.4758" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+          <li>Hirshkowitz M, Whiton K, Albert SM, et al. (2015). National Sleep Foundation's sleep time duration recommendations: methodology and results summary. <em>Sleep Health</em>, 1(1):40–43. <a href="https://www.sleephealthjournal.org/article/S2352-7218(15)00015-7/fulltext" target="_blank" rel="noopener noreferrer">Sleep Health Journal</a></li>
+          <li>Drake C, Roehrs T, Shambroom J, Roth T. (2013). Caffeine Effects on Sleep Taken 0, 3, or 6 Hours Before Going to Bed. <em>J Clin Sleep Med</em>, 9(11):1195–1200. <a href="https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+          <li>Chang A-M, Aeschbach D, Duffy JF, Czeisler CA. (2015). Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness. <em>PNAS</em>, 112(4):1232–1237. <a href="https://www.pnas.org/doi/full/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">pnas.org</a></li>
+          <li>Ebrahim IO, Shapiro CM, Williams AJ, Fenwick PB. (2013). Alcohol and Sleep I: Effects on Normal Sleep. <em>Alcohol Clin Exp Res</em>, 37(4):539–549. <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Wittmann M, Dinich J, Merrow M, Roenneberg T. (2006). Social Jetlag: Misalignment of Biological and Social Time. <em>Chronobiol Int</em>, 23(1–2):497–509. <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Edinger JD, Arnedt JT, Bertisch SM, et al. (2021). Behavioral and Psychological Treatments for Chronic Insomnia Disorder in Adults: An American Academy of Sleep Medicine Clinical Practice Guideline. <em>J Clin Sleep Med</em>, 17(2):255–262. <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.8988" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+          <li>Sateia MJ, Buysse DJ, Krystal AD, Neubauer DN, Heald JL. (2017). Clinical Practice Guideline for the Pharmacologic Treatment of Chronic Insomnia in Adults. <em>J Clin Sleep Med</em>, 13(2):307–349. <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.6470" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+          <li>Okamoto-Mizuno K, Mizuno K. (2012). Effects of thermal environment on sleep and circadian rhythm. <em>J Physiol Anthropol</em>, 31(1):14. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3427038/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+          <li>Van Dongen HPA, Maislin G, Mullington JM, Dinges DF. (2003). The cumulative cost of additional wakefulness: dose-response effects on neurobehavioral functions and sleep physiology from chronic sleep restriction and total sleep deprivation. <em>Sleep</em>, 26(2):117–126. <a href="https://academic.oup.com/sleep/article/26/2/117/2709164" target="_blank" rel="noopener noreferrer">Sleep (OUP)</a></li>
+          <li>Liu Y, Wheaton AG, Chapman DP, Cunningham TJ, Lu H, Croft JB. (2016). Prevalence of Healthy Sleep Duration among Adults — United States, 2014. <em>MMWR</em>, 65(6):137–141. <a href="https://www.cdc.gov/mmwr/volumes/65/wr/mm6506a1.htm" target="_blank" rel="noopener noreferrer">CDC.gov</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This guide is for informational and educational purposes only and does not constitute medical advice. If you have persistent sleep difficulties, suspect a sleep disorder, or are considering changes to sleep medications, please consult a qualified healthcare provider.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* ── Guide layout (max-width 760px, slightly wider than blog 720 to accommodate ToC) ── */
+  .guide {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ── */
+  .guide .breadcrumb {
+    padding: 1.25rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+  .guide .breadcrumb a { color: var(--text-soft); text-decoration: none; }
+  .guide .breadcrumb a:hover { color: var(--primary); }
+  .guide .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.4; }
+
+  /* ── Guide header ── */
+  .guide-header { padding: 2rem 0 1.5rem; }
+
+  .guide-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .guide-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .guide .read-time::before {
+    content: '·';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .guide-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .guide-header h1 .pop { color: var(--primary); }
+
+  .guide-header .article-intro {
+    font-size: 1.18rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* ── Hero ── */
+  .guide .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* ── Table of contents ── */
+  .toc {
+    background: var(--card, #ffffff);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    margin: 0 0 0.8rem;
+  }
+
+  .toc ol {
+    counter-reset: toc-counter;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc li {
+    counter-increment: toc-counter;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  .toc li:last-child { border-bottom: none; }
+
+  .toc li::before {
+    content: counter(toc-counter, decimal-leading-zero) "  ";
+    color: var(--primary);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.5rem;
+  }
+
+  .toc a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--primary); }
+
+  /* ── Guide body ── */
+  .guide-body {
+    font-size: 1.06rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .guide-body p { margin-bottom: 1.35rem; }
+
+  .guide-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.018em;
+    color: var(--text);
+    scroll-margin-top: 1.5rem;
+  }
+
+  .guide-body h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .guide-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+  .guide-body a:hover { color: #5b4ee0; }
+
+  /* ── Pull-quote callout ── */
+  .pullquote {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    letter-spacing: -0.005em;
+  }
+
+  /* ── Tip box ── */
+  .guide-body .tip-box {
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .guide-body .tip-box strong { color: var(--primary); }
+
+  /* ── Key takeaways box (used as the lead summary) ── */
+  .key-takeaways {
+    background: var(--card, #ffffff);
+    border: 2px solid var(--primary);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin: 0 0 2rem;
+  }
+
+  .key-takeaways h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem !important;
+    font-weight: 700;
+    margin-top: 0 !important;
+    margin-bottom: 0.85rem !important;
+    color: var(--primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .key-takeaways ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .key-takeaways li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.97rem;
+    line-height: 1.55;
+  }
+  .key-takeaways li:last-child { border-bottom: none; }
+  .key-takeaways li::before {
+    content: '→ ';
+    color: var(--primary);
+    font-weight: 700;
+    margin-right: 0.3rem;
+  }
+
+  /* ── FAQ accordion (semantic <details>/<summary>) ── */
+  .faq-accordion {
+    border-top: 1px solid var(--border);
+    margin: 0.5rem 0 0;
+  }
+
+  .faq-accordion details {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-accordion summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 2.5rem 1.15rem 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    position: relative;
+    transition: color 0.15s;
+    outline-offset: 4px;
+  }
+
+  .faq-accordion summary:hover {
+    color: var(--primary);
+  }
+
+  .faq-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-accordion summary::after {
+    content: '';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    transform: translateY(-75%) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-accordion details[open] summary::after {
+    transform: translateY(-25%) rotate(-135deg);
+  }
+
+  .faq-accordion details > p {
+    margin: 0;
+    padding: 0 0 1.25rem;
+    color: var(--text-mid);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    animation: faqFadeIn 0.25s ease;
+  }
+
+  @keyframes faqFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Calculator CTA grid ── */
+  .calc-cta {
+    margin: 3rem 0 2rem;
+    padding: 1.75rem;
+    background: var(--bg-alt, #f8f9fb);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .calc-cta h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text);
+    margin-top: 0 !important;
+  }
+  .calc-cta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .calc-cta-card {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none !important;
+    color: var(--text) !important;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .calc-cta-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 2px 8px rgba(124, 106, 255, 0.1);
+  }
+  .calc-cta-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+  /* ── Related reading ── */
+  .related-reading {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .related-reading h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+    margin-top: 0 !important;
+  }
+  .related-reading ul { list-style: none; padding: 0; margin: 0; }
+  .related-reading li { padding: 0.35rem 0; font-size: 0.9rem; }
+  .related-reading li::before {
+    content: '→ ';
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .related-reading a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .related-reading a:hover { text-decoration: underline; }
+
+  /* ── References ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .references h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0 !important;
+  }
+  .references ol { padding-left: 1.25rem; margin: 0; }
+  .references li {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  .references em { font-style: italic; }
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .references a:hover { text-decoration: underline; }
+
+  /* ── Disclaimer ── */
+  .guide .disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .guide { padding: 0 1.25rem 3rem; }
+    .guide-meta-top { flex-wrap: wrap; gap: 0.5rem; }
+    .calc-cta-grid { grid-template-columns: 1fr 1fr; }
+    .pullquote { font-size: 1.15rem; padding-left: 1rem; }
+  }
+
+  @media (max-width: 480px) {
+    .calc-cta-grid { grid-template-columns: 1fr; }
+  }
+</style>

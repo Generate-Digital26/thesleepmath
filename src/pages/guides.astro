@@ -4,7 +4,6 @@ import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 
 const upcomingGuides = [
-  'The Complete Guide to Sleep Hygiene',
   'Understanding Your Circadian Rhythm',
   'Sleep & Exercise: The Research',
   'Caffeine & Sleep: What Science Says',
@@ -14,52 +13,79 @@ const upcomingGuides = [
 
 <BaseLayout
   title="Sleep Science Guides — The Sleep Math"
-  description="In-depth guides on sleep science, circadian rhythms, and evidence-based sleep optimization. Coming soon from The Sleep Math — better sleep, calculated."
+  description="In-depth, evidence-based guides on sleep science, sleep hygiene, circadian rhythms, and the habits that actually move the needle. Long-form references from The Sleep Math."
 >
   <Nav />
 
   <main class="guides-main">
     <div class="guides-inner">
 
-      <!-- Icon -->
-      <div class="icon-wrap">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="48"
-          height="48"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.75"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <!-- Open book -->
-          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-        </svg>
-      </div>
+      <!-- Header -->
+      <header class="guides-header">
+        <div class="icon-wrap">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <!-- Open book -->
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+        </div>
+        <h1>Sleep Guides</h1>
+        <p class="subtitle">
+          Long-form, evidence-based references for building the sleep habits that actually move the needle.
+        </p>
+      </header>
 
-      <!-- Heading -->
-      <h1>Sleep Guides</h1>
-      <p class="subtitle">
-        In-depth guides on sleep science, habits, and optimization.<br />Coming soon.
-      </p>
+      <!-- Published guides -->
+      <section class="guides-grid" aria-label="Published guides">
+        <a href="/guides/the-complete-guide-to-sleep-hygiene" class="guide-card">
+          <div class="guide-card-img">
+            <img
+              src="/images/guides/the-complete-guide-to-sleep-hygiene-hero.jpg"
+              alt="A calm bedside scene with a book, glass of water, and a single warm lamp"
+              loading="lazy"
+            />
+          </div>
+          <div class="guide-card-body">
+            <div class="guide-card-meta">
+              <span class="guide-tag">Definitive Guide</span>
+              <span class="guide-date">17 min read</span>
+            </div>
+            <h2 class="guide-card-title">The Complete Guide to Sleep Hygiene</h2>
+            <p class="guide-card-excerpt">
+              The definitive, evidence-based reference for building the sleep habits that actually move the needle — what works, what is myth, and when sleep hygiene alone is not enough.
+            </p>
+            <span class="guide-card-cta">
+              Read guide
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+      </section>
 
-      <!-- Upcoming topics -->
-      <div class="topics-section">
-        <span class="topics-label">Upcoming guides</span>
+      <!-- Upcoming guides -->
+      <section class="topics-section" aria-label="Upcoming guides">
+        <span class="topics-label">Coming next</span>
         <div class="chips">
           {upcomingGuides.map((guide) => (
             <span class="chip">{guide}</span>
           ))}
         </div>
-      </div>
+      </section>
 
       <!-- Newsletter CTA -->
       <div class="cta-box">
-        <p class="cta-heading">Get notified when guides launch</p>
+        <p class="cta-heading">Get notified when new guides launch</p>
         <form class="cta-form" data-kit-form>
           <input type="email" placeholder="you@email.com" required aria-label="Email address" />
           <button type="submit">Subscribe</button>
@@ -81,37 +107,34 @@ const upcomingGuides = [
 <style>
   .guides-main {
     min-height: calc(100vh - 140px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 5rem 1.5rem;
   }
 
   .guides-inner {
-    max-width: 560px;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
+    max-width: 880px;
+    margin: 0 auto;
   }
 
-  /* Icon */
+  /* Header */
+  .guides-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
   .icon-wrap {
-    width: 80px;
-    height: 80px;
-    border-radius: 22px;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
     background: var(--primary-soft);
     color: var(--primary);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
   }
 
-  /* Heading */
-  h1 {
+  .guides-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
     font-size: 2.4rem;
     font-weight: 800;
     letter-spacing: -0.03em;
@@ -121,16 +144,120 @@ const upcomingGuides = [
   }
 
   .subtitle {
-    font-size: 1rem;
+    font-size: 1.05rem;
     color: var(--text-mid);
-    line-height: 1.65;
-    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  /* Published guides grid */
+  .guides-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .guide-card {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1.5rem;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.2s, transform 0.15s;
+  }
+
+  .guide-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 6px 24px rgba(124, 106, 255, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .guide-card-img {
+    overflow: hidden;
+    background: var(--bg-tint);
+  }
+
+  .guide-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    transition: transform 0.4s;
+  }
+
+  .guide-card:hover .guide-card-img img {
+    transform: scale(1.03);
+  }
+
+  .guide-card-body {
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .guide-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .guide-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .guide-date::before {
+    content: '·';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .guide-card-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0.15rem 0 0.35rem;
+  }
+
+  .guide-card-excerpt {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.55;
+    margin: 0 0 0.5rem;
+  }
+
+  .guide-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: auto;
   }
 
   /* Upcoming topics */
   .topics-section {
-    width: 100%;
-    margin-bottom: 2.5rem;
+    margin-bottom: 3rem;
   }
 
   .topics-label {
@@ -141,6 +268,7 @@ const upcomingGuides = [
     letter-spacing: 0.07em;
     color: var(--text-soft);
     margin-bottom: 0.85rem;
+    text-align: center;
   }
 
   .chips {
@@ -170,12 +298,13 @@ const upcomingGuides = [
 
   /* Newsletter CTA */
   .cta-box {
-    width: 100%;
+    max-width: 560px;
+    margin: 0 auto 2rem;
     background: var(--bg-tint);
     border: 1.5px solid var(--border);
     border-radius: var(--radius);
     padding: 1.75rem 1.5rem;
-    margin-bottom: 2rem;
+    text-align: center;
   }
 
   .cta-heading {
@@ -240,6 +369,8 @@ const upcomingGuides = [
 
   /* Back link */
   .back-link {
+    display: block;
+    text-align: center;
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--primary);
@@ -252,17 +383,30 @@ const upcomingGuides = [
   }
 
   /* Responsive */
-  @media (max-width: 480px) {
-    h1 {
+  @media (max-width: 720px) {
+    .guides-main {
+      padding: 3.5rem 1.25rem;
+    }
+
+    .guides-header h1 {
       font-size: 1.9rem;
+    }
+
+    .guide-card {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .guide-card-img img {
+      aspect-ratio: 16 / 9;
+    }
+
+    .guide-card-body {
+      padding: 1.25rem;
     }
 
     .cta-form {
       flex-direction: column;
-    }
-
-    .guides-main {
-      padding: 3.5rem 1.25rem;
     }
   }
 </style>
