@@ -3,24 +3,24 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 
-const title = '5 Bedtime Habits That Are Ruining Your Sleep (And What to Do Instead) — The Sleep Math';
+const title = '5 Bedtime Habits That Are Ruining Your Sleep — The Sleep Math';
 const description = 'Struggling to fall asleep or waking up exhausted? These 5 common nighttime habits could be the reason — and the science-backed fixes are simpler than you think.';
 const canonical = 'https://thesleepmath.com/blog/5-bedtime-habits-ruining-your-sleep';
 const heroImage = '/images/blog/5-bedtime-habits-hero.jpg';
 const ogImage = '/images/blog/5-bedtime-habits-og.png';
 const publishDate = '2026-05-14';
-const modifiedDate = '2026-05-14';
+const modifiedDate = '2026-05-15';
 
 /* ── Schema: BlogPosting ── */
 const blogPostingSchema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
-  headline: '5 Bedtime Habits That Are Ruining Your Sleep (And What to Do Instead)',
+  headline: '5 Bedtime Habits That Are Ruining Your Sleep',
   description,
   image: `https://thesleepmath.com${ogImage}`,
   datePublished: publishDate,
   dateModified: modifiedDate,
-  wordCount: 1850,
+  wordCount: 1735,
   author: {
     '@type': 'Organization',
     name: 'The Sleep Math',
@@ -271,7 +271,7 @@ const breadcrumbSchema = {
       <!-- ── Habit 4 ── -->
       <h2>4. Keeping an Irregular Sleep Schedule</h2>
       <p>
-        Many people try to "catch up" on sleep over the weekend, sleeping in on Saturday and Sunday mornings and staying up later on Friday and Saturday nights. While this feels restorative in the moment, it actually disrupts your circadian rhythm — the internal 24-hour clock that governs when you feel alert and when you feel sleepy.
+        Many people try to "catch up" on sleep over the weekend, sleeping in on Saturday and Sunday mornings and staying up later on Friday and Saturday nights. While this feels restorative in the moment, it actually disrupts your circadian rhythm — the internal 24-hour clock that governs when you feel alert and when you feel sleepy. (Curious how much <a href="/sleep-debt-calculator">sleep debt</a> you've actually accumulated? The numbers might surprise you.)
       </p>
       <p>
         Your circadian rhythm thrives on consistency. When you shift your sleep and wake times by even an hour or two, you're essentially giving yourself a mild case of jet lag. This phenomenon, sometimes called <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">"social jet lag"</a> (Wittmann et al., 2006), has been linked to poorer sleep quality, increased daytime fatigue, and difficulty falling asleep on Sunday nights (that familiar dread isn't just psychological).
@@ -356,6 +356,18 @@ const breadcrumbSchema = {
           <a href="/sleep-efficiency-calculator" class="calc-cta-card">
             <span class="calc-cta-icon">📊</span>
             <span class="calc-cta-name">Sleep Efficiency</span>
+          </a>
+          <a href="/sleep-hygiene-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🛏️</span>
+            <span class="calc-cta-name">Sleep Hygiene Score</span>
+          </a>
+          <a href="/sleep-cycle-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">🔄</span>
+            <span class="calc-cta-name">Sleep Cycle Calculator</span>
+          </a>
+          <a href="/sleep-debt-calculator" class="calc-cta-card">
+            <span class="calc-cta-icon">⏳</span>
+            <span class="calc-cta-name">Sleep Debt Calculator</span>
           </a>
         </div>
       </div>
@@ -553,7 +565,7 @@ const breadcrumbSchema = {
     align-items: center;
     gap: 0.6rem;
     padding: 0.65rem 0.85rem;
-    background: white;
+    background: var(--card);
     border: 1px solid var(--border);
     border-radius: 10px;
     text-decoration: none !important;
