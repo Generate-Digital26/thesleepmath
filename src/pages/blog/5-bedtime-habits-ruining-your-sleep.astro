@@ -3,8 +3,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 
-const title = '5 Bedtime Habits That Are Ruining Your Sleep — The Sleep Math';
-const description = 'Struggling to fall asleep or waking up exhausted? These 5 common nighttime habits could be the reason — and the science-backed fixes are simpler than you think.';
+const title = '5 Bedtime Habits Ruining Your Sleep — The Sleep Math';
+const description = 'Struggling to fall asleep or waking up exhausted? 5 common bedtime habits could be the reason — and the science-backed fixes are simpler than you think.';
 const canonical = 'https://thesleepmath.com/blog/5-bedtime-habits-ruining-your-sleep';
 const heroImage = '/images/blog/5-bedtime-habits-hero.jpg';
 const ogImage = '/images/blog/5-bedtime-habits-og.png';
@@ -15,7 +15,7 @@ const modifiedDate = '2026-05-15';
 const blogPostingSchema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
-  headline: '5 Bedtime Habits That Are Ruining Your Sleep',
+  headline: '5 Bedtime Habits Ruining Your Sleep',
   description,
   image: `https://thesleepmath.com${ogImage}`,
   datePublished: publishDate,
@@ -137,7 +137,7 @@ const breadcrumbSchema = {
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
     { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://thesleepmath.com/blog' },
-    { '@type': 'ListItem', position: 3, name: '5 Bedtime Habits That Are Ruining Your Sleep' },
+    { '@type': 'ListItem', position: 3, name: '5 Bedtime Habits Ruining Your Sleep' },
   ],
 };
 ---
@@ -189,7 +189,7 @@ const breadcrumbSchema = {
         <time datetime={publishDate}>14 May 2026</time>
         <span class="read-time">8 min read</span>
       </div>
-      <h1>5 Bedtime Habits That Are Ruining Your Sleep <span class="pop">(And What to Do Instead)</span></h1>
+      <h1>5 Bedtime Habits Ruining Your Sleep <span class="pop">(And What to Do Instead)</span></h1>
       <p class="article-intro">
         Struggling to fall asleep or waking up exhausted? These common nighttime routines could be the reason — and the fixes are simpler than you think.
       </p>
@@ -208,7 +208,14 @@ const breadcrumbSchema = {
     <div class="post-body">
 
       <div class="tldr" role="region" aria-label="Summary">
-        <strong>TL;DR —</strong> Five common bedtime habits that hurt sleep quality: <strong>(1)</strong> scrolling your phone in bed (blue light suppresses melatonin), <strong>(2)</strong> eating heavy meals within 2–3 hours of sleep, <strong>(3)</strong> late caffeine (half-life 5–6 hrs) or alcohol (fragments sleep architecture), <strong>(4)</strong> irregular sleep schedules (causes social jet lag), and <strong>(5)</strong> using your bed as a workspace (weakens sleep association). Fixes: charge your phone outside the bedroom, set a caffeine curfew by early afternoon, wake at the same time every day including weekends, and reserve your bed for sleep only.
+        <strong>TL;DR</strong>
+        <ul>
+          <li><strong>Scrolling your phone in bed</strong> — blue light suppresses melatonin. Charge it in another room.</li>
+          <li><strong>Eating heavy meals within 2–3 hours of bed</strong> — raises core body temperature and disrupts deep sleep.</li>
+          <li><strong>Late caffeine</strong> (half-life 5–6 hrs) and <strong>nightcap alcohol</strong> (fragments sleep architecture). Set a 1–2 pm caffeine curfew and skip alcohol within 3 hours of bed.</li>
+          <li><strong>Irregular sleep schedule</strong> — causes social jet lag. Wake at the same time every day, including weekends.</li>
+          <li><strong>Using your bed as a workspace</strong> — weakens the bed-to-sleep mental link. Reserve the bed for sleep only.</li>
+        </ul>
       </div>
 
       <p>
@@ -227,7 +234,7 @@ const breadcrumbSchema = {
         This is the big one — and most of us are guilty of it. A quick check of your notifications turns into twenty minutes of doomscrolling, and suddenly your brain is wide awake at the exact moment it should be winding down.
       </p>
       <p>
-        The problem is twofold. First, the blue light emitted by phone and tablet screens <a href="https://www.pnas.org/doi/full/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">suppresses the production of melatonin</a>, the hormone your body relies on to signal that it's time to sleep (Chang et al., 2015). Second, the content itself — whether it's social media, news, or work emails — is mentally stimulating and keeps your brain in an active, alert state.
+        The problem is twofold. First, the blue light emitted by phone and tablet screens <a href="https://www.pnas.org/doi/full/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">suppresses the production of melatonin</a>, the hormone your body relies on to signal that it's time to sleep. Second, the content itself — whether it's social media, news, or work emails — is mentally stimulating and keeps your brain in an active, alert state.
       </p>
       <p>
         Sleep medicine specialists recommend switching off all interactive screens at least one to two hours before bed. If that feels extreme, start with thirty minutes and work your way up. Replace the scroll with a book, a podcast with the screen face-down, or a simple breathing exercise. The difference can be dramatic.
@@ -260,10 +267,10 @@ const breadcrumbSchema = {
         Alcohol and caffeine are two of the most widely consumed substances on the planet, and both have a far greater impact on sleep than most people realise.
       </p>
       <p>
-        Let's start with alcohol. A glass of wine before bed might make you feel drowsy and help you fall asleep faster, but <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">research consistently shows</a> that it fragments your sleep architecture (Ebrahim et al., 2013). Alcohol disrupts brainwave patterns during the night, reduces the amount of restorative deep sleep you get, and often causes you to wake in the early hours as your body metabolises it. The result is a night that feels restless and a morning that feels rough — even if you technically spent enough time in bed.
+        Let's start with alcohol. A glass of wine before bed might make you feel drowsy and help you fall asleep faster, but it <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">fragments your sleep architecture</a>. Alcohol disrupts brainwave patterns during the night, reduces the amount of restorative deep sleep you get, and often causes you to wake in the early hours as your body metabolises it. The result is a night that feels restless and a morning that feels rough — even if you technically spent enough time in bed.
       </p>
       <p>
-        Caffeine, meanwhile, is a stimulant with a half-life of roughly five to six hours. That means a coffee at 3 p.m. still has half its stimulant effect at 9 p.m. <a href="https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">Studies have demonstrated</a> that caffeine consumed up to six hours before bedtime can measurably reduce both sleep duration and sleep quality (Drake et al., 2013). And it's not just coffee — tea, soft drinks, energy drinks, and even chocolate all contain caffeine.
+        Caffeine, meanwhile, is a stimulant with a half-life of roughly five to six hours. That means a coffee at 3 p.m. still has half its stimulant effect at 9 p.m. <a href="https://jcsm.aasm.org/doi/abs/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">Caffeine consumed up to six hours before bedtime can measurably reduce both sleep duration and sleep quality</a>. And it's not just coffee — tea, soft drinks, energy drinks, and even chocolate all contain caffeine.
       </p>
       <p>
         Want to know exactly when to stop? Our <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> works out your personal caffeine curfew based on your bedtime. You can also check how alcohol may be affecting your rest with the <a href="/alcohol-sleep-calculator">Alcohol &amp; Sleep Calculator</a>.
@@ -278,7 +285,7 @@ const breadcrumbSchema = {
         Many people try to "catch up" on sleep over the weekend, sleeping in on Saturday and Sunday mornings and staying up later on Friday and Saturday nights. While this feels restorative in the moment, it actually disrupts your circadian rhythm — the internal 24-hour clock that governs when you feel alert and when you feel sleepy. (Curious how much <a href="/sleep-debt-calculator">sleep debt</a> you've actually accumulated? The numbers might surprise you.)
       </p>
       <p>
-        Your circadian rhythm thrives on consistency. When you shift your sleep and wake times by even an hour or two, you're essentially giving yourself a mild case of jet lag. This phenomenon, sometimes called <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">"social jet lag"</a> (Wittmann et al., 2006), has been linked to poorer sleep quality, increased daytime fatigue, and difficulty falling asleep on Sunday nights (that familiar dread isn't just psychological).
+        Your circadian rhythm thrives on consistency. When you shift your sleep and wake times by even an hour or two, you're essentially giving yourself a mild case of jet lag. This phenomenon — sometimes called <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">"social jet lag"</a> — has been linked to poorer sleep quality, increased daytime fatigue, and difficulty falling asleep on Sunday nights (that familiar dread isn't just psychological).
       </p>
       <p>
         Sleep experts are nearly unanimous on this point: waking up at the same time every day — including weekends — is one of the single most effective things you can do for your sleep.
@@ -296,7 +303,7 @@ const breadcrumbSchema = {
         Working from your laptop in bed, watching television under the covers, or even lying in bed worrying about tomorrow's to-do list — these habits all train your brain to associate your bed with wakefulness rather than sleep.
       </p>
       <p>
-        Sleep psychologists call this <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.8988" target="_blank" rel="noopener noreferrer">"stimulus control"</a> (Edinger et al., 2021), and the principle is straightforward: the stronger the mental link between your bed and the act of sleeping, the faster your brain will switch off when you get into it. When you blur that boundary by turning your bed into a multi-purpose zone, you weaken the association, and falling asleep becomes harder over time.
+        Sleep psychologists call this <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.8988" target="_blank" rel="noopener noreferrer">"stimulus control"</a>, and the principle is straightforward: the stronger the mental link between your bed and the act of sleeping, the faster your brain will switch off when you get into it. When you blur that boundary by turning your bed into a multi-purpose zone, you weaken the association, and falling asleep becomes harder over time.
       </p>
       <p>
         This is especially relevant for anyone who started working from home in recent years. The temptation to answer emails from bed or finish a project propped up against the pillows is real — but the cost to your sleep is cumulative and significant.
@@ -327,9 +334,10 @@ const breadcrumbSchema = {
       <div class="related-reading">
         <h3>Related Reading</h3>
         <ul>
-          <li><a href="/blog/how-to-build-a-bedtime-routine-that-actually-works">How to Build a Bedtime Routine That Actually Works</a></li>
-          <li><a href="/blog/the-science-of-circadian-rhythms">The Science of Circadian Rhythms</a></li>
-          <li><a href="/blog/when-to-see-a-doctor-about-your-sleep">When to See a Doctor About Your Sleep</a></li>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the '8 Hours' Rule Is Wrong</a></li>
+          <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+          <li><a href="/blog/sleep-debt-is-real-heres-the-math">Sleep Debt Is Real — Here's the Math</a></li>
+          <li><a href="/blog/the-science-behind-your-chronotype">The Science Behind Your Chronotype</a></li>
         </ul>
       </div>
 
@@ -506,6 +514,23 @@ const breadcrumbSchema = {
 
   .tldr strong {
     color: var(--text);
+  }
+
+  .tldr ul {
+    margin: 0.55rem 0 0;
+    padding-left: 1.15rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.4rem;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary);
   }
 
   /* ── Post body ── */
