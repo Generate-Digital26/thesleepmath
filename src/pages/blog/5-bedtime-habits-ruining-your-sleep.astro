@@ -346,39 +346,39 @@ const breadcrumbSchema = {
         <h3>Tools Mentioned in This Article</h3>
         <div class="calc-cta-grid">
           <a href="/caffeine-cutoff-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">☕</span>
+          <span class="calc-cta-icon iconColor-coral"><svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Caffeine Cutoff Calculator</span>
           </a>
           <a href="/screen-time-cutoff-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">📱</span>
+          <span class="calc-cta-icon iconColor-sky"><svg viewBox="0 0 24 24" fill="none" stroke="#38b6ff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Screen Time Cutoff</span>
           </a>
           <a href="/chronotype-quiz" class="calc-cta-card">
-            <span class="calc-cta-icon">🧬</span>
+          <span class="calc-cta-icon iconColor-primary"><svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Chronotype Quiz</span>
           </a>
           <a href="/alcohol-sleep-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">🍷</span>
+          <span class="calc-cta-icon iconColor-coral"><svg viewBox="0 0 24 24" fill="none" stroke="#ff6b52" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Alcohol &amp; Sleep</span>
           </a>
           <a href="/circadian-rhythm-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">🌅</span>
+          <span class="calc-cta-icon iconColor-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Circadian Rhythm</span>
           </a>
           <a href="/sleep-efficiency-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">📊</span>
+          <span class="calc-cta-icon iconColor-mint"><svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Sleep Efficiency</span>
           </a>
           <a href="/sleep-hygiene-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">🛏️</span>
+          <span class="calc-cta-icon iconColor-mint"><svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Sleep Hygiene Score</span>
           </a>
           <a href="/sleep-cycle-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">🔄</span>
+          <span class="calc-cta-icon iconColor-primary"><svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Sleep Cycle Calculator</span>
           </a>
           <a href="/sleep-debt-calculator" class="calc-cta-card">
-            <span class="calc-cta-icon">⏳</span>
+          <span class="calc-cta-icon iconColor-rose"><svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
             <span class="calc-cta-name">Sleep Debt Calculator</span>
           </a>
         </div>
@@ -624,11 +624,26 @@ const breadcrumbSchema = {
     border-color: var(--primary);
     box-shadow: 0 2px 8px rgba(124, 106, 255, 0.1);
   }
-
   .calc-cta-icon {
-    font-size: 1.2rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    background: rgba(124, 106, 255, 0.12);
   }
+  .calc-cta-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .calc-cta-icon.iconColor-primary { background: rgba(124, 106, 255, 0.12); }
+  .calc-cta-icon.iconColor-coral   { background: rgba(255, 107, 82, 0.12); }
+  .calc-cta-icon.iconColor-rose    { background: rgba(236, 72, 153, 0.12); }
+  .calc-cta-icon.iconColor-mint    { background: rgba(16, 185, 129, 0.12); }
+  .calc-cta-icon.iconColor-sky     { background: rgba(56, 182, 255, 0.12); }
+  .calc-cta-icon.iconColor-amber   { background: rgba(245, 158, 11, 0.12); }
 
   /* ── Related reading ── */
   .related-reading {
