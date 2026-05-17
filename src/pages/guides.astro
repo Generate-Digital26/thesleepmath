@@ -4,7 +4,6 @@ import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 
 const upcomingGuides = [
-  'Understanding Your Circadian Rhythm',
   'Sleep & Exercise: The Research',
   'Caffeine & Sleep: What Science Says',
   'Sleep for New Parents',
@@ -48,6 +47,30 @@ const upcomingGuides = [
 
       <!-- Published guides -->
       <section class="guides-grid" aria-label="Published guides">
+        <a href="/guides/understanding-your-circadian-rhythm" class="guide-card">
+          <div class="guide-card-img">
+            <img
+              src="/images/guides/understanding-your-circadian-rhythm-hero.jpg"
+              alt="A brass orrery resting on cream linen at dawn, soft violet-pink light catching the curved arms"
+              loading="lazy"
+            />
+          </div>
+          <div class="guide-card-body">
+            <div class="guide-card-meta">
+              <span class="guide-tag">Definitive Guide</span>
+              <span class="guide-date">18 min read</span>
+            </div>
+            <h2 class="guide-card-title">Understanding Your Circadian Rhythm</h2>
+            <p class="guide-card-excerpt">
+              The definitive, evidence-based reference for how the body's master clock actually works — the neurons that keep time, the light that resets them, and the levers you can pull to bring your rhythm back into sync.
+            </p>
+            <span class="guide-card-cta">
+              Read guide
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+
         <a href="/guides/the-complete-guide-to-sleep-hygiene" class="guide-card">
           <div class="guide-card-img">
             <img
