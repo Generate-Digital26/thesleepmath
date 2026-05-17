@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
 
 const title = "Why the '8 Hours' Rule Is Wrong — The Sleep Math";
 const description = 'Is 8 hours of sleep really necessary? Modern guidelines say 7-9 hours — your real number depends on genes, age, and chronotype. Find yours in 30 seconds.';
@@ -357,44 +358,11 @@ const breadcrumbSchema = {
         </ul>
       </div>
 
-      <!-- ── Calculator CTA ── -->
-      <div class="calc-cta">
-        <h3>Tools Mentioned in This Article</h3>
-        <div class="calc-cta-grid">
-          <a href="/sleep-cycle-calculator" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-primary"><svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Sleep Cycle Calculator</span>
-          </a>
-          <a href="/sleep-debt-calculator" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-rose"><svg viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Sleep Debt Calculator</span>
-          </a>
-          <a href="/chronotype-quiz" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-primary"><svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Chronotype Quiz</span>
-          </a>
-          <a href="/sleep-score-calculator" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Sleep Quality Score Calculator</span>
-          </a>
-          <a href="/sleep-efficiency-calculator" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-mint"><svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Sleep Efficiency Calculator</span>
-          </a>
-          <a href="/sleep-latency-calculator" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-primary"><svg viewBox="0 0 24 24" fill="none" stroke="#7c6aff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Sleep Latency Calculator</span>
-          </a>
-          <a href="/circadian-rhythm-calculator" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Circadian Rhythm Calculator</span>
-          </a>
-          <a href="/wake-time-calculator" class="calc-cta-card">
-          <span class="calc-cta-icon iconColor-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></span>
-            <span class="calc-cta-name">Wake Time Calculator</span>
-          </a>
-        </div>
-      </div>
+      <!-- Tools Mentioned grid (driven by src/data/calculators.ts via ToolsGrid component) -->
+      <ToolsGrid
+        slugs={['sleep-cycle-calculator', 'sleep-debt-calculator', 'chronotype-quiz', 'sleep-score-calculator', 'sleep-efficiency-calculator', 'sleep-latency-calculator', 'circadian-rhythm-calculator', 'wake-time-calculator']}
+        heading="Tools Mentioned in This Article"
+      />
 
       <!-- ── References ── -->
       <div class="references">
@@ -594,69 +562,6 @@ const breadcrumbSchema = {
     color: var(--primary);
   }
 
-  /* ── Calculator CTA grid ── */
-  .calc-cta {
-    margin: 3rem 0 2rem;
-    padding: 1.75rem;
-    background: var(--bg-alt, #f8f9fb);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-  }
-
-  .calc-cta h3 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text);
-  }
-
-  .calc-cta-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 10px;
-  }
-
-  .calc-cta-card {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.65rem 0.85rem;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    text-decoration: none !important;
-    color: var(--text) !important;
-    font-size: 0.82rem;
-    font-weight: 600;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-
-  .calc-cta-card:hover {
-    border-color: var(--primary);
-    box-shadow: 0 2px 8px rgba(124, 106, 255, 0.1);
-  }
-  .calc-cta-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 7px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    background: rgba(124, 106, 255, 0.12);
-  }
-  .calc-cta-icon svg {
-    width: 16px;
-    height: 16px;
-  }
-  .calc-cta-icon.iconColor-primary { background: rgba(124, 106, 255, 0.12); }
-  .calc-cta-icon.iconColor-coral   { background: rgba(255, 107, 82, 0.12); }
-  .calc-cta-icon.iconColor-rose    { background: rgba(236, 72, 153, 0.12); }
-  .calc-cta-icon.iconColor-mint    { background: rgba(16, 185, 129, 0.12); }
-  .calc-cta-icon.iconColor-sky     { background: rgba(56, 182, 255, 0.12); }
-  .calc-cta-icon.iconColor-amber   { background: rgba(245, 158, 11, 0.12); }
-
   /* ── Related reading ── */
   .related-reading {
     margin: 2.5rem 0;
@@ -760,16 +665,6 @@ const breadcrumbSchema = {
     .post-meta-top {
       flex-wrap: wrap;
       gap: 0.5rem;
-    }
-
-    .calc-cta-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .calc-cta-grid {
-      grid-template-columns: 1fr;
     }
   }
 </style>

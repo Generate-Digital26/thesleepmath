@@ -7,6 +7,8 @@ export interface Calculator {
   iconColor: string;
   /** SVG path content (no wrapper <svg>) */
   iconPath: string;
+  /** Literal H1 heading of the destination calculator page. Used by ToolsGrid for the in-content card label. */
+  pageTitle: string;
   meta: string;
   cta: string;
   phase: 1 | 2 | 3;
@@ -23,6 +25,7 @@ export const calculators: Calculator[] = [
     iconColor: 'primary',
     iconPath:
       '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    pageTitle: 'Chronotype Quiz',
     meta: '3 min · Roenneberg MCTQ',
     cta: 'Take the quiz →',
     phase: 1,
@@ -37,6 +40,7 @@ export const calculators: Calculator[] = [
     iconColor: 'coral',
     iconPath:
       '<path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"/><path d="M6 2v3M10 2v3M14 2v3"/>',
+    pageTitle: 'Caffeine Cutoff Calculator',
     meta: '30 sec · Drake et al., 2013',
     cta: 'Calculate →',
     phase: 1,
@@ -51,6 +55,7 @@ export const calculators: Calculator[] = [
     iconColor: 'rose',
     iconPath:
       '<polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>',
+    pageTitle: 'Sleep Debt Calculator',
     meta: '1 min · Van Dongen et al., 2003',
     cta: 'Calculate →',
     phase: 1,
@@ -64,6 +69,7 @@ export const calculators: Calculator[] = [
     color: 'c-mint',
     iconColor: 'mint',
     iconPath: '<path d="M18 20V10M12 20V4M6 20v-6"/>',
+    pageTitle: 'Sleep Efficiency Calculator',
     meta: '30 sec · Clinical benchmark',
     cta: 'Calculate →',
     phase: 1,
@@ -78,6 +84,7 @@ export const calculators: Calculator[] = [
     iconColor: 'sky',
     iconPath:
       '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    pageTitle: 'Nap Calculator',
     meta: '30 sec · Dijk & Czeisler, 1994',
     cta: 'Calculate →',
     phase: 1,
@@ -92,6 +99,7 @@ export const calculators: Calculator[] = [
     iconColor: 'amber',
     iconPath:
       '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/>',
+    pageTitle: 'Jet Lag Planner',
     meta: '1 min · Eastman & Burgess, 2009',
     cta: 'Plan my trip →',
     phase: 1,
@@ -109,6 +117,7 @@ export const calculators: Calculator[] = [
     iconColor: 'mint',
     iconPath:
       '<path d="M10.5 20.5L10 17h4l-.5 3.5"/><path d="M8.5 14h7"/><path d="M6 10c0-3.5 2.5-6 6-6s6 2.5 6 6c0 2-1 3.5-2.5 4.5H8.5C7 13.5 6 12 6 10z"/>',
+    pageTitle: 'Melatonin Calculator',
     meta: '30 sec · AASM Guideline',
     cta: 'Calculate →',
     phase: 2,
@@ -123,6 +132,7 @@ export const calculators: Calculator[] = [
     iconColor: 'primary',
     iconPath:
       '<path d="M3 12h4l3-9 4 18 3-9h4"/>',
+    pageTitle: 'Sleep Cycle Calculator',
     meta: '10 sec · 90-min cycle model',
     cta: 'Calculate →',
     phase: 2,
@@ -137,6 +147,7 @@ export const calculators: Calculator[] = [
     iconColor: 'rose',
     iconPath:
       '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>',
+    pageTitle: 'Baby Sleep Calculator',
     meta: '15 sec · AAP Guidelines',
     cta: 'Calculate →',
     phase: 2,
@@ -151,6 +162,7 @@ export const calculators: Calculator[] = [
     iconColor: 'coral',
     iconPath:
       '<path d="M8 2v4M16 2v4"/><path d="M8 6l-2 14h12L16 6"/><path d="M6.5 14h11"/>',
+    pageTitle: 'Alcohol Sleep Calculator',
     meta: '30 sec · Ebrahim et al., 2013',
     cta: 'Calculate →',
     phase: 2,
@@ -165,6 +177,7 @@ export const calculators: Calculator[] = [
     iconColor: 'coral',
     iconPath:
       '<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
+    pageTitle: 'Sleep Temperature Calculator',
     meta: '20 sec · NSF Guidelines',
     cta: 'Calculate →',
     phase: 2,
@@ -179,6 +192,7 @@ export const calculators: Calculator[] = [
     iconColor: 'amber',
     iconPath:
       '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>',
+    pageTitle: 'Circadian Rhythm Calculator',
     meta: '30 sec · Czeisler et al., 1999',
     cta: 'Map my rhythm →',
     phase: 2,
@@ -193,6 +207,7 @@ export const calculators: Calculator[] = [
     iconColor: 'sky',
     iconPath:
       '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>',
+    pageTitle: 'Screen Time Cutoff Calculator',
     meta: '15 sec · Gooley et al., 2011',
     cta: 'Calculate →',
     phase: 2,
@@ -207,6 +222,7 @@ export const calculators: Calculator[] = [
     iconColor: 'amber',
     iconPath:
       '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>',
+    pageTitle: 'Wake Time Calculator',
     meta: '10 sec · Sleep cycle model',
     cta: 'Calculate →',
     phase: 2,
@@ -221,6 +237,7 @@ export const calculators: Calculator[] = [
     iconColor: 'primary',
     iconPath:
       '<polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>',
+    pageTitle: 'Shift Work Sleep Planner',
     meta: '1 min · Boivin & Boudreau, 2014',
     cta: 'Plan my shifts →',
     phase: 2,
@@ -235,6 +252,7 @@ export const calculators: Calculator[] = [
     iconColor: 'coral',
     iconPath:
       '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+    pageTitle: 'Sleep Apnea Risk Calculator',
     meta: '2 min · Chung et al., 2008',
     cta: 'Screen now →',
     phase: 2,
@@ -249,6 +267,7 @@ export const calculators: Calculator[] = [
     iconColor: 'primary',
     iconPath:
       '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+    pageTitle: 'Insomnia Severity Index',
     meta: '2 min · Morin et al., 2011',
     cta: 'Assess now →',
     phase: 2,
@@ -266,6 +285,7 @@ export const calculators: Calculator[] = [
     iconColor: 'coral',
     iconPath:
       '<path d="M18 5v4M6 5v4"/><path d="M2 9h20"/><path d="M4 9v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9"/><path d="M12 13v-2"/>',
+    pageTitle: 'Exercise Timing Optimizer',
     meta: '30 sec · Stutz et al., 2019',
     cta: 'Calculate →',
     phase: 3,
@@ -280,6 +300,7 @@ export const calculators: Calculator[] = [
     iconColor: 'rose',
     iconPath:
       '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>',
+    pageTitle: 'Pregnancy Sleep Calculator',
     meta: '1 min · Stacey et al., 2011',
     cta: 'Get your guide →',
     phase: 3,
@@ -294,6 +315,7 @@ export const calculators: Calculator[] = [
     iconColor: 'primary',
     iconPath:
       '<circle cx="12" cy="12" r="10"/><path d="M12 6v6"/><path d="M16.24 16.24l-4.24-4.24"/>',
+    pageTitle: 'Sleep Latency Calculator',
     meta: '30 sec · Carskadon & Dement, 1982',
     cta: 'Test now →',
     phase: 3,
@@ -308,6 +330,7 @@ export const calculators: Calculator[] = [
     iconColor: 'amber',
     iconPath:
       '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14 2 9.27l6.91-1.01L12 2z"/>',
+    pageTitle: 'Sleep Quality Score Calculator',
     meta: '3 min · Buysse et al., 1989',
     cta: 'Score my sleep →',
     phase: 3,
@@ -322,6 +345,7 @@ export const calculators: Calculator[] = [
     iconColor: 'mint',
     iconPath:
       '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+    pageTitle: 'Sleep Hygiene Calculator',
     meta: '2 min · Irish et al., 2015',
     cta: 'Audit now →',
     phase: 3,
@@ -336,6 +360,7 @@ export const calculators: Calculator[] = [
     iconColor: 'amber',
     iconPath:
       '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>',
+    pageTitle: 'Light Exposure Calculator',
     meta: '30 sec · Wright et al., 2013',
     cta: 'Calculate →',
     phase: 3,
@@ -350,6 +375,7 @@ export const calculators: Calculator[] = [
     iconColor: 'sky',
     iconPath:
       '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+    pageTitle: 'Baby Sleep Regression Predictor',
     meta: '30 sec · Mindell et al., 2006',
     cta: 'Predict regressions →',
     phase: 3,
@@ -364,6 +390,7 @@ export const calculators: Calculator[] = [
     iconColor: 'coral',
     iconPath:
       '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    pageTitle: 'Social Jet Lag Calculator',
     meta: '30 sec · Roenneberg et al., 2012',
     cta: 'Calculate →',
     phase: 3,
