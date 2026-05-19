@@ -1,0 +1,669 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Caffeine Half-Life: What Drake et al. Actually Found — The Sleep Math';
+const description = 'The Drake et al. 2013 study proved caffeine 6 hours before bed still costs you an hour of sleep — and you won\'t even notice. Here\'s the full breakdown.';
+const canonical = 'https://thesleepmath.com/blog/caffeine-half-life-what-drake-et-al-actually-found';
+const heroImage = '/images/blog/caffeine-half-life-what-drake-et-al-actually-found-hero.jpg';
+const ogImage = '/images/blog/caffeine-half-life-what-drake-et-al-actually-found-og.png';
+const publishDate = '2026-05-19';
+const modifiedDate = '2026-05-19';
+
+/* ── Schema: BlogPosting ── */
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: 'Caffeine Half-Life: What Drake et al. Actually Found',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 1950,
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.tldr', '.bottom-line'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Caffeine Effects on Sleep Taken 0, 3, or 6 Hours Before Going to Bed',
+      author: 'Drake C, Roehrs T, Shambroom J, Roth T',
+      datePublished: '2013',
+      url: 'https://jcsm.aasm.org/doi/10.5664/jcsm.3170',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Dose and Timing Effects of Caffeine on Subsequent Sleep: A Randomized Clinical Crossover Trial',
+      author: 'Gardiner CL, Weakley J, Burke LM, Fernandez F, Johnston RD, Leota J, Russell S, Munteanu G, Townshend A, Halson SL',
+      datePublished: '2024',
+      url: 'https://academic.oup.com/sleep/article/48/4/zsae230/7815486',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The Effect of Caffeine on Subsequent Sleep: A Systematic Review and Meta-Analysis',
+      author: 'Gardiner C, Weakley J, Burke LM, Roach GD, Sargent C, Maniar N, Townshend A, Halson SL',
+      datePublished: '2023',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/36870101/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Pharmacokinetics of Caffeine: A Systematic Analysis of Reported Data for Application in Metabolic Phenotyping and Liver Function Testing',
+      author: 'Grzegorzewski J, Bartsch F, Köller A, König M',
+      datePublished: '2022',
+      url: 'https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2021.752826/full',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'A Genetic Variation in the Adenosine A2A Receptor Gene (ADORA2A) Contributes to Individual Sensitivity to Caffeine Effects on Sleep',
+      author: 'Rétey JV, Adam M, Khatami R, Luhmann UFO, Jung HH, Berger W, Landolt HP',
+      datePublished: '2007',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/17329997/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Regular Caffeine Intake Delays REM Sleep Promotion and Attenuates Sleep Quality in Healthy Men',
+      author: 'Weibel J, Lin Y-S, Landolt H-P, Berthomier C, Brandewinder M, Kistler J, Rehm S, Rentsch KM, Meyer M, Borgwardt S, Cajochen C, Reichert CF',
+      datePublished: '2021',
+      url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8276335/',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How long does caffeine stay in your system?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Caffeine\'s half-life — the time for your body to eliminate half the dose — ranges from roughly 2 to 10 hours depending on your genetics. The enzyme CYP1A2 handles about 90% of caffeine metabolism, and its activity varies up to 6-fold between individuals. Factors like smoking (faster clearance), oral contraceptives (slower clearance), and liver health also shift the number. For the average adult, half-life is about 5 hours, but yours could be substantially shorter or longer.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can caffeine 6 hours before bed actually affect sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. The Drake et al. 2013 study gave participants 400 mg of caffeine at 0, 3, and 6 hours before bedtime. Even the 6-hour condition reduced total sleep time by more than one hour and increased wakefulness during the night. Critically, participants were largely unaware of the disruption — objective EEG measures detected it, but subjective sleep diaries did not.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why does caffeine affect some people more than others?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Two genetic factors are primarily responsible. First, the CYP1A2 enzyme that metabolises caffeine varies in activity by up to 6-fold across the population — slow metabolisers keep caffeine circulating far longer. Second, a variation in the ADORA2A gene (which codes for the adenosine receptor caffeine blocks) determines whether caffeine triggers EEG patterns resembling insomnia. About 31% of people self-identify as caffeine-sensitive, and genetics explains most of that difference.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does regular caffeine consumption build tolerance for sleep effects?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Not fully. Gardiner et al. (2024) found that habitual caffeine consumers still experienced significant sleep disruption from a 400 mg dose — sleep efficiency dropped, deep sleep was reduced, and wake time during sleep increased. Separately, Weibel et al. (2021) showed that regular daily caffeine use delayed REM sleep onset by 25 minutes compared to placebo, even in habitual consumers. Your body does not fully adapt.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'When should I stop drinking coffee before bed?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A 2023 meta-analysis of 24 studies found that each additional hour between caffeine and bedtime reduces total sleep loss by about 2.8 minutes per hour. Their dose-timing model recommends at least 8.8 hours before bed for a standard cup of coffee (107 mg). For larger doses — a double espresso or a pre-workout supplement — the cutoff extends to 13 hours or more. Use a caffeine cutoff calculator to personalise the timing based on your bedtime.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://thesleepmath.com/blog' },
+    { '@type': 'ListItem', position: 3, name: 'Caffeine Half-Life: What Drake et al. Actually Found' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science" />
+  <meta slot="head" property="article:tag" content="caffeine half-life" />
+  <meta slot="head" property="article:tag" content="caffeine and sleep" />
+  <meta slot="head" property="article:tag" content="Drake et al 2013" />
+  <meta slot="head" property="article:tag" content="caffeine cutoff time" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is a sleep science blog post on TheSleepMath.com that examines the peer-reviewed evidence on caffeine half-life and sleep disruption. It centres on the Drake et al. (2013) JCSM study showing that 400 mg caffeine consumed 6 hours before bedtime reduces total sleep time by over 1 hour — with participants unaware of the disruption. It also covers the Gardiner et al. (2024) dose-timing RCT, the Gardiner et al. (2023) meta-analysis of 24 studies, CYP1A2 pharmacokinetic variation (Grzegorzewski 2022), ADORA2A genetic sensitivity (Rétey 2007), and regular caffeine use delaying REM sleep (Weibel 2021). It links to TheSleepMath calculators: caffeine-cutoff, sleep-latency, sleep-cycle, sleep-efficiency, sleep-score, chronotype-quiz, sleep-debt, exercise-timing." />
+  <meta slot="head" name="ai-summary" content="Caffeine consumed 6 hours before bedtime reduces total sleep time by more than 1 hour, according to the Drake et al. (2013) study in JCSM. Participants were largely unaware of the disruption. Caffeine half-life ranges from 2 to 10 hours depending on CYP1A2 genetics (Grzegorzewski 2022). A 2023 meta-analysis of 24 studies recommends stopping standard coffee at least 8.8 hours before bed. Regular caffeine use does not build full tolerance — it still delays REM sleep by ~25 minutes (Weibel 2021)." />
+  <meta slot="head" name="nlp-entities" content="caffeine half-life, caffeine and sleep, Drake et al 2013, CYP1A2, ADORA2A, sleep disruption, sleep architecture, REM sleep, deep sleep, caffeine cutoff time, caffeine metabolism, pharmacokinetics, adenosine receptor, sleep latency, sleep efficiency" />
+  <meta slot="head" name="ai-content-type" content="health article, sleep science, evidence-based guide, research explainer" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="blog-post">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/blog">Blog</a>
+      <span class="sep">/</span>
+      <span>Caffeine Half-Life: What Drake et al. Actually Found</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="post-header">
+      <div class="post-meta-top">
+        <span class="post-tag">Sleep Science</span>
+        <time datetime={publishDate}>19 May 2026</time>
+        <span class="read-time">8 min read</span>
+      </div>
+      <h1>Caffeine Half-Life: <span class="pop">What Drake et al. Actually Found</span></h1>
+      <p class="article-intro">
+        That afternoon coffee you swore was "early enough"? A landmark study proved it still costs you an hour of sleep — and you will not even feel it happening.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="Half-finished cup of coffee on a bedside table in late afternoon light, with a clock visible in the background"
+      class="hero-img"
+      width="1344"
+      height="768"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="post-body">
+
+      <div class="tldr" role="region" aria-label="Summary">
+        <strong>TL;DR</strong>
+        <ul>
+          <li>Drake et al. (2013) gave 12 adults 400 mg caffeine at 0, 3, and 6 hours before bed — <strong>all three conditions</strong> cut total sleep by over an hour.</li>
+          <li>At 6 hours out, participants <strong>didn't notice</strong> the disruption — only the EEG headband caught it.</li>
+          <li>Caffeine half-life ranges from <strong>2 to 10 hours</strong> depending on your CYP1A2 genetics.</li>
+          <li>A 2023 meta-analysis of 24 studies recommends stopping standard coffee at least <strong>8.8 hours</strong> before bed.</li>
+          <li>Regular caffeine use does <strong>not</strong> build full sleep tolerance — it still delays REM onset by ~25 minutes.</li>
+          <li>A genetic variation in ADORA2A determines whether caffeine triggers <strong>insomnia-like EEG patterns</strong> in your brain.</li>
+        </ul>
+      </div>
+
+      <p>
+        Everyone has a caffeine cutoff. For most people, it is a vague internal rule — "no coffee after 2 pm," or "only one in the afternoon" — based on gut feeling. The problem with gut feeling is that it is a terrible sleep scientist. One study, more than any other, proved exactly how terrible.
+      </p>
+
+      <!-- ── Section 1 ── -->
+      <h2>1. The Study Everyone Cites but Few Have Read</h2>
+      <p>
+        In 2013, Christopher Drake and colleagues at the Henry Ford Hospital Sleep Disorders Center published a small, clean study in the <em>Journal of Clinical Sleep Medicine</em>. The design was simple: take 12 healthy adults who regularly drink caffeine, give them 400 mg (roughly the equivalent of two large coffees) at three different time points before bedtime, and see what happens.
+      </p>
+      <p>
+        The four conditions — caffeine at bedtime, 3 hours before, 6 hours before, and placebo — were run in a randomised, double-blind, crossover design. Each participant completed all four conditions in their own home, with sleep tracked by both a validated wireless EEG headband and a standard sleep diary.
+      </p>
+      <p>
+        If you have ever Googled "how long before bed should I stop drinking coffee," this study is almost certainly the one behind the answer. It has been cited thousands of times. But the headline stat most people pull — "6 hours is not enough" — actually undersells what the data showed.
+      </p>
+
+      <!-- ── Section 2 ── -->
+      <h2>2. The Numbers: 0, 3, and 6 Hours Before Bed</h2>
+      <p>
+        All three caffeine conditions significantly reduced total sleep time compared to placebo. Not just the bedtime dose. Not just the 3-hour dose. <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">Caffeine consumed a full 6 hours before bed still cut total sleep by approximately 1 hour</a>.
+      </p>
+      <p>
+        The 3-hour condition extended the time it took to fall asleep by 17 minutes and increased wakefulness during the night by nearly 28 minutes. The 6-hour condition added 8 minutes of wake time during sleep. Across all caffeine conditions, light sleep (stages 1 and 2) dropped by 40 to 44 minutes, and slow-wave deep sleep was reduced in both the bedtime and 6-hour conditions.
+      </p>
+      <p>
+        If you are curious how quickly you typically drift off once your head hits the pillow, the <a href="/sleep-latency-calculator">Sleep Latency Calculator</a> quantifies that window — and a consistently short latency (under 5 minutes) can itself be a sign of accumulated sleep debt.
+      </p>
+
+      <!-- ── Section 3 ── -->
+      <h2>3. The Part Nobody Talks About</h2>
+      <p>
+        Here is the finding that should genuinely change behaviour: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3805807/" target="_blank" rel="noopener noreferrer">participants in the 6-hour condition had no idea their sleep was disrupted</a>. The EEG headband registered the damage — over an hour of lost sleep, reduced deep sleep, increased wakefulness. But when those same participants filled in their sleep diaries the next morning, they reported sleeping fine.
+      </p>
+      <p>
+        This subjective-objective gap is why "I can drink coffee at 4 pm and sleep perfectly" is the most unreliable statement in sleep hygiene. You may fall asleep on time, lie unconscious for what feels like a full night, and wake up none the wiser. But the architecture of your sleep — the deep, restorative stages your brain needs — has been quietly degraded.
+      </p>
+      <div class="tip-box">
+        <strong>What to do instead:</strong> Don't rely on how you feel the morning after. Track objective metrics — sleep efficiency, wake-after-sleep-onset, time in deep sleep — for 2 to 4 weeks after shifting your caffeine cutoff. Our <a href="/sleep-efficiency-calculator">Sleep Efficiency Calculator</a> is a good starting point.
+      </div>
+
+      <!-- ── Section 4 ── -->
+      <h2>4. Half-Life Is Not One Number</h2>
+      <p>
+        The phrase "caffeine has a half-life of about 5 hours" appears in virtually every popular health article. It is a useful average and a terrible individual prediction.
+      </p>
+      <p>
+        A <a href="https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2021.752826/full" target="_blank" rel="noopener noreferrer">2022 systematic analysis of 141 pharmacokinetic studies covering 4,714 individuals</a> found that caffeine half-life ranges from approximately 2 to 10 hours across the general population. The primary driver is CYP1A2, the liver enzyme responsible for roughly 90 percent of caffeine metabolism. Its activity varies up to 6-fold between individuals.
+      </p>
+      <p>
+        At the fast end, someone with highly active CYP1A2 could drink a coffee at 3 pm and have less than 12 percent of the dose circulating by 9 pm. At the slow end, the same coffee at the same time could still be nearly 50 percent active at midnight. Same cup. Same clock. Radically different outcome.
+      </p>
+      <p>
+        Smoking significantly increases CYP1A2 activity, which shortens caffeine half-life. Oral contraceptives reduce it, which extends half-life. And twin studies indicate that when you control for those environmental factors, <strong>89 percent</strong> of the variation in caffeine clearance is genetically determined.
+      </p>
+      <p>
+        Our <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> accounts for this variation — enter your bedtime and it gives you a personalised cutoff with a live caffeine decay chart, so you can see exactly when the dose drops below the threshold that matters.
+      </p>
+
+      <!-- ── Section 5 ── -->
+      <h2>5. Your Genes Decide Your Sensitivity</h2>
+      <p>
+        Even if two people metabolise caffeine at the same rate, they can still react to it very differently. The reason sits in a different gene entirely: ADORA2A, which codes for the adenosine A2A receptor — the very receptor caffeine blocks.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/17329997/" target="_blank" rel="noopener noreferrer">A 2007 study by Rétey and colleagues identified a variation in ADORA2A that determines individual caffeine sensitivity</a>. Carriers of the C/C genotype showed EEG patterns resembling insomnia after caffeine — increased high-frequency brain oscillations that signal lighter, less restorative sleep. The effect was halved in C/T carriers and absent in T/T carriers.
+      </p>
+      <p>
+        In a follow-up survey, roughly 31 percent of adults self-identified as caffeine-sensitive. A large 2019 replication study by Erblang and colleagues in 1,023 French workers confirmed the genetic link: ADORA2A variants predicted both sleep complaints and insomnia risk. Intriguingly, the genetic differences only appeared in low caffeine consumers (under 50 mg per day). At high daily intakes (above 300 mg), the genetic advantage disappeared — everyone's sleep suffered.
+      </p>
+      <p>
+        If you already know caffeine hits you harder than most, try the <a href="/chronotype-quiz">Chronotype Quiz</a> as well — evening chronotypes tend to report greater caffeine sensitivity, and misaligning your caffeine window with your circadian rhythm compounds the damage.
+      </p>
+
+      <!-- ── Section 6 ── -->
+      <h2>6. Regular Use Does Not Build Full Tolerance</h2>
+      <p>
+        A common defence: "I drink 3 coffees a day — I've built tolerance." The evidence says: not entirely.
+      </p>
+      <p>
+        <a href="https://academic.oup.com/sleep/article/48/4/zsae230/7815486" target="_blank" rel="noopener noreferrer">A 2024 randomised crossover trial by Gardiner and colleagues</a> tested multiple dose-timing combinations in 23 healthy habitual caffeine consumers. At 400 mg consumed 4 hours before bed, total sleep time dropped by 50 minutes, deep sleep by nearly 30 minutes, and perceived sleep quality fell by 34 percent — in people who drank caffeine daily. At 8 hours out, sleep efficiency was still reduced by 7 percent. Even at 12 hours, the 400 mg dose left a measurable footprint.
+      </p>
+      <p>
+        Separately, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8276335/" target="_blank" rel="noopener noreferrer">Weibel and colleagues (2021) tracked 20 habitual caffeine consumers through 10-day treatment periods</a> and found that regular caffeine use delayed REM sleep onset by 25 minutes — 78.7 minutes to reach the first REM episode, versus 53.6 on placebo. REM proportion was also significantly reduced.
+      </p>
+      <p>
+        REM sleep is where your brain consolidates emotional memories, processes learning, and performs a kind of overnight therapy. Shortchanging it does not produce obvious daytime drowsiness the way losing deep sleep does. It shows up more subtly — as irritability, difficulty with creative problem-solving, and impaired emotional regulation.
+      </p>
+      <p>
+        If you have ever wondered whether your <a href="/sleep-score-calculator">sleep quality score</a> is being quietly undermined by a habit you have had for years, this is the mechanism. The <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> can help you structure your night around full 90-minute cycles, giving REM the space it needs in the later cycles.
+      </p>
+
+      <!-- ── Section 7 ── -->
+      <h2>7. What the Meta-Analysis Actually Recommends</h2>
+      <p>
+        Individual studies are useful. A meta-analysis pooling 24 of them is more useful.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/36870101/" target="_blank" rel="noopener noreferrer">Gardiner and colleagues' 2023 systematic review in <em>Sleep Medicine Reviews</em></a> found that, on average, caffeine reduced total sleep time by 45 minutes, increased sleep onset latency by 9 minutes, decreased sleep efficiency by 7 percent, and cut deep sleep by 11.4 minutes. For every additional milligram of caffeine consumed, total sleep loss increased by 0.2 minutes. For every additional hour between consumption and bedtime, sleep loss decreased by 2.8 minutes.
+      </p>
+      <p>
+        From that dose-timing model, the authors derived specific recommendations: <strong>at least 8.8 hours before bed</strong> for a standard cup of coffee (107 mg), and <strong>at least 13.2 hours</strong> for a pre-workout supplement (217.5 mg). Those are evidence-based numbers, not vibes.
+      </p>
+      <p>
+        If that 8.8-hour cutoff lands uncomfortably early for your schedule, it may be worth examining whether your daytime energy dip is a <a href="/sleep-debt-calculator">sleep debt problem</a> rather than a caffeine problem — and whether an earlier <a href="/exercise-timing-calculator">exercise window</a> could replace the afternoon cup entirely.
+      </p>
+
+      <!-- ── Bottom line ── -->
+      <h2 class="bottom-line">The Bottom Line</h2>
+      <p>
+        Drake et al. did not discover that caffeine is bad for sleep. We already knew that. What they showed — in a clean, controlled design — is that the disruption reaches further than most people assume, and that we cannot feel it happening. Six hours is not a safe margin. Your body is not an exception to the pharmacokinetics.
+      </p>
+      <p>
+        The real number depends on your genetics (CYP1A2 for clearance speed, ADORA2A for receptor sensitivity), your dose, and your personal sleep architecture. But the meta-analytic evidence points to a hard minimum of about 9 hours for an average cup of coffee. If your cutoff is "no coffee after 2 pm" and your bedtime is 10:30, the maths checks out. If your cutoff is vaguer than that, it probably doesn't.
+      </p>
+      <p>
+        Not vibes. Real research.
+      </p>
+
+      <!-- ── Related reading ── -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the '8 Hours' Rule Is Wrong</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+          <li><a href="/blog/sleep-debt-is-real-heres-the-math">Sleep Debt Is Real — Here's the Math</a></li>
+          <li><a href="/blog/the-science-behind-your-chronotype">The Science Behind Your Chronotype</a></li>
+        </ul>
+      </div>
+
+      <!-- Tools Mentioned grid -->
+      <ToolsGrid
+        slugs={['caffeine-cutoff-calculator', 'sleep-latency-calculator', 'sleep-efficiency-calculator', 'sleep-cycle-calculator', 'sleep-score-calculator', 'chronotype-quiz', 'sleep-debt-calculator', 'exercise-timing-calculator']}
+        heading="Tools Mentioned in This Article"
+      />
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Drake C, Roehrs T, Shambroom J, Roth T. (2013). Caffeine Effects on Sleep Taken 0, 3, or 6 Hours Before Going to Bed. <em>J Clin Sleep Med</em>, 9(11):1195–1200. <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.3170" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+          <li>Gardiner CL, Weakley J, Burke LM, et al. (2024). Dose and Timing Effects of Caffeine on Subsequent Sleep: A Randomized Clinical Crossover Trial. <em>Sleep</em>, 48(4):zsae230. <a href="https://academic.oup.com/sleep/article/48/4/zsae230/7815486" target="_blank" rel="noopener noreferrer">Sleep (OUP)</a></li>
+          <li>Gardiner C, Weakley J, Burke LM, et al. (2023). The Effect of Caffeine on Subsequent Sleep: A Systematic Review and Meta-Analysis. <em>Sleep Med Rev</em>, 69:101764. <a href="https://pubmed.ncbi.nlm.nih.gov/36870101/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Grzegorzewski J, Bartsch F, Köller A, König M. (2022). Pharmacokinetics of Caffeine: A Systematic Analysis of Reported Data. <em>Front Pharmacol</em>, 12:752826. <a href="https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2021.752826/full" target="_blank" rel="noopener noreferrer">Frontiers</a></li>
+          <li>Rétey JV, Adam M, Khatami R, et al. (2007). A Genetic Variation in the Adenosine A2A Receptor Gene (ADORA2A) Contributes to Individual Sensitivity to Caffeine Effects on Sleep. <em>Clin Pharmacol Ther</em>, 81(5):692–698. <a href="https://pubmed.ncbi.nlm.nih.gov/17329997/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Weibel J, Lin Y-S, Landolt H-P, et al. (2021). Regular Caffeine Intake Delays REM Sleep Promotion and Attenuates Sleep Quality in Healthy Men. <em>J Biol Rhythms</em>, 36(4):384–394. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8276335/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This article is for informational purposes only and does not constitute medical advice. If you have persistent sleep difficulties, please consult a qualified healthcare provider.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* ── Blog post layout ── */
+  .blog-post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    padding: 1.25rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+
+  .breadcrumb a {
+    color: var(--text-soft);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .breadcrumb .sep {
+    margin: 0 0.35rem;
+    opacity: 0.4;
+  }
+
+  /* ── Post header ── */
+  .post-header {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .post-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .post-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .read-time::before {
+    content: '·';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .post-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary);
+  }
+
+  .article-intro {
+    font-size: 1.12rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* ── Hero image ── */
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* ── TL;DR ── */
+  .tldr {
+    background: var(--bg-tint, #f4f3ff);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.15rem 1.35rem;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+
+  .tldr strong {
+    color: var(--text);
+  }
+
+  .tldr ul {
+    margin: 0.55rem 0 0;
+    padding-left: 1.15rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.4rem;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary);
+  }
+
+  /* ── Post body ── */
+  .post-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .post-body p {
+    margin-bottom: 1.35rem;
+  }
+
+  .post-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .post-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .post-body a:hover {
+    color: #5b4ee0;
+  }
+
+  /* ── Tip boxes ── */
+  .tip-box {
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .tip-box strong {
+    color: var(--primary);
+  }
+
+  /* ── Related reading ── */
+  .related-reading {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .related-reading h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+
+  .related-reading li::before {
+    content: '\2192 ';
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .related-reading a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── References ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .references em {
+    font-style: italic;
+  }
+
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .references a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Disclaimer ── */
+  .disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .blog-post {
+      padding: 0 1.25rem 3rem;
+    }
+
+    .post-meta-top {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+</style>
