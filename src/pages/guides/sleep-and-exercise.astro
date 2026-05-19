@@ -1,0 +1,984 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Sleep & Exercise: The Research — The Sleep Math';
+const description = 'The complete evidence-based guide to how exercise affects your sleep — timing, intensity, aerobic vs. weights, insomnia treatment, mechanisms, and minimum dose. All from peer-reviewed research.';
+const canonical = 'https://thesleepmath.com/guides/sleep-and-exercise';
+const heroImage = '/images/guides/sleep-and-exercise-hero.jpg';
+const ogImage = '/images/guides/sleep-and-exercise-og.png';
+const publishDate = '2026-05-19';
+const modifiedDate = '2026-05-19';
+
+/* ── Schema: Article (evergreen guide, not dated news) ── */
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Sleep & Exercise: The Research',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 4100,
+  articleSection: 'Sleep Science Guide',
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.key-takeaways'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Effects of Evening Exercise on Sleep in Healthy Participants: A Systematic Review and Meta-Analysis',
+      author: 'Stutz J, Eiholzer R, Spengler CM',
+      datePublished: '2019',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/30374942/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The effects of physical activity on sleep: a meta-analytic review',
+      author: 'Kredlow MA, Capozzoli MC, Hearon BA, Calkins AW, Otto MW',
+      datePublished: '2015',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/25596964/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The effects of acute exercise on sleep: a quantitative synthesis',
+      author: 'Youngstedt SD, O\'Connor PJ, Dishman RK',
+      datePublished: '1997',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/9178916/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The effect of resistance exercise on sleep: A systematic review of randomized controlled trials',
+      author: 'Kovacevic A, Mavros Y, Heisz JJ, Singh MAF',
+      datePublished: '2018',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/28919335/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Effects of moderate aerobic exercise training on chronic primary insomnia',
+      author: 'Passos GS, Poyares D, Santana MG, et al.',
+      datePublished: '2011',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/22019457/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Exercise to improve sleep in insomnia: exploration of the bidirectional effects',
+      author: 'Baron KG, Reid KJ, Zee PC',
+      datePublished: '2013',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/23946713/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The bidirectional relationship between exercise and sleep',
+      author: 'Kline CE',
+      datePublished: '2014',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/25729341/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Sleep and exercise: a reciprocal issue?',
+      author: 'Chennaoui M, Arnal PJ, Sauvet F, Gomez-Merino D',
+      datePublished: '2015',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/25127157/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Interrelationship between sleep and exercise: a systematic review',
+      author: 'Dolezal BA, Neufeld EV, Boland DM, Martin JL, Cooper CB',
+      datePublished: '2017',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/28458924/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Physical activity and sleep: An updated umbrella review',
+      author: 'Kline CE, Hillman CH, Sheppard DBS, et al.',
+      datePublished: '2021',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/33934046/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The effects of sleep extension on the athletic performance of collegiate basketball players',
+      author: 'Mah CD, Mah KE, Kezirian EJ, Dement WC',
+      datePublished: '2011',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/21731144/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Exercise and sleep: a systematic review of previous meta-analyses',
+      author: 'Kelley GA, Kelley KS',
+      datePublished: '2017',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/28276627/',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How long before exercise improves my sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Don\'t expect results tonight. Research shows that exercise benefits accumulate over weeks of consistent activity, not from a single workout. A landmark study tracking insomnia patients found that a single day\'s exercise did not predict better sleep that same night — but across a 16-week program, total sleep time, sleep efficiency, and overall sleep quality all improved significantly. Plan for 4 to 8 weeks of regular exercise before expecting measurable changes.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I avoid exercising at night?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The blanket "no exercise within 3 hours of bedtime" advice is not supported by the research. A 2019 meta-analysis found that evening exercise does not impair sleep in healthy adults — it actually increased slow-wave sleep. The one exception: vigorous-intensity exercise ending less than one hour before bed may slightly delay sleep onset. Moderate-intensity evening exercise is fine at any time.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is cardio or weights better for sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Both work. The largest meta-analyses show aerobic exercise produces small to moderate sleep improvements across all measured outcomes. A 2018 systematic review of 13 RCTs found that resistance training also improved all aspects of sleep, with the strongest effect on subjective sleep quality. Interestingly, isolated resistance training outperformed combined cardio-plus-weights programs for sleep outcomes. The best modality is whichever one you\'ll actually do consistently.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can exercise cure insomnia?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Exercise is not a cure, but it is a clinically meaningful treatment. In RCTs, moderate aerobic exercise reduced sleep onset latency by 49% and increased sleep efficiency from 79.8% to 87.2% in chronic insomnia patients. Pooled meta-analytic data yields a number-needed-to-treat of 7 — meaning for every 7 people who exercise regularly, one achieves clinically significant sleep improvement who would not have otherwise. That is comparable to some pharmacological sleep aids. For severe insomnia, CBT-i remains the first-line treatment, but exercise is a strong adjunct.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much exercise do I need for better sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The evidence anchors on the same guidelines you hear everywhere: 150 minutes per week of moderate-intensity aerobic activity, or 75 minutes of vigorous activity. A systematic review of 34 studies using these thresholds as inclusion criteria found that 85% of studies reported improved sleep. The 2018 U.S. Physical Activity Guidelines umbrella review confirmed that longer bouts provide larger benefits than shorter ones, and effects are preserved across adult age groups.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does poor sleep hurt my workout performance?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. The relationship runs in both directions. A study of insomnia patients found that nights with longer sleep onset latency predicted shorter exercise duration the following day. On the flip side, the Stanford basketball sleep extension study showed that adding roughly 2 extra hours of sleep per night improved sprint speed by 4.3%, free throw accuracy by 9%, and three-point accuracy by 9.2%. Sleep is not just recovery — it is a performance enhancer.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://thesleepmath.com/guides' },
+    { '@type': 'ListItem', position: 3, name: 'Sleep & Exercise: The Research' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science Guide" />
+  <meta slot="head" property="article:tag" content="exercise and sleep" />
+  <meta slot="head" property="article:tag" content="sleep quality" />
+  <meta slot="head" property="article:tag" content="aerobic exercise" />
+  <meta slot="head" property="article:tag" content="resistance training" />
+  <meta slot="head" property="article:tag" content="insomnia treatment" />
+  <meta slot="head" property="article:tag" content="sleep science" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is the definitive evidence-based guide to the relationship between exercise and sleep on TheSleepMath.com. It synthesizes 12 peer-reviewed sources including three major meta-analyses (Kredlow 2015 — 66 studies, Stutz 2019 — evening exercise, Youngstedt 1997 — acute exercise), a systematic review of resistance training RCTs (Kovacevic 2018), an insomnia exercise RCT (Passos 2011), the Baron 2013 bidirectional study, a mechanisms review (Chennaoui 2015), and the Mah 2011 Stanford sleep extension study. Covers exercise timing, intensity, aerobic vs. resistance training, acute vs. chronic effects, exercise as insomnia treatment, the bidirectional sleep-exercise feedback loop, physiological mechanisms (thermoregulation, adenosine, cortisol, cytokines, BDNF), dose-response, and sleep-athletic performance. Internal links to TheSleepMath calculators: exercise-timing, sleep-efficiency, sleep-hygiene, sleep-score, sleep-latency, insomnia-severity, sleep-cycle, sleep-debt, circadian-rhythm, chronotype-quiz, caffeine-cutoff, sleep-apnea-risk, nap, sleep-temperature." />
+  <meta slot="head" name="ai-summary" content="Exercise is a proven, dose-dependent sleep aid. Meta-analyses of 66+ studies show effect sizes of d=0.20–0.50 across sleep outcomes. Both aerobic and resistance training improve sleep, with benefits accumulating over weeks (not hours). Evening exercise does not impair sleep — only vigorous exercise within 1 hour of bedtime may slightly delay sleep onset. In insomnia patients, 6 months of moderate aerobic exercise reduced sleep onset latency by 49% (NNT=7). The relationship is bidirectional: poor sleep predicts shorter next-day exercise. Mechanisms include thermoregulation, adenosine accumulation, HPA axis normalization, pro-inflammatory cytokines, and BDNF. The minimum effective dose aligns with WHO/ACSM guidelines: 150 min/week moderate or 75 min/week vigorous activity." />
+  <meta slot="head" name="nlp-entities" content="exercise and sleep, aerobic exercise, resistance training, sleep quality, sleep onset latency, sleep efficiency, slow-wave sleep, insomnia, meta-analysis, RCT, thermoregulation, adenosine, cortisol, BDNF, cytokines, circadian rhythm, sleep extension, athletic performance, bidirectional relationship, ACSM guidelines, WHO physical activity guidelines" />
+  <meta slot="head" name="ai-content-type" content="comprehensive guide, sleep science, exercise physiology, evidence-based reference" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="guide">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/guides">Guides</a>
+      <span class="sep">/</span>
+      <span>Sleep &amp; Exercise</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="guide-header">
+      <div class="guide-meta-top">
+        <span class="guide-tag">Definitive Guide</span>
+        <time datetime={publishDate}>Updated 19 May 2026</time>
+        <span class="read-time">16 min read</span>
+      </div>
+      <h1>Sleep &amp; Exercise: <span class="pop">The Research</span></h1>
+      <p class="article-intro">
+        The definitive, evidence-based reference for how exercise actually affects your sleep — what the meta-analyses say about timing, intensity, and modality, why the "3-hour rule" is mostly wrong, and the minimum dose that moves the needle.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="A pair of running shoes placed neatly beside a bed with crisp white linen, warm morning light streaming through sheer curtains"
+      class="hero-img"
+      width="1600"
+      height="900"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="guide-body">
+
+      <!-- Key takeaways (lead summary) -->
+      <div class="key-takeaways" role="region" aria-label="Key takeaways">
+        <h3>Key takeaways</h3>
+        <ul>
+          <li><strong>Exercise improves sleep with moderate effect sizes</strong> — comparable to some sleep medications, with a number-needed-to-treat of 7.</li>
+          <li><strong>Both cardio and resistance training work.</strong> Isolated resistance training may be especially effective for sleep quality.</li>
+          <li><strong>Evening exercise does not ruin your sleep.</strong> Only vigorous activity ending less than one hour before bed may cause issues.</li>
+          <li><strong>Benefits accumulate over weeks, not hours.</strong> A single workout will not fix tonight's sleep — commit to 4 to 8 weeks.</li>
+          <li><strong>The relationship is bidirectional.</strong> Poor sleep reduces next-day exercise motivation, creating a feedback loop.</li>
+          <li><strong>150 minutes per week of moderate activity is the minimum effective dose</strong> for measurable, research-backed sleep improvement.</li>
+        </ul>
+      </div>
+
+      <!-- Table of Contents -->
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">In this guide</p>
+        <ol>
+          <li><a href="#evidence">The evidence at a glance</a></li>
+          <li><a href="#aerobic">Cardio and sleep: what the meta-analyses show</a></li>
+          <li><a href="#resistance">Resistance training: the underrated sleep tool</a></li>
+          <li><a href="#timing">Timing, intensity, and the "3-hour rule" myth</a></li>
+          <li><a href="#insomnia">Exercise as a treatment for insomnia</a></li>
+          <li><a href="#feedback-loop">The feedback loop: sleep shapes exercise too</a></li>
+          <li><a href="#mechanisms">Why it works: the mechanisms</a></li>
+          <li><a href="#dose">The minimum effective dose (and the athletic edge)</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        "Exercise more" is one of those recommendations that shows up in every sleep-improvement list ever published. It sits right between "avoid screens before bed" and "keep your bedroom cool" — advice so familiar that it has lost all meaning. But unlike a lot of sleep folklore, the exercise recommendation has serious research behind it. Not a handful of studies. Not "emerging evidence." We are talking about multiple meta-analyses spanning hundreds of trials and thousands of participants, converging on the same conclusion.
+      </p>
+      <p>
+        Exercise improves sleep. Reliably. Measurably. With effect sizes large enough to matter.
+      </p>
+      <p>
+        What the generic listicles leave out is the stuff that actually helps you make decisions: <em>which kind</em> of exercise? <em>When</em> should you do it? How much is enough? Does a single run help tonight, or do you need weeks? Can exercise replace sleeping pills? And what happens to your workouts when you sleep badly — does the damage run both ways?
+      </p>
+      <p>
+        This guide is the long answer. Every claim links to peer-reviewed research. Every recommendation has a source. Not vibes. Not bro-science. The actual data.
+      </p>
+
+
+      <!-- ── Section 1 ── -->
+      <h2 id="evidence">1. The Evidence at a Glance</h2>
+      <p>
+        The single most important paper in the exercise-sleep literature is the <a href="https://pubmed.ncbi.nlm.nih.gov/25596964/" target="_blank" rel="noopener noreferrer">Kredlow et al. 2015 meta-analysis</a>, which pooled 66 studies and is the most comprehensive quantitative synthesis published to date. Its headline finding: both acute (single-bout) and chronic (habitual) exercise produce <a href="https://pubmed.ncbi.nlm.nih.gov/25596964/" target="_blank" rel="noopener noreferrer">small to moderate improvements across every measured sleep outcome</a> — total sleep time, sleep onset latency, sleep efficiency, wake after sleep onset, and subjective quality. Effect sizes ranged from d = 0.20 to d = 0.50.
+      </p>
+      <p>
+        If those numbers seem modest, context helps. A <a href="https://pubmed.ncbi.nlm.nih.gov/28276627/" target="_blank" rel="noopener noreferrer">meta-analysis of previous meta-analyses</a> pooling 950 adults across randomized controlled trials found a standardized mean difference of -0.50 for overall sleep quality, translating to a number-needed-to-treat (NNT) of 7. That means for every 7 people who start exercising regularly, one person achieves a clinically significant sleep improvement who would not have otherwise. That is a respectable NNT — comparable to several common pharmacological sleep aids, with substantially fewer side effects.
+      </p>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/33934046/" target="_blank" rel="noopener noreferrer">2021 umbrella review conducted for the U.S. Physical Activity Guidelines</a> upgraded these findings to "strong evidence" — the highest confidence level available in their framework. The conclusion: both acute and regular physical activity improve sleep in adults, across age groups and sexes. The question is no longer <em>whether</em> exercise helps sleep. It is how, when, and how much.
+      </p>
+      <p>
+        The <a href="/sleep-score-calculator">Sleep Score Calculator</a> gives you a composite metric for tracking changes over time, and the <a href="/sleep-efficiency-calculator">Sleep Efficiency Calculator</a> can help you quantify whether your new exercise habit is actually moving the numbers.
+      </p>
+
+
+      <!-- ── Section 2 ── -->
+      <h2 id="aerobic">2. Cardio and Sleep: What the Meta-Analyses Show</h2>
+      <p>
+        Aerobic exercise — walking, running, cycling, swimming — is the most studied modality in sleep research, and the evidence is the most robust.
+      </p>
+      <p>
+        From the Kredlow meta-analysis, chronic aerobic exercise produces small beneficial effects on total sleep time and sleep efficiency, <a href="https://pubmed.ncbi.nlm.nih.gov/25596964/" target="_blank" rel="noopener noreferrer">small-to-medium effects on sleep onset latency, and moderate effects on subjective sleep quality</a>. Acute aerobic exercise (a single bout) shows similar patterns: increased total sleep time, increased slow-wave sleep, and reduced time spent in light Stage 1 sleep.
+      </p>
+      <p>
+        The pioneering quantitative work here is the <a href="https://pubmed.ncbi.nlm.nih.gov/9178916/" target="_blank" rel="noopener noreferrer">Youngstedt et al. 1997 meta-analysis</a>, which pooled 38 studies and found moderate effects on slow-wave sleep (d = 0.18 to 0.52), REM latency, and total sleep time. Exercise duration and timing were the strongest moderator variables — longer exercise sessions and timing relative to sleep both mattered.
+      </p>
+      <p>
+        An important nuance: the Youngstedt analysis noted that nearly all studies used good sleepers as participants. This means the reported effect sizes are probably <em>underestimates</em> of the benefit for people who actually have sleep problems. If you already sleep perfectly, exercise adds a little. If you sleep poorly, it likely adds a lot more.
+      </p>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/28458924/" target="_blank" rel="noopener noreferrer">Dolezal et al. 2017 systematic review</a> confirmed these findings with 34 more recent studies: 85% concluded that exercise improved either sleep quality or duration. The strongest benefits appeared in middle-aged and older adults — the demographics most likely to experience age-related sleep decline.
+      </p>
+
+      <div class="pullquote">
+        85% of studies conclude exercise improves sleep — and the reported effects are likely underestimates, since most trials tested people who already slept well.
+      </div>
+
+      <p>
+        What kind of cardio? The meta-analyses did not find a significant difference between exercise types within the aerobic category. Walking, running, cycling, and swimming all showed benefits. The practical implication: pick the one you will actually sustain. The <a href="/exercise-timing-calculator">Exercise Timing Calculator</a> can help you find the optimal window based on your chronotype and sleep schedule.
+      </p>
+
+
+      <!-- ── Section 3 ── -->
+      <h2 id="resistance">3. Resistance Training: The Underrated Sleep Tool</h2>
+      <p>
+        Most sleep advice focuses on cardio. That is partly because cardio dominates the research — but the resistance training data is catching up, and it tells an interesting story.
+      </p>
+      <p>
+        A <a href="https://pubmed.ncbi.nlm.nih.gov/28919335/" target="_blank" rel="noopener noreferrer">2018 systematic review of 13 randomized controlled trials</a> found that chronic resistance exercise improved all aspects of sleep, with the greatest benefit for subjective sleep quality. That is notable on its own. But here is the result that caught researchers off guard: <a href="https://pubmed.ncbi.nlm.nih.gov/28919335/" target="_blank" rel="noopener noreferrer">isolated resistance training outperformed combined resistance-plus-aerobic programs</a> for sleep outcomes.
+      </p>
+      <p>
+        In other words, weights alone appeared to be better for sleep than weights-plus-cardio. The likely explanation is not that cardio cancels out the benefit — it is that combined programs may create greater fatigue, inconsistent adherence, or higher autonomic activation that partially offsets the gains. But the finding is consistent enough that the review authors highlighted it as a key direction for future research.
+      </p>
+      <p>
+        The acute effects of a single resistance session on sleep remain less clear. Results across trials were inconsistent, and the review called for more standardized protocols. What we can say is that the chronic signal is strong: commit to a regular weights program for several weeks, and your sleep is likely to improve.
+      </p>
+
+      <div class="tip-box">
+        <strong>Practical takeaway:</strong> If you lift weights but do not do much cardio, you are not leaving sleep benefits on the table. The evidence suggests resistance training alone is an effective sleep-improvement intervention — possibly even more so than mixed programs. Track your changes with the <a href="/sleep-hygiene-calculator">Sleep Hygiene Calculator</a> to see where exercise fits in your overall sleep picture.
+      </div>
+
+      <p>
+        The review also noted that resistance training improved anxiety and depression symptoms — both known disruptors of sleep. This suggests an indirect pathway: weights reduce psychological hyperarousal, which removes a barrier to sleep. Whether the sleep benefit is primarily direct (physiological) or indirect (psychological) remains an open question.
+      </p>
+
+
+      <!-- ── Section 4 ── -->
+      <h2 id="timing">4. Timing, Intensity, and the "3-Hour Rule" Myth</h2>
+      <p>
+        For decades, every sleep hygiene list included the same advice: do not exercise within 3 hours of bedtime. It sounds sensible. Exercise raises your heart rate, body temperature, and cortisol. Surely all of that makes it harder to fall asleep. The problem is that when researchers actually tested this, the data did not cooperate.
+      </p>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/30374942/" target="_blank" rel="noopener noreferrer">Stutz et al. 2019 meta-analysis</a> was designed specifically to answer this question. It pooled every available study on evening exercise and sleep in healthy adults. The headline finding: <a href="https://pubmed.ncbi.nlm.nih.gov/30374942/" target="_blank" rel="noopener noreferrer">evening exercise does not impair sleep</a>. In fact, it came with a bonus — evening exercisers showed increased slow-wave sleep by about 1.3 percentage points and decreased time in light Stage 1 sleep.
+      </p>
+      <p>
+        The one caveat — and it is an important one — is intensity. <a href="https://pubmed.ncbi.nlm.nih.gov/30374942/" target="_blank" rel="noopener noreferrer">Vigorous exercise ending less than approximately one hour before lights-out</a> was associated with slightly longer sleep onset latency and reduced total sleep time, likely because core body temperature and sympathetic nervous system activation had not yet returned to baseline. Moderate-intensity evening exercise showed no such effect, regardless of how close to bedtime it occurred.
+      </p>
+      <p>
+        So the evidence supports a more nuanced rule: <strong>avoid vigorous exercise in the final hour before bed</strong>. A moderate jog, a yoga session, a brisk walk, or a relaxed weight session at 8 p.m. before a 10 p.m. bedtime? The research says you are fine.
+      </p>
+
+      <div class="pullquote">
+        The "no exercise within 3 hours of bedtime" rule is not supported by the evidence. Only vigorous exercise in the final hour before sleep may cause issues.
+      </div>
+
+      <p>
+        For chronic exercise programs, timing matters even less. A 6-month RCT in chronic insomnia patients compared morning versus late-afternoon exercise groups and found <a href="https://pubmed.ncbi.nlm.nih.gov/22019457/" target="_blank" rel="noopener noreferrer">no significant difference in sleep outcomes between the two</a>. Both groups improved substantially. Over weeks and months, consistency trumps clock position.
+      </p>
+      <p>
+        The <a href="/circadian-rhythm-calculator">Circadian Rhythm Calculator</a> and <a href="/chronotype-quiz">Chronotype Quiz</a> can help you find the exercise window that aligns with your natural energy peaks — which may matter more for adherence than for sleep physiology.
+      </p>
+
+
+      <!-- ── Section 5 ── -->
+      <h2 id="insomnia">5. Exercise as a Treatment for Insomnia</h2>
+      <p>
+        Telling someone with insomnia to "just exercise" can feel dismissive. But the clinical evidence for exercise as an insomnia intervention is stronger than most people realize.
+      </p>
+      <p>
+        The cleanest data comes from <a href="https://pubmed.ncbi.nlm.nih.gov/22019457/" target="_blank" rel="noopener noreferrer">Passos et al. 2011</a>, a randomized controlled trial that put sedentary adults with chronic primary insomnia through a 6-month moderate aerobic exercise program. The polysomnography results were striking: sleep onset latency dropped from 17.1 minutes to 8.7 minutes — a <strong>49% reduction</strong>. Wake after sleep onset dropped from 63.2 minutes to 40.1 minutes. <a href="/sleep-efficiency-calculator">Sleep efficiency</a> climbed from 79.8% to 87.2%, crossing the clinical threshold of 85% that sleep medicine uses to define "normal." Perceived sleep quality nearly doubled.
+      </p>
+      <p>
+        Those are not marginal improvements. A sleep onset latency under 10 minutes and efficiency above 85% would be considered a treatment success in most insomnia trials.
+      </p>
+      <p>
+        The pooled NNT of 7 from the meta-analysis of meta-analyses puts exercise in credible territory alongside conventional treatments. CBT-i (cognitive behavioral therapy for insomnia) remains the gold-standard first-line treatment, and exercise has not been convincingly shown to be equivalent head-to-head. But for patients who cannot access CBT-i — which describes most of the world, since trained providers are scarce — or who prefer a non-pharmacological approach, exercise is a meaningful option.
+      </p>
+
+      <div class="tip-box">
+        <strong>Important context:</strong> Exercise is a complement to professional treatment, not a replacement. If you score moderate or higher on the <a href="/insomnia-severity-calculator">Insomnia Severity Calculator</a>, you should also explore CBT-i or consult a sleep specialist. Exercise works well alongside these interventions.
+      </div>
+
+      <p>
+        One finding from the literature deserves special emphasis: mood improved significantly alongside sleep in the Passos trial. Tension, anxiety, depression, and total mood disturbance all decreased. For the many insomnia patients whose poor sleep is tangled up with anxiety and low mood, exercise may be addressing multiple roots of the problem simultaneously.
+      </p>
+      <p>
+        The <a href="/sleep-latency-calculator">Sleep Latency Calculator</a> can help you track whether your sleep onset time is trending in the right direction as you build an exercise habit.
+      </p>
+
+
+      <!-- ── Section 6 ── -->
+      <h2 id="feedback-loop">6. The Feedback Loop: Sleep Shapes Exercise Too</h2>
+      <p>
+        Most people think about this relationship in one direction: exercise helps sleep. But the reverse is equally important — and less discussed.
+      </p>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/23946713/" target="_blank" rel="noopener noreferrer">Baron et al. 2013 study</a> is the one that changed how researchers think about this. It tracked insomnia patients through a 16-week aerobic exercise program, measuring both sleep and exercise daily. Over the full program, sleep improved significantly. But the day-to-day data revealed something unexpected: <a href="https://pubmed.ncbi.nlm.nih.gov/23946713/" target="_blank" rel="noopener noreferrer">a single day's exercise did not predict better sleep that same night</a>. The benefits built up over time, not in 24-hour cycles.
+      </p>
+      <p>
+        The reverse direction, however, <em>was</em> significant on a daily basis. Nights with longer sleep onset latency predicted shorter exercise sessions the following day. Participants who started the study with shorter baseline total sleep time showed an even stronger effect — the worse your sleep, the more it undermines tomorrow's motivation to move.
+      </p>
+      <p>
+        This creates a feedback loop. Poor sleep reduces exercise. Reduced exercise perpetuates poor sleep. If you have ever found yourself in a spiral where bad nights lead to skipped workouts lead to more bad nights, this is the mechanism. It is not a failure of willpower. It is physiology.
+      </p>
+
+      <div class="pullquote">
+        Poor sleep does not just make you tired — it actively reduces how much you exercise. And reduced exercise perpetuates poor sleep. Breaking the loop at either end helps.
+      </div>
+
+      <p>
+        A <a href="https://pubmed.ncbi.nlm.nih.gov/25729341/" target="_blank" rel="noopener noreferrer">2014 review</a> framed this as a public health problem: poor sleep and physical inactivity are both independent risk factors for chronic disease, and they reinforce each other. The encouraging implication is that intervening on either side of the loop creates a virtuous cycle. Improve your sleep and you are more likely to exercise. Start exercising and your sleep eventually improves. Either entry point works.
+      </p>
+      <p>
+        If you are caught in the loop, the practical advice is: start with the easier intervention. For some people, that means prioritizing sleep first — using the <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> to understand your deficit, then gradually adding exercise as sleep stabilizes. For others, it means starting with short, low-barrier exercise (a 20-minute walk) even after a bad night, knowing the sleep benefit will come later.
+      </p>
+
+
+      <!-- ── Section 7 ── -->
+      <h2 id="mechanisms">7. Why It Works: The Mechanisms</h2>
+      <p>
+        Knowing <em>that</em> exercise improves sleep is useful. Knowing <em>why</em> helps you design a smarter program. The <a href="https://pubmed.ncbi.nlm.nih.gov/25127157/" target="_blank" rel="noopener noreferrer">most comprehensive review of the physiological mechanisms</a> identifies at least six pathways, all of which likely work in concert.
+      </p>
+
+      <h3>Thermoregulation</h3>
+      <p>
+        Exercise raises your core body temperature. The subsequent post-exercise decline mimics the natural circadian temperature drop that signals sleep onset. This "thermogenic hypothesis" was the first proposed mechanism and the most intuitive. However, <a href="https://pubmed.ncbi.nlm.nih.gov/9178916/" target="_blank" rel="noopener noreferrer">the 1997 Youngstedt meta-analysis found that heat load was not a dominant moderator</a> of exercise's effect on sleep — meaning temperature is part of the story, but not the whole story. The <a href="/sleep-temperature-calculator">Sleep Temperature Calculator</a> helps you optimize bedroom conditions alongside exercise timing.
+      </p>
+
+      <h3>Adenosine and homeostatic sleep drive</h3>
+      <p>
+        Exercise is metabolically expensive. It burns through ATP, which breaks down into adenosine — the same molecule that builds up during waking hours and creates the pressure to sleep (and the same molecule that caffeine blocks). More exercise means more adenosine, means stronger homeostatic sleep drive. This is probably why the <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> shows deeper slow-wave sleep in people who exercise regularly: the sleep pressure is genuinely higher.
+      </p>
+
+      <h3>Cortisol and HPA axis normalization</h3>
+      <p>
+        Acute vigorous exercise elevates cortisol — that is the alerting, energizing response you feel during a hard workout. But chronic moderate exercise does something different: it normalizes the hypothalamic-pituitary-adrenal (HPA) axis, reducing the kind of hyperarousal that keeps insomnia patients wired at 2 a.m. This mechanism is especially relevant for stress-related sleep problems, where the HPA axis is overactive at night. If you are the type who lies awake with a racing mind, regular moderate exercise may help recalibrate the system.
+      </p>
+
+      <h3>Cytokines and immune signaling</h3>
+      <p>
+        Exercise triggers the release of pro-inflammatory cytokines — particularly IL-6 and TNF-alpha — which, in moderate amounts, have somnogenic (sleep-promoting) properties. This is one reason a day of heavy physical labor makes you sleepy in a way that a day of mental labor does not, even if both are equally tiring.
+      </p>
+
+      <h3>BDNF and neuroplasticity</h3>
+      <p>
+        Exercise upregulates brain-derived neurotrophic factor (BDNF), a protein that supports neuronal health and plasticity. BDNF has been linked to enhanced slow-wave activity — the deepest, most restorative phase of sleep. This pathway may explain why chronic exercise produces <em>better quality</em> sleep, not just more of it.
+      </p>
+
+      <h3>Circadian entrainment</h3>
+      <p>
+        Outdoor exercise delivers morning bright light — the most powerful zeitgeber (time-giver) for the circadian clock. Even indoor exercise, if done at a consistent time, may serve as a secondary zeitgeber that helps anchor the daily rhythm. This pathway matters most for people with irregular schedules, shift workers, or anyone whose <a href="/circadian-rhythm-calculator">circadian rhythm</a> is drifting. For more on how light drives this process, see our <a href="/guides/understanding-your-circadian-rhythm">circadian rhythm guide</a>.
+      </p>
+
+      <div class="tip-box">
+        <strong>Multiple mechanisms, one practical conclusion:</strong> No single pathway dominates. The combination of thermal, metabolic, hormonal, immune, neuroplastic, and circadian effects is what makes exercise such a robust sleep intervention. You do not need to optimize for any one mechanism — just exercise regularly and let the biology do the rest.
+      </div>
+
+
+      <!-- ── Section 8 ── -->
+      <h2 id="dose">8. The Minimum Effective Dose (and the Athletic Edge)</h2>
+      <p>
+        "Exercise more" is useless advice without a number. Fortunately, the research converges on a reasonably clear threshold.
+      </p>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/28458924/" target="_blank" rel="noopener noreferrer">Dolezal et al. 2017 systematic review</a> used the ACSM Physical Activity Guidelines as its inclusion criterion: 150 minutes per week of moderate-intensity aerobic activity, or 75 minutes per week of vigorous-intensity activity. Of the 34 studies that met this bar, 85% reported sleep improvements. The <a href="https://pubmed.ncbi.nlm.nih.gov/33934046/" target="_blank" rel="noopener noreferrer">2021 umbrella review for the U.S. Physical Activity Guidelines</a> confirmed a dose-response relationship: <a href="https://pubmed.ncbi.nlm.nih.gov/33934046/" target="_blank" rel="noopener noreferrer">longer bouts of physical activity improved sleep more than shorter ones</a>, whether acute or chronic.
+      </p>
+      <p>
+        In practical terms, that is about 30 minutes of moderate cardio five days a week — or three 25-minute vigorous sessions. This is the same dose recommended for cardiovascular health, metabolic health, and longevity. Sleep improvement is a bonus that rides on the same prescription.
+      </p>
+      <p>
+        Can you get benefits below this threshold? Probably, but the evidence is less consistent. The 2017 review found that studies below the ACSM guideline level had mixed results. If you are currently sedentary, start where you are — even 10 minutes of walking is better than nothing — but know that the evidence base for measurable sleep improvement gets solid at the 150-minute-per-week mark.
+      </p>
+
+      <h3>The other direction: sleep as a performance multiplier</h3>
+      <p>
+        For athletes and serious exercisers, the sleep-exercise relationship has a second dimension. It is not just that exercise improves sleep. It is that sleep improves exercise — dramatically.
+      </p>
+      <p>
+        The study that made this impossible to ignore is the <a href="https://pubmed.ncbi.nlm.nih.gov/21731144/" target="_blank" rel="noopener noreferrer">Stanford basketball sleep extension study</a>. Eleven varsity basketball players spent 5 to 7 weeks extending their sleep to a minimum of 10 hours in bed per night. Their average objective sleep time increased by 110.9 minutes. The performance results were staggering: timed sprint improved by 4.3%, free throw accuracy increased by 9%, and <a href="https://pubmed.ncbi.nlm.nih.gov/21731144/" target="_blank" rel="noopener noreferrer">three-point accuracy increased by 9.2%</a>. Reaction time improved. Fatigue dropped. Vigor increased.
+      </p>
+      <p>
+        Those are enormous gains — larger than you would expect from most legal training interventions. The implication is that many athletes are chronically underslept, and "more sleep" is the single cheapest performance enhancement available.
+      </p>
+
+      <div class="pullquote">
+        Stanford basketball players who extended their sleep by 2 hours saw a 9% jump in free throw accuracy. Sleep is not just recovery. It is a performance enhancer.
+      </div>
+
+      <p>
+        You do not need to be a Division I athlete for this to matter. If you are training for a marathon, lifting for strength, or just trying to get more out of your gym sessions, the Mah study's message applies: sleep more, perform better. The <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> can show you how far behind you are, and the <a href="/nap-calculator">Nap Calculator</a> can help strategic daytime recovery if nighttime hours are constrained.
+      </p>
+      <p>
+        If you drink coffee to fuel workouts, check the <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> to make sure your pre-workout stimulant is not sabotaging your post-workout sleep.
+      </p>
+
+
+      <!-- ── FAQ Section ── -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="faq-accordion">
+        <details>
+          <summary>How long before exercise improves my sleep?</summary>
+          <p>Don't expect results tonight. Research shows that exercise benefits accumulate over weeks of consistent activity, not from a single workout. A landmark study tracking insomnia patients found that a single day's exercise did not predict better sleep that same night — but across a 16-week program, sleep quality improved significantly. Plan for 4 to 8 weeks of regular exercise before expecting measurable changes.</p>
+        </details>
+        <details>
+          <summary>Should I avoid exercising at night?</summary>
+          <p>The blanket "no exercise within 3 hours of bedtime" advice is not well-supported. A 2019 meta-analysis found that evening exercise does not impair sleep in healthy adults — it actually increased slow-wave sleep. The one exception: vigorous-intensity exercise ending less than one hour before bed may slightly delay sleep onset. Moderate evening exercise is fine at any time.</p>
+        </details>
+        <details>
+          <summary>Is cardio or weights better for sleep?</summary>
+          <p>Both work. Aerobic exercise produces small to moderate improvements across all sleep outcomes. Resistance training also improves all aspects of sleep, with the strongest effect on subjective quality. Interestingly, isolated resistance training outperformed combined cardio-plus-weights programs in the available research. The best modality is whichever one you will actually do consistently.</p>
+        </details>
+        <details>
+          <summary>Can exercise cure insomnia?</summary>
+          <p>Exercise is not a cure, but it is a clinically meaningful treatment. In RCTs, moderate aerobic exercise reduced sleep onset latency by 49% and raised sleep efficiency from 79.8% to 87.2% in chronic insomnia patients. The pooled NNT of 7 is comparable to some sleep medications. For severe insomnia, CBT-i remains the gold standard, but exercise is a strong adjunct — especially for patients who also struggle with anxiety, depression, or low mood.</p>
+        </details>
+        <details>
+          <summary>How much exercise do I need for better sleep?</summary>
+          <p>The evidence base gets solid at the ACSM/WHO guideline level: 150 minutes per week of moderate aerobic activity, or 75 minutes of vigorous activity. That is about 30 minutes of brisk walking five days a week. Of 34 studies using these thresholds, 85% reported sleep improvements. Below this level, results are mixed. If you are sedentary, start where you are — but build toward this target for the most reliable benefit.</p>
+        </details>
+        <details>
+          <summary>Does poor sleep hurt my workout performance?</summary>
+          <p>Yes, substantially. The Stanford basketball sleep extension study showed that adding roughly 2 extra hours of sleep per night improved sprint speed by 4.3%, free throw accuracy by 9%, and three-point accuracy by 9.2%. On the flip side, a bidirectional study found that nights with poor sleep predicted shorter exercise the next day. Sleep is not just recovery — it is a performance input.</p>
+        </details>
+      </div>
+
+
+      <!-- Related Reading -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/guides/the-complete-guide-to-sleep-hygiene">The Complete Guide to Sleep Hygiene</a></li>
+          <li><a href="/guides/understanding-your-circadian-rhythm">Understanding Your Circadian Rhythm</a></li>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the '8 Hours' Rule Is Wrong</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits Ruining Your Sleep</a></li>
+        </ul>
+      </div>
+
+      <!-- Tools Mentioned grid -->
+      <ToolsGrid
+        slugs={['exercise-timing-calculator', 'sleep-efficiency-calculator', 'sleep-hygiene-calculator', 'sleep-score-calculator', 'sleep-latency-calculator', 'insomnia-severity-calculator', 'sleep-cycle-calculator', 'sleep-debt-calculator', 'circadian-rhythm-calculator', 'chronotype-quiz', 'caffeine-cutoff-calculator', 'nap-calculator', 'sleep-temperature-calculator', 'sleep-apnea-risk-calculator']}
+        heading="Tools Mentioned in This Guide"
+      />
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Stutz J, Eiholzer R, Spengler CM. (2019). Effects of Evening Exercise on Sleep in Healthy Participants: A Systematic Review and Meta-Analysis. <em>Sports Medicine</em>, 49(2):269–287. <a href="https://pubmed.ncbi.nlm.nih.gov/30374942/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Kredlow MA, Capozzoli MC, Hearon BA, Calkins AW, Otto MW. (2015). The effects of physical activity on sleep: a meta-analytic review. <em>Journal of Behavioral Medicine</em>, 38(3):427–449. <a href="https://pubmed.ncbi.nlm.nih.gov/25596964/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Youngstedt SD, O'Connor PJ, Dishman RK. (1997). The effects of acute exercise on sleep: a quantitative synthesis. <em>Sleep</em>, 20(3):203–214. <a href="https://pubmed.ncbi.nlm.nih.gov/9178916/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Kovacevic A, Mavros Y, Heisz JJ, Singh MAF. (2018). The effect of resistance exercise on sleep: A systematic review of randomized controlled trials. <em>Sleep Medicine Reviews</em>, 39:52–68. <a href="https://pubmed.ncbi.nlm.nih.gov/28919335/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Passos GS, Poyares D, Santana MG, et al. (2011). Effects of moderate aerobic exercise training on chronic primary insomnia. <em>Sleep Medicine</em>, 12(10):1018–1027. <a href="https://pubmed.ncbi.nlm.nih.gov/22019457/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Baron KG, Reid KJ, Zee PC. (2013). Exercise to improve sleep in insomnia: exploration of the bidirectional effects. <em>Journal of Clinical Sleep Medicine</em>, 9(8):819–824. <a href="https://pubmed.ncbi.nlm.nih.gov/23946713/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Kline CE. (2014). The bidirectional relationship between exercise and sleep: Implications for exercise adherence and sleep improvement. <em>American Journal of Lifestyle Medicine</em>, 8(6):375–379. <a href="https://pubmed.ncbi.nlm.nih.gov/25729341/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Chennaoui M, Arnal PJ, Sauvet F, Gomez-Merino D. (2015). Sleep and exercise: a reciprocal issue? <em>Sleep Medicine Reviews</em>, 20:59–72. <a href="https://pubmed.ncbi.nlm.nih.gov/25127157/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Dolezal BA, Neufeld EV, Boland DM, Martin JL, Cooper CB. (2017). Interrelationship between sleep and exercise: a systematic review. <em>Advances in Preventive Medicine</em>, 2017:1364387. <a href="https://pubmed.ncbi.nlm.nih.gov/28458924/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Kline CE, Hillman CH, Sheppard DBS, et al. (2021). Physical activity and sleep: An updated umbrella review of the 2018 Physical Activity Guidelines Advisory Committee report. <em>Sleep Medicine Reviews</em>, 58:101489. <a href="https://pubmed.ncbi.nlm.nih.gov/33934046/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Mah CD, Mah KE, Kezirian EJ, Dement WC. (2011). The effects of sleep extension on the athletic performance of collegiate basketball players. <em>Sleep</em>, 34(7):943–950. <a href="https://pubmed.ncbi.nlm.nih.gov/21731144/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Kelley GA, Kelley KS. (2017). Exercise and sleep: a systematic review of previous meta-analyses. <em>Journal of Evidence-Based Medicine</em>, 10(1):26–36. <a href="https://pubmed.ncbi.nlm.nih.gov/28276627/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This guide is for informational and educational purposes only and does not constitute medical advice. If you have persistent sleep difficulties, suspect a sleep disorder, or are considering changes to your exercise routine due to a medical condition, please consult a qualified healthcare provider.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* ── Guide layout (max-width 760px, slightly wider than blog 720 to accommodate ToC) ── */
+  .guide {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ── */
+  .guide .breadcrumb {
+    padding: 1.25rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+  .guide .breadcrumb a { color: var(--text-soft); text-decoration: none; }
+  .guide .breadcrumb a:hover { color: var(--primary); }
+  .guide .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.4; }
+
+  /* ── Guide header ── */
+  .guide-header { padding: 2rem 0 1.5rem; }
+
+  .guide-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .guide-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .guide .read-time::before {
+    content: '·';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .guide-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .guide-header h1 .pop {
+    color: var(--primary);
+  }
+
+  .article-intro {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--text-mid);
+    max-width: 640px;
+  }
+
+  /* ── Hero image ── */
+  .hero-img {
+    width: 100%;
+    border-radius: 14px;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* ── Table of contents ── */
+  .toc {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .toc-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-soft);
+    margin-bottom: 0.65rem;
+  }
+  .toc ol {
+    counter-reset: toc-counter;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc li {
+    counter-increment: toc-counter;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  .toc li:last-child { border-bottom: none; }
+
+  .toc li::before {
+    content: counter(toc-counter, decimal-leading-zero) "  ";
+    color: var(--primary);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.5rem;
+  }
+
+  .toc a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--primary); }
+
+  /* ── Guide body ── */
+  .guide-body {
+    font-size: 1.06rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .guide-body p { margin-bottom: 1.35rem; }
+
+  .guide-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.018em;
+    color: var(--text);
+    scroll-margin-top: 1.5rem;
+  }
+
+  .guide-body h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .guide-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+  .guide-body a:hover { color: #5b4ee0; }
+
+  /* ── Pull-quote callout ── */
+  .pullquote {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    letter-spacing: -0.005em;
+  }
+
+  /* ── Tip box ── */
+  .guide-body .tip-box {
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .guide-body .tip-box strong { color: var(--primary); }
+
+  /* ── Key takeaways box (used as the lead summary) ── */
+  .key-takeaways {
+    background: var(--card, #ffffff);
+    border: 2px solid var(--primary);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin: 0 0 2rem;
+  }
+
+  .key-takeaways h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem !important;
+    font-weight: 700;
+    margin-top: 0 !important;
+    margin-bottom: 0.85rem !important;
+    color: var(--primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .key-takeaways ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .key-takeaways li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.97rem;
+    line-height: 1.55;
+  }
+  .key-takeaways li:last-child { border-bottom: none; }
+  .key-takeaways li::before {
+    content: '→ ';
+    color: var(--primary);
+    font-weight: 700;
+    margin-right: 0.3rem;
+  }
+
+  /* ── FAQ accordion (semantic <details>/<summary>) ── */
+  .faq-accordion {
+    border-top: 1px solid var(--border);
+    margin: 0.5rem 0 0;
+  }
+
+  .faq-accordion details {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-accordion summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 2.5rem 1.15rem 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    position: relative;
+    transition: color 0.15s;
+    outline-offset: 4px;
+  }
+
+  .faq-accordion summary:hover {
+    color: var(--primary);
+  }
+
+  .faq-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-accordion summary::after {
+    content: '';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    transform: translateY(-75%) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-accordion details[open] summary::after {
+    transform: translateY(-25%) rotate(-135deg);
+  }
+
+  .faq-accordion details > p {
+    margin: 0;
+    padding: 0 0 1.25rem;
+    color: var(--text-mid);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    animation: faqFadeIn 0.25s ease;
+  }
+
+  @keyframes faqFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Related reading ── */
+  .related-reading {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .related-reading h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+    margin-top: 0 !important;
+  }
+  .related-reading ul { list-style: none; padding: 0; margin: 0; }
+  .related-reading li { padding: 0.35rem 0; font-size: 0.9rem; }
+  .related-reading li::before {
+    content: '→ ';
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .related-reading a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .related-reading a:hover { text-decoration: underline; }
+
+  /* ── References ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .references h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0 !important;
+  }
+  .references ol { padding-left: 1.25rem; margin: 0; }
+  .references li {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  .references em { font-style: italic; }
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .references a:hover { text-decoration: underline; }
+
+  /* ── Disclaimer ── */
+  .guide .disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .guide { padding: 0 1.25rem 3rem; }
+    .guide-meta-top { flex-wrap: wrap; gap: 0.5rem; }
+    .pullquote { font-size: 1.15rem; padding-left: 1rem; }
+  }
+</style>
