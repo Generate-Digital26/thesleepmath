@@ -1,0 +1,682 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Sleep Debt Is Real — Here\'s the Math — The Sleep Math';
+const description = 'After 14 days of 6 hours\' sleep, your brain performs like you skipped 2 nights entirely — and you won\'t notice. The peer-reviewed maths of sleep debt.';
+const canonical = 'https://thesleepmath.com/blog/sleep-debt-is-real-heres-the-math';
+const heroImage = '/images/blog/sleep-debt-is-real-heres-the-math-hero.jpg';
+const ogImage = '/images/blog/sleep-debt-is-real-heres-the-math-og.png';
+const publishDate = '2026-05-20';
+const modifiedDate = '2026-05-20';
+
+/* ── Schema: BlogPosting ── */
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: 'Sleep Debt Is Real — Here\'s the Math',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 1900,
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.tldr', '.bottom-line'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The Cumulative Cost of Additional Wakefulness: Dose-Response Effects on Neurobehavioral Functions and Sleep Physiology From Chronic Sleep Restriction and Total Sleep Deprivation',
+      author: 'Van Dongen HP, Maislin G, Mullington JM, Dinges DF',
+      datePublished: '2003',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/12683469/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Neurobehavioral Dynamics Following Chronic Sleep Restriction: Dose-Response Effects of One Night for Recovery',
+      author: 'Banks S, Van Dongen HP, Maislin G, Dinges DF',
+      datePublished: '2010',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/20815182/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Dynamics of Recovery Sleep From Chronic Sleep Restriction',
+      author: 'Guzzetti JR, Banks S',
+      datePublished: '2023',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/37193276/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Residual, Differential Neurobehavioral Deficits Linger After Multiple Recovery Nights Following Chronic Sleep Restriction or Acute Total Sleep Deprivation',
+      author: 'Yamazaki EM, Antler CA, Lasek CR, Goel N',
+      datePublished: '2021',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/33049062/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Impact of Objectively-Measured Sleep Duration on Cardiometabolic Health: A Systematic Review of Recent Evidence',
+      author: 'Asmamaw DT, Tiruneh GM, Tadele AF, Asmare AG, Fentahun EE, Demelash KZ',
+      datePublished: '2022',
+      url: 'https://www.frontiersin.org/articles/10.3389/fendo.2022.1064969/full',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Sleep Debt: The Impact of Weekday Sleep Deprivation on Cardiovascular Health in Older Women',
+      author: 'Cabeza de Baca T, Chayama KL, Redline S, Slopen N, et al.',
+      datePublished: '2019',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/31361895/',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is sleep debt and is it real?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Sleep debt is the measurable difference between the sleep your body needs and the sleep it actually gets. It accumulates on a predictable, dose-dependent curve. A landmark 2003 study by Van Dongen and colleagues showed that restricting adults to 6 hours per night for 14 days produced cognitive deficits equivalent to 2 nights of total sleep deprivation. The debt is neurobiological, not metaphorical.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How quickly does sleep debt build up?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Faster than most people assume. Van Dongen et al. demonstrated that after just a few days of 6-hour sleep, participants showed statistically significant cognitive decline on the psychomotor vigilance task. By day 14, performance was equivalent to going 48 hours without sleep. Even small daily deficits of 1 to 2 hours produce measurable impairment within a week — and the rate of decline is cumulative, not linear.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can you catch up on lost sleep over the weekend?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Not fully with a single lie-in. Banks et al. (2010) showed that even a 10-hour recovery night after 5 nights of sleep restriction did not restore cognitive performance to baseline. Yamazaki et al. (2021) found that even 4 consecutive nights of 12 hours\' time-in-bed left measurable residual cognitive deficits. Recovery requires sustained, consistent sleep over multiple nights rather than a single extended weekend morning.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does chronic sleep debt affect heart health?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. A 2019 study of 22,082 women found that sleep debt — defined as a weekday-to-weekend sleep difference of 2 or more hours — was significantly associated with poorer cardiovascular health as measured by the American Heart Association\'s seven-factor metric. A 2022 systematic review of 49 studies confirmed that objectively measured short sleep duration increases cardiometabolic risk, including higher rates of coronary heart disease, hypertension, and type 2 diabetes.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I calculate my personal sleep debt?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Track your total sleep time nightly for at least 2 weeks using a sleep diary or wearable device. Compare each night to your estimated biological need — typically 7 to 9 hours for most adults. The running difference is your debt. A caffeine-free, alarm-free holiday week can help reveal your natural sleep need. You can also use a sleep debt calculator to quantify the total accumulated deficit.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://thesleepmath.com/blog' },
+    { '@type': 'ListItem', position: 3, name: 'Sleep Debt Is Real — Here\'s the Math' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science" />
+  <meta slot="head" property="article:tag" content="sleep debt" />
+  <meta slot="head" property="article:tag" content="sleep deprivation" />
+  <meta slot="head" property="article:tag" content="sleep recovery" />
+  <meta slot="head" property="article:tag" content="chronic sleep restriction" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is a sleep science blog post on TheSleepMath.com that examines the peer-reviewed evidence on sleep debt — the cumulative neurobiological deficit from chronic sleep restriction. It centres on the Van Dongen et al. (2003) study showing that 14 days at 6 hours per night produces cognitive impairment equivalent to 2 nights of total sleep deprivation, with participants unable to perceive their own decline. It also covers recovery sleep research (Banks et al. 2010; Yamazaki et al. 2021; Guzzetti & Banks 2023), cardiometabolic risk from short sleep (Asmamaw et al. 2022 systematic review of 49 studies), and cardiovascular health consequences (Cabeza de Baca et al. 2019, N=22,082). It links to TheSleepMath calculators: sleep-debt, sleep-score, sleep-efficiency, sleep-cycle, nap, sleep-hygiene, insomnia-severity, sleep-apnea-risk." />
+  <meta slot="head" name="ai-summary" content="Sleep debt — the cumulative gap between sleep needed and sleep obtained — is a measurable neurobiological deficit. Van Dongen et al. (2003) showed that 14 days of 6-hour sleep produces cognitive impairment equivalent to 2 nights without sleep, and participants stop noticing the decline after a few days. Recovery requires multiple consecutive nights of extended sleep; a single lie-in is insufficient (Banks et al. 2010; Yamazaki et al. 2021). Chronic sleep debt is linked to higher cardiometabolic risk including coronary heart disease, hypertension, and type 2 diabetes (Asmamaw et al. 2022)." />
+  <meta slot="head" name="nlp-entities" content="sleep debt, sleep deprivation, chronic sleep restriction, sleep recovery, Van Dongen 2003, psychomotor vigilance task, cumulative cognitive deficit, cardiometabolic risk, cardiovascular health, type 2 diabetes, deep sleep, REM sleep, circadian misalignment, sleep architecture, dose-response" />
+  <meta slot="head" name="ai-content-type" content="health article, sleep science, evidence-based guide, research explainer" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="blog-post">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/blog">Blog</a>
+      <span class="sep">/</span>
+      <span>Sleep Debt Is Real — Here's the Math</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="post-header">
+      <div class="post-meta-top">
+        <span class="post-tag">Sleep Science</span>
+        <time datetime={publishDate}>20 May 2026</time>
+        <span class="read-time">8 min read</span>
+      </div>
+      <h1>Sleep Debt Is Real — <span class="pop">Here's the Math</span></h1>
+      <p class="article-intro">
+        You can survive on 6 hours a night. For a while. Then the bill arrives — and the most dangerous part is that you stop noticing it.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="Rumpled bed sheets in dim early-morning light with a clock showing 5:47 AM on the bedside table"
+      class="hero-img"
+      width="1344"
+      height="768"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="post-body">
+
+      <div class="tldr" role="region" aria-label="Summary">
+        <strong>TL;DR</strong>
+        <ul>
+          <li>Losing 1–2 hours of sleep per night <strong>compounds into measurable cognitive debt</strong> within days.</li>
+          <li>After 14 days at 6 hours/night, your brain performs as badly as someone who <strong>hasn't slept for 2 days straight</strong>.</li>
+          <li>The scariest part: you <strong>stop noticing the decline</strong> — self-assessment flatlines while performance keeps dropping.</li>
+          <li>One recovery night — even a generous 10-hour lie-in — <strong>does not erase the debt</strong>.</li>
+          <li>Chronic sleep debt is linked to <strong>higher cardiovascular and metabolic risk</strong>, including hypertension and type 2 diabetes.</li>
+          <li>Sleep debt is trackable and reversible — but only through <strong>consistent recovery over multiple nights</strong>, not a single weekend.</li>
+        </ul>
+      </div>
+
+      <p>
+        Everyone loses sleep. A late night here, an early alarm there. The phrase "I'll catch up on the weekend" has become the unofficial recovery plan of an entire civilisation. But sleep debt does not work like overdraft protection. It compounds — silently, cumulatively, and with a bill that arrives in your reaction time, your blood pressure, and your ability to notice any of it happening.
+      </p>
+      <p>
+        In 2003, a University of Pennsylvania team put precise numbers on this process. Those numbers reframed everything the field thought it knew about routine sleep restriction. This is not "get more sleep" advice. This is the maths — and unlike most health guidance, it comes with specific, falsifiable predictions about what happens when you ignore it.
+      </p>
+
+      <!-- ── Section 1 ── -->
+      <h2>1. What Sleep Debt Actually Is</h2>
+      <p>
+        Sleep debt is the running gap between the sleep your body needs and the sleep it actually gets. Not a metaphor. A measurable, accumulating deficit.
+      </p>
+      <p>
+        If your biological sleep need is 8 hours and you habitually get 6, you rack up 2 hours of debt per night — 14 hours across a standard working week. Unlike a financial balance, there is no minimum payment that holds the deficit steady. Every missed hour adds directly to the cognitive and physiological toll.
+      </p>
+      <p>
+        The concept was formalised in sleep science in the 1990s, but the definitive study proving just how steeply and relentlessly the debt accumulates came a decade later. If you want a snapshot of where your personal ledger stands right now, the <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> runs the arithmetic based on your sleep logs and estimated biological need.
+      </p>
+
+      <!-- ── Section 2 ── -->
+      <h2>2. 14 Days, 48 People, One Devastating Curve</h2>
+      <p>
+        In 2003, Hans Van Dongen and colleagues at the University of Pennsylvania published what became one of the most cited studies in sleep research. They recruited 48 healthy adults and randomly assigned them to one of four conditions for 14 consecutive nights: 8 hours in bed (control), 6 hours, or 4 hours — plus a separate comparison group held at zero hours for 3 consecutive days.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/12683469/" target="_blank" rel="noopener noreferrer">Cognitive performance declined on a cumulative, dose-dependent curve that never levelled off</a>. The primary measure was the psychomotor vigilance task (PVT), a stripped-down reaction-time test with no learning effect — essentially a pure readout of sustained attention. The 4-hour group's performance cratered within days. The 6-hour group deteriorated more gradually but, by day 14, their PVT lapses — moments of complete attentional failure — were statistically indistinguishable from someone who had been fully awake for 48 consecutive hours.
+      </p>
+      <p>
+        To make that concrete: two weeks of "six hours, not too bad" sleep produced the same measurable brain impairment as pulling two consecutive all-nighters.
+      </p>
+      <p>
+        The study also tracked working memory and subjective sleepiness. Working memory showed similar cumulative deficits under chronic restriction. And critically, every additional hour of wakefulness beyond approximately 15.84 hours per day — the threshold the 8-hour group maintained — carried a progressively steeper neurobiological cost. There was no plateau. No adaptation. No point where the brain stopped losing ground.
+      </p>
+      <p>
+        The 8-hour control group? Essentially flat across the entire 14 days. If you track a composite metric of your own nightly performance, the <a href="/sleep-score-calculator">Sleep Score Calculator</a> gives you a running picture of where things stand.
+      </p>
+
+      <!-- ── Section 3 ── -->
+      <h2>3. Why You Cannot Feel the Debt Accumulating</h2>
+      <p>
+        Here is the finding that matters most for anyone who believes they "function fine" on 6 hours.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/12683469/" target="_blank" rel="noopener noreferrer">Subjects' self-rated sleepiness tracked the decline at first — then flatlined after roughly 3 to 5 days, even as their objective performance continued to deteriorate</a>. Participants in the 6-hour and 4-hour groups accurately reported feeling sleepier for the first few nights. Then the self-reports plateaued. The PVT scores kept falling.
+      </p>
+      <p>
+        This subjective–objective gap is the central danger of chronic sleep restriction. The worse the debt gets, the less reliable your own assessment becomes. You feel adapted. The data say otherwise. In practical terms: the person who insists "I've always been a six-hour sleeper" may be running a debt so large they have lost the ability to perceive it.
+      </p>
+      <p>
+        It is exactly the mechanism Drake et al. documented for caffeine-related sleep disruption: objective instruments catch what your morning self-evaluation misses. The only reliable way to detect whether restriction is degrading your performance is to measure it — reaction-time tests, sleep efficiency tracking, or wearable-based deep-sleep metrics. Our <a href="/sleep-efficiency-calculator">Sleep Efficiency Calculator</a> tracks the ratio of time asleep to time in bed, giving you a number that does not depend on how refreshed you feel.
+      </p>
+
+      <!-- ── Section 4 ── -->
+      <h2>4. The Health Bill Beyond Cognition</h2>
+      <p>
+        Cognitive impairment is the most immediately measurable consequence of sleep debt, but it is not the most dangerous one.
+      </p>
+      <p>
+        <a href="https://www.frontiersin.org/articles/10.3389/fendo.2022.1064969/full" target="_blank" rel="noopener noreferrer">A 2022 systematic review of 49 studies using objective sleep measurements found a strong, consistent link between short sleep duration and higher cardiometabolic risk</a> — including coronary heart disease, hypertension, type 2 diabetes, and metabolic syndrome. The relationship between sleep and type 2 diabetes follows a U-shaped curve: both very short and very long durations increase risk, with the lowest odds at 7 to 8 hours per night.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/31361895/" target="_blank" rel="noopener noreferrer">A 2019 study of 22,082 women from the Women's Health Stress Study defined sleep debt as a weekday-to-weekend difference of 2 or more hours and found it significantly associated with poorer ideal cardiovascular health</a>, as measured by the American Heart Association's seven-factor metric covering blood pressure, cholesterol, glucose, BMI, smoking, physical activity, and diet. The association persisted after adjustment for income, education, depression, anxiety, and snoring.
+      </p>
+      <p>
+        The mechanisms linking sleep debt to metabolic dysfunction are increasingly well understood. Short sleep raises cortisol, reduces insulin sensitivity, and shifts appetite hormones — increasing ghrelin (hunger) while suppressing leptin (satiety). Over weeks and months, these hormonal shifts compound into clinically measurable changes in body composition, glucose regulation, and inflammatory markers.
+      </p>
+      <p>
+        This is not about rare clinical conditions. It is about the accumulated cardiovascular load of routinely undersleeping by an hour or two — the pattern millions of working adults sustain for years without a second thought. If you suspect your sleep loss has become chronic, the <a href="/insomnia-severity-calculator">Insomnia Severity Calculator</a> can help determine whether an underlying condition is compounding the debt.
+      </p>
+      <p>
+        For those whose sleep is fragmented by breathing disruptions, the <a href="/sleep-apnea-risk-calculator">Sleep Apnea Risk Calculator</a> is a useful screening step.
+      </p>
+
+      <!-- ── Section 5 ── -->
+      <h2>5. Recovery Is Not a Weekend</h2>
+      <p>
+        The intuitive fix for sleep debt is straightforward: sleep more. Specifically, sleep a lot on Saturday. The research says this helps — but is wildly insufficient.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/20815182/" target="_blank" rel="noopener noreferrer">Banks and colleagues took 159 adults, restricted them to 4 hours' time-in-bed for 5 consecutive nights, then gave them a single recovery night with doses ranging from 0 to 10 hours</a>. The result: even a 10-hour recovery night failed to fully restore PVT performance, subjective sleepiness, or fatigue ratings. The dose-response relationship was informative: participants given 2 hours of recovery showed almost no improvement; those given 6 hours improved partially; 10 hours brought substantial but incomplete recovery. Performance approached but did not reach baseline — suggesting diminishing returns from single-night recovery rather than a clean reset.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/33049062/" target="_blank" rel="noopener noreferrer">Yamazaki and colleagues pushed further, giving participants 4 consecutive nights of 12 hours' time-in-bed after 5 nights of restriction</a>. PVT lapses from chronic sleep debt still failed to fully recover. Even four long recovery nights left measurable residual cognitive deficits.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/37193276/" target="_blank" rel="noopener noreferrer">A 2023 review of the recovery sleep literature confirmed a crucial nuance</a>: the dynamics of recovery depend on the type of sleep loss. After acute total deprivation — pulling an all-nighter — recovery is relatively fast. One or two good nights restore most metrics. After chronic partial restriction — the 6-hours-a-night pattern most people actually live — recovery is slower, more fragmented, and less complete. Mood, sleepiness, and cognitive performance recover at different rates. You may feel better long before your reaction time returns to baseline.
+      </p>
+      <p>
+        This is why the "I'll sleep in on Sunday" strategy fails: it addresses the feeling of tiredness without resolving the underlying neurobiological deficit.
+      </p>
+
+      <div class="tip-box">
+        <strong>The recovery rule of thumb:</strong> After a week of restricted sleep, plan 3 to 4 consecutive nights of 8.5 to 9 hours before judging your baseline. A single weekend lie-in may improve mood, but objective cognitive performance lags behind by days. The <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> can help you structure those recovery nights around complete 90-minute cycles.
+      </div>
+
+      <!-- ── Section 6 ── -->
+      <h2>6. How to Track — and Repay — the Debt</h2>
+      <p>
+        The research points to three practical principles:
+      </p>
+      <p>
+        <strong>Know your need.</strong> Sleep need is genetically determined, age-dependent, and ranges from roughly 7 to 9 hours for most adults. If you have never measured yours, track your sleep for 2 to 4 weeks during a period with no alarm and no alcohol, and note where you naturally stabilise. That number is your personal zero line.
+      </p>
+      <p>
+        <strong>Count the deficit.</strong> Use a sleep diary or wearable to record total sleep time nightly. Compare it to your estimated need. The running gap is your debt. Even small gaps — 30 to 45 minutes per night — accumulate into 3.5 to 5 hours of deficit per week.
+      </p>
+      <p>
+        <strong>Pay it off gradually.</strong> Add 30 to 60 minutes per night rather than cramming 4 extra hours into Saturday morning. Consecutive recovery nights consistently outperform a single extended one. Aim for 3 to 4 recovery nights at 8.5 to 9 hours rather than one night at 12. Consistency matters more than duration: your circadian system rewards regular bed and wake times, reinforcing the sleep architecture — particularly deep sleep and REM — that is most impaired by debt.
+      </p>
+      <p>
+        A well-timed 20-minute afternoon nap can provide a useful cognitive bridge during the recovery period — our <a href="/nap-calculator">Nap Calculator</a> helps you time it so it does not interfere with nighttime sleep.
+      </p>
+      <p>
+        If you are consistently accumulating more than an hour of debt per night and struggling to close the gap, the problem is likely structural — screen habits, irregular schedules, or a sleep environment that works against you. The <a href="/sleep-hygiene-calculator">Sleep Hygiene Calculator</a> audits those factors and flags the highest-impact changes.
+      </p>
+
+      <!-- ── Bottom line ── -->
+      <h2 class="bottom-line">The Bottom Line</h2>
+      <p>
+        Sleep debt is not a metaphor. It is a measurable, cumulative, dose-dependent neurobiological deficit with documented consequences for cognition, cardiovascular health, and metabolic function.
+      </p>
+      <p>
+        The Van Dongen data showed, without ambiguity, that 6 hours a night for two weeks produces the same cognitive impairment as two nights without sleep — and that you will not feel it happening. The recovery data showed, equally clearly, that one good night does not erase the ledger.
+      </p>
+      <p>
+        The maths is unforgiving, but at least it is clear: know your need, count the gap, and pay it off with sustained, consistent sleep — not heroic weekends.
+      </p>
+      <p>
+        Not vibes. Real research.
+      </p>
+
+      <!-- ── Related reading ── -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the '8 Hours' Rule Is Wrong</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+          <li><a href="/blog/the-science-behind-your-chronotype">The Science Behind Your Chronotype</a></li>
+        </ul>
+      </div>
+
+      <!-- Tools Mentioned grid -->
+      <ToolsGrid
+        slugs={['sleep-debt-calculator', 'sleep-score-calculator', 'sleep-efficiency-calculator', 'sleep-cycle-calculator', 'nap-calculator', 'sleep-hygiene-calculator', 'insomnia-severity-calculator', 'sleep-apnea-risk-calculator']}
+        heading="Tools Mentioned in This Article"
+      />
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Van Dongen HP, Maislin G, Mullington JM, Dinges DF. (2003). The Cumulative Cost of Additional Wakefulness: Dose-Response Effects on Neurobehavioral Functions and Sleep Physiology From Chronic Sleep Restriction and Total Sleep Deprivation. <em>Sleep</em>, 26(2):117–126. <a href="https://pubmed.ncbi.nlm.nih.gov/12683469/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Banks S, Van Dongen HP, Maislin G, Dinges DF. (2010). Neurobehavioral Dynamics Following Chronic Sleep Restriction: Dose-Response Effects of One Night for Recovery. <em>Sleep</em>, 33(8):1013–1026. <a href="https://pubmed.ncbi.nlm.nih.gov/20815182/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Guzzetti JR, Banks S. (2023). Dynamics of Recovery Sleep From Chronic Sleep Restriction. <em>SLEEP Advances</em>, 4(1):zpac044. <a href="https://pubmed.ncbi.nlm.nih.gov/37193276/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Yamazaki EM, Antler CA, Lasek CR, Goel N. (2021). Residual, Differential Neurobehavioral Deficits Linger After Multiple Recovery Nights Following Chronic Sleep Restriction or Acute Total Sleep Deprivation. <em>Sleep</em>, 44(4):zsaa224. <a href="https://pubmed.ncbi.nlm.nih.gov/33049062/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Asmamaw DT, Tiruneh GM, Tadele AF, Asmare AG, Fentahun EE, Demelash KZ. (2022). Impact of Objectively-Measured Sleep Duration on Cardiometabolic Health: A Systematic Review of Recent Evidence. <em>Front Endocrinol</em>, 13:1064969. <a href="https://www.frontiersin.org/articles/10.3389/fendo.2022.1064969/full" target="_blank" rel="noopener noreferrer">Frontiers</a></li>
+          <li>Cabeza de Baca T, Chayama KL, Redline S, Slopen N, et al. (2019). Sleep Debt: The Impact of Weekday Sleep Deprivation on Cardiovascular Health in Older Women. <em>Sleep</em>, 42(10):zsz164. <a href="https://pubmed.ncbi.nlm.nih.gov/31361895/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This article is for informational purposes only and does not constitute medical advice. If you have persistent sleep difficulties, please consult a qualified healthcare provider.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* ── Blog post layout ── */
+  .blog-post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    padding: 1.25rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+
+  .breadcrumb a {
+    color: var(--text-soft);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .breadcrumb .sep {
+    margin: 0 0.35rem;
+    opacity: 0.4;
+  }
+
+  /* ── Post header ── */
+  .post-header {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .post-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .post-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .read-time::before {
+    content: '\00b7';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .post-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary);
+  }
+
+  .article-intro {
+    font-size: 1.12rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* ── Hero image ── */
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* ── TL;DR ── */
+  .tldr {
+    background: var(--bg-tint, #f4f3ff);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.15rem 1.35rem;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+
+  .tldr strong {
+    color: var(--text);
+  }
+
+  .tldr ul {
+    margin: 0.55rem 0 0;
+    padding-left: 1.15rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.4rem;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary);
+  }
+
+  /* ── Post body ── */
+  .post-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .post-body p {
+    margin-bottom: 1.35rem;
+  }
+
+  .post-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .post-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .post-body a:hover {
+    color: #5b4ee0;
+  }
+
+  /* ── Tip boxes ── */
+  .tip-box {
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .tip-box strong {
+    color: var(--primary);
+  }
+
+  /* ── Related reading ── */
+  .related-reading {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .related-reading h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+
+  .related-reading li::before {
+    content: '\2192 ';
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .related-reading a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── References ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .references em {
+    font-style: italic;
+  }
+
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .references a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Disclaimer ── */
+  .disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .blog-post {
+      padding: 0 1.25rem 3rem;
+    }
+
+    .post-meta-top {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+</style>
