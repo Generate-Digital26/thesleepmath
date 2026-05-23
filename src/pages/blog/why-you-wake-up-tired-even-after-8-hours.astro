@@ -1,0 +1,648 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Why You Wake Up Tired (Even After 8 Hours) — The Sleep Math';
+const description = 'Eight hours in bed does not guarantee eight hours of restoration. Here is what sleep inertia, low sleep efficiency, and fragmented architecture actually do to your mornings.';
+const canonical = 'https://thesleepmath.com/blog/why-you-wake-up-tired-even-after-8-hours';
+const heroImage = '/images/blog/why-you-wake-up-tired-even-after-8-hours-hero.jpg';
+const ogImage = '/images/blog/why-you-wake-up-tired-even-after-8-hours-og.png';
+const publishDate = '2026-05-23';
+const modifiedDate = '2026-05-23';
+
+const defined = {
+  title,
+  description,
+  canonical,
+  heroImage,
+  ogImage,
+  publishDate,
+  modifiedDate,
+};
+
+const toolsMentioned = [
+  'sleep-efficiency',
+  'sleep-cycle-calculator',
+  'sleep-score-calculator',
+  'sleep-latency',
+  'chronotype-quiz',
+  'sleep-apnea-risk',
+  'sleep-hygiene',
+  'wake-time-calculator',
+  'light-exposure-calculator',
+  'sleep-debt',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="sleep inertia" />
+    <meta property="article:tag" content="sleep efficiency" />
+    <meta property="article:tag" content="sleep fragmentation" />
+    <meta property="article:tag" content="sleep cycles" />
+    <meta property="article:tag" content="morning tiredness" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Evidence-based sleep science article explaining why people wake up tired despite sleeping eight hours. Covers sleep inertia, sleep efficiency, sleep fragmentation, sleep cycle timing, and clinical conditions. Cites peer-reviewed research from Jewett et al. 1999, Trotti 2017, Korean nationwide study 2025, Akerstedt et al. 2023, Lecomte et al. 2022, and Fujisawa et al. 2022." />
+    <meta name="ai-summary" content="Sleeping eight hours does not guarantee feeling rested. Sleep inertia impairs cognition for up to 2-4 hours after waking, with a mean grogginess period of 15.8 minutes. Sleep efficiency (time asleep divided by time in bed) predicts next-day sleepiness more reliably than total sleep time. Sleep fragmentation degrades slow-wave and REM sleep even when total duration is preserved, impairing working memory and executive function. Waking from slow-wave sleep produces the worst inertia. Persistent morning exhaustion may indicate idiopathic hypersomnia, mood disorders, or obstructive sleep apnoea." />
+    <meta name="nlp-entities" content="sleep inertia, sleep efficiency, sleep fragmentation, slow-wave sleep, REM sleep, WASO, microarousals, chronotype, idiopathic hypersomnia, obstructive sleep apnoea, UARS, sleep architecture, circadian rhythm, sleep drunkenness, N3 sleep, N2 sleep, working memory, cognitive impairment" />
+    <meta name="ai-content-type" content="educational health article" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Why You Wake Up Tired (Even After 8 Hours)",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "sleep inertia, sleep efficiency, sleep fragmentation, waking up tired, sleep quality, sleep cycles, morning tiredness"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Why do I wake up tired after sleeping 8 hours?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sleeping eight hours does not guarantee restorative sleep. The most common causes are low sleep efficiency (too much time awake in bed), fragmented sleep architecture that degrades slow-wave and REM stages, sleep inertia upon waking, and waking at the wrong point in your sleep cycle. Anxiety, evening chronotype, and underlying conditions such as sleep apnoea can all amplify morning tiredness."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is sleep inertia and how long does it last?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sleep inertia is the transitional state of impaired alertness and cognition that occurs immediately after waking. Research shows it takes approximately 2 to 4 hours to fully dissipate, with alertness recovering faster (time constant of about 0.67 hours) than cognitive performance (time constant of about 1.17 hours). The average grogginess period is around 15.8 minutes, though it is worse when you wake from deep slow-wave sleep or during the biological night."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is sleep efficiency and why does it matter?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sleep efficiency is the percentage of time you are actually asleep while in bed, calculated as total sleep time divided by total time in bed multiplied by 100. Research on 400 women found that sleep efficiency predicted next-day sleepiness while total sleep time did not. A sleep efficiency above 90 per cent is associated with the lowest levels of daytime sleepiness."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can sleep fragmentation make you tired even with enough sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Studies show that even when total sleep time is preserved, fragmented sleep reduces the amount of deep N3 and REM sleep, increases subjective fatigue, and impairs cognitive functions including inhibition and working memory. Wake after sleep onset (WASO) is the single most significant factor predicting worse working memory performance."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "When should I see a doctor about waking up tired?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You should consult a sleep specialist if morning tiredness persists despite consistent sleep schedules and good sleep hygiene, if you experience severe sleep drunkenness lasting more than 30 minutes, if a bed partner reports loud snoring or breathing pauses, if you have excessive daytime sleepiness that interferes with daily activities, or if you suspect a mood disorder is affecting your sleep quality."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Why You Wake Up Tired (Even After 8 Hours)",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">Why You Wake Up Tired (Even After 8 Hours)</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Sleep Science</span>
+        <h1>Why You Wake Up Tired (Even After 8 Hours)</h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>23 May 2026</time> · 10 min read
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="Person lying in bed looking exhausted despite a full night of sleep, morning light filtering through curtains"
+        width="1200"
+        height="630"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>Sleep inertia impairs your brain for up to 2&#8211;4 hours after waking, with an average grogginess window of about 16 minutes. Anxiety is the strongest amplifier.</li>
+            <li>Sleep efficiency (time asleep &#247; time in bed) predicts next-day sleepiness far better than total hours. Aim for above 90 per cent.</li>
+            <li>Fragmented sleep degrades deep and REM stages even when your total sleep time stays the same, impairing memory and executive function.</li>
+            <li>Waking from slow-wave sleep produces the worst inertia. Aligning your alarm to the end of a 90-minute cycle helps.</li>
+            <li>Persistent morning exhaustion despite good habits may signal idiopathic hypersomnia, a mood disorder, or obstructive sleep apnoea.</li>
+          </ul>
+        </div>
+
+        <p>
+          You went to bed at a reasonable hour. You set no alarms earlier than necessary. You logged a solid eight hours. And yet you woke up feeling as though you had barely slept at all. The frustration is familiar to millions, and the standard advice&#8212;&#8220;just sleep more&#8221;&#8212;misses the point entirely. Eight hours in bed does not guarantee eight hours of restoration. The real story involves a sluggish brain transition called sleep inertia, a metric most people have never heard of called sleep efficiency, and the invisible fractures in your sleep architecture that no fitness tracker adequately captures.
+        </p>
+        <p>
+          Here is what the research actually says about why you wake up tired, and what you can do about it.
+        </p>
+
+        <!-- SECTION 1 -->
+        <h2>1. Sleep Inertia: The Biological Lag</h2>
+
+        <p>
+          Your brain does not have a power switch. When your alarm fires, you are not transitioning from &#8220;off&#8221; to &#8220;on&#8221;&#8212;you are dragging yourself through a neurological fog that researchers call <strong>sleep inertia</strong>. It is the transient period of impaired alertness, reduced vigilance, and diminished cognitive performance that follows the transition from sleep to wakefulness. And it lasts far longer than most people realise.
+        </p>
+        <p>
+          A landmark forced-desynchrony study found that <a href="https://pubmed.ncbi.nlm.nih.gov/10188130/" target="_blank" rel="noopener noreferrer">sleep inertia takes between 2 and 4 hours to fully dissipate</a>. Alertness recovered with a time constant of roughly 0.67 hours, but cognitive performance lagged behind at 1.17 hours. In other words, you may feel somewhat awake after 40 minutes, but your brain is not performing at its best for considerably longer.
+        </p>
+        <p>
+          How severe is that initial window? A <a href="https://pubmed.ncbi.nlm.nih.gov/41481618/" target="_blank" rel="noopener noreferrer">2025 Korean nationwide study of 2,355 adults</a> measured the average duration of perceived sleep inertia at 15.8 minutes, with a standard deviation of 12.9 minutes&#8212;meaning a substantial proportion of people experience grogginess lasting well beyond half an hour. The study also identified <strong>anxiety</strong> as the single strongest predictor of prolonged sleep inertia, with a large effect size (Cohen&#8217;s d = 1.12). Evening chronotype, insomnia symptoms, and excessive daytime sleepiness were all positively associated as well. If you tend towards being a <a href="/chronotype-quiz">night owl</a>, your inertia is likely to be worse than average.
+        </p>
+        <p>
+          The circumstances of waking matter too. A comprehensive review described sleep inertia as being <a href="https://pubmed.ncbi.nlm.nih.gov/27692973/" target="_blank" rel="noopener noreferrer">&#8220;the hardest thing I do all day&#8221; for many patients</a>, and identified two key amplifiers: being woken during the <strong>biological night</strong> (when your circadian system expects you to be asleep) and being pulled out of <strong>slow-wave sleep</strong> (the deepest stage of non-REM sleep). Prior sleep deprivation compounds both factors. So if you stayed up late, set an early alarm, and happened to catch it during a deep-sleep phase, you have hit the trifecta for maximal grogginess.
+        </p>
+
+        <div class="tip-box">
+          <strong>Practical note:</strong> If your mornings feel disproportionately difficult and you also experience significant anxiety, the Korean data suggests these two problems are reinforcing each other. Addressing anxiety&#8212;through clinical support, structured wind-down routines, or cognitive behavioural strategies&#8212;may improve your mornings more than adding extra sleep time.
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2>2. Sleep Efficiency Matters More Than Duration</h2>
+
+        <p>
+          There is a number that matters more than how many hours you spend in bed, and most people have never calculated it. <strong>Sleep efficiency</strong> is the ratio of time you are actually asleep to the total time you spend in bed, expressed as a percentage.
+        </p>
+        <p>
+          The formula is simple:
+        </p>
+        <p>
+          <strong>Sleep Efficiency = (Total Sleep Time &#247; Time in Bed) &#215; 100</strong>
+        </p>
+        <p>
+          If you climb into bed at 22:00 and get up at 06:00, you have spent 8 hours in bed. But if it took you 30 minutes to fall asleep, you woke for 20 minutes in the middle of the night, and you lay awake for 10 minutes before getting up, your actual sleep time was 7 hours. That gives you a sleep efficiency of 87.5 per cent. Not catastrophic, but not optimal either.
+        </p>
+        <p>
+          Why does this matter so much? A <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10104359/" target="_blank" rel="noopener noreferrer">2023 study of 400 women</a> found that sleep efficiency significantly predicted next-day sleepiness&#8212;but total sleep time did <em>not</em>. The women who maintained a sleep efficiency above 90 per cent reported the lowest levels of daytime sleepiness, regardless of whether they slept seven hours or eight. The implication is stark: spending more time in bed while sleeping inefficiently does not help and may actually make things worse by training your brain to associate the bed with wakefulness.
+        </p>
+        <p>
+          You can estimate your own sleep efficiency using our <a href="/sleep-efficiency">sleep efficiency calculator</a>. If the number comes back below 85 per cent, that is a stronger explanation for your morning fatigue than total hours. A high <a href="/sleep-latency">sleep latency</a>&#8212;the time it takes you to fall asleep&#8212;and accumulated <a href="/sleep-debt">sleep debt</a> both erode efficiency. Paradoxically, the fix is often to spend <em>less</em> time in bed. Sleep restriction therapy, a core component of cognitive behavioural therapy for insomnia, works precisely by compressing your time in bed to match your actual sleep time, thereby driving efficiency up.
+        </p>
+
+        <div class="tip-box">
+          <strong>Quick self-check:</strong> For the next week, note when you get into bed, when you estimate you fell asleep, any awakenings during the night, and when you get out of bed. Divide estimated sleep time by time in bed. If the average falls below 85 per cent, your efficiency&#8212;not your duration&#8212;is the likely culprit.
+        </div>
+
+        <!-- SECTION 3 -->
+        <h2>3. Fragmented Sleep: The Arousals You Don&#8217;t Remember</h2>
+
+        <p>
+          You might sleep for eight hours and remember waking only once to use the bathroom. But your brain may have experienced dozens of brief arousals&#8212;micro-awakenings lasting just seconds&#8212;that you have no conscious memory of. These micro-arousals fragment your sleep architecture without reducing your total sleep time, and the consequences are measurable.
+        </p>
+        <p>
+          A <a href="https://www.mdpi.com/1660-4601/19/23/15485" target="_blank" rel="noopener noreferrer">2022 controlled study used auditory stimuli across three consecutive nights</a> to induce sleep fragmentation while preserving total sleep time. Despite sleeping for the same duration as the control group, participants in the fragmentation condition showed significant reductions in both <strong>N3 (deep slow-wave) sleep</strong> and <strong>REM sleep</strong>. They reported increased subjective fatigue, and their performance on inhibition tasks&#8212;the ability to suppress automatic responses&#8212;deteriorated. The architecture of their sleep had been hollowed out even though the quantity remained intact.
+        </p>
+        <p>
+          The cognitive toll is specific and well-documented. A separate <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8764943/" target="_blank" rel="noopener noreferrer">2022 study examining working memory through a 2-back task</a> identified <strong>wake after sleep onset (WASO)</strong>&#8212;the total time spent awake after initially falling asleep&#8212;as the single most significant predictor of impaired working memory performance. Reduced N2 sleep also contributed. Crucially, total sleep time was not the decisive factor. Two people can sleep for the same number of hours, and the one with greater fragmentation will perform measurably worse on tasks requiring sustained mental effort.
+        </p>
+        <p>
+          What causes this fragmentation? The list is long: environmental noise, a partner&#8217;s movements, temperature fluctuations, alcohol consumption (which fragments the second half of the night), and&#8212;most insidiously&#8212;breathing disturbances like obstructive sleep apnoea and upper-airway resistance syndrome. Many people with these conditions are entirely unaware of their hundreds of nightly arousals. They see eight hours on the clock and cannot understand why they feel dreadful.
+        </p>
+
+        <!-- SECTION 4 -->
+        <h2>4. Waking at the Wrong Point in Your Cycle</h2>
+
+        <p>
+          Sleep is not a uniform state. You cycle through distinct stages approximately every 90 minutes: light sleep (N1 and N2), deep slow-wave sleep (N3), and REM sleep. Each cycle is not identical&#8212;the early cycles of the night are heavier in deep sleep, while the later cycles are richer in REM&#8212;but the 90-minute rhythm is broadly consistent.
+        </p>
+        <p>
+          Where you are in that cycle when your alarm sounds has a dramatic effect on how you feel. As the clinical review of sleep inertia made clear, <a href="https://pubmed.ncbi.nlm.nih.gov/27692973/" target="_blank" rel="noopener noreferrer">awakenings from slow-wave sleep produce the most severe inertia</a>. Deep sleep involves highly synchronised, low-frequency brain activity&#8212;your cortex is, in a meaningful sense, further from wakefulness than at any other point in the night. Being yanked out of it is neurologically expensive.
+        </p>
+        <p>
+          This is why two people who both sleep for 7.5 hours can have wildly different mornings. One wakes naturally at the end of a REM period, feeling alert within minutes. The other&#8217;s alarm catches them 30 minutes into a deep-sleep phase, and they spend the next hour feeling as though they are moving through wet concrete.
+        </p>
+        <p>
+          The practical application is <strong>cycle alignment</strong>. If you know roughly when you fall asleep, you can set your alarm in multiples of approximately 90 minutes&#8212;so 6 hours, 7.5 hours, or 9 hours rather than 7 or 8. Our <a href="/sleep-cycle-calculator">sleep cycle calculator</a> can help you estimate optimal wake times based on your target bedtime. This is not a perfect science&#8212;cycle length varies between individuals and across the night&#8212;but aiming for the end of a cycle rather than the middle of one is a meaningful improvement.
+        </p>
+
+        <div class="tip-box">
+          <strong>Why &#8220;90 minutes&#8221; is an approximation:</strong> Individual cycle length ranges from about 80 to 120 minutes and tends to lengthen across the night. If you consistently wake groggy despite cycle-aligned alarms, your personal cycle may be shorter or longer than average. A sleep tracker that detects light-sleep windows can help you refine the timing.
+        </div>
+
+        <!-- SECTION 5 -->
+        <h2>5. When Tiredness Signals Something Deeper</h2>
+
+        <p>
+          For most people, morning tiredness is a product of the factors above: inertia, low efficiency, fragmentation, or poor cycle timing. But persistent, severe morning exhaustion that does not respond to behavioural changes can signal an underlying condition that requires clinical attention.
+        </p>
+        <p>
+          <strong>Idiopathic hypersomnia</strong> is a neurological sleep disorder characterised by excessive daytime sleepiness despite adequate&#8212;or even extended&#8212;sleep duration. One of its hallmark features is profound <a href="https://pubmed.ncbi.nlm.nih.gov/27692973/" target="_blank" rel="noopener noreferrer">&#8220;sleep drunkenness&#8221;: an extreme and prolonged form of sleep inertia</a> in which patients struggle to become fully alert for 30 minutes to several hours after waking. They may behave confusedly, turn off multiple alarms without remembering doing so, or be unable to engage in conversation. If this description resonates, it is worth discussing with a sleep specialist.
+        </p>
+        <p>
+          <strong>Mood disorders</strong> have a bidirectional relationship with sleep. Depression in particular is associated with altered sleep architecture&#8212;reduced slow-wave sleep, increased REM density, and more frequent awakenings&#8212;all of which degrade sleep quality even when duration appears normal. The sleep inertia review noted that sleep drunkenness is disproportionately reported in patients with mood disorders, suggesting that the neurological transition from sleep to wakefulness is itself impaired.
+        </p>
+        <p>
+          <strong>Obstructive sleep apnoea (OSA)</strong> and <strong>upper-airway resistance syndrome (UARS)</strong> are among the most common and most under-diagnosed causes of unrefreshing sleep. OSA involves repeated partial or complete airway collapse during sleep, triggering brief arousals that the sleeper rarely remembers. UARS produces similar arousals from increased respiratory effort without meeting the formal criteria for apnoea. Both conditions can produce hundreds of micro-awakenings per night, devastating sleep architecture while leaving total sleep time apparently intact. You can gauge your risk with our <a href="/sleep-apnea-risk">sleep apnoea risk assessment</a>. Classic warning signs include loud snoring, witnessed breathing pauses, morning headaches, and a dry mouth upon waking.
+        </p>
+
+        <!-- SECTION 6 -->
+        <h2>6. What This Means for Your Mornings</h2>
+
+        <p>
+          If you are consistently waking up tired, the evidence points to a clear set of priorities&#8212;and &#8220;sleep more hours&#8221; is not at the top of the list.
+        </p>
+        <p>
+          <strong>Track sleep efficiency, not just duration.</strong> Use our <a href="/sleep-efficiency">sleep efficiency calculator</a> or a sleep diary to determine what percentage of your time in bed is spent actually sleeping. If it is below 85 per cent, improving efficiency will likely help more than adding time. The <a href="/sleep-score-calculator">sleep score calculator</a> can give you a composite picture of where your sleep quality stands.
+        </p>
+        <p>
+          <strong>Keep a consistent wake time.</strong> Your circadian system anchors to your wake time more than your bedtime. Varying your alarm by an hour or more on weekends shifts your biological clock and increases sleep inertia on Monday morning. Use the <a href="/wake-time-calculator">wake time calculator</a> to find a sustainable schedule that aligns with your obligations and your biology.
+        </p>
+        <p>
+          <strong>Get morning light exposure.</strong> Bright light in the first 30&#8211;60 minutes after waking is the single most powerful signal for resetting your circadian clock and suppressing melatonin. It accelerates the dissipation of sleep inertia and promotes earlier sleep onset the following night. Our <a href="/light-exposure-calculator">light exposure calculator</a> can help you estimate whether you are getting enough.
+        </p>
+        <p>
+          <strong>Avoid waking mid-cycle.</strong> Use the <a href="/sleep-cycle-calculator">sleep cycle calculator</a> to estimate alarm times that coincide with the end of a sleep cycle rather than the middle of deep sleep. Even a 15-minute shift in your alarm can make a noticeable difference.
+        </p>
+        <p>
+          <strong>Address fragmentation sources.</strong> Evaluate your sleep environment for noise, light, and temperature disruptions. If you drink alcohol, note that even moderate consumption fragments the second half of the night. Review your <a href="/sleep-hygiene">sleep hygiene</a> practices systematically rather than relying on a single change.
+        </p>
+        <p>
+          <strong>Know when to see a doctor.</strong> If morning tiredness persists despite consistent schedules, good hygiene, and adequate time in bed&#8212;or if you experience severe sleep drunkenness, loud snoring, witnessed apnoeas, or daytime sleepiness that interferes with functioning&#8212;consult a sleep specialist. A clinical sleep study can identify architectural problems, breathing disturbances, and movement disorders that no consumer device can detect.
+        </p>
+
+        <!-- SECTION 7 -->
+        <h2>The Bottom Line</h2>
+
+        <p>
+          Eight hours in bed is a starting point, not a guarantee. Your morning alertness depends on how efficiently you sleep, how intact your sleep architecture remains, which stage of sleep you wake from, and how your brain navigates the biological fog of sleep inertia. The research is unambiguous: sleep efficiency predicts next-day sleepiness where total sleep time does not, fragmentation degrades cognitive performance even when duration is preserved, and anxiety amplifies the grogginess you feel upon waking. The path to better mornings is not about spending more time in bed&#8212;it is about understanding what happens during the hours you are already there, and making targeted changes based on the metrics that actually matter.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid tools={toolsMentioned} title="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/the-science-behind-your-chronotype">The Science Behind Your Chronotype</a></li>
+            <li><a href="/blog/sleep-debt-is-real-heres-the-math">Sleep Debt Is Real &#8212; Here&#8217;s the Math</a></li>
+            <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+            <li><a href="/blog/why-8-hours-rule-is-wrong">Why the 8-Hours Rule Is Wrong</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Jewett, M. E., Wyatt, J. K., Ritz-De Cecco, A., Khalsa, S. B., Dijk, D. J., &amp; Czeisler, C. A. (1999). Time course of sleep inertia dissipation in human performance and alertness. <em>Journal of Sleep Research</em>, 8(1), 1&#8211;8. <a href="https://pubmed.ncbi.nlm.nih.gov/10188130/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Trotti, L. M. (2017). Waking up is the hardest thing I do all day: Sleep inertia and sleep drunkenness. <em>Sleep Medicine Reviews</em>, 35, 76&#8211;84. <a href="https://pubmed.ncbi.nlm.nih.gov/27692973/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Korean nationwide cross-sectional study (2025). Sleep inertia in a general adult population: Prevalence, duration, and associated factors. N = 2,355. <a href="https://pubmed.ncbi.nlm.nih.gov/41481618/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>&Aring;kerstedt, T., et al. (2023). Sleep efficiency predicts next-day sleepiness in women: A prospective study of 400 participants. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10104359/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Lecomte, Y., et al. (2022). Three nights of auditory-induced sleep fragmentation: Reduced N3 and REM sleep, increased fatigue, and impaired inhibition despite preserved total sleep time. <em>International Journal of Environmental Research and Public Health</em>, 19(23), 15485. <a href="https://www.mdpi.com/1660-4601/19/23/15485" target="_blank" rel="noopener noreferrer">MDPI</a></li>
+            <li>Fujisawa, C., et al. (2022). Wake after sleep onset and reduced N2 sleep predict impaired working memory performance. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8764943/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c3aed);
+  }
+
+  .tip-box {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .tip-box strong {
+    color: var(--primary, #7c3aed);
+  }
+
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  .disclaimer p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .post-body {
+      font-size: 1rem;
+    }
+  }
+</style>
