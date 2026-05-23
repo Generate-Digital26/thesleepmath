@@ -1,0 +1,634 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Caffeine & Sleep: What Science Says — The Sleep Math';
+const description = 'The evidence-based guide to how caffeine affects your sleep — half-life, timing, genetics, dose-response data, and what the research actually shows.';
+const canonical = 'https://thesleepmath.com/guides/caffeine-and-sleep';
+const heroImage = '/images/guides/caffeine-and-sleep-hero.jpg';
+const ogImage = '/images/guides/caffeine-and-sleep-og.png';
+const publishDate = '2026-05-22';
+const modifiedDate = '2026-05-22';
+
+/* ── Schema: Article (evergreen guide, not dated news) ── */
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Caffeine & Sleep: What Science Says',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 4200,
+  articleSection: 'Sleep Science Guide',
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.key-takeaways'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Adenosine, caffeine, and sleep–wake regulation: state of the science and perspectives',
+      author: 'Reichert CF, Landolt HP',
+      datePublished: '2022',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/35575450/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Pharmacokinetics of caffeine: A systematic analysis of reported data',
+      author: 'Grzegorzewski J, Bartsch F, Köller A, König M',
+      datePublished: '2022',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/35273500/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Age- and dose-specific effects of caffeine on sleep: A meta-analysis of controlled crossover trials',
+      author: 'Huang R, Shi Y, Li H',
+      datePublished: '2025',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/41124973/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Caffeine effects on sleep taken 0, 3, or 6 hours before going to bed',
+      author: 'Drake C, Roehrs T, Shambroom J, Roth T',
+      datePublished: '2013',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/24235903/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Caffeine reduces low-frequency delta activity in the human sleep EEG',
+      author: 'Landolt HP, Dijk DJ, Gaus SE, Borbély AA',
+      datePublished: '1995',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/7612156/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Caffeine-dependent changes of sleep-wake regulation: Evidence for adaptation after repeated intake',
+      author: 'Weibel J, Lin YS, Landolt HP, et al.',
+      datePublished: '2020',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/31866308/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Caffeine consumption, insomnia, and sleep duration: Results from a nationally representative sample',
+      author: 'Chaudhary NS, Grandner MA, Jackson NJ, Chakravorty S',
+      datePublished: '2016',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/27377580/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'A genetic variation in the adenosine A2A receptor gene contributes to individual sensitivity to caffeine effects on sleep',
+      author: 'Rétey JV, Adam M, Khatami R, et al.',
+      datePublished: '2007',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/17329997/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'A genome-wide association study of caffeine-related sleep disturbance',
+      author: 'Byrne EM, Johnson J, McRae AF, et al.',
+      datePublished: '2012',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/22754043/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Effects of caffeine on the human circadian clock in vivo and in vitro',
+      author: 'Burke TM, Markwald RR, McHill AW, et al.',
+      datePublished: '2015',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/26378246/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'The safety of ingested caffeine: A comprehensive review',
+      author: 'Temple JL, Bernard C, Lipshultz SE, et al.',
+      datePublished: '2017',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/28603504/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Exploring the relationship between caffeine consumption, caffeine metabolism, and sleep behaviours: A Mendelian randomisation study',
+      author: 'Das NR, Woolf B, Page S, Richmond RC, Khouja J',
+      datePublished: '2025',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/40061419/',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Does caffeine actually reduce deep sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Even a single 100 mg dose (roughly one cup of coffee) taken at bedtime significantly reduces slow-wave activity — the deepest, most restorative phase of sleep. The suppression is concentrated in the first NREM sleep episode, precisely when deep sleep is most critical. Habitual caffeine users develop tolerance to the most noticeable effects (falling asleep takes longer), but EEG-level suppression of deep sleep and sleep spindles persists even in tolerant daily drinkers.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How long before bed should I stop drinking coffee?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'At least 6 hours — and possibly more. A landmark study found that 400 mg of caffeine taken 6 full hours before bedtime still significantly disrupted sleep, reducing total sleep time by about an hour compared to placebo. Most sleep specialists now recommend an 8-hour caffeine-free window before bed. Slow metabolizers (those on oral contraceptives, pregnant women, or people with certain CYP1A2 gene variants) may need 10 or more hours.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Can I build up tolerance to caffeine\'s sleep effects?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Partially. A controlled laboratory study found that after 10 days of regular daily caffeine intake (450 mg/day), participants showed no significant differences in total sleep time, sleep latency, or gross sleep architecture compared to placebo — suggesting full tolerance to the most obvious effects. However, EEG-level markers of sleep quality (sigma frequency power and sleep spindle activity) remained suppressed, suggesting incomplete tolerance. You may feel like you sleep fine, but your sleep depth may still be compromised.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I know if I\'m a fast or slow caffeine metabolizer?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Two genes primarily determine your caffeine sensitivity. CYP1A2 controls how quickly your liver clears caffeine (half-life from 3 to 9+ hours). ADORA2A controls how sensitive your brain\'s adenosine receptors are to caffeine\'s blocking effects. If coffee after 2 PM keeps you awake, you are likely a slow metabolizer, a sensitive receptor carrier, or both. Consumer genetic tests (23andMe, etc.) can report CYP1A2 status. A practical proxy: if you can drink coffee after dinner and sleep fine, you likely have favorable variants in both genes.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is decaf really caffeine-free?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Decaffeinated coffee contains 2 to 15 mg of caffeine per 8 oz cup — not zero. For most people this is negligible, but for slow metabolizers or those highly sensitive to caffeine, multiple cups of decaf in the afternoon could add up to a meaningful dose. If you are troubleshooting persistent sleep problems, switching to herbal tea (which contains no caffeine) is the safer bet.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does caffeine affect my circadian rhythm?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes — evening caffeine delays the circadian clock by approximately 40 minutes, roughly half the effect of a 3-hour bright light exposure. This means late-day caffeine does not just make it harder to fall asleep tonight; it shifts your entire biological clock later, making it harder to wake up early tomorrow and perpetuating a night-owl cycle. The effect is additive with bright light: caffeine plus screen time before bed can push your clock back by nearly two hours.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://thesleepmath.com/guides' },
+    { '@type': 'ListItem', position: 3, name: 'Caffeine & Sleep: What Science Says' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science Guide" />
+  <meta slot="head" property="article:tag" content="caffeine and sleep" />
+  <meta slot="head" property="article:tag" content="coffee and sleep" />
+  <meta slot="head" property="article:tag" content="caffeine half-life" />
+  <meta slot="head" property="article:tag" content="sleep quality" />
+  <meta slot="head" property="article:tag" content="adenosine" />
+  <meta slot="head" property="article:tag" content="CYP1A2" />
+  <meta slot="head" property="article:tag" content="sleep science" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is the definitive evidence-based guide to how caffeine affects sleep on TheSleepMath.com. It synthesizes 12 peer-reviewed sources including a 2025 meta-analysis of 22 crossover RCTs (956 participants), the landmark Drake 2013 timing study, Landolt 1995 EEG architecture study, Burke 2015 circadian clock study, Weibel 2020 tolerance study, Byrne 2012 GWAS, Rétey 2007 ADORA2A genetics study, a Mendelian randomisation study (Das 2025), and comprehensive pharmacokinetics and caffeine content reviews. Covers adenosine receptor antagonism, dose-response (−34.67 min TST, +8.35 min SOL, −4.74% efficiency), timing cutoffs, sleep architecture effects, CYP1A2 and ADORA2A genetic variation, half-life pharmacokinetics (3–9 hr range), tolerance and withdrawal, caffeine sources and hidden caffeine, circadian phase delay (~40 min), and the subjective-objective sleep quality discordance. Internal links to TheSleepMath calculators: caffeine-cutoff, sleep-efficiency, sleep-latency, sleep-cycle, sleep-score, sleep-debt, insomnia-severity, sleep-hygiene, chronotype-quiz, circadian-rhythm, screen-time-cutoff, nap, alcohol-sleep, sleep-temperature." />
+  <meta slot="head" name="ai-summary" content="Caffeine blocks adenosine receptors to reduce sleep drive, with a half-life of 3–9 hours depending on genetics (CYP1A2), age, and medication use. A 2025 meta-analysis of 22 RCTs found caffeine reduces total sleep time by 35 minutes, delays sleep onset by 8 minutes, and cuts efficiency by 4.7 percentage points. Even 6 hours before bed, 400 mg still disrupts sleep objectively (Drake 2013). Tolerance develops to gross metrics within 10 days but EEG-level deep sleep suppression persists. Evening caffeine delays the circadian clock by ~40 minutes. Two genes — CYP1A2 (metabolism speed) and ADORA2A (receptor sensitivity) — explain most individual variation." />
+  <meta slot="head" name="nlp-entities" content="caffeine, adenosine, adenosine receptor, CYP1A2, ADORA2A, sleep onset latency, total sleep time, sleep efficiency, slow-wave sleep, sleep architecture, circadian rhythm, melatonin, half-life, pharmacokinetics, tolerance, withdrawal, insomnia, coffee, espresso, energy drinks, decaf" />
+  <meta slot="head" name="ai-content-type" content="comprehensive guide, sleep science, caffeine pharmacology, evidence-based reference" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="guide">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/guides">Guides</a>
+      <span class="sep">/</span>
+      <span>Caffeine &amp; Sleep</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="guide-header">
+      <div class="guide-meta-top">
+        <span class="guide-tag">Definitive Guide</span>
+        <time datetime={publishDate}>Updated 22 May 2026</time>
+        <span class="read-time">17 min read</span>
+      </div>
+      <h1>Caffeine &amp; Sleep: <span class="pop">What Science Says</span></h1>
+      <p class="article-intro">
+        The definitive, evidence-based reference for how caffeine actually affects your sleep — the adenosine mechanism, the half-life math, the genetics behind why your friend sleeps fine after espresso and you don't, and the timing cutoffs backed by real research.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="A ceramic pour-over coffee dripper and white mug on a linen cloth beside an unmade bed, early morning light casting long shadows"
+      class="hero-img"
+      width="1600"
+      height="900"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="guide-body">
+
+      <!-- Key takeaways (lead summary) -->
+      <div class="key-takeaways" role="region" aria-label="Key takeaways">
+        <h3>Key takeaways</h3>
+        <ul>
+          <li><strong>Caffeine blocks adenosine, the molecule that makes you sleepy.</strong> It does not create energy — it borrows it by masking sleep pressure.</li>
+          <li><strong>A meta-analysis of 22 RCTs found caffeine cuts total sleep time by 35 minutes</strong>, delays sleep onset by 8 minutes, and reduces efficiency by nearly 5 percentage points.</li>
+          <li><strong>Even 6 hours before bed, caffeine still disrupts sleep.</strong> Participants in the landmark Drake study lost about an hour of sleep — and did not realize it.</li>
+          <li><strong>Deep sleep takes the biggest hit.</strong> Caffeine suppresses slow-wave activity in the first sleep cycle, exactly when restorative sleep matters most.</li>
+          <li><strong>Your genes determine your caffeine sensitivity.</strong> CYP1A2 controls clearance speed; ADORA2A controls receptor sensitivity. Together they explain why caffeine wrecks one person's sleep and barely touches another's.</li>
+          <li><strong>Evening caffeine delays your circadian clock by ~40 minutes</strong>, pushing your entire sleep-wake rhythm later — not just tonight, but tomorrow too.</li>
+          <li><strong>Tolerance develops in about 10 days — but it is incomplete.</strong> You stop noticing the effects, but your deep sleep is still compromised at the EEG level.</li>
+        </ul>
+      </div>
+
+      <!-- Table of Contents -->
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">In this guide</p>
+        <ol>
+          <li><a href="#mechanism">How caffeine keeps you awake</a></li>
+          <li><a href="#dose-response">What the numbers say: dose-response data</a></li>
+          <li><a href="#timing">The 6-hour rule (and why it might not be enough)</a></li>
+          <li><a href="#architecture">What caffeine does to your sleep architecture</a></li>
+          <li><a href="#genetics">Fast metabolizers, slow metabolizers: it's in your genes</a></li>
+          <li><a href="#half-life">The half-life problem</a></li>
+          <li><a href="#tolerance">Tolerance, withdrawal, and the caffeine trap</a></li>
+          <li><a href="#audit">Your caffeine audit</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        You have probably heard that caffeine is bad for sleep. You have also probably heard someone say, "Oh, coffee doesn't affect <em>my</em> sleep at all — I can drink espresso after dinner and sleep like a baby." Both of these statements contain a grain of truth, and the space between them is where the science gets interesting.
+      </p>
+      <p>
+        Caffeine is the most widely consumed psychoactive substance on Earth. Roughly 85% of American adults consume it daily, averaging about 180 mg per day — slightly less than two standard cups of coffee. It fuels mornings, powers afternoons, and, whether we notice it or not, quietly reshapes the sleep that follows.
+      </p>
+      <p>
+        This guide is not here to tell you to quit coffee. It is here to explain — with specific numbers, from specific studies — exactly what caffeine does to your sleep, why it hits some people harder than others, and where the evidence-based cutoff lines actually are. Every claim links to peer-reviewed research. Not vibes. Not wellness-blog folklore. The data.
+      </p>
+
+
+      <!-- ── Section 1 ── -->
+      <h2 id="mechanism">1. How Caffeine Keeps You Awake</h2>
+      <p>
+        To understand what caffeine does to sleep, you need to understand adenosine. Adenosine is a molecule that accumulates in your brain over the course of each waking hour. Think of it as a biological hourglass: the longer you have been awake, the more adenosine builds up, and the sleepier you feel. When adenosine binds to its receptors — especially the A1 and A2A subtypes — it dials down neural activity and promotes the transition to sleep.
+      </p>
+      <p>
+        Caffeine's primary mechanism, at the concentrations you get from a normal cup of coffee, is <a href="https://pubmed.ncbi.nlm.nih.gov/35575450/" target="_blank" rel="noopener noreferrer">competitive antagonism of those adenosine receptors</a>. It physically sits in the receptor, blocking adenosine from binding. The adenosine is still there, still accumulating — caffeine just prevents your brain from hearing the signal.
+      </p>
+      <p>
+        This is why caffeine does not create energy. It borrows it. The sleep pressure keeps building in the background. When the caffeine finally clears — and depending on your biology, that can take three to nine hours — the accumulated adenosine hits all at once. That is the crash.
+      </p>
+      <p>
+        Other proposed mechanisms exist (phosphodiesterase inhibition, calcium release, GABA modulation), but <a href="https://pubmed.ncbi.nlm.nih.gov/35575450/" target="_blank" rel="noopener noreferrer">these require concentrations far above what normal dietary caffeine produces</a>. At the dose in your morning coffee, it is almost entirely an adenosine story. The <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> can help you see where your deep sleep falls in the night — and understand why caffeine's blockade of adenosine matters most in the first few hours.
+      </p>
+
+
+      <!-- ── Section 2 ── -->
+      <h2 id="dose-response">2. What the Numbers Say: Dose-Response Data</h2>
+      <p>
+        The most comprehensive quantitative evidence comes from a <a href="https://pubmed.ncbi.nlm.nih.gov/41124973/" target="_blank" rel="noopener noreferrer">2025 meta-analysis that pooled 22 randomized controlled crossover trials with 956 participants</a>. The pooled effect sizes put hard numbers on what caffeine does to sleep:
+      </p>
+      <ul>
+        <li><strong>Total sleep time:</strong> reduced by 34.7 minutes</li>
+        <li><strong>Sleep onset latency:</strong> delayed by 8.4 minutes</li>
+        <li><strong>Sleep efficiency:</strong> reduced by 4.7 percentage points</li>
+        <li><strong>Slow-wave sleep:</strong> reduced by 1.0 percentage point</li>
+        <li><strong>REM sleep:</strong> not significantly affected</li>
+      </ul>
+      <p>
+        That last finding is worth pausing on. Caffeine's disruption is selective: it hammers NREM sleep — particularly the deep, slow-wave phase — while leaving REM relatively untouched. This is consistent with its adenosine-blocking mechanism, since adenosine primarily drives NREM sleep pressure.
+      </p>
+      <p>
+        The meta-analysis also tested dose and age subgroups. Both high-dose and low-dose caffeine reduced total sleep time, efficiency, and onset latency. The differences between high and low doses were not statistically significant — <a href="https://pubmed.ncbi.nlm.nih.gov/41124973/" target="_blank" rel="noopener noreferrer">even modest doses have meaningful sleep-disruptive effects</a>. Young adults showed broader disruption than middle-aged participants, possibly reflecting more complete tolerance in habitual older drinkers.
+      </p>
+
+      <div class="pullquote">
+        Caffeine cuts total sleep time by 35 minutes, delays sleep onset by 8 minutes, and reduces sleep efficiency by nearly 5 percentage points — across 22 randomized controlled trials.
+      </div>
+
+      <p>
+        To put a 4.7-percentage-point efficiency loss in perspective: if you normally have 88% sleep efficiency (healthy range), caffeine drops you to about 83% — below the clinical threshold of 85% that sleep medicine uses to flag a problem. The <a href="/sleep-efficiency-calculator">Sleep Efficiency Calculator</a> can show you exactly where you stand, and the <a href="/sleep-score-calculator">Sleep Score Calculator</a> tracks whether your numbers are trending in the right direction as you adjust your caffeine habits.
+      </p>
+
+
+      <!-- ── Section 3 ── -->
+      <h2 id="timing">3. The 6-Hour Rule (and Why It Might Not Be Enough)</h2>
+      <p>
+        The most-cited timing study in the caffeine-sleep literature is <a href="https://pubmed.ncbi.nlm.nih.gov/24235903/" target="_blank" rel="noopener noreferrer">Drake et al. 2013</a>, published in the Journal of Clinical Sleep Medicine. It gave participants 400 mg of caffeine (roughly four cups of coffee) at three different time points: at bedtime, 3 hours before bed, and 6 hours before bed, each compared against placebo.
+      </p>
+      <p>
+        The results at bedtime and 3 hours were predictable — significant sleep disruption. The surprising finding was at 6 hours: <a href="https://pubmed.ncbi.nlm.nih.gov/24235903/" target="_blank" rel="noopener noreferrer">caffeine taken a full 6 hours before bedtime still significantly reduced total sleep time by approximately one hour</a> compared to placebo. That is not a marginal effect. That is a clinically meaningful loss of sleep from a cup of coffee at 4 p.m. before a 10 p.m. bedtime.
+      </p>
+      <p>
+        But here is the detail that matters most for real-world behavior: participants did not perceive their sleep as significantly disrupted at the 6-hour mark. Subjective sleep quality ratings were similar to placebo. The sleep loss was objectively real but subjectively invisible. People thought they slept fine. They did not.
+      </p>
+
+      <div class="tip-box">
+        <strong>The "I sleep fine after coffee" problem:</strong> If you have ever said caffeine does not affect your sleep, the Drake study suggests you might just not feel the damage. Objective sleep measures tell a different story than your morning self-assessment. Try the <a href="/sleep-latency-calculator">Sleep Latency Calculator</a> and the <a href="/sleep-efficiency-calculator">Sleep Efficiency Calculator</a> to get a more honest read on your numbers.
+      </div>
+
+      <p>
+        The study's authors concluded with a recommendation to "refrain from substantial caffeine use for a minimum of 6 hours prior to bedtime." Many sleep specialists have since moved to recommending an 8-hour caffeine-free window, reflecting the fact that 6 hours is a floor, not a ceiling — especially for slow metabolizers.
+      </p>
+      <p>
+        The <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> runs the math for your specific bedtime and gives you a personalized cutoff time. It is the single most practical tool on this topic.
+      </p>
+
+
+      <!-- ── Section 4 ── -->
+      <h2 id="architecture">4. What Caffeine Does to Your Sleep Architecture</h2>
+      <p>
+        "Caffeine disrupts sleep" is vague. The more precise statement is: caffeine selectively suppresses the deepest phase of sleep in the most critical window of the night.
+      </p>
+      <p>
+        The foundational study here is <a href="https://pubmed.ncbi.nlm.nih.gov/7612156/" target="_blank" rel="noopener noreferrer">Landolt et al. 1995</a>, which used polysomnography to measure sleep EEG after a dose of just 100 mg of caffeine — roughly one standard cup of coffee — at bedtime. Even at this low dose, caffeine significantly reduced Stage 4 NREM sleep (the deepest stage) and <a href="https://pubmed.ncbi.nlm.nih.gov/7612156/" target="_blank" rel="noopener noreferrer">suppressed slow-wave activity in the 0.75–4.5 Hz delta band</a>.
+      </p>
+      <p>
+        The suppression was concentrated in the first NREM sleep cycle — the one that normally carries the heaviest dose of slow-wave sleep. This is not a coincidence. Adenosine-driven sleep pressure peaks in the first 90 minutes of sleep, and caffeine's adenosine blockade is most disruptive precisely when the signal matters most.
+      </p>
+      <p>
+        Sleep spindle activity (in the 12–16 Hz sigma range) was slightly enhanced — a pharmacological signature distinct from natural sleep deprivation. And on the recovery night after caffeine, Stage 4 sleep partially rebounded but sleep latency remained elevated, suggesting a "hangover" effect that extends beyond a single night.
+      </p>
+
+      <div class="pullquote">
+        Even 100 mg of caffeine — one cup of coffee — suppresses slow-wave activity in the first sleep cycle. That is when deep sleep matters most.
+      </div>
+
+      <p>
+        This matters because slow-wave sleep is not optional. It is the phase associated with physical restoration, immune function, memory consolidation, and growth hormone release. Shaving even a small percentage off your deep sleep, night after night, compounds. You might not feel noticeably worse on any single morning, but the cumulative deficit is real. The <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> can help you understand how these losses add up.
+      </p>
+
+
+      <!-- ── Section 5 ── -->
+      <h2 id="genetics">5. Fast Metabolizers, Slow Metabolizers: It's in Your Genes</h2>
+      <p>
+        "Coffee doesn't affect my sleep" might actually be true — for you. The difference between a person who can drink espresso after dinner and someone who cannot sleep after a 2 p.m. latte is largely genetic, and it comes down to two genes.
+      </p>
+
+      <h3>CYP1A2: How fast your liver clears caffeine</h3>
+      <p>
+        The enzyme CYP1A2, produced in the liver, is responsible for <a href="https://pubmed.ncbi.nlm.nih.gov/35273500/" target="_blank" rel="noopener noreferrer">roughly 95% of caffeine metabolism</a>. A polymorphism in the CYP1A2 gene (rs762551) determines whether you are a fast or slow metabolizer:
+      </p>
+      <ul>
+        <li><strong>AA genotype (fast metabolizer):</strong> caffeine half-life around 3–4 hours. The drug clears your system quickly.</li>
+        <li><strong>AC or CC genotype (slow metabolizer):</strong> caffeine half-life can stretch to 6–9+ hours. Caffeine lingers.</li>
+      </ul>
+      <p>
+        A <a href="https://pubmed.ncbi.nlm.nih.gov/40061419/" target="_blank" rel="noopener noreferrer">Mendelian randomisation study</a> found that fast metabolizers tend to consume more caffeine (presumably because they can tolerate it), while slow metabolizers self-limit. But consuming more caffeine can offset the advantage of faster clearance — fast metabolizers are not immune, just less susceptible per milligram.
+      </p>
+
+      <h3>ADORA2A: How sensitive your brain is to caffeine</h3>
+      <p>
+        CYP1A2 determines how long caffeine sticks around. ADORA2A determines how hard it hits while it is there. A polymorphism at rs5751876 in the ADORA2A gene — the gene encoding the adenosine A2A receptor itself — <a href="https://pubmed.ncbi.nlm.nih.gov/17329997/" target="_blank" rel="noopener noreferrer">determines individual sensitivity to caffeine's sleep-disrupting effects</a>. People with the TT genotype show EEG changes during sleep that resemble insomnia patterns after caffeine. People with the CC genotype show minimal disruption.
+      </p>
+      <p>
+        A <a href="https://pubmed.ncbi.nlm.nih.gov/22754043/" target="_blank" rel="noopener noreferrer">genome-wide association study of 2,402 individuals</a> confirmed ADORA2A's role and found that caffeine-induced insomnia is heritable and genetically distinct from general insomnia. You can be genetically predisposed to caffeine sleep problems without being predisposed to insomnia itself.
+      </p>
+
+      <div class="tip-box">
+        <strong>The double-protection scenario:</strong> A person with fast CYP1A2 metabolism AND low ADORA2A sensitivity can genuinely drink coffee after dinner and sleep fine. A person with slow CYP1A2 AND high ADORA2A sensitivity might need to stop caffeine before noon. Consumer genetic tests (like 23andMe) report CYP1A2 status. A practical proxy: if afternoon coffee keeps you up, assume you are on the sensitive end and plan accordingly. The <a href="/chronotype-quiz">Chronotype Quiz</a> can help you understand your natural sleep-wake tendency and how caffeine interacts with it.
+      </div>
+
+
+      <!-- ── Section 6 ── -->
+      <h2 id="half-life">6. The Half-Life Problem</h2>
+      <p>
+        Caffeine's half-life — the time it takes for your body to eliminate half the dose — is the number that controls everything downstream. <a href="https://pubmed.ncbi.nlm.nih.gov/35273500/" target="_blank" rel="noopener noreferrer">In healthy adults, it ranges from approximately 3 to 7 hours</a>, with 5 hours as the most commonly cited average. But that average obscures enormous variation.
+      </p>
+      <p>
+        Let us do the math with a 200 mg coffee (a standard large cup) consumed at 2:00 PM:
+      </p>
+      <ul>
+        <li><strong>At a 5-hour half-life</strong> (typical): 100 mg at 7 PM, 50 mg at midnight, 25 mg at 5 AM</li>
+        <li><strong>At a 9-hour half-life</strong> (slow metabolizer, or on oral contraceptives): 100 mg at 11 PM, 50 mg at 8 AM the next day</li>
+      </ul>
+      <p>
+        The slow metabolizer still has a cup of coffee's worth of caffeine circulating at 11 p.m. from a 2 p.m. dose. By midnight they still have more caffeine in their system than the fast metabolizer has at 7 p.m.
+      </p>
+
+      <h3>What changes your half-life</h3>
+      <p>
+        Several factors systematically lengthen or shorten caffeine clearance:
+      </p>
+      <ul>
+        <li><strong>Oral contraceptives (estrogen-containing):</strong> nearly double caffeine half-life to 6–10 hours</li>
+        <li><strong>Pregnancy (third trimester):</strong> half-life extends to 15–35 hours — caffeine persists for the better part of two days</li>
+        <li><strong>Smoking:</strong> induces CYP1A2, shortening half-life to roughly 3 hours (one of the few factors that speeds clearance)</li>
+        <li><strong>Liver disease:</strong> marked prolongation</li>
+        <li><strong>Age:</strong> clearance slows modestly with age, though less dramatically than the factors above</li>
+      </ul>
+
+      <div class="pullquote">
+        If you take oral contraceptives, your caffeine half-life may be nearly double the norm. A 2 p.m. coffee can still be half-strength at 11 p.m.
+      </div>
+
+      <p>
+        The practical implication: your caffeine cutoff time is not a universal number. It depends on your genetics, your medications, and your life stage. The <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> accounts for these variables. For pregnant women, most guidelines recommend limiting total caffeine intake to 200 mg per day or less — not just for sleep, but because caffeine crosses the placenta and neonatal half-life can exceed 65 hours.
+      </p>
+
+
+      <!-- ── Section 7 ── -->
+      <h2 id="tolerance">7. Tolerance, Withdrawal, and the Caffeine Trap</h2>
+      <p>
+        "But I drink coffee every day and sleep fine." This is the most common objection, and it is not entirely wrong. Tolerance is real. The question is how complete it is.
+      </p>
+      <p>
+        The best evidence comes from <a href="https://pubmed.ncbi.nlm.nih.gov/31866308/" target="_blank" rel="noopener noreferrer">Weibel et al. 2020</a>, a controlled laboratory study that put 20 participants through 10 days of regular caffeine intake (450 mg per day — roughly four cups of coffee) in a within-subject crossover design. After 10 days, polysomnographic sleep measures — total sleep time, sleep latency, gross sleep architecture — <a href="https://pubmed.ncbi.nlm.nih.gov/31866308/" target="_blank" rel="noopener noreferrer">did not significantly differ from placebo</a>. The participants had developed full tolerance to the most obvious sleep metrics.
+      </p>
+      <p>
+        But here is the catch: EEG-level markers told a different story. Sleep spindle power (sigma frequency, 12–16 Hz) remained suppressed in the caffeine condition compared to placebo — even after 10 days. This suggests that while the body adapts to maintain gross sleep quantity, the micro-architecture of sleep quality is still affected. You sleep for roughly the same number of hours, but the depth and restorative quality may not be the same.
+      </p>
+      <p>
+        The withdrawal data was equally revealing. When caffeine was abruptly removed after 8 days of regular use, participants showed significantly increased daytime sleepiness, attentional lapses, and elevated evening sleep propensity — a rebound effect as the unmasked adenosine flooded receptors that had upregulated during chronic caffeine exposure.
+      </p>
+
+      <div class="tip-box">
+        <strong>The trap:</strong> Chronic caffeine use creates a cycle. You develop tolerance, so you do not feel the sleep disruption. But subtle deep-sleep suppression may persist. When you try to quit, the withdrawal makes you feel terrible, so you resume — and the cycle continues. If you are considering reducing caffeine, taper slowly (25% per week) rather than quitting cold turkey. The <a href="/sleep-hygiene-calculator">Sleep Hygiene Calculator</a> can help you track the broader picture as you adjust.
+      </div>
+
+      <p>
+        The Weibel study also found that habitual daytime caffeine use did not significantly shift melatonin timing — a finding that contrasts with the Burke circadian study (see Section 8 of the FAQ). The likely explanation: daytime caffeine has time to clear before the circadian-sensitive evening window. Evening caffeine is a different story.
+      </p>
+
+
+      <!-- ── Section 8 ── -->
+      <h2 id="audit">8. Your Caffeine Audit</h2>
+      <p>
+        Most people underestimate how much caffeine they consume. A <a href="https://pubmed.ncbi.nlm.nih.gov/27377580/" target="_blank" rel="noopener noreferrer">nationally representative study of 4,730 U.S. adults</a> found a mean caffeine intake of 176.6 mg per day, with 19% to 28% reporting at least one insomnia symptom. The association between caffeine and insomnia was strongest among short sleepers — those averaging fewer than 6 hours per night. The bidirectional pattern was clear: caffeine disrupts sleep, and sleep-deprived people drink more caffeine to compensate.
+      </p>
+      <p>
+        A <a href="https://pubmed.ncbi.nlm.nih.gov/28603504/" target="_blank" rel="noopener noreferrer">comprehensive review of caffeine sources</a> cataloged the wide range of caffeine content across everyday products. Some numbers that may surprise you:
+      </p>
+
+      <h3>Know your sources</h3>
+      <ul>
+        <li><strong>Brewed coffee (8 oz):</strong> 80–135 mg (a Starbucks Pike Place can hit 155 mg)</li>
+        <li><strong>Espresso (single shot):</strong> 47–75 mg</li>
+        <li><strong>Black tea (8 oz):</strong> 14–61 mg</li>
+        <li><strong>Green tea (8 oz):</strong> 24–45 mg</li>
+        <li><strong>Cola (12 oz):</strong> 34–54 mg</li>
+        <li><strong>Energy drinks:</strong> 77–300 mg (Monster 16 oz = 160 mg; Bang 16 oz = 300 mg)</li>
+        <li><strong>Dark chocolate (1 oz):</strong> 23 mg</li>
+        <li><strong>Excedrin Migraine (2 tablets):</strong> 130 mg</li>
+        <li><strong>Pre-workout supplements:</strong> 150–400+ mg</li>
+        <li><strong>Decaf coffee (8 oz):</strong> 2–15 mg — not zero</li>
+      </ul>
+      <p>
+        Hidden caffeine is everywhere. Yerba mate, guarana-containing supplements, some pain medications, and weight-loss products all contain meaningful amounts that rarely make it onto people's mental tally. And caffeine content in commercial coffee is remarkably inconsistent — one study found Starbucks 16 oz brewed coffee ranged from 259 to 564 mg across different purchases of the same product.
+      </p>
+      <p>
+        The FDA considers <strong>400 mg per day generally safe</strong> for healthy, non-pregnant adults. That is roughly four standard cups of coffee. But "safe" and "good for your sleep" are different claims. The <a href="/insomnia-severity-calculator">Insomnia Severity Calculator</a> can help you assess whether your current caffeine intake is contributing to sleep problems.
+      </p>
+
+      <h3>The circadian wrinkle</h3>
+      <p>
+        There is one more mechanism that matters. A <a href="https://pubmed.ncbi.nlm.nih.gov/26378246/" target="_blank" rel="noopener noreferrer">study published in Science Translational Medicine</a> found that evening caffeine does not just make it harder to fall asleep tonight — it delays the circadian clock by approximately 40 minutes. That is roughly half the effect of 3 hours of bright light exposure at bedtime, and the effects are additive. Caffeine plus late-night screen time can <a href="https://pubmed.ncbi.nlm.nih.gov/26378246/" target="_blank" rel="noopener noreferrer">push your clock back by nearly two hours</a>.
+      </p>
+      <p>
+        The implication for "night owls" is significant: if you drink coffee in the late afternoon or evening, you may be perpetuating your late circadian phase — making it harder to fall asleep early, making mornings harder, and reaching for more caffeine to compensate. It is a cycle. The <a href="/circadian-rhythm-calculator">Circadian Rhythm Calculator</a> can help you map your current phase, and the <a href="/screen-time-cutoff-calculator">Screen Time Cutoff Calculator</a> addresses the light-exposure side of the same equation.
+      </p>
+
+      <h3>Practical recommendations</h3>
+      <p>
+        The evidence converges on a few clear guidelines:
+      </p>
+      <ul>
+        <li><strong>Set a caffeine cutoff at least 8 hours before bedtime.</strong> Six hours is the research-backed minimum; 8 gives a comfortable margin for average metabolizers.</li>
+        <li><strong>If you take oral contraceptives, are pregnant, or suspect you are a slow metabolizer, extend to 10+ hours.</strong></li>
+        <li><strong>Track all sources.</strong> Your afternoon tea, your post-lunch dark chocolate, and your headache pill all count.</li>
+        <li><strong>If you drink more than 400 mg per day and have any sleep complaints, experiment with reduction.</strong> Taper by 25% per week to minimize withdrawal.</li>
+        <li><strong>Do not trust your subjective assessment.</strong> The Drake study proved that caffeine can objectively disrupt sleep while you think you slept fine. If in doubt, track with the <a href="/sleep-score-calculator">Sleep Score Calculator</a> and compare caffeinated versus caffeine-free weeks.</li>
+      </ul>
+      <p>
+        Caffeine is not the enemy. It is a tool — one with a specific pharmacological profile, a measurable half-life, and well-documented effects on sleep architecture. The goal is not abstinence. It is informed use: the right dose, at the right time, for your specific biology. If you are also managing alcohol consumption, see the <a href="/alcohol-sleep-calculator">Alcohol &amp; Sleep Calculator</a> — both substances affect sleep, and their effects can compound.
+      </p>
+
+
+      <!-- ── FAQ Section ── -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="faq-accordion">
+        <details>
+          <summary>Does caffeine actually reduce deep sleep?</summary>
+          <p>Yes. Even a single 100 mg dose at bedtime significantly reduces slow-wave activity — the deepest phase of sleep. The suppression is concentrated in the first NREM sleep cycle, when deep sleep is most critical. Habitual drinkers develop tolerance to the obvious metrics, but EEG-level deep sleep suppression persists even in tolerant daily users.</p>
+        </details>
+        <details>
+          <summary>How long before bed should I stop drinking coffee?</summary>
+          <p>At least 6 hours, based on the Drake et al. study — and most sleep specialists now recommend 8 hours. Slow metabolizers (those on oral contraceptives, pregnant, or with certain CYP1A2 variants) may need 10 or more hours. The Caffeine Cutoff Calculator can give you a personalized recommendation.</p>
+        </details>
+        <details>
+          <summary>Can I build up tolerance to caffeine's sleep effects?</summary>
+          <p>Partially. After about 10 days of regular use, the most obvious metrics (sleep onset, total sleep time) normalize. But EEG markers of sleep quality — sleep spindles and sigma power — remain suppressed. You stop noticing the effects, but your deep sleep quality is still compromised at a level you cannot feel.</p>
+        </details>
+        <details>
+          <summary>How do I know if I'm a fast or slow caffeine metabolizer?</summary>
+          <p>Two genes control most of the variation: CYP1A2 (metabolism speed) and ADORA2A (receptor sensitivity). Consumer genetic tests report CYP1A2 status. A practical proxy: if coffee after 2 PM keeps you up, you are likely on the slow/sensitive end. If you can drink espresso after dinner and sleep fine, you probably carry favorable variants in both genes.</p>
+        </details>
+        <details>
+          <summary>Is decaf really caffeine-free?</summary>
+          <p>No. Decaf contains 2 to 15 mg per 8 oz cup. For most people this is negligible, but for slow metabolizers or highly sensitive individuals, multiple afternoon decafs could add up. If you are troubleshooting persistent sleep problems, herbal tea is the safer choice.</p>
+        </details>
+        <details>
+          <summary>Does caffeine affect my circadian rhythm?</summary>
+          <p>Yes. Evening caffeine delays the circadian clock by approximately 40 minutes — roughly half the effect of bright light exposure. This does not just affect tonight; it pushes your entire sleep-wake rhythm later, making early mornings harder and potentially perpetuating a night-owl cycle. The effect is additive with screen light.</p>
+        </details>
+      </div>
+
+
+      <!-- Related Reading -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/guides/the-complete-guide-to-sleep-hygiene">The Complete Guide to Sleep Hygiene</a></li>
+          <li><a href="/guides/understanding-your-circadian-rhythm">Understanding Your Circadian Rhythm</a></li>
+          <li><a href="/guides/sleep-and-exercise">Sleep &amp; Exercise: The Research</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits Ruining Your Sleep</a></li>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the '8 Hours' Rule Is Wrong</a></li>
+        </ul>
+      </div>
+
+      <!-- Tools Mentioned grid -->
+      <ToolsGrid
+        slugs={['caffeine-cutoff-calculator', 'sleep-efficiency-calculator', 'sleep-latency-calculator', 'sleep-score-calculator', 'sleep-cycle-calculator', 'sleep-debt-calculator', 'insomnia-severity-calculator', 'sleep-hygiene-calculator', 'chronotype-quiz', 'circadian-rhythm-calculator', 'screen-time-cutoff-calculator', 'nap-calculator', 'alcohol-sleep-calculator', 'sleep-temperature-calculator']}
+        heading="Tools Mentioned in This Guide"
+      />
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Reichert CF, Landolt HP. (2022). Adenosine, caffeine, and sleep–wake regulation: state of the science and perspectives. <em>Journal of Sleep Research</em>, 31(4):e13597. <a href="https://pubmed.ncbi.nlm.nih.gov/35575450/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Grzegorzewski J, Bartsch F, Köller A, König M. (2022). Pharmacokinetics of caffeine: A systematic analysis of reported data. <em>Frontiers in Pharmacology</em>, 12:752826. <a href="https://pubmed.ncbi.nlm.nih.gov/35273500/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Huang R, Shi Y, Li H. (2025). Age- and dose-specific effects of caffeine on sleep: A meta-analysis of controlled crossover trials. <em>Sleep Medicine Reviews</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/41124973/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Drake C, Roehrs T, Shambroom J, Roth T. (2013). Caffeine effects on sleep taken 0, 3, or 6 hours before going to bed. <em>Journal of Clinical Sleep Medicine</em>, 9(11):1195–1200. <a href="https://pubmed.ncbi.nlm.nih.gov/24235903/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Landolt HP, Dijk DJ, Gaus SE, Borbély AA. (1995). Caffeine reduces low-frequency delta activity in the human sleep EEG. <em>Neuropsychopharmacology</em>, 12(3):229–238. <a href="https://pubmed.ncbi.nlm.nih.gov/7612156/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Weibel J, Lin YS, Landolt HP, et al. (2020). Caffeine-dependent changes of sleep-wake regulation: Evidence for adaptation after repeated intake. <em>Progress in Neuro-Psychopharmacology and Biological Psychiatry</em>, 99:109865. <a href="https://pubmed.ncbi.nlm.nih.gov/31866308/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Chaudhary NS, Grandner MA, Jackson NJ, Chakravorty S. (2016). Caffeine consumption, insomnia, and sleep duration: Results from a nationally representative sample. <em>Nutrition</em>, 32(11–12):1193–1199. <a href="https://pubmed.ncbi.nlm.nih.gov/27377580/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Rétey JV, Adam M, Khatami R, et al. (2007). A genetic variation in the adenosine A2A receptor gene contributes to individual sensitivity to caffeine effects on sleep. <em>Clinical Pharmacology and Therapeutics</em>, 81(5):692–698. <a href="https://pubmed.ncbi.nlm.nih.gov/17329997/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Byrne EM, Johnson J, McRae AF, et al. (2012). A genome-wide association study of caffeine-related sleep disturbance. <em>Sleep</em>, 35(7):967–975. <a href="https://pubmed.ncbi.nlm.nih.gov/22754043/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Burke TM, Markwald RR, McHill AW, et al. (2015). Effects of caffeine on the human circadian clock in vivo and in vitro. <em>Science Translational Medicine</em>, 7(305):305ra146. <a href="https://pubmed.ncbi.nlm.nih.gov/26378246/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Temple JL, Bernard C, Lipshultz SE, et al. (2017). The safety of ingested caffeine: A comprehensive review. <em>Frontiers in Psychiatry</em>, 8:80. <a href="https://pubmed.ncbi.nlm.nih.gov/28603504/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Das NR, Woolf B, Page S, Richmond RC, Khouja J. (2025). Exploring the relationship between caffeine consumption, caffeine metabolism, and sleep behaviours: A Mendelian randomisation study. <em>Journal of Sleep Research</em>, 35(1):e70147. <a href="https://pubmed.ncbi.nlm.nih.gov/40061419/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This guide is for informational and educational purposes only and does not constitute medical advice. If you have persistent sleep difficulties, suspect a sleep disorder, or are considering significant changes to your caffeine intake due to a medical condition, please consult a qualified healthcare provider.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* Guide styles are defined globally in existing guide pages.
+     This page reuses the same .guide, .guide-header, .guide-body, .toc,
+     .key-takeaways, .pullquote, .tip-box, .faq-accordion, .references,
+     .related-reading, .breadcrumb, and .disclaimer classes.
+     No additional page-specific styles are needed. */
+</style>

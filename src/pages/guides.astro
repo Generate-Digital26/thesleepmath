@@ -4,7 +4,6 @@ import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 
 const upcomingGuides = [
-  'Caffeine & Sleep: What Science Says',
   'Sleep for New Parents',
 ];
 ---
@@ -47,6 +46,30 @@ const upcomingGuides = [
 
       <!-- Published guides -->
       <section class="guides-grid" aria-label="Published guides">
+        <a href="/guides/caffeine-and-sleep" class="guide-card">
+          <div class="guide-card-img">
+            <img
+              src="/images/guides/caffeine-and-sleep-hero.jpg"
+              alt="A ceramic pour-over coffee dripper and white mug on linen cloth beside an unmade bed, early morning light"
+              loading="lazy"
+            />
+          </div>
+          <div class="guide-card-body">
+            <div class="guide-card-meta">
+              <span class="guide-tag">Definitive Guide</span>
+              <span class="guide-date">16 min read</span>
+            </div>
+            <h2 class="guide-card-title">Caffeine & Sleep: What Science Says</h2>
+            <p class="guide-card-excerpt">
+              The definitive, evidence-based reference for how caffeine actually affects your sleep — the adenosine mechanism, the half-life math, the genetics behind individual variation, and the timing cutoffs backed by peer-reviewed research.
+            </p>
+            <span class="guide-card-cta">
+              Read guide
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+
         <a href="/guides/sleep-and-exercise" class="guide-card">
           <div class="guide-card-img">
             <img
