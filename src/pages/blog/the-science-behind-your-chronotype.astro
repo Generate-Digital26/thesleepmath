@@ -1,0 +1,665 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'The Science Behind Your Chronotype — The Sleep Math';
+const description = 'Your chronotype is coded into 351 genetic loci and shifts across your lifetime. Here is what the peer-reviewed research says about morning larks, night owls, and everyone in between.';
+const canonical = 'https://thesleepmath.com/blog/the-science-behind-your-chronotype';
+const heroImage = '/images/blog/the-science-behind-your-chronotype-hero.jpg';
+const ogImage = '/images/blog/the-science-behind-your-chronotype-og.png';
+const publishDate = '2026-05-21';
+const modifiedDate = '2026-05-21';
+
+/* ── Schema: BlogPosting ── */
+const blogPostingSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: 'The Science Behind Your Chronotype',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 1950,
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.tldr', '.bottom-line'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Genome-wide association analyses of chronotype in 697,828 individuals provides insights into circadian rhythms',
+      author: 'Jones SE, Lane JM, Wood AR, et al.',
+      datePublished: '2019',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/30696823/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Epidemiology of the human circadian clock',
+      author: 'Roenneberg T, Kuehnle T, Juda M, Kantermann T, Allebrandt K, Gordijn M, Merrow M',
+      datePublished: '2007',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/17936039/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'A length polymorphism in the circadian clock gene Per3 is linked to delayed sleep phase syndrome and extreme diurnal preference',
+      author: 'Archer SN, Robilliard DL, Skene DJ, Smits M, Williams A, Arendt J, von Schantz M',
+      datePublished: '2003',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/12841365/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Social jetlag: misalignment of biological and social time',
+      author: 'Wittmann M, Dinich J, Merrow M, Roenneberg T',
+      datePublished: '2006',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/16687322/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'A marker for the end of adolescence',
+      author: 'Roenneberg T, Kuehnle T, Pramstaller PP, Ricken J, Havel M, Guth A, Merrow M',
+      datePublished: '2004',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/15620633/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Chronotype and synchrony effects in human cognitive performance: A systematic review',
+      author: 'Chauhan S, Vanova M, Tailor U, Asad M, Faßbender K, Norbury R, Ettinger U, Kumari V',
+      datePublished: '2025',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/40293205/',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is a chronotype and is it genetic?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A chronotype is your genetically influenced preference for earlier or later sleep-wake timing. A 2019 genome-wide association study of nearly 700,000 people identified 351 independent genetic loci linked to chronotype, including clock genes PER1, PER2, PER3, and CRY1. Your chronotype is biological, not a lifestyle choice.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How is chronotype measured?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The most widely used tool is the Munich ChronoType Questionnaire (MCTQ), which measures chronotype by the midpoint of sleep on free days. In a dataset of over 55,000 people, chronotypes followed a near-Gaussian distribution, with extreme early types waking up when extreme late types fall asleep.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does your chronotype change with age?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. Chronotype shifts dramatically across the lifespan. Children are natural early risers. Eveningness peaks around age 19-20, then gradually shifts back toward morningness through adulthood. A study of 25,000 people confirmed this pattern, with the authors calling the inflection point the first biological marker of the end of adolescence.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is social jet lag and why does it matter?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Social jet lag is the chronic misalignment between your biological clock and your social schedule — typically measured as the difference between sleep timing on work days versus free days. Late chronotypes forced onto early schedules accumulate the largest misalignment. Research links social jet lag to higher BMI, increased smoking rates, and poorer metabolic health.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does chronotype affect cognitive performance?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A 2025 systematic review of 65 studies found that chronotype alone does not reliably predict cognitive ability, but task timing relative to chronotype does. Roughly 45% of studies in younger adults and 83% of studies in older adults demonstrated a synchrony effect — superior performance when tasks align with biological peak time, particularly for attention, inhibition, and memory.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://thesleepmath.com/blog' },
+    { '@type': 'ListItem', position: 3, name: 'The Science Behind Your Chronotype' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science" />
+  <meta slot="head" property="article:tag" content="chronotype" />
+  <meta slot="head" property="article:tag" content="circadian rhythm" />
+  <meta slot="head" property="article:tag" content="social jet lag" />
+  <meta slot="head" property="article:tag" content="sleep genetics" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is a sleep science blog post on TheSleepMath.com examining the peer-reviewed research on chronotypes — the genetically determined preference for earlier or later sleep-wake timing. It covers the genetic basis (Jones et al. 2019 GWAS: 351 loci in 697,828 individuals), the Munich ChronoType Questionnaire and population distribution (Roenneberg et al. 2007: 55,000+ participants), the PER3 gene polymorphism (Archer et al. 2003), age-related chronotype shifts (Roenneberg et al. 2004: 25,000 participants), social jet lag health consequences (Wittmann et al. 2006; Roenneberg et al. 2012), and the synchrony effect on cognitive performance (Chauhan et al. 2025: 65 studies reviewed). It links to TheSleepMath calculators: chronotype-quiz, circadian-rhythm, social-jet-lag, sleep-cycle, exercise-timing, light-exposure, wake-time, sleep-score." />
+  <meta slot="head" name="ai-summary" content="Chronotype — your preference for earlier or later sleep-wake timing — is genetically encoded across 351 independent loci (Jones et al. 2019, N=697,828). The Munich ChronoType Questionnaire measures it by sleep midpoint on free days, revealing a near-Gaussian population distribution (Roenneberg et al. 2007, N=55,000+). Chronotype shifts across the lifespan, peaking in eveningness around age 19-20 (Roenneberg et al. 2004). Social jet lag — the mismatch between biological and social clocks — is linked to higher BMI and metabolic dysfunction. Cognitive performance peaks when task timing matches chronotype, particularly in older adults." />
+  <meta slot="head" name="nlp-entities" content="chronotype, circadian rhythm, PER3, CRY1, CLOCK genes, Munich ChronoType Questionnaire, MCTQ, social jet lag, morningness, eveningness, genome-wide association study, suprachiasmatic nucleus, sleep-wake timing, melatonin, cortisol, synchrony effect" />
+  <meta slot="head" name="ai-content-type" content="health article, sleep science, evidence-based guide, genetics explainer" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(blogPostingSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="blog-post">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/blog">Blog</a>
+      <span class="sep">/</span>
+      <span>The Science Behind Your Chronotype</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="post-header">
+      <div class="post-meta-top">
+        <span class="post-tag">Sleep Science</span>
+        <time datetime={publishDate}>21 May 2026</time>
+        <span class="read-time">8 min read</span>
+      </div>
+      <h1>The Science Behind <span class="pop">Your Chronotype</span></h1>
+      <p class="article-intro">
+        Whether you bounce out of bed at dawn or hit your stride at midnight is not a personality quirk. It is written into your DNA — across 351 gene variants, to be precise.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="Split scene showing warm sunrise light through a bedroom window on one side and a cosy desk lamp illuminating a workspace at night on the other"
+      class="hero-img"
+      width="1344"
+      height="768"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="post-body">
+
+      <div class="tldr" role="region" aria-label="Summary">
+        <strong>TL;DR</strong>
+        <ul>
+          <li>Your chronotype — early bird or night owl — is <strong>genetically determined</strong>, not a habit you chose.</li>
+          <li>A 2019 study of nearly 700,000 people identified <strong>351 independent gene variants</strong> linked to sleep timing.</li>
+          <li>Chronotype <strong>shifts across your lifetime</strong>: children are early risers, eveningness peaks around age 20, then drifts back toward morningness.</li>
+          <li>Living against your biological clock — called <strong>social jet lag</strong> — is linked to higher BMI, increased smoking, and metabolic dysfunction.</li>
+          <li>Cognitive performance peaks when <strong>task timing matches your chronotype</strong>, particularly for attention and memory in older adults.</li>
+          <li>The Munich ChronoType Questionnaire can <strong>place you on the spectrum</strong> — and our Chronotype Quiz is built on the same science.</li>
+        </ul>
+      </div>
+
+      <p>
+        "I'm just not a morning person." It is one of the most casually self-diagnosed conditions in existence. Also one of the most scientifically accurate. Your preference for earlier or later sleep timing — your chronotype — is not a lifestyle choice, a sign of laziness, or something a better alarm clock can fix. It is a biological trait shaped by your genetics, your age, and the molecular machinery of your circadian clock.
+      </p>
+      <p>
+        The research behind this claim is substantial. It spans genome-wide analyses of hundreds of thousands of people, population-level questionnaire studies, gene-knockout experiments, and cognitive performance trials. Here is what the science actually says — with numbers attached.
+      </p>
+
+      <!-- ── Section 1 ── -->
+      <h2>1. Your Genes Set the Clock</h2>
+      <p>
+        Every cell in your body runs a roughly 24-hour molecular clock, driven by interlocking feedback loops of clock genes — PER1, PER2, PER3, CRY1, CRY2, CLOCK, and BMAL1. These genes switch on and off in a cycle, creating oscillating levels of proteins that regulate everything from hormone secretion to body temperature. The master pacemaker sits in the suprachiasmatic nucleus (SCN) of the hypothalamus, synchronising peripheral clocks throughout your body to the external light-dark cycle.
+      </p>
+      <p>
+        Small variations in these genes shift the speed and phase of the clock. <a href="https://pubmed.ncbi.nlm.nih.gov/12841365/" target="_blank" rel="noopener noreferrer">A variable-number tandem repeat polymorphism in PER3 — either 4 or 5 copies of a 54-base-pair sequence — is significantly associated with extreme diurnal preference</a>. Carriers of the longer 5-repeat allele tend toward morningness; those with the shorter 4-repeat allele lean toward eveningness and delayed sleep phase. Among patients diagnosed with delayed sleep phase syndrome, 75% were homozygous for the 4-repeat variant.
+      </p>
+      <p>
+        But PER3 is just one thread. <a href="https://pubmed.ncbi.nlm.nih.gov/30696823/" target="_blank" rel="noopener noreferrer">A 2019 genome-wide association study of 697,828 individuals identified 351 independent genetic loci significantly associated with chronotype</a> — 327 of which were entirely novel. The loci clustered in genes involved in circadian regulation, cAMP signalling, glutamate pathways, and insulin signalling. Gene expression was concentrated in the retina, hindbrain, hypothalamus, and pituitary — precisely the tissues you would expect for a light-driven timekeeping system.
+      </p>
+      <p>
+        To put this in practical terms: the 5% of people carrying the most "morningness" alleles went to sleep roughly 25 minutes earlier than the 5% carrying the fewest. That may not sound dramatic, but across a population it is the difference between a 10:00 PM bedtime and a 10:25 PM one — a gap that cascades through wake time, alertness windows, and optimal performance schedules. If you have never mapped where you fall, the <a href="/chronotype-quiz">Chronotype Quiz</a> is built on the same questionnaire science used in these studies.
+      </p>
+
+      <!-- ── Section 2 ── -->
+      <h2>2. How Chronotype Is Measured</h2>
+      <p>
+        The gold-standard tool for measuring chronotype in research is the Munich ChronoType Questionnaire, developed by Till Roenneberg and colleagues at Ludwig Maximilian University of Munich. Unlike older instruments that ask subjective preference questions ("Do you consider yourself a morning type?"), the MCTQ asks about actual sleep behaviour — specifically, when you fall asleep and wake up on both work days and free days.
+      </p>
+      <p>
+        The key metric is your midpoint of sleep on free days, corrected for sleep debt accumulated during the work week (abbreviated MSFsc). This single number places you on a continuous spectrum from extreme early to extreme late chronotype.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/17936039/" target="_blank" rel="noopener noreferrer">In a sample of over 55,000 respondents, chronotypes followed a near-Gaussian distribution — a bell curve — with extreme early types waking when extreme late types fall asleep</a>. Most people cluster in the middle, but the tails are real. The MCTQ has been validated against sleep logs, actigraphy, and physiological markers including dim-light melatonin onset, confirming that it measures genuine biological timing, not just preference.
+      </p>
+      <p>
+        This matters because it demolishes the idea that chronotype is binary — that you are either a "lark" or an "owl." You are a point on a continuous distribution, and your position on that distribution predicts your natural melatonin onset, cortisol peak, and core body temperature rhythm. Our <a href="/circadian-rhythm-calculator">Circadian Rhythm Calculator</a> models these internal rhythms based on your sleep timing.
+      </p>
+
+      <!-- ── Section 3 ── -->
+      <h2>3. Your Chronotype Changes With Age</h2>
+      <p>
+        If you were an early riser as a child and a committed night owl as a teenager, that was not rebellion. It was biology.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/15620633/" target="_blank" rel="noopener noreferrer">In a study of approximately 25,000 people aged 10 to 90, chronotype progressively delayed through adolescence, reaching maximum eveningness at around age 20 — then abruptly shifted back toward morningness</a>. The inflection was sharp enough that the authors proposed it as "the first biological marker of the end of adolescence." Women reached peak lateness at 19.5 years, men at 20.9 — and every other age group's average was statistically different from the age-20 peak.
+      </p>
+      <p>
+        The practical consequence is significant. Teenagers are biologically driven to fall asleep later and wake later, yet most school systems demand they arrive earliest. The resulting chronic circadian misalignment — forced early wake times against a delayed biological clock — is not a discipline problem. It is a scheduling one. By the time those same individuals reach their 30s and 40s, the clock has drifted back toward earlier timing, and the 7 AM alarm that once felt punishing becomes unremarkable.
+      </p>
+      <p>
+        Understanding where you sit right now — given your current age — changes the conversation about sleep timing entirely. The <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> helps you structure your nights around complete 90-minute cycles, while the <a href="/wake-time-calculator">Wake Time Calculator</a> anchors the whole schedule to your ideal rise time.
+      </p>
+
+      <!-- ── Section 4 ── -->
+      <h2>4. Social Jet Lag: Living Against Your Clock</h2>
+      <p>
+        Most people do not sleep according to their chronotype. They sleep according to their work schedule. The mismatch between the two has a name: social jet lag.
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">The term was coined in a 2006 study of 501 participants assessed via the MCTQ, where late chronotypes showed the largest discrepancy between work-day and free-day sleep timing — accumulating significant sleep debt during the working week and compensating on days off</a>. The study also found a striking correlation: late chronotypes had significantly higher smoking rates across all age groups except retirees.
+      </p>
+      <p>
+        The health consequences extend beyond tobacco. <a href="https://pubmed.ncbi.nlm.nih.gov/22578422/" target="_blank" rel="noopener noreferrer">Social jet lag is independently associated with increased body mass index, separate from sleep duration alone</a>. The authors argued that "living against the clock may be a factor contributing to the epidemic of obesity" — a finding subsequently supported by a 2023 meta-analysis showing a 20% higher risk of overweight or obesity among those with significant social jet lag.
+      </p>
+      <p>
+        The mechanism is not mysterious. Chronic circadian misalignment disrupts cortisol rhythms, impairs glucose metabolism, and shifts appetite hormones in directions that favour weight gain. It is the same physiology that makes shift workers vulnerable to metabolic syndrome — just in a milder, more widespread form. You can quantify your own mismatch with the <a href="/social-jet-lag-calculator">Social Jet Lag Calculator</a>, which measures the gap between your biological and social clocks.
+      </p>
+
+      <!-- ── Section 5 ── -->
+      <h2>5. Chronotype and When You Think Best</h2>
+      <p>
+        The question "Are morning people smarter?" misses the point entirely. The right question is: "When does each chronotype perform best?"
+      </p>
+      <p>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/40293205/" target="_blank" rel="noopener noreferrer">A 2025 systematic review of 65 studies found that more than 80% showed no main effect of chronotype on cognitive ability — but roughly 45% of studies in younger adults demonstrated a synchrony effect, where performance on attention, inhibition, and memory tasks was superior when testing time matched the participant's chronotype</a>. In older adults aged 50 to 95, the synchrony effect was even stronger: 83% of studies found it, particularly for tasks involving fluid abilities.
+      </p>
+      <p>
+        The implication is practical. If you are an evening type tackling complex analytical work at 8 AM, you are running your cognitive hardware at sub-optimal voltage. If you are a morning type attempting creative problem-solving at 11 PM, the same applies. The synchrony effect does not make you more or less intelligent — it determines when your intelligence is fully available.
+      </p>
+
+      <div class="tip-box">
+        <strong>Schedule to your biology:</strong> Identify your chronotype, then protect your peak window for your most demanding cognitive work. Use the <a href="/exercise-timing-calculator">Exercise Timing Calculator</a> to find when physical activity aligns with your circadian rhythm rather than fighting it. And if you need to adjust your light exposure to nudge your clock, the <a href="/light-exposure-calculator">Light Exposure Calculator</a> models the timing and intensity that matter.
+      </div>
+
+      <!-- ── Section 6 ── -->
+      <h2>6. What This Means for Your Sleep</h2>
+      <p>
+        The research points to three principles that hold regardless of where you fall on the spectrum:
+      </p>
+      <p>
+        <strong>Know your actual chronotype.</strong> Not your aspirational one. Not the one your work schedule imposes. Your biological midpoint of sleep on free days — when no alarm is set and no obligations intrude — reveals your true position. Track it for two to three weeks of genuinely unconstrained sleep.
+      </p>
+      <p>
+        <strong>Minimise social jet lag.</strong> The closer your work-day sleep schedule aligns with your free-day schedule, the less circadian stress you accumulate. Even small adjustments — shifting bedtime by 30 minutes, using morning light strategically, timing meals to reinforce your rhythm — reduce the biological toll. Our <a href="/sleep-score-calculator">Sleep Score Calculator</a> tracks the composite picture of your sleep health, including consistency.
+      </p>
+      <p>
+        <strong>Respect the age curve.</strong> If you are under 25 and struggling with early mornings, your clock is working as designed. If you are over 40 and finding yourself naturally awake at 6 AM, that is equally biological. Neither is a problem to solve — both are patterns to work with.
+      </p>
+      <p>
+        Chronotype is not destiny. Light exposure, meal timing, and consistent scheduling can shift your clock by 30 to 60 minutes in either direction. But it is a boundary condition — a genetically encoded preference that sets the range within which lifestyle adjustments can operate. The most effective sleep strategy is one that respects that range rather than fighting it.
+      </p>
+
+      <!-- ── Bottom line ── -->
+      <h2 class="bottom-line">The Bottom Line</h2>
+      <p>
+        Your chronotype is not a preference. It is a genetically encoded, age-dependent, measurable biological trait — shaped by 351 gene variants, validated across datasets of hundreds of thousands of people, and written into the molecular architecture of every cell in your body.
+      </p>
+      <p>
+        Living in alignment with it improves cognition, metabolic health, and sleep quality. Living against it — which most work and school schedules demand of late chronotypes — creates chronic circadian stress with real physiological consequences. The first step is knowing where you actually fall.
+      </p>
+      <p>
+        Not vibes. Real research.
+      </p>
+
+      <!-- ── Related reading ── -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the '8 Hours' Rule Is Wrong</a></li>
+          <li><a href="/blog/sleep-debt-is-real-heres-the-math">Sleep Debt Is Real — Here's the Math</a></li>
+          <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+        </ul>
+      </div>
+
+      <!-- Tools Mentioned grid -->
+      <ToolsGrid
+        slugs={['chronotype-quiz', 'circadian-rhythm-calculator', 'social-jet-lag-calculator', 'sleep-cycle-calculator', 'wake-time-calculator', 'exercise-timing-calculator', 'light-exposure-calculator', 'sleep-score-calculator']}
+        heading="Tools Mentioned in This Article"
+      />
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Jones SE, Lane JM, Wood AR, et al. (2019). Genome-wide association analyses of chronotype in 697,828 individuals provides insights into circadian rhythms. <em>Nature Communications</em>, 10(1):343. <a href="https://pubmed.ncbi.nlm.nih.gov/30696823/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Roenneberg T, Kuehnle T, Juda M, Kantermann T, Allebrandt K, Gordijn M, Merrow M. (2007). Epidemiology of the human circadian clock. <em>Sleep Medicine Reviews</em>, 11(6):429–438. <a href="https://pubmed.ncbi.nlm.nih.gov/17936039/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Archer SN, Robilliard DL, Skene DJ, Smits M, Williams A, Arendt J, von Schantz M. (2003). A length polymorphism in the circadian clock gene Per3 is linked to delayed sleep phase syndrome and extreme diurnal preference. <em>Sleep</em>, 26(4):413–415. <a href="https://pubmed.ncbi.nlm.nih.gov/12841365/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Wittmann M, Dinich J, Merrow M, Roenneberg T. (2006). Social jetlag: misalignment of biological and social time. <em>Chronobiology International</em>, 23(1-2):497–509. <a href="https://pubmed.ncbi.nlm.nih.gov/16687322/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Roenneberg T, Kuehnle T, Pramstaller PP, Ricken J, Havel M, Guth A, Merrow M. (2004). A marker for the end of adolescence. <em>Current Biology</em>, 14(24):R1038–R1039. <a href="https://pubmed.ncbi.nlm.nih.gov/15620633/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Roenneberg T, Allebrandt KV, Merrow M, Vetter C. (2012). Social jetlag and obesity. <em>Current Biology</em>, 22(10):939–943. <a href="https://pubmed.ncbi.nlm.nih.gov/22578422/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Chauhan S, Vanova M, Tailor U, Asad M, Faßbender K, Norbury R, Ettinger U, Kumari V. (2025). Chronotype and synchrony effects in human cognitive performance: A systematic review. <em>Chronobiology International</em>, 42(4):463–499. <a href="https://pubmed.ncbi.nlm.nih.gov/40293205/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This article is for informational purposes only and does not constitute medical advice. If you have persistent sleep difficulties, please consult a qualified healthcare provider.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* ── Blog post layout ── */
+  .blog-post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ── */
+  .breadcrumb {
+    padding: 1.25rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+
+  .breadcrumb a {
+    color: var(--text-soft);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .breadcrumb .sep {
+    margin: 0 0.35rem;
+    opacity: 0.4;
+  }
+
+  /* ── Post header ── */
+  .post-header {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .post-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .post-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .read-time::before {
+    content: '\00b7';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .post-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary);
+  }
+
+  .article-intro {
+    font-size: 1.12rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* ── Hero image ── */
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* ── TL;DR ── */
+  .tldr {
+    background: var(--bg-tint, #f4f3ff);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.15rem 1.35rem;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+
+  .tldr strong {
+    color: var(--text);
+  }
+
+  .tldr ul {
+    margin: 0.55rem 0 0;
+    padding-left: 1.15rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.4rem;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary);
+  }
+
+  /* ── Post body ── */
+  .post-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  .post-body p {
+    margin-bottom: 1.35rem;
+  }
+
+  .post-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .post-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+
+  .post-body a:hover {
+    color: #5b4ee0;
+  }
+
+  /* ── Tip boxes ── */
+  .tip-box {
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0 1.75rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .tip-box strong {
+    color: var(--primary);
+  }
+
+  /* ── Related reading ── */
+  .related-reading {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .related-reading h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+
+  .related-reading li::before {
+    content: '\2192 ';
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  .related-reading a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── References ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .references h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .references em {
+    font-style: italic;
+  }
+
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .references a:hover {
+    text-decoration: underline;
+  }
+
+  /* ── Disclaimer ── */
+  .disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .blog-post {
+      padding: 0 1.25rem 3rem;
+    }
+
+    .post-meta-top {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+  }
+</style>

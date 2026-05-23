@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import BaseLayout from 'A/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 ---
@@ -42,6 +42,23 @@ import Footer from '@/components/Footer.astro';
 
         <!-- Published articles -->
         <section class="posts-grid" aria-label="Published articles">
+          <a href="/blog/the-science-behind-your-chronotype" class="post-card">
+            <div class="post-card-img">
+              <img src="/images/blog/the-science-behind-your-chronotype-hero.jpg" alt="Split scene showing warm sunrise light through a bedroom window on one side and a cosy desk lamp illuminating a workspace at night on the other" loading="lazy" />
+            </div>
+            <div class="post-card-body">
+              <div class="post-card-meta">
+                <span class="post-tag">Sleep Science</span>
+                <span class="post-date">May 21, 2026</span>
+              </div>
+              <h2 class="post-card-title">The Science Behind Your Chronotype</h2>
+              <p class="post-card-excerpt">Whether you bounce out of bed at dawn or hit your stride at midnight is not a personality quirk. It is written into your DNA — across 351 gene variants, to be precise.</p>
+              <span class="post-card-cta">
+                Read article
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </div>
+          </a>
           <a href="/blog/sleep-debt-is-real-heres-the-math" class="post-card">
             <div class="post-card-img">
               <img src="/images/blog/sleep-debt-is-real-heres-the-math-hero.jpg" alt="Rumpled bed sheets in dim early-morning light with a clock on the bedside table" loading="lazy" />
@@ -118,10 +135,6 @@ import Footer from '@/components/Footer.astro';
           <ul class="article-list">
             <li class="article-item">
               <span class="article-dot" aria-hidden="true"></span>
-              <span class="article-title">The Science Behind Your Chronotype</span>
-            </li>
-            <li class="article-item">
-              <span class="article-dot" aria-hidden="true"></span>
               <span class="article-title">Why You Wake Up Tired (Even After 8 Hours)</span>
             </li>
             <li class="article-item">
@@ -131,6 +144,10 @@ import Footer from '@/components/Footer.astro';
             <li class="article-item">
               <span class="article-dot" aria-hidden="true"></span>
               <span class="article-title">Alcohol and Sleep: What One Drink Actually Does</span>
+            </li>
+            <li class="article-item">
+              <span class="article-dot" aria-hidden="true"></span>
+              <span class="article-title">Napping Science: When It Helps and When It Backfires</span>
             </li>
           </ul>
         </section>
@@ -155,27 +172,27 @@ import Footer from '@/components/Footer.astro';
         <a href="/#calcs" class="back-link">
           Browse calculators
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M5 12h14" />
-            <path d="m12 5 7 7-7 7" />
-          </svg>
+             xmlns="http://www.w3.org/2000/svg"
+             width="15"
+             height="15"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             aria-hidden="true"
+            >
+             <path d="M5 12h14" />
+             <path d="m12 5 7 7-7 7" />
+            </svg>
         </a>
 
       </div>
     </div>
-  </main>
 
-  <Footer />
+
+  <FUter />
 </BaseLayout>
 
 <style>
