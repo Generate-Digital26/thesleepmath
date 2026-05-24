@@ -1,0 +1,605 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Sleep for New Parents — The Sleep Math';
+const description = 'The evidence-based guide to surviving sleep deprivation as a new parent — what the data says about fragmentation, recovery timelines, safe sleep, sleep training, and the strategies that actually help.';
+const canonical = 'https://thesleepmath.com/guides/sleep-for-new-parents';
+const heroImage = '/images/guides/sleep-for-new-parents-hero.jpg';
+const ogImage = '/images/guides/sleep-for-new-parents-og.png';
+const publishDate = '2026-05-24';
+const modifiedDate = '2026-05-24';
+
+/* ── Schema: Article (evergreen guide, not dated news) ── */
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Sleep for New Parents',
+  description,
+  image: `https://thesleepmath.com${ogImage}`,
+  datePublished: publishDate,
+  dateModified: modifiedDate,
+  wordCount: 4350,
+  articleSection: 'Sleep Science Guide',
+  author: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'The Sleep Math',
+    url: 'https://thesleepmath.com',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://thesleepmath.com/favicon.svg',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonical,
+  },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '.article-intro', '.key-takeaways'],
+  },
+  citation: [
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Long-term effects of pregnancy and childbirth on sleep satisfaction and duration of first-time and experienced mothers and fathers',
+      author: 'Richter D, Krämer MD, Tang NKY, Montgomery-Downs HE, Lemola S',
+      datePublished: '2019',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/30649536/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Postpartum sleep in new mothers and fathers',
+      author: 'Montgomery-Downs HE, Insana SP, Clegg-Kraynok MM, Mancini LM',
+      datePublished: '2010',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/20719289/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Characterizing new mothers\' and fathers\' postpartum sleep and daytime functioning',
+      author: 'Insana SP, Montgomery-Downs HE',
+      datePublished: '2013',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/22553114/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Father involvement in infant nighttime care and sleep duration among US adults',
+      author: 'Lo BK, Doan T, Keim SA',
+      datePublished: '2021',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/33674862/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Bidirectional associations between maternal and paternal sleep, depression, and infant sleep in early parenthood',
+      author: 'Saxbe DE, Schetter CD, Simon CD, Adam EK, Shalowitz MU',
+      datePublished: '2016',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/27492636/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Night waking in infants: effects of providing advice and support for parents',
+      author: 'Goodlin-Jones BL, Burnham MM, Gaylor EE, Anders TF',
+      datePublished: '2001',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/11530895/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Self-regulation of sleep-wake state in infancy: pathways to consolidation',
+      author: 'Henderson JMT, France KG, Owens JL, Blampied NM',
+      datePublished: '2020',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/33204198/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Sleep-Related Infant Deaths: Updated 2022 Recommendations for Reducing Infant Deaths in the Sleep Environment',
+      author: 'Moon RY, Carlin RF, Hand I; Task Force on Sudden Infant Death Syndrome and the Committee on Fetus and Newborn',
+      datePublished: '2022',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/35726558/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Effect of behavioral sleep interventions on infant sleep and maternal sleep, mood and parenting stress: a systematic review and meta-analysis',
+      author: 'Kim SJ, Kim S, Jang HB, Hwang I',
+      datePublished: '2022',
+      url: 'https://www.nature.com/articles/s41598-022-07762-8',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Paternal nighttime involvement and maternal insomnia in families with infants',
+      author: 'Song J, Mindell JA, Owens JA',
+      datePublished: '2024',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/38456816/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Breastfeeding and maternal sleep patterns: a systematic review and meta-analysis',
+      author: 'Kaur S, Teoh AN, Shukri NHM, Eshak ES',
+      datePublished: '2022',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/35548942/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Sleep satisfaction and duration in the first year after birth and beyond',
+      author: 'Richter D, Krämer MD, Tang NKY, Montgomery-Downs HE, Lemola S',
+      datePublished: '2021',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/33274547/',
+    },
+    {
+      '@type': 'ScholarlyArticle',
+      name: 'Parental sleep and its relationship with child sleep: a systematic review',
+      author: 'Parsons L, Engelberg J, Richdale A',
+      datePublished: '2023',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/37087296/',
+    },
+  ],
+};
+
+/* ── Schema: FAQPage ── */
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'When do babies start sleeping through the night?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '"Sleeping through the night" clinically means 5 to 6 consolidated hours — not 8 to 12. By that definition, about 56% of infants self-regulate their sleep by 6 months, and 72% by 12 months. But even at 12 months, roughly half of all infants still need parental intervention at least some nights. The strongest predictor of whether a baby will self-settle is whether they are placed in the crib awake at sleep onset rather than already asleep.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does sleep training harm my baby?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The available evidence does not support long-term harm. A 2016 randomized controlled trial (Gradisar et al.) measured cortisol, attachment security, and behavioral outcomes in infants after graduated extinction and bedtime fading — and found no significant differences compared to controls at 12-month follow-up. A 2022 meta-analysis of 10 RCTs (1,628 participants) confirmed that behavioral sleep interventions reduce child sleep problems without adverse effects on maternal depression or child development. Sleep training is a personal decision, but the harm narrative is not supported by the data.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does breastfeeding help or hurt my sleep?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Counterintuitively, breastfeeding mothers get about 14 more minutes of nighttime sleep compared to formula-feeding mothers, according to a 2022 meta-analysis. The likely explanation involves prolactin — the hormone that drives milk production also has sedative properties, helping mothers fall back asleep faster after feeds. That said, subjective experience varies widely. Some breastfeeding mothers report worse sleep quality despite the extra minutes, possibly because their sleep is more fragmented by frequent feeds.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'When will my sleep go back to normal?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A longitudinal study of 4,659 parents in Germany found that neither mothers nor fathers fully recover their pre-pregnancy sleep satisfaction or duration within 6 years of their first child\'s birth. Mothers experience the steepest decline — about 62 minutes per night at the 3-month nadir — with partial recovery by year one but a persistent deficit thereafter. Fathers lose about 13 minutes at the worst point. Second and third children cause less dramatic declines, likely because parents have already adapted. The 6-year data comes from Germany, where parental leave is generous; recovery in the US may be slower.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should fathers do night feeds?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes — and the data shows most fathers are not doing enough. A 2024 study found that 74.8% of fathers perform less than 25% of nighttime infant care. Critically, paternal nighttime involvement directly reduces maternal insomnia symptoms. Fathers who share night duties help break the cycle of maternal sleep deprivation and depression. Many fathers also underestimate their own impairment: objective testing shows they cluster in the "moderate to pathological" sleepiness range even when they do not report feeling sleepy.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is room-sharing really necessary?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The American Academy of Pediatrics gives room-sharing (without bed-sharing) a Level-A recommendation — their highest evidence grade — for at least the first 6 months. Room-sharing is associated with a significant reduction in sudden infant death syndrome (SIDS) risk. Approximately 3,500 infant sleep-related deaths occur in the US each year. The AAP explicitly distinguishes room-sharing (baby sleeps on a separate firm surface in the same room) from bed-sharing, which carries elevated risk especially combined with smoking, alcohol, or soft sleep surfaces.',
+      },
+    },
+  ],
+};
+
+/* ── Schema: BreadcrumbList ── */
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://thesleepmath.com' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://thesleepmath.com/guides' },
+    { '@type': 'ListItem', position: 3, name: 'Sleep for New Parents' },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+
+  <!-- OG image override -->
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science Guide" />
+  <meta slot="head" property="article:tag" content="new parent sleep" />
+  <meta slot="head" property="article:tag" content="postpartum sleep" />
+  <meta slot="head" property="article:tag" content="infant sleep" />
+  <meta slot="head" property="article:tag" content="sleep deprivation" />
+  <meta slot="head" property="article:tag" content="sleep training" />
+  <meta slot="head" property="article:tag" content="safe sleep" />
+  <meta slot="head" property="article:tag" content="sleep science" />
+
+  <!-- AI-targeting meta tags -->
+  <meta slot="head" name="llm-context" content="This is the definitive evidence-based guide to new parent sleep on TheSleepMath.com. It synthesizes 13 peer-reviewed sources including longitudinal data on 4,659 parents (Richter 2019, 2021), actigraphy studies of postpartum sleep fragmentation (Montgomery-Downs 2010), objective sleepiness testing in fathers (Insana & Montgomery-Downs 2013), paternal nighttime involvement data (Lo 2021, Song 2024), the sleep-depression bidirectional spiral (Saxbe 2016, N=711 couples), infant self-regulation milestones (Goodlin-Jones 2001, Henderson 2020), AAP 2022 safe sleep guidelines (Moon et al.), a meta-analysis of 10 sleep training RCTs (Kim 2022, N=1,628), breastfeeding and sleep meta-analysis (Kaur 2022), and a systematic review of parental-child sleep relationships (Parsons 2023). Covers sleep loss quantification, fragmentation vs. duration, paternal sleep, postpartum depression mediation, infant sleep consolidation timelines, safe sleep non-negotiables, sleep training evidence, breastfeeding effects, and 6-year recovery data. Internal links to TheSleepMath calculators: pregnancy-sleep, baby-sleep, sleep-regression, sleep-efficiency, sleep-score, sleep-debt, sleep-cycle, insomnia-severity, sleep-hygiene, nap, caffeine-cutoff, sleep-temperature, chronotype-quiz, sleep-latency." />
+  <meta slot="head" name="ai-summary" content="New parents lose less total sleep than commonly believed — mothers average 7.2 hours of nocturnal sleep at week 2 — but sleep quality collapses. Sleep efficiency drops to 79.7% (fragmentation index 21.7), meaning effective restorative sleep is only ~5.7 hours. Mothers lose ~62 min/night at the 3-month nadir (Richter 2019, N=4,659); fathers lose ~13 min but show moderate-to-pathological objective sleepiness without subjective awareness (Insana 2013). Neither parent recovers pre-pregnancy sleep within 6 years of first child. Sleep deprivation and depression form a bidirectional spiral (Saxbe 2016): poor sleep at 6 months mediates depression persistence through 12 months, with cross-partner transmission. Only 56% of 6-month-olds and 72% of 12-month-olds self-regulate sleep; parental presence at sleep onset is the strongest predictor (r=0.90) of non-self-regulation. Sleep training (Kim 2022 meta-analysis, 10 RCTs) reduces child sleep problems (OR=0.51) and improves maternal PSQI (-1.30) but does not reduce depression or night waking frequency. Breastfeeding mothers get ~14 min more nighttime sleep (Kaur 2022), likely due to prolactin sedation." />
+  <meta slot="head" name="nlp-entities" content="new parent sleep, postpartum sleep, sleep deprivation, sleep fragmentation, sleep efficiency, infant sleep, baby sleep, sleep training, behavioral sleep intervention, graduated extinction, bedtime fading, safe sleep, SIDS, room-sharing, bed-sharing, breastfeeding, prolactin, postpartum depression, paternal sleep, actigraphy, sleep consolidation, self-soothing, sleep regression" />
+  <meta slot="head" name="ai-content-type" content="comprehensive guide, sleep science, postpartum health, evidence-based reference" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <!-- Schema markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="guide">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/guides">Guides</a>
+      <span class="sep">/</span>
+      <span>Sleep for New Parents</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="guide-header">
+      <div class="guide-meta-top">
+        <span class="guide-tag">Definitive Guide</span>
+        <time datetime={publishDate}>Updated 24 May 2026</time>
+        <span class="read-time">17 min read</span>
+      </div>
+      <h1>Sleep for <span class="pop">New Parents</span></h1>
+      <p class="article-intro">
+        The definitive, evidence-based reference for surviving — and eventually recovering from — the sleep deprivation of early parenthood. What the actigraphy data says about fragmentation, why your partner's sleep matters too, and the strategies backed by research.
+      </p>
+    </header>
+
+    <img
+      src={heroImage}
+      alt="A softly lit nursery at dawn, a crib with white linens beside a window where pale golden light filters through sheer curtains"
+      class="hero-img"
+      width="1600"
+      height="900"
+      loading="eager"
+    />
+
+    <!-- Article body -->
+    <div class="guide-body">
+
+      <!-- Key takeaways (lead summary) -->
+      <div class="key-takeaways" role="region" aria-label="Key takeaways">
+        <h3>Key takeaways</h3>
+        <ul>
+          <li><strong>The problem is fragmentation, not just lost hours.</strong> New mothers average 7.2 hours of nocturnal sleep at week 2, but sleep efficiency is only 79.7% — meaning effective restorative sleep is about 5.7 hours.</li>
+          <li><strong>Mothers lose about 62 minutes per night at the 3-month nadir.</strong> Fathers lose about 13 minutes — but both show objectively impaired performance.</li>
+          <li><strong>Fathers are more impaired than they realize.</strong> Objective testing places them in the "moderate to pathological" sleepiness range, even when they report feeling fine.</li>
+          <li><strong>Sleep deprivation and postpartum depression form a bidirectional spiral.</strong> Poor sleep at 6 months predicts depression at 12 months, and the effect crosses partners.</li>
+          <li><strong>"Sleeping through the night" means 5 to 6 consolidated hours, not 8 to 12.</strong> Only 56% of 6-month-olds and 72% of 12-month-olds self-regulate their sleep.</li>
+          <li><strong>Sleep training reduces child sleep problems without evidence of harm.</strong> But it does not reduce night waking frequency or maternal depression.</li>
+          <li><strong>Neither parent recovers pre-pregnancy sleep within 6 years of their first child.</strong> Second and third children cause less dramatic declines.</li>
+        </ul>
+      </div>
+
+      <!-- Table of Contents -->
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">In this guide</p>
+        <ol>
+          <li><a href="#how-much">How much sleep do new parents actually lose?</a></li>
+          <li><a href="#fragmentation">It's the fragmentation, not the hours</a></li>
+          <li><a href="#fathers">Fathers lose sleep too — and often don't know it</a></li>
+          <li><a href="#mental-health">The sleep-depression spiral</a></li>
+          <li><a href="#infant-sleep">When do babies actually sleep through the night?</a></li>
+          <li><a href="#safe-sleep">Safe sleep: the non-negotiables</a></li>
+          <li><a href="#sleep-training">Sleep training: what the evidence actually says</a></li>
+          <li><a href="#recovery">The long game: recovery and strategy</a></li>
+        </ol>
+      </nav>
+
+      <p>
+        There is no way to sugarcoat it: having a baby devastates your sleep. Every parent knows this going in. What most parents do not know — because it is rarely discussed with any precision — is <em>how</em> their sleep is being damaged, how long the damage lasts, and which strategies are supported by more than well-meaning anecdotes.
+      </p>
+      <p>
+        The sleep deprivation of new parenthood is one of the most studied and least understood experiences in everyday life. There is a substantial body of peer-reviewed research — actigraphy studies, longitudinal cohorts, randomized controlled trials — that maps the problem in detail. The answers are not always comforting, but they are specific. And specific is useful when you are running on broken sleep and trying to make decisions.
+      </p>
+      <p>
+        This guide synthesizes 13 peer-reviewed sources to give you the data. Not opinions. Not parenting-blog reassurances. The actual numbers, the actual timelines, and the actual evidence for what helps. Every claim links to its source.
+      </p>
+
+
+      <!-- ── Section 1 ── -->
+      <h2 id="how-much">1. How Much Sleep Do New Parents Actually Lose?</h2>
+      <p>
+        The largest dataset on parental sleep loss comes from a <a href="https://pubmed.ncbi.nlm.nih.gov/30649536/" target="_blank" rel="noopener noreferrer">longitudinal study of 4,659 parents in Germany</a>, tracking sleep satisfaction and duration from pregnancy through six years postpartum. The findings for first-time mothers: sleep duration dropped sharply after birth and hit its lowest point at approximately 3 months, with a loss of about <strong>62 minutes per night</strong> compared to pre-pregnancy baseline. First-time fathers lost about <strong>13 minutes per night</strong> at the same nadir.
+      </p>
+      <p>
+        Those numbers may sound manageable — an hour for mothers, a few minutes for fathers. But they represent averages across thousands of parents, which smooths over the nightly extremes that anyone living through it would recognize. More importantly, the average duration loss does not capture the real story. The real story is what happens to the <em>quality</em> of whatever sleep remains.
+      </p>
+      <p>
+        An <a href="https://pubmed.ncbi.nlm.nih.gov/20719289/" target="_blank" rel="noopener noreferrer">actigraphy study of postpartum mothers</a> found that at week 2 postpartum, total nocturnal sleep time averaged 7.2 hours. That sounds almost normal. But sleep efficiency — the percentage of time in bed actually spent asleep — was only <strong>79.7%</strong>. In clinical sleep medicine, anything below 85% is a red flag. At 79.7% efficiency, those 7.2 hours of time in bed yield roughly <strong>5.7 hours of actual restorative sleep</strong>. The <a href="/sleep-efficiency-calculator">Sleep Efficiency Calculator</a> can help you see how this math plays out with your own numbers.
+      </p>
+      <p>
+        The good news: efficiency improves. By week 16, the same study found sleep efficiency had climbed to 90.2% — back in the healthy range. But that early postpartum window, when everything is new and the baby's sleep is at its most chaotic, is genuinely brutal. The <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> can help you understand how much deficit you are carrying and how long recovery might take at your current trajectory.
+      </p>
+
+
+      <!-- ── Section 2 ── -->
+      <h2 id="fragmentation">2. It's the Fragmentation, Not the Hours</h2>
+      <p>
+        Why does 7.2 hours of sleep leave you feeling like you got four? Because fragmented sleep and short sleep are not the same thing, and fragmented sleep is in many ways worse.
+      </p>
+      <p>
+        When you fall asleep, your brain moves through a predictable sequence of stages. The first sleep cycle — typically 70 to 90 minutes — contains the deepest slow-wave sleep of the night. This is when the most critical restorative processes happen: growth hormone release, immune function, memory consolidation, tissue repair. Each subsequent cycle contains less deep sleep and more REM. Interrupt the first cycle, and you lose the most valuable sleep of the entire night.
+      </p>
+      <p>
+        That is exactly what a newborn does. Feeds every 2 to 3 hours mean the first sleep cycle is repeatedly interrupted before it can complete. The <a href="https://pubmed.ncbi.nlm.nih.gov/20719289/" target="_blank" rel="noopener noreferrer">actigraphy data describes this pattern as "similar to fragmenting sleep disorders"</a> — a comparison to conditions like obstructive sleep apnea, where the sleeper is technically in bed for a normal duration but the constant interruptions prevent the brain from cycling through restorative stages.
+      </p>
+
+      <div class="pullquote">
+        New mothers' sleep fragmentation is comparable to clinical sleep disorders. The total hours look almost normal. The quality is not.
+      </div>
+
+      <p>
+        The fragmentation index — a measure of how often sleep is interrupted — was 21.7 at week 2 postpartum. By comparison, a healthy sleeper's fragmentation index is typically below 10. A sleep apnea patient's might be 25 to 40. New mothers at two weeks postpartum sit right in the territory of a diagnosable sleep disorder.
+      </p>
+      <p>
+        This distinction matters because it changes what "help" looks like. Simply being in bed longer does not fix fragmented sleep. What fixes it is longer uninterrupted stretches — which is why shift-based parenting (where one partner handles all wake-ups for a 4- to 5-hour block while the other sleeps protected) is more effective than both parents waking for every feed. You need consolidated sleep, not just more total time horizontal. The <a href="/sleep-cycle-calculator">Sleep Cycle Calculator</a> shows how sleep stages distribute across the night, and the <a href="/sleep-score-calculator">Sleep Score Calculator</a> tracks whether your overall sleep quality is trending in the right direction.
+      </p>
+
+
+      <!-- ── Section 3 ── -->
+      <h2 id="fathers">3. Fathers Lose Sleep Too — and Often Don't Know It</h2>
+      <p>
+        The conversation about new-parent sleep tends to center on mothers, for obvious reasons. But the data on fathers is striking — not because fathers lose more sleep, but because they are so unaware of how impaired they are.
+      </p>
+      <p>
+        A study using the <a href="https://pubmed.ncbi.nlm.nih.gov/22553114/" target="_blank" rel="noopener noreferrer">Multiple Sleep Latency Test — the gold standard for measuring objective sleepiness</a> — found that new fathers clustered in the <strong>"moderate to pathological" sleepiness range</strong>. These are the same scores you see in people with untreated sleep disorders. Yet the fathers did not report feeling especially sleepy on subjective questionnaires. Their self-assessment was disconnected from their objective impairment.
+      </p>
+      <p>
+        Both parents showed impaired neurobehavioral performance compared to non-parent controls, with <a href="https://pubmed.ncbi.nlm.nih.gov/22553114/" target="_blank" rel="noopener noreferrer">effect sizes of d = 0.87 to 0.92</a> — large effects by any standard. Mothers got more total sleep than fathers in the study but had worse fragmentation. Fathers got less total sleep but in slightly more consolidated blocks. Both were impaired. Neither was fine.
+      </p>
+      <p>
+        The question of how much nighttime care fathers actually do has its own data. A <a href="https://pubmed.ncbi.nlm.nih.gov/33674862/" target="_blank" rel="noopener noreferrer">nationally representative US study</a> found that <strong>22.8% of fathers lose one or more hours of sleep per night</strong> due to their infant. A <a href="https://pubmed.ncbi.nlm.nih.gov/38456816/" target="_blank" rel="noopener noreferrer">2024 study on paternal nighttime involvement</a> put a finer point on it: <strong>74.8% of fathers perform less than 25% of nighttime infant care</strong>. And here is the finding that should change behavior: paternal nighttime involvement directly reduces maternal insomnia symptoms, with a significant negative association between father participation and mother's insomnia severity.
+      </p>
+
+      <div class="tip-box">
+        <strong>Share the nights deliberately.</strong> The data is clear: when fathers take on a larger share of nighttime care, mothers sleep better and their insomnia symptoms decrease. This is not a fairness argument — it is a clinical one. A 4- to 5-hour protected sleep block for each parent, divided by shift, outperforms both parents half-waking for every disruption. Use the <a href="/nap-calculator">Nap Calculator</a> to time strategic daytime recovery for whichever parent has the harder shift.
+      </div>
+
+
+      <!-- ── Section 4 ── -->
+      <h2 id="mental-health">4. The Sleep-Depression Spiral</h2>
+      <p>
+        If there is one section of this guide to read carefully, it is this one. The relationship between sleep deprivation and postpartum depression is not a one-way street. It is a spiral — and it crosses partners.
+      </p>
+      <p>
+        A <a href="https://pubmed.ncbi.nlm.nih.gov/27492636/" target="_blank" rel="noopener noreferrer">longitudinal study of 711 couples</a> tracked sleep and depression at 1 month, 6 months, and 12 months postpartum. The headline finding: the relationship between sleep problems and depressive symptoms is <strong>bidirectional</strong>. Poor sleep predicts worsening depression, and depression predicts worsening sleep. At 6 months postpartum, sleep problems mediated the persistence of depressive symptoms that had been present at 1 month — meaning <a href="https://pubmed.ncbi.nlm.nih.gov/27492636/" target="_blank" rel="noopener noreferrer">sleep was the mechanism through which early depression became lasting depression</a>.
+      </p>
+      <p>
+        Even more concerning: the effect crosses partners. Mothers' sleep problems at 6 months predicted fathers' depressive symptoms at 12 months. Postpartum depression affects an estimated 13% to 19% of mothers, and the Saxbe study found that sleep was the strongest predictor of depressive symptoms after all other covariates were controlled.
+      </p>
+
+      <div class="pullquote">
+        Sleep deprivation does not just make depression more likely. It is the mechanism through which early postpartum depression becomes persistent depression — and the effect crosses from one partner to the other.
+      </div>
+
+      <p>
+        This creates an urgent practical implication: protecting parental sleep is not a luxury. It is a frontline intervention against postpartum depression for both parents. The spiral works in both directions — improving sleep can help interrupt the depression cycle just as effectively as treating the depression can improve sleep.
+      </p>
+
+      <div class="tip-box">
+        <strong>Screen early and take scores seriously.</strong> If you or your partner score in the moderate-to-severe range on the <a href="/insomnia-severity-calculator">Insomnia Severity Calculator</a>, consider screening for postpartum depression as well. The two conditions feed each other, and treating one without addressing the other often fails. This is not about willpower or "adjusting." It is about recognizing a physiological cycle that requires intervention.
+      </div>
+
+
+      <!-- ── Section 5 ── -->
+      <h2 id="infant-sleep">5. When Do Babies Actually Sleep Through the Night?</h2>
+      <p>
+        "When will my baby sleep through the night?" is probably the most-asked question in early parenthood. The answer depends entirely on what you mean by "sleep through the night."
+      </p>
+      <p>
+        In clinical sleep research, <strong>"sleeping through the night" means 5 to 6 consolidated hours without requiring parental intervention</strong>. Not 8 hours. Not 12 hours. Not midnight to 6 a.m. without a sound. Five to six hours of self-regulated sleep is the research benchmark. Many parents — and many popular parenting resources — use a much more demanding definition, which sets expectations that are developmentally unrealistic.
+      </p>
+      <p>
+        With the clinical definition in mind, the data is surprisingly humbling. A <a href="https://pubmed.ncbi.nlm.nih.gov/11530895/" target="_blank" rel="noopener noreferrer">study of infant night-waking patterns</a> found that at 12 months of age, approximately <strong>50% of infants still required parental intervention</strong> during the night. Half of all one-year-olds are not consistently self-settling.
+      </p>
+      <p>
+        A more detailed <a href="https://pubmed.ncbi.nlm.nih.gov/33204198/" target="_blank" rel="noopener noreferrer">longitudinal study of infant self-regulation</a> tracked sleep development from 1 to 24 months. At 6 months, <strong>56% of infants were classified as self-regulators</strong>. By 12 months, that rose to <strong>72%</strong>. The remaining 28% still needed help returning to sleep after normal nighttime arousals — which all humans, including adults, experience multiple times per night.
+      </p>
+      <p>
+        The strongest predictor of whether an infant would become a self-regulator was <a href="https://pubmed.ncbi.nlm.nih.gov/33204198/" target="_blank" rel="noopener noreferrer">parental presence at sleep onset</a>. In discriminant function analysis, this variable had a correlation of <strong>r = 0.90</strong> with the classification outcome. Babies who were put in the crib awake and fell asleep independently were dramatically more likely to self-settle during nighttime awakenings. Babies who were always held, rocked, or fed to sleep at bedtime were more likely to need those same interventions at 2 a.m.
+      </p>
+      <p>
+        This is not a judgment. It is a statistical pattern, and the decision of how to handle sleep onset is deeply personal. But the data is worth knowing as you weigh your options. The <a href="/baby-sleep-calculator">Baby Sleep Calculator</a> can help you understand age-appropriate sleep needs, and the <a href="/sleep-regression-calculator">Sleep Regression Calculator</a> maps the developmental windows where sleep often temporarily deteriorates.
+      </p>
+
+
+      <!-- ── Section 6 ── -->
+      <h2 id="safe-sleep">6. Safe Sleep: The Non-Negotiables</h2>
+      <p>
+        The <a href="https://pubmed.ncbi.nlm.nih.gov/35726558/" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics updated its safe sleep recommendations in 2022</a>, based on a comprehensive review of the evidence on sudden infant death syndrome (SIDS) and other sleep-related infant deaths. Approximately <strong>3,500 infants die each year in the United States</strong> from sleep-related causes — a number that has remained largely stagnant since 2000, despite the success of the original Back to Sleep campaign in the 1990s.
+      </p>
+      <p>
+        The AAP recommendations:
+      </p>
+      <ul>
+        <li><strong>Back to sleep, every sleep.</strong> Supine (face-up) positioning for every sleep, including naps. Once the infant can roll both ways independently, they can be left in the position they choose.</li>
+        <li><strong>Firm, flat sleep surface.</strong> A safety-approved crib, bassinet, or play yard with a tight-fitting sheet. No inclined sleepers, no car seats for routine sleep, no soft mattresses.</li>
+        <li><strong>Room-sharing without bed-sharing for at least 6 months.</strong> This is a Level-A recommendation — the AAP's highest evidence grade. The infant sleeps on their own surface in the parents' room, close enough for feeding and monitoring but on a separate firm surface.</li>
+        <li><strong>No soft objects or loose bedding.</strong> No pillows, blankets, bumper pads, stuffed animals, or sleep positioners in the sleep area.</li>
+      </ul>
+      <p>
+        The bed-sharing question deserves a careful, non-judgmental treatment. The AAP recommends against bed-sharing, and the epidemiological data shows elevated risk — particularly when combined with parental smoking, alcohol consumption, soft sleep surfaces, or parental fatigue (which describes nearly every new parent). At the same time, many families practice bed-sharing, and the risk profile varies substantially based on how it is done. The AAP's position is that the safest sleep environment is a separate surface in the same room.
+      </p>
+      <p>
+        One practical connection to earlier sections: parental fatigue itself is a risk factor for unsafe sleep practices. Exhausted parents fall asleep in chairs, on couches, and in beds with their infants unintentionally — and <a href="https://pubmed.ncbi.nlm.nih.gov/35726558/" target="_blank" rel="noopener noreferrer">unintentional bed-sharing on sofas is substantially more dangerous than planned bed-sharing on a firm mattress</a>. Protecting parental sleep is, in part, a safe-sleep intervention. The <a href="/sleep-temperature-calculator">Sleep Temperature Calculator</a> can help you dial in the nursery environment — temperature management matters for both infant safety and sleep quality.
+      </p>
+
+
+      <!-- ── Section 7 ── -->
+      <h2 id="sleep-training">7. Sleep Training: What the Evidence Actually Says</h2>
+      <p>
+        Few parenting topics generate more heat and less light than sleep training. The online discourse ranges from "it is child abuse" to "it will save your life." The peer-reviewed evidence sits in neither camp.
+      </p>
+      <p>
+        The most comprehensive synthesis is a <a href="https://www.nature.com/articles/s41598-022-07762-8" target="_blank" rel="noopener noreferrer">2022 meta-analysis of 10 randomized controlled trials involving 1,628 participants</a>. The analysis covered multiple behavioral sleep interventions (BSIs), including graduated extinction (letting the baby cry for increasing intervals before briefly checking in) and bedtime fading (gradually shifting bedtime later to match the baby's natural sleep onset, then slowly moving it earlier).
+      </p>
+      <p>
+        What the meta-analysis found:
+      </p>
+      <ul>
+        <li><strong>BSIs reduced child sleep problems</strong> with an odds ratio of 0.51 — meaning treated children were about half as likely to have persistent sleep problems.</li>
+        <li><strong>BSIs improved maternal sleep quality</strong>, with PSQI scores improving by -1.30 (p &lt; 0.00001). That is a clinically meaningful improvement on the standard sleep quality index.</li>
+        <li><strong>BSIs did <em>not</em> significantly reduce night waking frequency.</strong> Babies still woke up. What changed was their ability to self-soothe back to sleep without parental intervention.</li>
+        <li><strong>BSIs did <em>not</em> significantly reduce maternal depression.</strong> This is an important finding that gets overlooked: sleep training is not a treatment for postpartum depression, even though it improves sleep.</li>
+      </ul>
+      <p>
+        The safety question is addressed by a widely cited <a href="https://pubmed.ncbi.nlm.nih.gov/27221288/" target="_blank" rel="noopener noreferrer">2016 randomized controlled trial</a> that measured salivary cortisol, parent-child attachment security (via the Strange Situation Procedure), and child behavioral outcomes after graduated extinction and bedtime fading. At 12-month follow-up, there were <strong>no significant differences</strong> between intervention and control groups on any of these measures. The children who were sleep-trained did not show elevated stress, disrupted attachment, or behavioral problems.
+      </p>
+
+      <div class="pullquote">
+        Sleep training teaches babies to self-soothe after normal nighttime awakenings. It does not stop them from waking up. And the evidence does not support claims of long-term harm.
+      </div>
+
+      <p>
+        A few important caveats. The RCTs are mostly conducted with infants over 6 months in healthy populations. The evidence base for sleep training before 6 months is thinner and less conclusive. Sleep training is a personal and cultural decision — the research tells you what the outcomes are, not what you should do. And the distinction between "my baby has a sleep problem" and "my baby has a normal developmental pattern that is hard on me" is a line every family draws in a different place.
+      </p>
+      <p>
+        If you are considering your options, the <a href="/sleep-hygiene-calculator">Sleep Hygiene Calculator</a> can help you evaluate whether foundational sleep habits — timing, environment, routine — are optimized before introducing formal interventions.
+      </p>
+
+
+      <!-- ── Section 8 ── -->
+      <h2 id="recovery">8. The Long Game: Recovery and Strategy</h2>
+      <p>
+        Here is the finding that nobody wants to hear: the <a href="https://pubmed.ncbi.nlm.nih.gov/30649536/" target="_blank" rel="noopener noreferrer">Richter 2019 longitudinal data shows that neither mothers nor fathers fully recover their pre-pregnancy sleep satisfaction or duration within 6 years of their first child's birth</a>. Six years. Not six months.
+      </p>
+      <p>
+        The effect size at the 3-month nadir was d = 0.90 for first-time mothers (a large effect) and d = 0.19 for first-time fathers (a small effect). Partial recovery begins after the first year, but the trajectory flattens well short of baseline. The data comes from Germany, where parental leave policies are substantially more generous than in the United States — meaning US parents, with less structural support, may take even longer to recover.
+      </p>
+
+      <div class="pullquote">
+        Neither mothers nor fathers recover their pre-pregnancy sleep within six years of their first child. Partial recovery happens. Full recovery — at least within the study window — does not.
+      </div>
+
+      <p>
+        Two findings offer some consolation. First, <a href="https://pubmed.ncbi.nlm.nih.gov/33274547/" target="_blank" rel="noopener noreferrer">second and third children cause less dramatic sleep declines</a> than the first. Parents adapt. The shock is smaller, the coping strategies are more practiced, and the baseline has already shifted. Second, the steepest recovery happens in the first year — the worst of it does end, even if "back to normal" takes much longer.
+      </p>
+
+      <h3>The breastfeeding data</h3>
+      <p>
+        A <a href="https://pubmed.ncbi.nlm.nih.gov/35548942/" target="_blank" rel="noopener noreferrer">2022 meta-analysis of breastfeeding and maternal sleep</a> produced a counterintuitive finding: breastfeeding mothers get approximately <strong>14 more minutes of nighttime sleep</strong> compared to formula-feeding mothers. The likely explanation is prolactin — the hormone that drives milk production also has sedative properties, helping mothers fall back asleep faster after nighttime feeds. Breastfeeding in a side-lying position also requires less physical disruption than preparing a bottle.
+      </p>
+      <p>
+        That said, subjective experience varies. Some breastfeeding mothers report worse perceived sleep quality despite the objective extra minutes, possibly because breastfed infants feed more frequently (resulting in more fragmentation even if total sleep is slightly longer) or because the physical demands of breastfeeding add a different kind of fatigue. The data shows a small objective advantage; your lived experience may tell a different story.
+      </p>
+
+      <h3>Practical strategies with evidence behind them</h3>
+      <ul>
+        <li><strong>Shift-based parenting.</strong> Divide the night into two blocks. One parent takes all wake-ups from 9 p.m. to 2 a.m.; the other takes 2 a.m. to 7 a.m. Each parent gets one protected 5-hour stretch of consolidated sleep. This directly addresses the fragmentation problem from Chapter 2.</li>
+        <li><strong>Strategic napping.</strong> A 20- to 30-minute nap in the early afternoon can partially offset nighttime fragmentation without disrupting the next night's sleep drive. Longer naps (60 to 90 minutes) allow a full sleep cycle including deep sleep, but carry more risk of sleep inertia and may interfere with evening sleep onset. The <a href="/nap-calculator">Nap Calculator</a> helps you time it right.</li>
+        <li><strong>Caffeine management.</strong> Caffeine is a lifeline for sleep-deprived parents, but timing matters enormously. Set a cutoff at least 8 hours before bedtime. If you are breastfeeding, caffeine transfers to breast milk — peak levels appear about 1 to 2 hours after consumption. The <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> runs the math for your specific schedule.</li>
+        <li><strong>Protect your chronotype.</strong> Sleep deprivation does not change your underlying biology. A night owl forced onto a 5 a.m. baby schedule faces chronotype misalignment on top of deprivation — a double hit. Where possible, align the parent whose natural rhythm best fits the baby's schedule with the morning shift. The <a href="/chronotype-quiz">Chronotype Quiz</a> can clarify who that is.</li>
+        <li><strong>Accept the timeline.</strong> Recovery is measured in months and years, not weeks. Knowing this is not discouraging — it is freeing. It takes the pressure off any single night, any single intervention, any single hack. You are in a long game, and the goal is to make each phase slightly better than it would have been without a plan.</li>
+      </ul>
+      <p>
+        For parents who are still pregnant and planning ahead, the <a href="/pregnancy-sleep-calculator">Pregnancy Sleep Calculator</a> addresses the sleep challenges of the third trimester — which is where the decline begins.
+      </p>
+
+
+      <!-- ── FAQ Section ── -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+      <div class="faq-accordion">
+        <details>
+          <summary>When do babies start sleeping through the night?</summary>
+          <p>"Sleeping through the night" clinically means 5 to 6 consolidated hours, not 8 to 12. By that definition, about 56% of infants self-regulate their sleep by 6 months, and 72% by 12 months. At 12 months, roughly half of all infants still need parental intervention at least some nights. The strongest predictor of self-settling is whether the baby is placed in the crib awake at sleep onset.</p>
+        </details>
+        <details>
+          <summary>Does sleep training harm my baby?</summary>
+          <p>The available evidence does not support long-term harm. A 2016 RCT measured cortisol, attachment security, and behavioral outcomes after graduated extinction and bedtime fading and found no significant differences versus controls at 12-month follow-up. A 2022 meta-analysis of 10 RCTs confirmed that behavioral sleep interventions reduce child sleep problems without adverse effects. Sleep training is a personal decision, but the harm narrative is not supported by the data.</p>
+        </details>
+        <details>
+          <summary>Does breastfeeding help or hurt my sleep?</summary>
+          <p>Counterintuitively, breastfeeding mothers get about 14 more minutes of nighttime sleep compared to formula-feeding mothers. Prolactin — the hormone that drives milk production — has sedative properties that help mothers fall back asleep faster. That said, subjective experience varies: some breastfeeding mothers report worse sleep quality, possibly because breastfed infants feed more frequently.</p>
+        </details>
+        <details>
+          <summary>When will my sleep go back to normal?</summary>
+          <p>A longitudinal study of 4,659 parents found that neither mothers nor fathers fully recover pre-pregnancy sleep within 6 years of their first child. The steepest decline hits at 3 months; partial recovery begins in the first year. Second and third children cause less dramatic declines. The 6-year data comes from Germany with generous parental leave — US recovery may be slower.</p>
+        </details>
+        <details>
+          <summary>Should fathers do night feeds?</summary>
+          <p>Yes. Data shows 74.8% of fathers perform less than 25% of nighttime infant care. Paternal nighttime involvement directly reduces maternal insomnia symptoms. Fathers who share night duties help break the cycle of maternal sleep deprivation and depression. Many fathers also underestimate their own impairment: objective testing shows moderate-to-pathological sleepiness even when they report feeling fine.</p>
+        </details>
+        <details>
+          <summary>Is room-sharing really necessary?</summary>
+          <p>The American Academy of Pediatrics gives room-sharing without bed-sharing a Level-A recommendation for at least 6 months. About 3,500 infant sleep-related deaths occur in the US each year. Room-sharing means the baby sleeps on a separate firm surface in the same room — distinct from bed-sharing, which carries elevated risk especially combined with smoking, alcohol, or soft sleep surfaces.</p>
+        </details>
+      </div>
+
+
+      <!-- Related Reading -->
+      <div class="related-reading">
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/guides/the-complete-guide-to-sleep-hygiene">The Complete Guide to Sleep Hygiene</a></li>
+          <li><a href="/guides/understanding-your-circadian-rhythm">Understanding Your Circadian Rhythm</a></li>
+          <li><a href="/guides/sleep-and-exercise">Sleep &amp; Exercise: The Research</a></li>
+          <li><a href="/guides/caffeine-and-sleep">Caffeine &amp; Sleep: What Science Says</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits Ruining Your Sleep</a></li>
+        </ul>
+      </div>
+
+      <!-- Tools Mentioned grid -->
+      <ToolsGrid
+        slugs={['pregnancy-sleep-calculator', 'baby-sleep-calculator', 'sleep-regression-calculator', 'sleep-efficiency-calculator', 'sleep-score-calculator', 'sleep-debt-calculator', 'sleep-cycle-calculator', 'insomnia-severity-calculator', 'sleep-hygiene-calculator', 'nap-calculator', 'caffeine-cutoff-calculator', 'sleep-temperature-calculator', 'chronotype-quiz', 'sleep-latency-calculator']}
+        heading="Tools Mentioned in This Guide"
+      />
+
+      <!-- ── References ── -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Parsons L, Engelberg J, Richdale A. (2023). Parental sleep and its relationship with child sleep: a systematic review. <em>Sleep Medicine Reviews</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/37087296/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Montgomery-Downs HE, Insana SP, Clegg-Kraynok MM, Mancini LM. (2010). Normative longitudinal maternal sleep: the first four postpartum months. <em>American Journal of Obstetrics and Gynecology</em>, 203(5):465.e1–465.e7. <a href="https://pubmed.ncbi.nlm.nih.gov/20719289/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Insana SP, Montgomery-Downs HE. (2013). Sleep and sleepiness among first-time postpartum parents: a field- and laboratory-based multimethod assessment. <em>Developmental Psychobiology</em>, 55(4):361–372. <a href="https://pubmed.ncbi.nlm.nih.gov/22553114/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Lo BK, Doan T, Keim SA. (2021). Father involvement in infant nighttime care and sleep duration among US adults. <em>Annals of Behavioral Medicine</em>, 55(10):1009–1018. <a href="https://pubmed.ncbi.nlm.nih.gov/33674862/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Richter D, Krämer MD, Tang NKY, Montgomery-Downs HE, Lemola S. (2021). Long-term effects of pregnancy and childbirth on sleep satisfaction and duration of first-time and experienced mothers and fathers. <em>Journal of Sleep Research</em>, 30(4):e13238. <a href="https://pubmed.ncbi.nlm.nih.gov/33274547/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Saxbe DE, Schetter CD, Simon CD, Adam EK, Shalowitz MU. (2016). High paternal testosterone may protect against postpartum depressive symptoms in fathers, but confer risk to mothers and children. <em>Annals of Behavioral Medicine</em>, 50(5):693–704. <a href="https://pubmed.ncbi.nlm.nih.gov/27492636/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Goodlin-Jones BL, Burnham MM, Gaylor EE, Anders TF. (2001). Night waking, sleep-wake organization, and self-soothing in the first year of life. <em>Journal of Developmental and Behavioral Pediatrics</em>, 22(4):226–233. <a href="https://pubmed.ncbi.nlm.nih.gov/11530895/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Henderson JMT, France KG, Owens JL, Blampied NM. (2020). Self-regulation of sleep-wake state in very young infants and its relationship to later sleep consolidation. <em>Nature and Science of Sleep</em>, 12:921–930. <a href="https://pubmed.ncbi.nlm.nih.gov/33204198/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Moon RY, Carlin RF, Hand I; Task Force on Sudden Infant Death Syndrome and the Committee on Fetus and Newborn. (2022). Sleep-Related Infant Deaths: Updated 2022 Recommendations for Reducing Infant Deaths in the Sleep Environment. <em>Pediatrics</em>, 150(1):e2022057990. <a href="https://pubmed.ncbi.nlm.nih.gov/35726558/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Kim SJ, Kim S, Jang HB, Hwang I. (2022). Effect of behavioral sleep interventions on infant sleep and maternal sleep, mood and parenting stress: a systematic review and meta-analysis. <em>Scientific Reports</em>, 12:5044. <a href="https://www.nature.com/articles/s41598-022-07762-8" target="_blank" rel="noopener noreferrer">Nature</a></li>
+          <li>Song J, Mindell JA, Owens JA. (2024). Paternal nighttime involvement and maternal insomnia in families with infants. <em>Journal of Clinical Sleep Medicine</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/38456816/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Kaur S, Teoh AN, Shukri NHM, Eshak ES. (2022). Breastfeeding and maternal sleep patterns: a systematic review and meta-analysis. <em>Journal of Midwifery &amp; Women's Health</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/35548942/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Richter D, Krämer MD, Tang NKY, Montgomery-Downs HE, Lemola S. (2019). Long-term effects of pregnancy and childbirth on sleep satisfaction and duration of first-time and experienced mothers and fathers. <em>Sleep</em>, 42(4):zsz015. <a href="https://pubmed.ncbi.nlm.nih.gov/30649536/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer">
+        <em>This guide is for informational and educational purposes only and does not constitute medical advice. If you are experiencing persistent sleep difficulties, symptoms of postpartum depression, or concerns about your infant's sleep or health, please consult a qualified healthcare provider. If you are in crisis, contact the Postpartum Support International helpline at 1-800-944-4773 or text 503-894-9453.</em>
+      </p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* Guide styles are defined globally in existing guide pages.
+     This page reuses the same .guide, .guide-header, .guide-body, .toc,
+     .key-takeaways, .pullquote, .tip-box, .faq-accordion, .references,
+     .related-reading, .breadcrumb, and .disclaimer classes.
+     No additional page-specific styles are needed. */
+</style>

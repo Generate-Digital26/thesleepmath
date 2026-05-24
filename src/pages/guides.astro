@@ -3,9 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Nav from '@/components/Nav.astro';
 import Footer from '@/components/Footer.astro';
 
-const upcomingGuides = [
-  'Sleep for New Parents',
-];
+const upcomingGuides = [];
 ---
 
 <BaseLayout
@@ -46,6 +44,30 @@ const upcomingGuides = [
 
       <!-- Published guides -->
       <section class="guides-grid" aria-label="Published guides">
+        <a href="/guides/sleep-for-new-parents" class="guide-card">
+          <div class="guide-card-img">
+            <img
+              src="/images/guides/sleep-for-new-parents-hero.jpg"
+              alt="A soft nursery scene at dawn with a wooden crib and sheer curtains glowing with early morning light"
+              loading="lazy"
+            />
+          </div>
+          <div class="guide-card-body">
+            <div class="guide-card-meta">
+              <span class="guide-tag">Definitive Guide</span>
+              <span class="guide-date">17 min read</span>
+            </div>
+            <h2 class="guide-card-title">Sleep for New Parents</h2>
+            <p class="guide-card-excerpt">
+              The definitive, evidence-based reference for surviving the sleep deprivation of early parenthood — what actigraphy data says about fragmentation, why your partner's sleep matters too, and the strategies backed by real research.
+            </p>
+            <span class="guide-card-cta">
+              Read guide
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
+          </div>
+        </a>
+
         <a href="/guides/caffeine-and-sleep" class="guide-card">
           <div class="guide-card-img">
             <img
@@ -144,14 +166,16 @@ const upcomingGuides = [
       </section>
 
       <!-- Upcoming guides -->
-      <section class="topics-section" aria-label="Upcoming guides">
-        <span class="topics-label">Coming next</span>
-        <div class="chips">
-          {upcomingGuides.map((guide) => (
-            <span class="chip">{guide}</span>
-          ))}
-        </div>
-      </section>
+      {upcomingGuides.length > 0 && (
+        <section class="topics-section" aria-label="Upcoming guides">
+          <span class="topics-label">Coming next</span>
+          <div class="chips">
+            {upcomingGuides.map((guide) => (
+              <span class="chip">{guide}</span>
+            ))}
+          </div>
+        </section>
+      )}
 
       <!-- Newsletter CTA -->
       <div class="cta-box">
