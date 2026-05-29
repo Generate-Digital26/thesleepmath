@@ -1,0 +1,684 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Blue Light and Melatonin: What the Research Actually Shows &#8212; The Sleep Math';
+const description = 'Your eyes have a hidden photoreceptor tuned to 460 nm. Here is what six studies reveal about blue light, melatonin suppression, and your sleep.';
+const canonical = 'https://thesleepmath.com/blog/blue-light-and-melatonin-what-the-research-actually-shows';
+const heroImage = '/images/blog/blue-light-and-melatonin-what-the-research-actually-shows-hero.jpg';
+const ogImage = '/images/blog/blue-light-and-melatonin-what-the-research-actually-shows-og.png';
+const publishDate = '2026-05-28';
+const modifiedDate = '2026-05-28';
+
+const toolsMentioned = [
+  'screen-time-cutoff',
+  'light-exposure',
+  'melatonin',
+  'circadian-rhythm',
+  'sleep-latency',
+  'sleep-cycle',
+  'sleep-hygiene',
+  'chronotype-quiz',
+  'sleep-score',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="blue light" />
+    <meta property="article:tag" content="melatonin" />
+    <meta property="article:tag" content="screen time" />
+    <meta property="article:tag" content="circadian rhythm" />
+    <meta property="article:tag" content="melanopsin" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Evidence-based sleep science article examining how blue light affects melatonin production and sleep quality. Covers the discovery of melanopsin-containing intrinsically photosensitive retinal ganglion cells (ipRGCs), the 460 nm peak sensitivity for melatonin suppression, the effects of ordinary room light and screen-based devices on circadian timing, and the lack of evidence for blue-light blocking glasses. Cites six peer-reviewed studies: Brainard et al. 2001, Lockley et al. 2003, Gooley et al. 2010, Gooley et al. 2011, Chang et al. 2015, and a 2023 Cochrane review. Links to thesleepmath.com calculators for screen time cutoff, light exposure, melatonin timing, and circadian rhythm." />
+    <meta name="ai-summary" content="Blue light at 460 nm is the most potent wavelength for suppressing melatonin, mediated by melanopsin-containing retinal ganglion cells rather than rods and cones. A controlled study found that four hours of iPad use before bed suppressed melatonin by 55 per cent and shifted circadian timing by 1.5 hours. Ordinary room light (under 200 lux) suppresses melatonin onset in 99 per cent of people. A 2023 Cochrane review of 17 randomised controlled trials found no convincing evidence that blue-light filtering glasses improve sleep quality." />
+    <meta name="nlp-entities" content="blue light, melatonin, melanopsin, intrinsically photosensitive retinal ganglion cells, ipRGCs, circadian rhythm, screen time, sleep latency, REM sleep, melatonin suppression, action spectrum, 460 nm, short-wavelength light, room light, e-reader, iPad, blue-light filtering glasses, Cochrane review, sleep architecture, circadian phase shift, dim light melatonin onset" />
+    <meta name="ai-content-type" content="health article, sleep science, evidence-based guide" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Blue Light and Melatonin: What the Research Actually Shows",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "wordCount": 1950,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "blue light, melatonin, melanopsin, circadian rhythm, screen time, sleep quality, melatonin suppression, blue-light glasses",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".article-intro", ".bottom-line"]
+          },
+          "citation": [
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Action Spectrum for Melatonin Regulation in Humans: Evidence for a Novel Circadian Photoreceptor",
+              "author": "Brainard GC, Hanifin JP, Greeson JM, Byrne B, Glickman G, Gerner E, Rollag MD",
+              "datePublished": "2001",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/11487664/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Short-wavelength light sensitivity of circadian, neuroendocrine, and neurobehavioral effects in humans",
+              "author": "Lockley SW, Brainard GC, Czeisler CA",
+              "datePublished": "2003",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/12622847/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Spectral Responses of the Human Circadian System Depend on the Irradiance and Duration of Exposure to Light",
+              "author": "Gooley JJ, Rajaratnam SMW, Brainard GC, Kronauer RE, Czeisler CA, Lockley SW",
+              "datePublished": "2010",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/20463367/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Exposure to Room Light before Bedtime Suppresses Melatonin Onset and Shortens Melatonin Duration in Humans",
+              "author": "Gooley JJ, Chamberlain K, Smith KA, Khalsa SBS, Rajaratnam SMW, Van Reen E, Zeitzer JM, Czeisler CA, Lockley SW",
+              "datePublished": "2011",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/21193540/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness",
+              "author": "Chang AM, Aeschbach D, Duffy JF, Czeisler CA",
+              "datePublished": "2015",
+              "url": "https://www.pnas.org/doi/10.1073/pnas.1418490112"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Blue-light filtering spectacle lenses for visual performance, sleep, and macular health in adults",
+              "author": "Singh S, Keller PR, Busija L, McMillan P, Makrai E, Lawrenson JG, Hull CC, Downie LE",
+              "datePublished": "2023",
+              "url": "https://doi.org/10.1002/14651858.CD013244.pub2"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Does blue light from screens suppress melatonin?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. A controlled study found that four hours of reading on an iPad before bed suppressed melatonin by 55 per cent compared to reading a printed book, delayed circadian timing by 1.5 hours, reduced REM sleep by 10 minutes, and increased time to fall asleep. However, ordinary room lighting also has a significant effect on melatonin, so screens are only part of the picture."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What wavelength of light suppresses melatonin the most?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Short-wavelength blue light in the 446 to 477 nm range, peaking at around 460 nm, is the most potent wavelength for suppressing melatonin. This was established by Brainard et al. in 2001, who found that 460 nm light is significantly more effective than 555 nm (green) light at equal intensity. The effect is mediated by melanopsin-containing retinal ganglion cells, not the rods and cones used for vision."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Do blue-light blocking glasses improve sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A 2023 Cochrane systematic review of 17 randomised controlled trials found no convincing evidence that blue-light filtering spectacle lenses improve sleep quality. Of the six trials that measured sleep outcomes, three found a small benefit and three found no difference. The authors concluded that the evidence does not support prescribing blue-light filtering lenses to the general population."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long before bed should I dim the lights to protect melatonin?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Research suggests dimming lights at least two to three hours before bedtime. A Harvard study found that exposure to ordinary room light (under 200 lux) in the hours before bed suppressed melatonin onset in 99 per cent of participants and shortened total melatonin duration by approximately 90 minutes. Switching to dim, warm-toned lighting in the evening allows melatonin to rise on its natural schedule."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is room light worse for melatonin than phone screens?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Room light can be a bigger problem than most people realise. A study of 116 adults found that standard room light (less than 200 lux) suppressed melatonin onset in 99 per cent of participants. While screens add a concentrated dose of blue-enriched light at close range, the ambient lighting in your home during the evening hours is often the larger contributor to total melatonin suppression."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Blue Light and Melatonin: What the Research Actually Shows",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">Blue Light and Melatonin</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Sleep Science</span>
+        <h1>Blue Light and Melatonin: What the Research <span class="pop">Actually</span> Shows</h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>28 May 2026</time> &#183; 9 min read
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="Warm bedside lamp glowing amber beside a phone face-down on a nightstand, bedroom in soft twilight"
+        width="1600"
+        height="900"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>Your eyes contain melanopsin-based photoreceptors tuned to ~460 nm blue light&#8212;separate from the rods and cones you use for vision&#8212;and they control your melatonin production.</li>
+            <li>Four hours of iPad reading before bed suppresses melatonin by 55 per cent and delays your circadian clock by 1.5 hours.</li>
+            <li>Ordinary room light (under 200 lux) suppresses melatonin onset in 99 per cent of people and shortens its duration by 90 minutes.</li>
+            <li>A Cochrane review of 17 randomised controlled trials found no convincing evidence that blue-light blocking glasses improve sleep.</li>
+            <li>The most evidence-backed intervention is dimming your lights 2&#8211;3 hours before bed and getting bright light in the morning.</li>
+            <li>Brief screen glances are far less disruptive than sustained exposure&#8212;duration matters as much as wavelength.</li>
+          </ul>
+        </div>
+
+        <p>
+          Blue light has become the dietary fat of sleep science: everyone has an opinion, most of the opinions are wrong, and there is a billion-dollar industry selling you solutions to a problem they have oversimplified. The narrative &#8220;screens emit blue light, blue light kills melatonin, therefore screens ruin your sleep&#8221; has a kernel of truth buried under several layers of missing context. The actual research is more specific, more nuanced, and more useful than the panic suggests.
+        </p>
+        <p>
+          Here is what six landmark studies reveal about blue light, melatonin, and what you should actually do about it.
+        </p>
+
+        <!-- SECTION 1 -->
+        <h2>1. Your Eyes Have a Secret Photoreceptor</h2>
+
+        <p>
+          For most of the 20th century, scientists assumed the rods and cones in your retina handled everything light-related. Vision, circadian regulation, melatonin control&#8212;all the same hardware. That assumption was wrong.
+        </p>
+        <p>
+          In 2001, a team led by George Brainard exposed 72 healthy adults to monochromatic light at eight different wavelengths between 440 and 600 nm during peak melatonin hours (2:00&#8211;3:30 a.m.). They found that <a href="https://pubmed.ncbi.nlm.nih.gov/11487664/" target="_blank" rel="noopener noreferrer">the most potent wavelength for suppressing melatonin was not 555 nm&#8212;where the visual system peaks&#8212;but 446&#8211;477 nm, deep in the blue range</a>. The data fit an opsin template (R&#178; = 0.91) that pointed squarely at an unknown photopigment.
+        </p>
+        <p>
+          Two years later, Lockley and colleagues put numbers on the difference. Comparing equal-intensity exposures of 460 nm (blue) and 555 nm (green) light, they found that <a href="https://pubmed.ncbi.nlm.nih.gov/12622847/" target="_blank" rel="noopener noreferrer">the blue light produced twice the melatonin suppression and twice the circadian phase delay</a>. The visual system and the <a href="/circadian-rhythm">circadian system</a> were not just using different wavelengths&#8212;they were using different photoreceptors entirely.
+        </p>
+        <p>
+          That photoreceptor turned out to be <strong>melanopsin</strong>, a light-sensitive protein expressed in a small subset of retinal ganglion cells now called intrinsically photosensitive retinal ganglion cells (ipRGCs). These cells do not contribute to image formation. Their sole job is to measure environmental light levels and relay that information to the suprachiasmatic nucleus&#8212;your brain&#8217;s master clock. When they detect blue-enriched light, they signal &#8220;daytime,&#8221; and melatonin production is suppressed.
+        </p>
+
+        <!-- SECTION 2 -->
+        <h2>2. Duration Changes Everything</h2>
+
+        <p>
+          If blue light is the villain, you might assume a quick glance at your phone is just as damaging as an hour-long scrolling session. It is not. Duration turns out to be as important as wavelength, and the reason involves a handoff between two photoreceptor systems.
+        </p>
+        <p>
+          In 2010, Gooley and colleagues exposed subjects to 6.5 hours of either 460 nm or 555 nm light at equal photon densities and measured melatonin suppression throughout. At the start of the exposure, <a href="https://pubmed.ncbi.nlm.nih.gov/20463367/" target="_blank" rel="noopener noreferrer">green light was just as effective as blue light at suppressing melatonin&#8212;but that effectiveness decayed exponentially over time</a>. During the first hour, 555 nm light suppressed melatonin at roughly 35 per cent per minute of exposure. By the final hour, that rate had collapsed to just 7 per cent.
+        </p>
+        <p>
+          Blue light, by contrast, maintained a constant suppression rate throughout the entire 6.5-hour session. The interpretation: your three-cone visual system responds to light immediately but fatigues within the first hour. Melanopsin, the dedicated circadian photopigment, takes longer to engage but sustains its response indefinitely.
+        </p>
+        <p>
+          The practical implication is reassuring. A brief check of your phone&#8212;30 seconds to read a notification&#8212;is a very different stimulus from four hours of sustained screen use. The cones fire, adapt, and move on. Melanopsin barely registers. Our <a href="/screen-time-cutoff">screen time cutoff calculator</a> can help you estimate where your personal threshold lies, but the science is clear: it is the marathon sessions that move the needle, not the sprints.
+        </p>
+
+        <!-- SECTION 3 -->
+        <h2>3. Room Light Is the Bigger Problem</h2>
+
+        <p>
+          Here is the finding most blue-light panic articles conveniently omit: the light from your ceiling is probably doing more damage to your melatonin than the light from your phone.
+        </p>
+        <p>
+          In 2011, Gooley and colleagues at Harvard ran a rigorous study with 116 healthy adults, exposing them to either standard room light (less than 200 lux&#8212;typical of a well-lit living room) or dim light (less than 3 lux) in the eight hours before bedtime across five consecutive days. The results were striking: <a href="https://pubmed.ncbi.nlm.nih.gov/21193540/" target="_blank" rel="noopener noreferrer">room light suppressed melatonin onset in 99 per cent of participants and shortened total melatonin duration by approximately 90 minutes</a>.
+        </p>
+        <p>
+          Ninety minutes. That is not a subtle effect. Your body&#8217;s internal representation of &#8220;night&#8221; was shortened by an hour and a half, simply from the kind of lighting most households consider completely normal.
+        </p>
+        <p>
+          This matters because the blue-light conversation has fixated on screens while ignoring the single largest source of artificial light in your environment: your overhead fixtures. A standard LED ceiling light at 200 lux delivers more total light energy to your retina than a phone screen at arm&#8217;s length, and you are typically exposed to it for longer. If you are optimising your evening routine, <a href="/light-exposure">estimating your total light exposure</a> is more valuable than simply adding a blue filter to your phone.
+        </p>
+
+        <div class="tip-box">
+          <strong>Quick self-check:</strong> Walk through your home at 9 p.m. and notice every light source that is on. Overhead LEDs, bathroom vanity lights, kitchen strips, television backlighting. That cumulative dose is your real melatonin suppression budget&#8212;your phone is a single line item in a much larger bill.
+        </div>
+
+        <!-- SECTION 4 -->
+        <h2>4. The iPad Experiment That Changed Everything</h2>
+
+        <p>
+          The study that most directly answers &#8220;do screens affect my sleep?&#8221; came from a controlled inpatient experiment at Brigham and Women&#8217;s Hospital in Boston, published in PNAS in 2015.
+        </p>
+        <p>
+          Twelve adults spent two weeks in a sleep laboratory under tightly controlled conditions. In a crossover design, each participant read the same books for four hours before bedtime&#8212;five consecutive nights on an iPad, and five consecutive nights from a printed book. The researchers measured salivary melatonin, polysomnography, and subjective alertness throughout.
+        </p>
+        <p>
+          The iPad condition produced a constellation of measurable effects: <a href="https://www.pnas.org/doi/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">melatonin levels dropped by 55 per cent, circadian phase shifted by 1.5 hours, participants lost 10 minutes of REM sleep, and it took them 10 minutes longer to fall asleep</a>. The following morning, iPad readers reported feeling less alert and took several hours longer to feel fully awake, even after eight hours of sleep opportunity.
+        </p>
+        <p>
+          The device emitted light peaked at approximately 450 nm&#8212;squarely in the melanopsin sensitivity range identified by Brainard a decade earlier. Four hours of sustained exposure at close range was enough to significantly disrupt the circadian system.
+        </p>
+        <p>
+          But notice the conditions. Four hours of continuous use. In a dark room. At full brightness. Under controlled laboratory settings with no competing light sources. This is not checking Instagram for five minutes. If your pre-bed routine involves extended screen use, the effect is real and measurable. If it involves a quick check before picking up a book, the science does not support the same level of concern. Your <a href="/sleep-latency">time to fall asleep</a> is a useful proxy&#8212;if it has been creeping upward alongside your screen time, the connection is worth investigating.
+        </p>
+
+        <!-- SECTION 5 -->
+        <h2>5. Do Blue-Light Glasses Actually Work?</h2>
+
+        <p>
+          Blue-light filtering glasses have become a multi-billion-dollar industry built on a straightforward premise: if blue light suppresses melatonin, blocking blue light should protect it. The logic sounds airtight. The evidence is not.
+        </p>
+        <p>
+          In 2023, a Cochrane systematic review&#8212;the gold standard for evidence synthesis&#8212;evaluated <a href="https://doi.org/10.1002/14651858.CD013244.pub2" target="_blank" rel="noopener noreferrer">17 randomised controlled trials involving blue-light filtering spectacle lenses</a>. The review examined visual performance, macular health, and sleep quality. The sleep findings were unambiguous: of the six trials that measured sleep outcomes, three found a small benefit and three found no difference. The overall evidence was rated &#8220;very low certainty.&#8221;
+        </p>
+        <p>
+          Lead author Laura Downie stated plainly: &#8220;Our findings do not support the prescription of blue-light filtering lenses to the general population.&#8221; The review also noted that none of the included trials measured serum melatonin&#8212;the very mechanism the glasses are supposed to protect was never actually tested.
+        </p>
+        <p>
+          This does not necessarily mean blue-light glasses are useless for everyone. Individual variation in <a href="/chronotype-quiz">chronotype</a> and light sensitivity is substantial. But the current evidence does not support the marketing claims, and the money might be better spent on a dimmer switch.
+        </p>
+
+        <div class="tip-box">
+          <strong>What to do instead:</strong> Rather than filtering a narrow band of blue wavelengths at the lens, reduce total light exposure in the evening. Dim your overhead lights, switch to warm-toned bulbs (2700 K or lower), and use your device&#8217;s built-in night mode. These interventions target the actual problem&#8212;total retinal illuminance&#8212;rather than a single slice of the spectrum.
+        </div>
+
+        <!-- SECTION 6 -->
+        <h2>6. What the Science Says to Actually Do</h2>
+
+        <p>
+          The research paints a consistent picture. Melatonin suppression is driven by three variables: wavelength (blue is worst), intensity (more light equals more suppression), and duration (sustained exposure matters most). An effective evening routine addresses all three.
+        </p>
+        <p>
+          <strong>Dim your lights 2&#8211;3 hours before bed.</strong> The Gooley 2011 data is unambiguous: standard room light suppresses melatonin in nearly everyone. Switch to table lamps, fairy lights, or dedicated low-lux fixtures in the final hours of the evening. Our <a href="/melatonin">melatonin timing calculator</a> can help you identify when your body expects darkness to begin, based on your usual wake time.
+        </p>
+        <p>
+          <strong>Shift the spectrum, not just the brightness.</strong> Warm-toned light (2700 K and below) contains far less 460 nm energy than cool-white LEDs (5000&#8211;6500 K). If replacing bulbs is not practical, enabling your phone and computer&#8217;s night mode reduces short-wavelength output without requiring special glasses.
+        </p>
+        <p>
+          <strong>Limit sustained screen use before bed.</strong> The Chang data showed significant effects from four hours of continuous use. If you must use screens, keep sessions short, reduce brightness, and hold the device at arm&#8217;s length&#8212;retinal illuminance follows the inverse square law, so doubling the distance quarters the light reaching your eyes.
+        </p>
+        <p>
+          <strong>Front-load your light exposure.</strong> Bright light in the morning&#8212;ideally sunlight within the first 30&#8211;60 minutes of waking&#8212;is the most powerful signal for resetting your <a href="/circadian-rhythm">circadian clock</a>. It advances melatonin onset the following evening, making it easier to fall asleep on time. The asymmetry is important: the same wavelengths that hurt you at night help you in the morning. Our <a href="/light-exposure">light exposure calculator</a> can help you gauge whether your morning routine provides enough.
+        </p>
+        <p>
+          <strong>Track the outcomes that matter.</strong> Rather than obsessing over lux meters and spectral charts, measure what actually changes. Is your <a href="/sleep-latency">sleep latency</a> under 20 minutes? Are you waking naturally near your alarm? Does your <a href="/sleep-score">sleep score</a> hold steady from weeknight to weekend? These are the numbers that tell you whether your light environment is working for or against you.
+        </p>
+        <p>
+          <strong>Evaluate your full <a href="/sleep-hygiene">sleep hygiene</a> picture.</strong> Blue light is one input among many. Caffeine timing, bedroom temperature, alcohol consumption, and exercise all interact with your circadian system. The most effective sleepers do not optimise a single variable&#8212;they manage the entire system.
+        </p>
+
+        <!-- BOTTOM LINE -->
+        <h2 class="bottom-line">The Bottom Line</h2>
+
+        <p>
+          Blue light is not a boogeyman. It is a specific wavelength&#8212;peaking at 460 nm&#8212;that your melanopsin-containing retinal ganglion cells use to decide whether it is daytime or night-time. When those cells detect blue-enriched light in the evening, melatonin production drops. The effect is real, dose-dependent, and well-documented across multiple controlled studies. But the practical implications are more targeted than the headlines suggest. Your ceiling light is likely a bigger problem than your phone. Brief screen checks are categorically different from four-hour sessions. And the evidence for blue-light blocking glasses remains, at best, unconvincing. The interventions that actually work&#8212;dimming your lights, warming the spectrum, getting morning sunlight&#8212;are free, evidence-backed, and available tonight.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid slugs={toolsMentioned} heading="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+            <li><a href="/blog/why-you-wake-up-tired-even-after-8-hours">Why You Wake Up Tired (Even After 8 Hours)</a></li>
+            <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+            <li><a href="/blog/the-science-behind-your-chronotype">The Science Behind Your Chronotype</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Brainard, G. C., Hanifin, J. P., Greeson, J. M., Byrne, B., Glickman, G., Gerner, E., &amp; Rollag, M. D. (2001). Action spectrum for melatonin regulation in humans: Evidence for a novel circadian photoreceptor. <em>Journal of Neuroscience</em>, 21(16), 6405&#8211;6412. <a href="https://pubmed.ncbi.nlm.nih.gov/11487664/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Lockley, S. W., Brainard, G. C., &amp; Czeisler, C. A. (2003). High sensitivity of the human circadian melatonin rhythm to resetting by short wavelength light. <em>Journal of Clinical Endocrinology &amp; Metabolism</em>, 88(9), 4502&#8211;4505. <a href="https://pubmed.ncbi.nlm.nih.gov/12622847/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Gooley, J. J., Rajaratnam, S. M. W., Brainard, G. C., Kronauer, R. E., Czeisler, C. A., &amp; Lockley, S. W. (2010). Spectral responses of the human circadian system depend on the irradiance and duration of exposure to light. <em>Science Translational Medicine</em>, 2(31), 31ra33. <a href="https://pubmed.ncbi.nlm.nih.gov/20463367/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Gooley, J. J., Chamberlain, K., Smith, K. A., Khalsa, S. B. S., Rajaratnam, S. M. W., Van Reen, E., Zeitzer, J. M., Czeisler, C. A., &amp; Lockley, S. W. (2011). Exposure to room light before bedtime suppresses melatonin onset and shortens melatonin duration in humans. <em>Journal of Clinical Endocrinology &amp; Metabolism</em>, 96(3), E463&#8211;E472. <a href="https://pubmed.ncbi.nlm.nih.gov/21193540/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Chang, A.-M., Aeschbach, D., Duffy, J. F., &amp; Czeisler, C. A. (2015). Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness. <em>Proceedings of the National Academy of Sciences</em>, 112(4), 1232&#8211;1237. <a href="https://www.pnas.org/doi/10.1073/pnas.1418490112" target="_blank" rel="noopener noreferrer">PNAS</a></li>
+            <li>Singh, S., Keller, P. R., Busija, L., McMillan, P., Makrai, E., Lawrenson, J. G., Hull, C. C., &amp; Downie, L. E. (2023). Blue-light filtering spectacle lenses for visual performance, sleep, and macular health in adults. <em>Cochrane Database of Systematic Reviews</em>, 2023(8), CD013244. <a href="https://doi.org/10.1002/14651858.CD013244.pub2" target="_blank" rel="noopener noreferrer">Cochrane Library</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary, #7c6aff);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  .tip-box {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .tip-box strong {
+    color: var(--primary, #7c3aed);
+  }
+
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  .disclaimer p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .post-body {
+      font-size: 1rem;
+    }
+  }
+</style>
