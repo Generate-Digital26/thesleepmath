@@ -1,0 +1,853 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Brown Noise for Sleep: What the Science Actually Says &#8212; The Sleep Math';
+const description = 'Brown noise can cut sleep onset by 38%. Here\'s what five peer-reviewed studies say about colored noise, auditory masking, and the right volume for your bedroom.';
+const canonical = 'https://thesleepmath.com/blog/brown-noise-for-sleep';
+const heroImage = '/images/blog/brown-noise-for-sleep-hero.jpg';
+const ogImage = '/images/blog/brown-noise-for-sleep-og.png';
+const publishDate = '2026-05-30';
+const modifiedDate = '2026-05-30';
+
+const toolsMentioned = [
+  'sleep-latency-calculator',
+  'insomnia-severity-calculator',
+  'sleep-hygiene-calculator',
+  'sleep-score-calculator',
+  'nap-calculator',
+  'sleep-cycle-calculator',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="brown noise" />
+    <meta property="article:tag" content="sleep sounds" />
+    <meta property="article:tag" content="white noise" />
+    <meta property="article:tag" content="auditory masking" />
+    <meta property="article:tag" content="sleep onset" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Evidence-based sleep science article examining whether brown noise helps sleep. Covers the physics of colored noise (1/f² power spectrum), the auditory masking mechanism by which continuous noise raises sleep arousal thresholds, and five peer-reviewed studies: Stanchina et al. 2005 (ICU white noise), Messineo et al. 2017 (38% reduction in sleep onset latency with broadband noise at 46 dB), Zhou et al. 2012 (pink noise and slow-wave sleep), and Riedy et al. 2021 (systematic review of 38 studies, low GRADE evidence). Includes WHO bedroom noise guidelines and an interactive volume calculator. Links to thesleepmath.com calculators for sleep latency, insomnia severity, sleep hygiene, sleep score, naps, and sleep cycles." />
+    <meta name="ai-summary" content="Brown noise helps sleep primarily through auditory masking — raising the acoustic floor so sudden sounds cause smaller delta-dB spikes. A 2017 RCT found broadband noise at 46 dB cut sleep onset latency 38% in people with transient insomnia. A systematic review of 38 studies rated the overall evidence as low quality. WHO recommends bedroom nighttime noise below 30 dB(A); effective masking typically requires 35–50 dB at 1.5–2 m from the bed." />
+    <meta name="nlp-entities" content="brown noise, pink noise, white noise, colored noise, auditory masking, sleep onset latency, slow-wave sleep, arousal threshold, 1/f² power spectrum, Brownian noise, transient insomnia, broadband sound, decibels, WHO noise guidelines, sleep architecture, GRADE evidence, acoustic floor, delta-dB, sleep inertia" />
+    <meta name="ai-content-type" content="health article, sleep science, evidence-based guide" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Brown Noise for Sleep: What the Science Actually Says (And a Calculator to Find Your Optimal Volume)",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "wordCount": 1900,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "brown noise, sleep, auditory masking, sleep onset latency, pink noise, white noise, optimal volume, colored noise, insomnia",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".article-intro", ".bottom-line"]
+          },
+          "citation": [
+            {
+              "@type": "ScholarlyArticle",
+              "name": "The influence of white noise on sleep in subjects exposed to ICU noise",
+              "author": "Stanchina ML, Abu-Hijleh M, Chaudhry BK, Carlisle CC, Millman RP",
+              "datePublished": "2005",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/16139772/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Broadband Sound Administration Improves Sleep Onset Latency in Healthy Subjects in a Model of Transient Insomnia",
+              "author": "Messineo L, Taranto-Montemurro L, Sands SA, Oliveira Marques MD, Azabarzin A, Wellman DA",
+              "datePublished": "2017",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29312136/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Pink noise: Effect on complexity synchronization of brain activity and sleep consolidation",
+              "author": "Zhou J, Liu D, Li X, Ma J, Zhang J, Fang J",
+              "datePublished": "2012",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/22726808/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Noise as a sleep aid: A systematic review",
+              "author": "Riedy SM, Smith MG, Rocha S, Basner M",
+              "datePublished": "2021",
+              "url": "https://www.sciencedirect.com/science/article/abs/pii/S1087079220301283"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "WHO Night Noise Guidelines for Europe",
+              "author": "World Health Organization",
+              "datePublished": "2009",
+              "url": "https://www.who.int/europe/news-room/fact-sheets/item/noise"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Does brown noise actually help you sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For some people, yes — primarily through auditory masking. Continuous noise raises your bedroom's acoustic floor, reducing the spike that occurs when a sudden sound occurs. A 2017 randomized controlled trial found broadband noise at 46 dB reduced sleep onset latency by 38% in people with transient insomnia. However, a 2021 systematic review of 38 studies rated the overall evidence as low quality, with benefits concentrated in light sleepers in noisy environments."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between brown, pink, and white noise for sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "All three work via the same auditory masking mechanism. The difference is their power spectrum: white noise has equal energy across all frequencies, pink noise (1/f) rolls off 3 dB per octave, and brown noise (1/f²) rolls off 6 dB per octave, concentrating energy in bass frequencies. Brown sounds like distant thunder; white sounds like static. No peer-reviewed RCT has directly compared all three for sleep outcomes, so the color may matter less than volume and consistency."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How loud should brown noise be for sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The WHO recommends bedroom nighttime noise below 30 dB(A) for undisturbed sleep. For effective masking, aim for 10–15 dB above your ambient floor, typically 35–50 dB total. Place your speaker 1.5–2 m from your pillow — each doubling of distance reduces perceived volume by approximately 6 dB. Never exceed 55 dB for sustained overnight use."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Who benefits most from brown noise for sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The evidence is strongest for light sleepers experiencing transient insomnia in noisy environments — urban apartments, hotels, or homes near traffic. The 2017 Messineo study found the greatest benefit in people whose baseline sleep onset latency exceeded 20 minutes. Deep sleepers in already-quiet bedrooms typically see minimal measurable benefit."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is it safe to play brown noise all night?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "At 35–50 dB with a speaker placed 1.5–2 m from the bed, all-night use is safe for hearing — these levels are well within the WHO's guidelines for nighttime noise exposure. The risk comes from playing it too loud (above 55–65 dB) or too close to your ears. Use a free dB meter app to check the volume at pillow level, not at the speaker."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Brown Noise for Sleep: What the Science Actually Says",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">Brown Noise for Sleep</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Sleep Science</span>
+        <h1>Brown Noise for Sleep: What the Science <span class="pop">Actually</span> Says (And a Calculator to Find Your Optimal Volume)</h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>30 May 2026</time> &#183; 8 min read
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="Person sleeping peacefully in a softly lit bedroom with a small speaker on the nightstand emitting a gentle warm glow"
+        width="1600"
+        height="900"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>Brown noise is a real category of sound — a 1/f&#178; power spectrum that concentrates energy in deep bass frequencies, producing a rumbling, thunder-like texture.</li>
+            <li>It helps sleep through <strong>auditory masking</strong>: raising the acoustic floor so sudden sounds produce a smaller spike and are less likely to trigger an arousal.</li>
+            <li>A 2017 Harvard-affiliated RCT found broadband noise at 46 dB reduced sleep onset latency by 38% — from 19 minutes to 13 minutes — in people with transient insomnia.</li>
+            <li>A systematic review of 38 studies rated the overall evidence quality as "low" — benefits are real but concentrated in light sleepers in noisy environments.</li>
+            <li>The WHO recommends bedroom nighttime noise below 30 dB(A); effective masking typically requires 35&#8211;50 dB at 1.5&#8211;2 m from the bed.</li>
+            <li>No peer-reviewed RCT has directly compared brown, pink, and white noise for sleep outcomes — the color likely matters less than volume and consistency.</li>
+            <li>Use the calculator below to find your target volume range based on your environment and sleep type.</li>
+          </ul>
+        </div>
+
+        <p>
+          Brown noise is having a cultural moment. If you have spent any time on sleep-focused corners of Reddit or TikTok in the past few years, you have almost certainly encountered breathless testimonials about how a deep, rumbling soundscape transformed someone&#8217;s sleep overnight. The claims range from &#8220;I fall asleep in minutes now&#8221; to &#8220;it fixed my insomnia.&#8221; The reality, as with most sleep interventions that trend on social media, is more specific and more interesting than the testimonials suggest.
+        </p>
+        <p>
+          Here is what five peer-reviewed studies actually show about brown noise, the mechanism behind why it can help, and how to use it correctly.
+        </p>
+
+        <h2>1. What Brown Noise Actually Is</h2>
+
+        <p>
+          The name is not a reference to color. Brown noise is named after the botanist Robert Brown, who in 1827 described the erratic, unpredictable motion of pollen particles suspended in water &#8212; what we now call Brownian motion. The noise produced by a mathematical model of that same random walk process has a characteristic power spectrum: its energy decreases by 6 dB per octave as frequency increases, following a 1/f&#178; relationship.
+        </p>
+        <p>
+          In practical audio terms, that means brown noise is heavily weighted toward the low end of the frequency spectrum. Every time you double the frequency, the power drops by a factor of four. The result is a dense, bass-forward texture &#8212; less like static, more like the sustained rumble of a waterfall, distant rolling thunder, or standing in a large empty room during a rainstorm.
+        </p>
+        <p>
+          To understand where it sits in the noise spectrum: white noise has equal power at every frequency (flat spectral density), pink noise rolls off at 3 dB per octave (1/f), and brown noise rolls off at 6 dB per octave (1/f&#178;). White sounds harsh and static-y. Pink is gentler but still present at high frequencies. Brown is the deepest of the three, and many people find it subjectively easier to habituate to over extended periods, because human hearing is most sensitive in the 2&#8211;4 kHz range &#8212; the same range where white noise concentrates most of its perceptible energy.
+        </p>
+
+        <h2>2. Why Noise Can Help You Sleep: The Masking Mechanism</h2>
+
+        <p>
+          Before evaluating whether brown noise works, it helps to understand <em>why</em> any continuous noise would improve sleep at all. The mechanism is not chemical or neurological &#8212; it is acoustic.
+        </p>
+        <p>
+          Your sleeping brain does not respond simply to loud sounds. It responds to <strong>change</strong>. The relevant variable is not the peak decibel level of a disruptive noise, but the delta &#8212; the jump from your bedroom&#8217;s background level to the peak of the sudden sound. A siren at 65 dB in a very quiet room (background ~20 dB) produces a 45 dB spike. The same siren in a room already humming at 45 dB only appears as a 20 dB spike. Your auditory cortex, working on relative contrast, is far less likely to trigger an arousal from the second scenario.
+        </p>
+        <p>
+          This principle was formalized in a 2005 study by Stanchina and colleagues, who performed polysomnography on subjects exposed to recorded ICU noise &#8212; one of the most acoustically disruptive sleep environments in medicine. Without white noise, the arousal index jumped to 48.4 arousals per hour compared to a baseline of 13.3. <a href="https://pubmed.ncbi.nlm.nih.gov/16139772/" target="_blank" rel="noopener noreferrer">With continuous white noise added to the same ICU soundscape, arousal rate dropped back to 15.7 per hour &#8212; nearly indistinguishable from baseline</a>. The key finding: it was the change in sound level, not the peak level, that caused sleep disruption. Raising the acoustic floor with continuous noise smoothed those transitions out. Our <a href="/sleep-latency-calculator">sleep latency calculator</a> tracks the downstream effect of these arousals on time-to-sleep, which is the most sensitive indicator of whether your sound environment is working against you.
+        </p>
+
+        <div class="tip-box">
+          <strong>The masking math:</strong> Effective masking requires your continuous noise to sit roughly 10&#8211;15 dB above your ambient bedroom floor. If your room is already at 40 dB (typical of an urban apartment with some traffic noise), you need masking noise at approximately 50&#8211;55 dB to be effective &#8212; which is approaching the upper limit of safe sustained exposure. In very noisy environments, brown noise alone may not be enough.
+        </div>
+
+        <h2>3. What the Studies Actually Found</h2>
+
+        <p>
+          The most directly relevant controlled trial comes from Brigham and Women&#8217;s Hospital at Harvard. In 2017, Messineo and colleagues ran a randomized crossover study with 18 healthy adults, placing them in a laboratory sleep environment designed to simulate transient insomnia &#8212; the kind triggered by an unfamiliar or noisy setting, not the chronic variety driven by anxiety or hyperarousal. On noise nights, broadband sound was administered at 46 dB. On control nights, subjects slept in silence.
+        </p>
+        <p>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/29312136/" target="_blank" rel="noopener noreferrer">Broadband noise cut sleep onset latency to Stage 2 by 38%: 19 minutes in silence versus 13 minutes with noise</a>. The authors noted the effect size was comparable to a therapeutic dose of eszopiclone (a prescription sleep aid), which is a striking comparison for a zero-drug intervention. Critically, the benefit was concentrated in the participants whose baseline sleep onset latency exceeded 20 minutes &#8212; the slowest sleepers in the group. For people who already fell asleep quickly, noise made essentially no difference.
+        </p>
+        <p>
+          On the adjacent topic of sleep architecture, a 2012 study by Zhou and colleagues examined the effects of pink noise (the 1/f neighbor of brown) on slow-wave activity and memory consolidation. <a href="https://pubmed.ncbi.nlm.nih.gov/22726808/" target="_blank" rel="noopener noreferrer">Continuous pink noise reduced EEG complexity and improved the percentage of stable sleep compared to quiet conditions</a>, with participants also showing improved memory recall the following morning &#8212; a downstream effect of enhanced slow-wave activity. Whether brown noise would produce the same result is not established; no equivalent study has been done with 1/f&#178; noise specifically.
+        </p>
+        <p>
+          The honest summary of the evidence comes from Riedy and colleagues&#8217; 2021 systematic review in <em>Sleep Medicine Reviews</em>, which evaluated all 38 available studies on broadband noise as a sleep aid. <a href="https://www.sciencedirect.com/science/article/abs/pii/S1087079220301283" target="_blank" rel="noopener noreferrer">Methods were inconsistent across studies, sample sizes were small, and most relied on subjective sleep assessments. The quality of evidence, rated by GRADE criteria, was considered low</a>. Brown noise is not a well-studied pharmaceutical &#8212; it is a low-cost acoustic intervention with a plausible mechanism and a modest but real evidence base. That distinction matters when setting expectations. If you want to measure whether it&#8217;s genuinely improving your sleep quality rather than just feeling like it is, our <a href="/sleep-score-calculator">sleep score calculator</a> gives you an objective baseline to track against.
+        </p>
+
+        <h2>4. Does the Color Actually Matter? Brown vs. Pink vs. White</h2>
+
+        <p>
+          Here is the uncomfortable gap in the literature: no peer-reviewed randomized controlled trial has directly compared brown, pink, and white noise for sleep outcomes in the same subjects under controlled conditions. The Stanchina and Messineo studies used white or broadband noise. The Zhou study used pink noise. Brown noise, despite its cultural prominence, has been studied as a labeled intervention in very few sleep trials. A 2025 preprint found that pupil-linked arousal responses &#8212; a proxy for alertness &#8212; did not differ meaningfully between white, pink, and brown noise at equivalent volumes.
+        </p>
+        <p>
+          The practical implication: the mechanism (auditory masking) is the same for all three. The color determines the spectral shape, which affects subjective preference and habituation. Many people find brown more comfortable to fall asleep to because its bass-heavy texture is less intrusive on the frequencies where human hearing is most acute. But there is no established evidence that 1/f&#178; noise outperforms 1/f or flat-spectrum noise for sleep onset or maintenance. The color you can tolerate at the right volume for the full night is the color that works.
+        </p>
+
+        <h2>5. The Volume Problem: Why Most People Get It Wrong</h2>
+
+        <p>
+          Volume is where the most consequential mistakes happen. The common pattern is to set the noise loud &#8212; loud enough that it feels like it&#8217;s &#8220;doing something&#8221; &#8212; and leave it running at that level from bedtime to morning. This approach is misguided on two fronts: it increases hearing exposure unnecessarily, and it may actually fragment sleep by adding to the total ambient noise load.
+        </p>
+        <p>
+          <a href="https://www.who.int/europe/news-room/fact-sheets/item/noise" target="_blank" rel="noopener noreferrer">The WHO recommends that nighttime noise levels inside bedrooms remain below 30 dB(A) for sleep of good quality</a>. For masking to be effective, your continuous noise needs to sit above that threshold &#8212; typically 35&#8211;50 dB is the functional range. Beyond 55 dB sustained, you are adding meaningfully to your total overnight noise dose. At 70 dB, you are at the lower boundary of cumulative hearing risk. The critical error is measuring volume at the speaker rather than at pillow level. A Bluetooth speaker set to 60% volume on your nightstand might measure 65 dB at 30 cm but only 50 dB at 1.5 m away. Distance is your safety margin.
+        </p>
+        <p>
+          The three mistakes, in descending order of frequency: running noise too loud (above 55 dB at the pillow), placing the speaker too close (under a meter from your head), and leaving it at the same volume as in the daytime. Your <a href="/sleep-hygiene-calculator">sleep hygiene score</a> may flag bedroom sound environment as a variable &#8212; a sound level you would not set intentionally during waking hours probably should not run through your entire sleep architecture either. And if your goal includes protecting the <a href="/sleep-cycle-calculator">natural architecture of your sleep cycles</a>, keeping noise in the effective but conservative range preserves the slow-wave activity you want undisturbed.
+        </p>
+
+        <div class="tip-box">
+          <strong>Free tool:</strong> Download a decibel meter app (NIOSH SLM for iOS, DecibelX, or any NIST-validated equivalent) and measure at pillow level with your phone resting on your actual pillow, speaker running. If it reads above 50 dB, reduce volume or increase speaker distance before sleeping.
+        </div>
+
+        <h2>6. Find Your Optimal Volume</h2>
+
+        <p>
+          Use the calculator below to get a personalised target volume range and placement recommendation based on your environment and sleep type. The output uses the masking arithmetic above: your ambient floor plus a sensitivity-adjusted offset, capped at safe sustained-exposure limits.
+        </p>
+
+        <div class="noise-calc" id="noiseCalc">
+          <h3 class="noise-calc-title">Brown Noise Volume Calculator</h3>
+          <p class="noise-calc-subtitle">Three questions. One recommended range.</p>
+
+          <div class="calc-field">
+            <label for="ambientNoise">How quiet is your bedroom at night?</label>
+            <select id="ambientNoise">
+              <option value="20">Very quiet &#8212; near-silent, no traffic (~20 dB)</option>
+              <option value="30" selected>Quiet suburban &#8212; soft HVAC hum (~30 dB)</option>
+              <option value="40">Moderate &#8212; some street noise or AC (~40 dB)</option>
+              <option value="50">Noisy &#8212; traffic, thin walls, urban (~50 dB+)</option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label for="sleepSensitivity">How easily do you wake to sounds?</label>
+            <select id="sleepSensitivity">
+              <option value="light">Light sleeper &#8212; a door closing wakes me</option>
+              <option value="average" selected>Average &#8212; most sounds don&#8217;t wake me</option>
+              <option value="deep">Deep sleeper &#8212; I sleep through most things</option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label for="sleepGoal">What is your main goal?</label>
+            <select id="sleepGoal">
+              <option value="onset" selected>Fall asleep faster</option>
+              <option value="maintenance">Stay asleep through the night</option>
+              <option value="both">Both &#8212; onset and maintenance</option>
+            </select>
+          </div>
+
+          <button class="calc-btn" onclick="calculateNoiseVolume()">Calculate my volume</button>
+
+          <div class="calc-result" id="calcResult">
+            <div class="result-volume-badge" id="resultVolume"></div>
+            <div id="resultDetails"></div>
+            <div id="resultTips"></div>
+          </div>
+        </div>
+
+        <h2>7. Who Gets the Biggest Benefit</h2>
+
+        <p>
+          The evidence points to a specific beneficiary profile. Brown noise &#8212; and continuous noise generally &#8212; is most effective for <strong>light sleepers experiencing situational insomnia in acoustically disruptive environments</strong>. If you are trying to sleep in a hotel room next to an elevator bank, an apartment above a bar, or a house where a partner or child is generating unpredictable noise, the masking mechanism is directly relevant to your problem. Our <a href="/insomnia-severity-calculator">insomnia severity assessment</a> can help you distinguish situational sleep difficulty (where acoustic interventions shine) from structural insomnia patterns that need different approaches. Shift workers trying to sleep during daylight hours, when outdoor noise is at its peak, also represent a strong use case &#8212; our <a href="/nap-calculator">nap calculator</a> factors in acoustic environment as part of its daytime sleep recommendations.
+        </p>
+        <p>
+          The people least likely to see a measurable benefit: deep sleepers in already-quiet bedrooms, and people whose insomnia is rooted in anxiety or hyperarousal. For the latter group, cognitive hyperarousal &#8212; a racing mind that stays alert regardless of sensory input &#8212; is not amenable to acoustic masking. The sleeping brain that is vigilant because of internal activation is not the same as the sleeping brain that is vigilant because of environmental noise. Treating them identically is how brown noise earns disappointed one-star reviews. If you have been tracking your <a href="/sleep-debt-calculator">accumulated sleep debt</a> and notice the deficit persists despite a quiet, masked environment, it is worth exploring whether the driver is something other than sound.
+        </p>
+
+        <h2 class="bottom-line">The Bottom Line</h2>
+
+        <p>
+          Brown noise works &#8212; when it works &#8212; through physics, not chemistry. It raises the acoustic floor of your bedroom so that sudden sounds produce a smaller relative spike, and your sleeping brain is less likely to register them as threats worth waking up for. The best controlled evidence supports a genuine reduction in sleep onset latency for people with transient insomnia in noisy environments. The overall evidence base is modest and inconsistent. The color of the noise matters less than the volume, placement, and whether your sleep problem is the kind that noise masking can address.
+        </p>
+        <p>
+          The practical prescription is simple: 35&#8211;50 dB at 1.5&#8211;2 m from your pillow, loop it through the night, and measure the output at the pillow rather than the speaker. If your sleep latency improves within a week, you have found your version of it. If it does not, the problem is probably upstream of your speaker.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid slugs={toolsMentioned} heading="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/blue-light-and-melatonin-what-the-research-actually-shows">Blue Light and Melatonin: What the Research Actually Shows</a></li>
+            <li><a href="/blog/why-you-wake-up-tired-even-after-8-hours">Why You Wake Up Tired (Even After 8 Hours)</a></li>
+            <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+            <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Stanchina, M. L., Abu-Hijleh, M., Chaudhry, B. K., Carlisle, C. C., &amp; Millman, R. P. (2005). The influence of white noise on sleep in subjects exposed to ICU noise. <em>Sleep Medicine</em>, 6(5), 423&#8211;428. <a href="https://pubmed.ncbi.nlm.nih.gov/16139772/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Messineo, L., Taranto-Montemurro, L., Sands, S. A., Oliveira Marques, M. D., Azabarzin, A., &amp; Wellman, D. A. (2017). Broadband sound administration improves sleep onset latency in healthy subjects in a model of transient insomnia. <em>Frontiers in Neurology</em>, 8, 718. <a href="https://pubmed.ncbi.nlm.nih.gov/29312136/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Zhou, J., Liu, D., Li, X., Ma, J., Zhang, J., &amp; Fang, J. (2012). Pink noise: Effect on complexity synchronization of brain activity and sleep consolidation. <em>Journal of Theoretical Biology</em>, 306, 68&#8211;72. <a href="https://pubmed.ncbi.nlm.nih.gov/22726808/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Riedy, S. M., Smith, M. G., Rocha, S., &amp; Basner, M. (2021). Noise as a sleep aid: A systematic review. <em>Sleep Medicine Reviews</em>, 55, 101385. <a href="https://www.sciencedirect.com/science/article/abs/pii/S1087079220301283" target="_blank" rel="noopener noreferrer">ScienceDirect</a></li>
+            <li>World Health Organization. (2009). <em>Night Noise Guidelines for Europe</em>. WHO Regional Office for Europe. <a href="https://www.who.int/europe/news-room/fact-sheets/item/noise" target="_blank" rel="noopener noreferrer">WHO</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary, #7c6aff);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  .tip-box {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .tip-box strong {
+    color: var(--primary, #7c3aed);
+  }
+
+  /* ── Noise Volume Calculator ── */
+  .noise-calc {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    margin: 2rem 0;
+  }
+
+  .noise-calc-title {
+    font-size: 1.25rem !important;
+    margin: 0 0 0.25rem !important;
+    color: var(--text, #111827) !important;
+  }
+
+  .noise-calc-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted, #6b7280);
+    margin: 0 0 1.5rem !important;
+  }
+
+  .calc-field {
+    margin-bottom: 1.25rem;
+  }
+
+  .calc-field label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text, #111827);
+    margin-bottom: 0.4rem;
+  }
+
+  .calc-field select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border, #d1d5db);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--text, #111827);
+    background: var(--card, #fff);
+    appearance: auto;
+  }
+
+  .calc-field select:focus {
+    outline: 2px solid var(--primary, #7c6aff);
+    outline-offset: 1px;
+  }
+
+  .calc-btn {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.25rem;
+    transition: opacity 0.15s;
+  }
+
+  .calc-btn:hover {
+    opacity: 0.88;
+  }
+
+  .calc-result {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .calc-result.visible {
+    display: block;
+  }
+
+  .result-volume-badge {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 700;
+    padding: 0.4rem 1.1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .result-detail-block {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text, #111827);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-detail-block strong {
+    color: var(--primary, #7c6aff);
+  }
+
+  .calc-warning {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.4rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: #92400e;
+    margin-top: 0.5rem;
+  }
+
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  .disclaimer p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .post-body {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  function calculateNoiseVolume() {
+    var ambient = parseInt(document.getElementById('ambientNoise').value, 10);
+    var sensitivity = document.getElementById('sleepSensitivity').value;
+    var goal = document.getElementById('sleepGoal').value;
+
+    var offset = sensitivity === 'light' ? 16 : sensitivity === 'average' ? 11 : 6;
+    var targetMin = ambient + offset - 3;
+    var targetMax = ambient + offset + 3;
+
+    var MAX_SAFE = 50;
+    var warning = '';
+
+    if (ambient >= 50) {
+      targetMin = 50;
+      targetMax = 55;
+      warning = '<p class="calc-warning">&#9888;&#65039; At 50+ dB ambient, brown noise alone may not mask the problem effectively. Consider combining with quality earplugs or addressing the noise source directly. Keep brown noise at the lower end of this range.</p>';
+    } else {
+      if (targetMax > MAX_SAFE + 5) {
+        targetMax = MAX_SAFE + 5;
+      }
+      if (targetMin > MAX_SAFE) {
+        targetMin = MAX_SAFE;
+      }
+    }
+
+    var placement = '';
+    if (targetMax <= 40) {
+      placement = 'Place your speaker <strong>1&#8211;1.5 m</strong> from your bed. A small Bluetooth speaker at low volume will reach this range without difficulty.';
+    } else if (targetMax <= 50) {
+      placement = 'Place your speaker <strong>1.5&#8211;2 m</strong> from the head of your bed. Every doubling of distance reduces perceived volume by ~6 dB &#8212; distance is your primary safety control.';
+    } else {
+      placement = 'Keep your speaker at <strong>least 2 m</strong> from your pillow and verify volume at pillow level with a free dB meter app (NIOSH SLM or DecibelX). Speaker distance, not volume dial position, is your reliable control.';
+    }
+
+    var goalNote = '';
+    if (goal === 'onset') {
+      goalNote = 'For faster sleep onset, you can start at the <strong>higher end</strong> of this range while you are still awake. If your device supports a timer, reduce to the lower end after 30&#8211;45 minutes to minimise total overnight exposure.';
+    } else if (goal === 'maintenance') {
+      goalNote = 'For all-night maintenance, stay at the <strong>lower end</strong> of this range to minimise cumulative overnight exposure while keeping masking effective through early-morning light-sleep stages.';
+    } else {
+      goalNote = 'For both onset and maintenance, set volume at the <strong>mid-point</strong> of this range and keep it consistent through the night. Consistency matters more than fine-tuning the exact dB.';
+    }
+
+    document.getElementById('resultVolume').textContent = 'Target: ' + targetMin + '–' + targetMax + ' dB';
+
+    document.getElementById('resultDetails').innerHTML =
+      '<p class="result-detail-block"><strong>Placement:</strong> ' + placement + '</p>' + warning;
+
+    document.getElementById('resultTips').innerHTML =
+      '<p class="result-detail-block"><strong>Goal tip:</strong> ' + goalNote + '</p>';
+
+    var resultEl = document.getElementById('calcResult');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
