@@ -544,9 +544,370 @@ const breadcrumbSchema = {
 </BaseLayout>
 
 <style is:global>
-  /* Guide styles are defined globally in existing guide pages.
-     This page reuses the same .guide, .guide-header, .guide-body, .toc,
-     .key-takeaways, .pullquote, .tip-box, .faq-accordion, .references,
-     .related-reading, .breadcrumb, and .disclaimer classes.
-     No additional page-specific styles are needed. */
+  /* ── Guide layout (max-width 760px, slightly wider than blog 720 to accommodate ToC) ── */
+  .guide {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* ── Breadcrumb ── */
+  .guide .breadcrumb {
+    padding: 1.25rem 0 0;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+  .guide .breadcrumb a { color: var(--text-soft); text-decoration: none; }
+  .guide .breadcrumb a:hover { color: var(--primary); }
+  .guide .breadcrumb .sep { margin: 0 0.35rem; opacity: 0.4; }
+
+  /* ── Guide header ── */
+  .guide-header { padding: 2rem 0 1.5rem; }
+
+  .guide-meta-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+  }
+
+  .guide-tag {
+    background: var(--primary-soft);
+    color: var(--primary);
+    padding: 0.2rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .guide .read-time::before {
+    content: '·';
+    margin-right: 1rem;
+    color: var(--border);
+  }
+
+  .guide-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .guide-header h1 .pop { color: var(--primary); }
+
+  .guide-header .article-intro {
+    font-size: 1.18rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+
+  /* ── Hero ── */
+  .guide .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  /* ── Table of contents ── */
+  .toc {
+    background: var(--card, #ffffff);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .toc-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-soft);
+    margin: 0 0 0.8rem;
+  }
+
+  .toc ol {
+    counter-reset: toc-counter;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc li {
+    counter-increment: toc-counter;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  .toc li:last-child { border-bottom: none; }
+
+  .toc li::before {
+    content: counter(toc-counter, decimal-leading-zero) "  ";
+    color: var(--primary);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    margin-right: 0.5rem;
+  }
+
+  .toc a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .toc a:hover { color: var(--primary); }
+
+  /* ── Guide body ── */
+  .guide-body {
+    font-size: 1.06rem;
+    line-height: 1.75;
+    color: var(--text);
+  }
+  .guide-body p { margin-bottom: 1.35rem; }
+
+  .guide-body h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 0.85rem;
+    letter-spacing: -0.018em;
+    color: var(--text);
+    scroll-margin-top: 1.5rem;
+  }
+
+  .guide-body h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .guide-body a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+  .guide-body a:hover { color: #5b4ee0; }
+
+  /* ── Pull-quote callout ── */
+  .pullquote {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    letter-spacing: -0.005em;
+  }
+
+  /* ── Tip box ── */
+  .guide-body .tip-box {
+    background: var(--primary-soft);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .guide-body .tip-box strong { color: var(--primary); }
+
+  /* ── Key takeaways box (used as the lead summary) ── */
+  .key-takeaways {
+    background: var(--card, #ffffff);
+    border: 2px solid var(--primary);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin: 0 0 2rem;
+  }
+
+  .key-takeaways h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem !important;
+    font-weight: 700;
+    margin-top: 0 !important;
+    margin-bottom: 0.85rem !important;
+    color: var(--primary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .key-takeaways ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .key-takeaways li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.97rem;
+    line-height: 1.55;
+  }
+  .key-takeaways li:last-child { border-bottom: none; }
+  .key-takeaways li::before {
+    content: '→ ';
+    color: var(--primary);
+    font-weight: 700;
+    margin-right: 0.3rem;
+  }
+
+  /* ── FAQ accordion (semantic <details>/<summary>) ── */
+  .faq-accordion {
+    border-top: 1px solid var(--border);
+    margin: 0.5rem 0 0;
+  }
+
+  .faq-accordion details {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .faq-accordion summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 2.5rem 1.15rem 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    position: relative;
+    transition: color 0.15s;
+    outline-offset: 4px;
+  }
+
+  .faq-accordion summary:hover {
+    color: var(--primary);
+  }
+
+  .faq-accordion summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-accordion summary::after {
+    content: '';
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--primary);
+    border-bottom: 2px solid var(--primary);
+    transform: translateY(-75%) rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .faq-accordion details[open] summary::after {
+    transform: translateY(-25%) rotate(-135deg);
+  }
+
+  .faq-accordion details > p {
+    margin: 0;
+    padding: 0 0 1.25rem;
+    color: var(--text-mid);
+    font-size: 0.98rem;
+    line-height: 1.65;
+    animation: faqFadeIn 0.25s ease;
+  }
+
+  @keyframes faqFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Related reading ── */
+  .related-reading {
+    margin: 2.5rem 0;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .related-reading h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+    margin-top: 0 !important;
+  }
+  .related-reading ul { list-style: none; padding: 0; margin: 0; }
+  .related-reading li { padding: 0.35rem 0; font-size: 0.9rem; }
+  .related-reading li::before {
+    content: '→ ';
+    color: var(--primary);
+    font-weight: 600;
+  }
+  .related-reading a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .related-reading a:hover { text-decoration: underline; }
+
+  /* ── References ── */
+  .references {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .references h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 0 !important;
+  }
+  .references ol { padding-left: 1.25rem; margin: 0; }
+  .references li {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  .references em { font-style: italic; }
+  .references a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .references a:hover { text-decoration: underline; }
+
+  /* ── Disclaimer ── */
+  .guide .disclaimer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .guide { padding: 0 1.25rem 3rem; }
+    .guide-meta-top { flex-wrap: wrap; gap: 0.5rem; }
+    .pullquote { font-size: 1.15rem; padding-left: 1rem; }
+  }
 </style>
