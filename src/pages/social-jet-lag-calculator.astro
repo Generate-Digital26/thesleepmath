@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p><strong>Late chronotypes — evening-preference individuals colloquially called "night owls" — are disproportionately affected</strong> by social jet lag. Roenneberg et al. (2012) found a clear chronotype distribution across the population, with chronotype (measured as corrected MSF, or MSFsc) following a roughly normal distribution that peaks around a sleep midpoint near 4 AM. Later chronotypes have biological clocks that naturally drift toward later timing, but standard work and school schedules force early wake times that are incompatible with this biology. The result is that a person with a chronotype midpoint of 5 AM forced to rise at 6:30 AM on workdays will accumulate severe social jet lag that a 4 AM chronotype never experiences on the same schedule.</p>
 <p>Adolescents and young adults (roughly ages 15–25) experience the most extreme late chronotype shift due to developmental changes in the circadian system, making early school start times a public health issue with measurable cognitive and emotional consequences. Men tend to have slightly later chronotypes than women on average until their mid-40s, after which the gap narrows. Genetic factors explain roughly 50% of chronotype variance, suggesting that social jet lag is not simply a lifestyle choice but a biological vulnerability for a large segment of the population. Shift workers experience a related but distinct form of misalignment — their schedules may align with some nights but conflict severely with others, and their social and familial obligations rarely shift to match their work schedules.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'chronotype-quiz', name: 'Chronotype quiz', description: 'Lion, bear, wolf, or dolphin?' },
+  { slug: 'sleep-debt-calculator', name: 'Sleep debt calculator', description: 'See your total debt and the cognitive hit' },
+  { slug: 'circadian-rhythm-calculator', name: 'Circadian rhythm map', description: 'Map your personal 24-hour body clock' }
 ];
 ---
 
@@ -236,6 +244,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Social jet lag is chronic — see what it’s costing you:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -49,6 +51,12 @@ const faqs: FAQItem[] = [
 <p>A 2019 study in <em>Current Biology</em> by Depner et al. found that people who tried to "catch up" on weekends still gained weight and showed persistent insulin insensitivity compared to people who got consistent 9-hour nights — suggesting metabolic damage from sleep debt isn't fully undone by weekend sleep.</p>
 <p>The verdict: weekend sleep-ins are better than nothing and help acutely, but the only reliable fix for chronic sleep debt is <strong>consistently meeting your nightly sleep need</strong> throughout the week.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-efficiency-calculator', name: 'Sleep efficiency', description: 'The metric sleep clinics actually use' },
+  { slug: 'wake-time-calculator', name: 'Wake time optimiser', description: 'Get the best alarm times aligned to your cycles' },
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' }
 ];
 ---
 
@@ -262,6 +270,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Debt reveals the problem — these tools help fix it:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Sleep Debt Calculator" description="Calculate your cumulative sleep debt from the past 7 days. See cognitive impairment equivalencies, recovery time, and daily breakdowns. Based on Van Dongen et al., 2003." slug="sleep-debt-calculator" />

@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Yes &mdash; insomnia frequently co-occurs with and can be a symptom of other medical and psychiatric conditions. <strong>Obstructive sleep apnea (OSA)</strong> can present as difficulty maintaining sleep, with frequent arousals that the patient may not consciously register. <strong>Depression and anxiety disorders</strong> are among the most common comorbidities: up to 80% of patients with major depression report insomnia, and insomnia itself is a significant risk factor for developing depression. <strong>Chronic pain conditions</strong> (arthritis, fibromyalgia, neuropathy) directly disrupt sleep architecture and increase arousal.</p>
 <p>Medications can also cause or worsen insomnia &mdash; common culprits include <strong>SSRIs, beta-blockers, corticosteroids, stimulant medications, and some asthma drugs</strong>. Hormonal changes during <strong>menopause</strong> (hot flashes, night sweats) are a frequent trigger for new-onset insomnia in women. <strong>Restless legs syndrome</strong> and <strong>circadian rhythm disorders</strong> (such as delayed sleep-wake phase disorder) can mimic insomnia symptoms. If your ISI score is elevated and does not improve with standard sleep hygiene and behavioral changes over 4&ndash;6 weeks, a comprehensive medical evaluation to identify underlying contributors is strongly recommended before assuming primary insomnia.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-apnea-risk-calculator', name: 'Sleep apnea risk', description: 'STOP-Bang screening in 2 minutes' },
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'sleep-hygiene-calculator', name: 'Sleep hygiene audit', description: '20-item checklist across 5 categories' }
 ];
 ---
 
@@ -313,6 +321,8 @@ const faqs: FAQItem[] = [
       <div class="citation" style="margin-top:0.6rem;">Morin, C. M. et al. (2011). The Insomnia Severity Index: psychometric indicators to detect insomnia cases and evaluate treatment response. <em>Sleep, 34(5), 601&ndash;608.</em></div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Your score points to next steps — start here:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Insomnia Severity Calculator" description="Validated Insomnia Severity Index with 7 questions. Rate your sleep difficulties over the past 2 weeks and get a clinical severity score with personalized guidance." slug="insomnia-severity-calculator" />

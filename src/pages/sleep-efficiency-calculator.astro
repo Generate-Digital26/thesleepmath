@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -41,6 +43,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Yes — counterintuitively, <strong>spending excessive time in bed can worsen insomnia</strong>. When you lie in bed awake for long periods, your brain learns to associate the bed with wakefulness and arousal rather than sleep. This conditioned wakefulness is one of the main mechanisms that turns short-term sleep problems into chronic insomnia.</p>
 <p>Sleep restriction therapy — one of the most effective CBT-I components — deliberately reduces time in bed to approximately match actual sleep time. This initially causes some mild sleep deprivation that builds sleep pressure, which consolidates sleep, raises efficiency above 85%, and then allows time in bed to be gradually extended. While it sounds paradoxical, restricting time in bed is one of the fastest ways to improve long-term sleep quality.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'sleep-debt-calculator', name: 'Sleep debt calculator', description: 'See your total debt and the cognitive hit' },
+  { slug: 'sleep-latency-calculator', name: 'Sleep latency test', description: 'How long should it take to fall asleep?' }
 ];
 ---
 
@@ -242,6 +250,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Efficiency is the starting point — here’s what to do next:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Sleep Efficiency Calculator" description="Calculate your sleep efficiency score instantly. Enter your sleep times and get a clinical CBT-I assessment with personalized guidance. The metric sleep therapists actually use." slug="sleep-efficiency-calculator" />

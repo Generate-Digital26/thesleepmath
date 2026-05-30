@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Yes — and many people do this naturally once they establish a consistent sleep schedule. The mechanism is the <strong>cortisol awakening response (CAR)</strong>: about 45–60 minutes before your anticipated wake time, cortisol begins rising steeply (up to 50–160% above baseline), which gradually increases arousal and moves sleep into lighter stages. If your wake time is consistent, your brain learns to trigger this hormonal ramp reliably.</p>
 <p>Research by Born et al. (1999) demonstrated that participants who expected to wake at a specific time showed elevated ACTH (the cortisol precursor hormone) starting precisely 60 minutes before that time — even when they were not consciously aware of the timing. To develop alarm-free waking: keep bedtime and wake time consistent for at least 3–4 weeks, ensure you're getting enough total sleep, and keep your bedroom fully dark to let the cortisol rise naturally as morning light enters. The process takes 2–4 weeks of consistency to establish reliably.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-cycle-calculator', name: 'Sleep cycle calculator', description: 'Find the best times to sleep or wake up' },
+  { slug: 'sleep-debt-calculator', name: 'Sleep debt calculator', description: 'See your total debt and the cognitive hit' },
+  { slug: 'sleep-latency-calculator', name: 'Sleep latency test', description: 'How long should it take to fall asleep?' }
 ];
 ---
 
@@ -214,6 +222,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Build on your wake time with these related tools:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

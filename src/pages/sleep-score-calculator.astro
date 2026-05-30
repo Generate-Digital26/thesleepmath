@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>A persistently elevated PSQI score — particularly one that does not improve after 4–6 weeks of consistent sleep hygiene changes — warrants medical evaluation. Specific patterns that raise clinical concern include: <strong>very high sleep disturbance scores</strong> accompanied by witnessed breathing pauses or loud snoring (suggesting obstructive sleep apnea); <strong>high daytime dysfunction scores</strong> with irresistible urge to sleep in inappropriate situations (suggesting narcolepsy or severe OSA); <strong>abnormal leg sensations at night</strong> causing awakenings (suggesting restless legs syndrome); and <strong>extremely delayed sleep timing</strong> (unable to fall asleep before 2–4 AM) that persists regardless of effort (suggesting Circadian Rhythm Sleep-Wake Disorder).</p>
 <p>Chronic poor sleep quality also raises cardiovascular and metabolic risk. Large epidemiological studies have linked PSQI scores above 8 with significantly elevated risks of hypertension, type 2 diabetes, depression, and all-cause mortality. If your score falls in the poor range (above 10) and has been elevated for more than a month, or if you have any of the specific symptom patterns above, the appropriate next step is a consultation with your primary care provider who can rule out underlying sleep disorders, assess comorbidities, and refer you to a sleep specialist or CBT-I therapist if indicated.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-efficiency-calculator', name: 'Sleep efficiency', description: 'The metric sleep clinics actually use' },
+  { slug: 'sleep-hygiene-calculator', name: 'Sleep hygiene audit', description: '20-item checklist across 5 categories' },
+  { slug: 'insomnia-severity-calculator', name: 'Insomnia severity (ISI)', description: 'Validated severity score with CBT-I guidance' }
 ];
 ---
 
@@ -424,6 +432,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Dig deeper into what’s driving your score:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Sleep Quality Score Calculator" description="Free PSQI-style sleep quality score calculator. Answer 7 evidence-based questions to get your sleep quality score, component breakdown, and personalized recommendations. No wearable needed." slug="sleep-score-calculator" />

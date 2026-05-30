@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>The most effective approach to <strong>improving sleep hygiene</strong> is systematic and graduated rather than attempting a complete overnight overhaul. Start by auditing your current habits across all five domains — environment, timing, substances, behavior, and pre-sleep — and identify your lowest-scoring category. Research on habit formation suggests that anchoring a new behavior to an existing routine (implementation intentions) dramatically improves follow-through: for example, "After I put my phone on charge at 9:30 pm, I will do five minutes of diaphragmatic breathing" is far more likely to become habitual than a general intention to "relax before bed." Give each change at least 2–3 weeks before evaluating its impact on your sleep, since circadian and homeostatic systems require time to recalibrate.</p>
 <p><strong>Irish et al. (2015)</strong> note that multi-component hygiene programs that address timing, substances, and pre-sleep arousal simultaneously outperform single-element interventions — but only when the individual has sufficient motivation and capacity to implement multiple changes at once. If compliance is uncertain, serial implementation (one or two changes per fortnight) produces steadier, more durable improvements. Track your results: a simple sleep log noting bedtime, wake time, estimated sleep onset latency, and morning energy rating will make improvements visible and maintain motivation. This calculator's priority output is designed to give you a personalized, ranked starting point so you are working on the changes most likely to move your overall <strong>sleep hygiene score</strong> quickly.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'screen-time-cutoff-calculator', name: 'Screen time cutoff', description: 'When to stop screens before bed' },
+  { slug: 'exercise-timing-calculator', name: 'Exercise timing', description: 'Best time to work out for better sleep' }
 ];
 ---
 
@@ -513,6 +521,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Good hygiene covers the basics — these tools go further:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Sleep Hygiene Calculator" description="Free interactive sleep hygiene checklist. Score your sleep environment, timing, substances, and routines across 5 categories. Get personalized improvement priorities." slug="sleep-hygiene-calculator" />

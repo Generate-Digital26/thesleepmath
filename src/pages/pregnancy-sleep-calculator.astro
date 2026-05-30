@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -32,6 +34,12 @@ const faqs: FAQItem[] = [
     question: 'How much sleep do pregnant women need per night?',
     answer: `<p>The <strong>National Sleep Foundation (NSF)</strong> recommends that pregnant women aim for <strong>8–10 hours of sleep per night</strong> during the first trimester, compared to the standard adult recommendation of 7–9 hours. This increased need reflects the enormous metabolic and hormonal demands of early placental development, organogenesis, and the sedating effect of elevated progesterone. Research consistently shows that inadequate sleep during pregnancy is associated with longer labors, higher rates of caesarean delivery, gestational diabetes, preeclampsia, and preterm birth — making sleep hygiene a genuine clinical priority, not merely a comfort issue.</p><p>In the <strong>second trimester</strong>, many women find 8–9 hours adequate as progesterone levels stabilize and nausea abates. By the <strong>third trimester</strong>, sleep efficiency (the proportion of time in bed actually spent asleep) often declines despite spending more time in bed, due to positional discomfort, frequent urination, and fetal movement. Daytime naps of <strong>20–30 minutes</strong> (avoiding naps after 3 PM to protect night sleep) are strongly endorsed as a compensatory strategy. If sleep deprivation is severe or accompanied by symptoms of gestational sleep apnea (loud snoring, witnessed apnoeas, morning headaches), referral for a sleep study is warranted, as untreated OSA in pregnancy carries independent risks for maternal and fetal outcomes.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'baby-sleep-calculator', name: 'Baby sleep needs', description: 'Age-based schedule with nap windows' },
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'sleep-temperature-calculator', name: 'Room temperature', description: 'Your ideal bedroom temperature, personalised' }
 ];
 ---
 
@@ -314,6 +322,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Sleep changes throughout pregnancy — keep these tools close:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

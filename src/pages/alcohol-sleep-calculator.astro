@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>One glass of wine (roughly 0.5 standard drinks for a 5 oz pour at 12% ABV) produces a very low BAC in most adults — often below 0.02–0.03 within an hour of drinking. At that level, the research shows <strong>mild but measurable REM suppression</strong>, particularly in the first sleep cycle.</p>
 <p>Whether that's "okay" depends on your priorities. If you're optimizing for sleep quality, the science says even one drink before bed slightly degrades REM. If you enjoy a glass and feel fine, your personal experience is valid — but don't expect it to be neutral. Drinking it 3+ hours before bed dramatically reduces the impact compared to drinking it right before sleep.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'caffeine-cutoff-calculator', name: 'Caffeine cutoff', description: 'Your last safe time for coffee tonight' },
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'sleep-efficiency-calculator', name: 'Sleep efficiency', description: 'The metric sleep clinics actually use' }
 ];
 ---
 
@@ -283,6 +291,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Alcohol is one factor — see what else is affecting your sleep:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

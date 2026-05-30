@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>The STOP-BANG questionnaire is appropriate for <strong>any adult who snores, experiences daytime fatigue, or has been told they stop breathing during sleep</strong>. It is particularly valuable for people with known risk factors: obesity (especially BMI over 35), hypertension, age over 50, male sex, or a neck circumference over 40 cm (16 inches). Bed partners of heavy snorers often provide the first clue that a screening is warranted.</p>
 <p>Certain populations should be especially proactive about screening: people with <strong>treatment-resistant hypertension</strong> (OSA is the leading secondary cause), those being evaluated for <strong>pre-operative surgical clearance</strong> (undiagnosed OSA increases anesthesia risk), commercial <strong>truck drivers and pilots</strong> (regulatory bodies increasingly require screening), and anyone with <strong>unexplained excessive daytime sleepiness</strong> despite adequate sleep duration. If you recognize yourself in any of these groups, completing this questionnaire and sharing results with your healthcare provider is a reasonable first step.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'insomnia-severity-calculator', name: 'Insomnia severity (ISI)', description: 'Validated severity score with CBT-I guidance' },
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'sleep-efficiency-calculator', name: 'Sleep efficiency', description: 'The metric sleep clinics actually use' }
 ];
 ---
 
@@ -419,6 +427,8 @@ const faqs: FAQItem[] = [
       <div class="citation" style="margin-top:0.6rem;">Nagappa, M., Liao, P., Wong, J., et al. (2015). Validation of the STOP-Bang questionnaire as a screening tool for obstructive sleep apnea among different populations. <em>PLoS ONE, 10(12), e0143697.</em></div>
     </div>
   </div>
+
+  <RelatedTools leadIn="If sleep apnea is a risk, these assessments complete the picture:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Sleep Apnea Risk Calculator" description="Clinically validated STOP-BANG questionnaire screens for obstructive sleep apnea risk. 8 questions, instant scoring, and clear next-steps guidance." slug="sleep-apnea-risk-calculator" />

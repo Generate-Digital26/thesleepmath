@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>You should speak with a physician or sleep specialist if your sleep onset difficulty persists for <strong>more than three nights per week for at least one month</strong> and is causing daytime consequences — fatigue, concentration problems, mood disturbance, or impaired performance. This meets the clinical insomnia criteria of Lichstein et al. (2003) and warrants a structured assessment. You should seek urgent evaluation if you are falling asleep unintentionally during activities such as driving, eating, or mid-conversation, particularly if accompanied by sudden muscle weakness triggered by strong emotions (cataplexy) — these are hallmark symptoms of narcolepsy. Equally, if a bed partner reports that you stop breathing, gasp, or snore loudly, sleep apnea is likely and should be ruled out, as it can profoundly disrupt sleep architecture and drive pathological daytime sleepiness.</p>
 <p>For milder, shorter-lasting sleep onset difficulty, start with the behavioral strategies described in this calculator's recommendations — they have strong clinical evidence and none of the side effects of medication. <strong>CBT-I delivered by a trained therapist</strong> (or via validated digital programs such as Sleepio or SOMRYST) is the first-line recommended treatment for chronic insomnia in guidelines from the American Academy of Sleep Medicine, the American College of Physicians, and the European Sleep Research Society. If sleep problems persist after 4–6 weeks of consistent behavioral effort, a sleep specialist can conduct a more thorough evaluation including sleep diary review, actigraphy, and where appropriate, a polysomnogram or MSLT.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-debt-calculator', name: 'Sleep debt calculator', description: 'See your total debt and the cognitive hit' },
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'insomnia-severity-calculator', name: 'Insomnia severity (ISI)', description: 'Validated severity score with CBT-I guidance' }
 ];
 ---
 
@@ -301,6 +309,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Falling asleep is just one measure — check the full picture:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

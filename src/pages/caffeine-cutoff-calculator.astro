@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -40,6 +42,12 @@ const faqs: FAQItem[] = [
 <p><strong>Genetics:</strong> Variants in the CYP1A2 gene make some people "fast metabolizers" (half-life ~3 hrs) and others "slow metabolizers" (half-life ~7 hrs). <strong>Smoking:</strong> Induces CYP1A2 activity, roughly halving the half-life to ~3 hours. <strong>Pregnancy:</strong> Half-life extends to 8–12 hours, especially in the third trimester. <strong>Oral contraceptives:</strong> Can increase half-life to 6–7 hours. <strong>Liver conditions:</strong> Can significantly slow caffeine clearance.</p>
 <p>If you're unsure, start with the default 5-hour half-life and adjust the slider based on how sensitive you feel to afternoon caffeine.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-cycle-calculator', name: 'Sleep cycle calculator', description: 'Find the best times to sleep or wake up' },
+  { slug: 'alcohol-sleep-calculator', name: 'Alcohol impact', description: 'How drinks affect your sleep stages' },
+  { slug: 'sleep-hygiene-calculator', name: 'Sleep hygiene audit', description: '20-item checklist across 5 categories' }
 ];
 ---
 
@@ -224,6 +232,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="You’ve fixed your caffeine timing — now optimise the rest:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

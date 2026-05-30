@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Caffeine is effective for reducing shift work sleepiness but requires a strict cutoff to protect your post-shift sleep. The rule of thumb: <strong>stop caffeine 6 hours before your intended sleep window</strong>. For a night shift worker sleeping from 8 AM–2 PM, the last caffeine should be no later than 2 AM. Caffeine's half-life is 5–7 hours, meaning a 200 mg dose at 2 AM still has 100 mg active at 8 AM.</p>
 <p>Strategic dosing is more effective than continuous intake: a moderate dose (100–150 mg) at shift start, another at the 3–4 AM drowsiness trough if needed, then stopping. Avoid "topping up" in the last third of the shift. Pairing caffeine with a short nap — drink the coffee, then nap for 20 minutes while it absorbs — produces better alertness than either strategy alone. This "nap-a-latte" or "coffee nap" technique is backed by multiple studies and particularly useful for shift workers who can find a quiet rest space mid-shift.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'circadian-rhythm-calculator', name: 'Circadian rhythm map', description: 'Map your personal 24-hour body clock' },
+  { slug: 'caffeine-cutoff-calculator', name: 'Caffeine cutoff', description: 'Your last safe time for coffee tonight' },
+  { slug: 'sleep-debt-calculator', name: 'Sleep debt calculator', description: 'See your total debt and the cognitive hit' }
 ];
 ---
 
@@ -258,6 +266,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Shift work affects everything — build your full sleep strategy:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

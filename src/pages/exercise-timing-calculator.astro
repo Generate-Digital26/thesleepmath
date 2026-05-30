@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>The evidence-based recommendation is to stop <strong>vigorous exercise at least 90 minutes before your target bedtime</strong>. This buffer allows core body temperature to begin its post-exercise descent, heart rate to return within 20 beats per minute of resting baseline, and catecholamine (adrenaline) levels to clear sufficiently for parasympathetic recovery. The Stutz et al. (2019) meta-analysis — the most comprehensive review of this question to date, covering 1,000+ participants across 23 studies — found that the negative effects of vigorous evening exercise on sleep were largely confined to sessions ending less than 60 minutes before bed, and that the 90-minute cutoff essentially eliminated sleep disruption across chronotypes.</p>
 <p>The cutoff is <strong>intensity-dependent and chronotype-modulated</strong>. Moderate-intensity exercise (brisk walking, cycling at 60–70% max heart rate, lighter strength training) can safely end 60 minutes before bed for most chronotypes. Gentle exercise — yoga, stretching, tai chi, walking — can be performed 30 minutes before bed and has been shown to <em>improve</em> sleep onset in some populations, particularly older adults and those with insomnia (Halpern et al., 2014). Wolf chronotypes with late-shifted circadian timing can compress these cutoffs by 20–30 minutes given their delayed melatonin onset. The timeline visualization in the calculator above translates your chronotype and workout type into a color-coded exercise window: green means safe, amber means finish up soon, red means high disruption risk for your profile.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'circadian-rhythm-calculator', name: 'Circadian rhythm map', description: 'Map your personal 24-hour body clock' },
+  { slug: 'chronotype-quiz', name: 'Chronotype quiz', description: 'Lion, bear, wolf, or dolphin?' },
+  { slug: 'sleep-hygiene-calculator', name: 'Sleep hygiene audit', description: '20-item checklist across 5 categories' }
 ];
 ---
 
@@ -255,6 +263,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Timing is everything — see how exercise fits your full sleep picture:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

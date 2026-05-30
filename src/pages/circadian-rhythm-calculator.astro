@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -45,6 +47,12 @@ const faqs: FAQItem[] = [
 <p>DLMO is measured in research settings by collecting saliva or blood samples every 30–60 minutes under dim light conditions (&lt;10 lux) and tracking the rise in melatonin concentration. For clinical assessment of circadian sleep disorders (like Delayed Sleep Phase Disorder), DLMO provides the most accurate window for interventions like melatonin supplementation and light therapy.</p>
 <p>Practically, DLMO marks the beginning of your <strong>biological wind-down window</strong>. Exposing yourself to bright light after DLMO suppresses melatonin and delays sleep onset. Keeping lights dim and screens off after DLMO allows the melatonin signal to build naturally, making it easier to fall asleep at your intended time.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'chronotype-quiz', name: 'Chronotype quiz', description: 'Lion, bear, wolf, or dolphin?' },
+  { slug: 'light-exposure-calculator', name: 'Light exposure guide', description: 'Sunrise-aware light therapy timing' },
+  { slug: 'exercise-timing-calculator', name: 'Exercise timing', description: 'Best time to work out for better sleep' }
 ];
 ---
 
@@ -202,6 +210,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Put your body clock data to work:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Circadian Rhythm Calculator" description="Map your personal 24-hour body clock. See when your energy peaks, when to focus, exercise, and wind down based on chronobiology research." slug="circadian-rhythm-calculator" />

@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>This calculator uses the two-process model of sleep regulation, specifically the circadian component described by <strong>Dijk and Czeisler (1994)</strong>. That research identified a "paradoxical" circadian rhythm of sleep propensity: while the homeostatic pressure (process S, driven by adenosine) rises continuously from wake, the circadian alerting signal (process C) dips mid-afternoon regardless of sleep pressure, creating a natural window of increased sleepiness.</p>
 <p>The calculator estimates your optimal nap window as <strong>6–8 hours after wake time</strong> (the post-lunch dip peak), adjusts the recommended nap duration based on your tiredness level and sleep goal, and checks whether the proposed nap time falls within the <strong>forbidden zone</strong> (2–3 hours before bedtime). It then classifies the result as "Nap now," "Wait until [time]," or "Skip the nap" and recommends a nap type — power nap (10–20 min), restorative nap (60 min), or full cycle (90 min) — based on the combination of your goal and how many hours you have been awake.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-cycle-calculator', name: 'Sleep cycle calculator', description: 'Find the best times to sleep or wake up' },
+  { slug: 'circadian-rhythm-calculator', name: 'Circadian rhythm map', description: 'Map your personal 24-hour body clock' },
+  { slug: 'sleep-debt-calculator', name: 'Sleep debt calculator', description: 'See your total debt and the cognitive hit' }
 ];
 ---
 
@@ -316,6 +324,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Naps are one piece of the puzzle — explore the rest:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

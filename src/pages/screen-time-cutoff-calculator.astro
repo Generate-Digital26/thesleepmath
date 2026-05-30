@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -39,6 +41,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Yes. Research suggests children and adolescents may be more sensitive to blue light's sleep-disrupting effects than adults for two reasons. First, the crystalline lens in children's eyes is clearer and transmits more short-wavelength blue light to the retina. Second, adolescents already have a biologically delayed circadian phase (the "teenage night owl" effect), and additional melatonin suppression from screens can compound this delay significantly.</p>
 <p>A 2018 review in Sleep Medicine Reviews found that screen use within one hour of bedtime was associated with a <strong>50% higher risk</strong> of inadequate sleep duration in children aged 6–12. Pediatric sleep guidelines from the American Academy of Sleep Medicine generally recommend no screens in bedrooms and a screen cutoff at least one hour before bed for school-age children.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'light-exposure-calculator', name: 'Light exposure guide', description: 'Sunrise-aware light therapy timing' },
+  { slug: 'sleep-hygiene-calculator', name: 'Sleep hygiene audit', description: '20-item checklist across 5 categories' },
+  { slug: 'caffeine-cutoff-calculator', name: 'Caffeine cutoff', description: 'Your last safe time for coffee tonight' }
 ];
 ---
 
@@ -268,6 +276,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Screens are one input — here’s the full wind-down toolkit:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

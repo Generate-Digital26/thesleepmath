@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>This <strong>time zone adjustment calculator</strong> implements the light-dark cycle shifting method from Eastman & Burgess (2009). You input your home and destination time zones, your habitual sleep schedule, and how many days you have before travel.</p>
 <p>The calculator determines your direction (east or west), computes the total clock shift needed, and generates a day-by-day plan. Each day's card shows a <strong>light exposure window</strong> (when to be in bright sunlight or use a light box), a <strong>light avoidance window</strong> (when to wear sunglasses or stay indoors), a <strong>melatonin time</strong> (0.5 mg at the calculated phase-shifting moment), and a <strong>target sleep window</strong> that shifts 1.5 hours per day toward your destination schedule. Pre-trip days shift your clock before you even board the plane.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'melatonin-calculator', name: 'Melatonin guide', description: 'Evidence-based dosage and timing by age' },
+  { slug: 'sleep-cycle-calculator', name: 'Sleep cycle calculator', description: 'Find the best times to sleep or wake up' },
+  { slug: 'light-exposure-calculator', name: 'Light exposure guide', description: 'Sunrise-aware light therapy timing' }
 ];
 ---
 
@@ -274,6 +282,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Jet lag is a circadian problem — these tools help you reset:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

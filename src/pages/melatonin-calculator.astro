@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -41,6 +43,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Yes — jet lag is the best-supported use case for melatonin. Auger et al. (2015) and multiple Cochrane reviews confirm that melatonin significantly reduces jet lag symptoms, particularly for <strong>eastward travel crossing 5 or more time zones</strong>. The mechanism is direct: melatonin shifts your circadian clock's phase by acting on MT1/MT2 receptors in the suprachiasmatic nucleus (SCN), the brain's master clock.</p>
 <p>The critical variable is timing. For eastward travel, take 0.5–3 mg at the <strong>destination bedtime</strong> (not your home bedtime) for 2–5 nights. For westward travel, the clock shifts more easily in that direction naturally, and morning light exposure is often sufficient — but a low dose taken in the morning at the destination can accelerate adaptation. Avoid taking melatonin in the middle of the day in your home time zone, as this can worsen jet lag by shifting your clock in the wrong direction.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'chronotype-quiz', name: 'Chronotype quiz', description: 'Lion, bear, wolf, or dolphin?' },
+  { slug: 'light-exposure-calculator', name: 'Light exposure guide', description: 'Sunrise-aware light therapy timing' },
+  { slug: 'jet-lag-calculator', name: 'Jet lag planner', description: 'Day-by-day reset plan for any timezone' }
 ];
 ---
 
@@ -342,6 +350,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Melatonin works best in context — see the full timing picture:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

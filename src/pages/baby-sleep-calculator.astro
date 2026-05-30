@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -32,6 +34,12 @@ const faqs: FAQItem[] = [
     question: 'When do babies drop naps?',
     answer: `<p>Nap transitions happen at predictable windows but with significant individual variation. The <strong>3-to-2 nap transition</strong> typically occurs between 6–8 months. The <strong>2-to-1 nap transition</strong> usually happens between 14–18 months, though some babies transition as early as 12 months. The <strong>1-to-0 nap transition</strong> (nap drop) occurs most commonly between 3 and 4 years, though some children nap until 5 and others stop before 3.</p><p>Signs a baby is ready to drop a nap include consistently resisting the nap for 2+ weeks, taking a long time to fall asleep at naptime, napping well but then struggling to fall asleep at bedtime, or waking very early in the morning. Avoid dropping naps prematurely at the first sign of resistance — many babies go through temporary nap regression phases that resolve on their own.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-regression-calculator', name: 'Baby sleep regression', description: 'Regression predictor with survival guides' },
+  { slug: 'pregnancy-sleep-calculator', name: 'Pregnancy sleep', description: 'Trimester-specific sleep recommendations' },
+  { slug: 'nap-calculator', name: 'Nap calculator', description: 'Should you nap? How long? When?' }
 ];
 ---
 
@@ -256,6 +264,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Baby sleep changes fast — stay ahead with these tools:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

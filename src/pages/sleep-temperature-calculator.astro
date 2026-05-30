@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Both work, but through different mechanisms. <strong>Air conditioning</strong> actively lowers air temperature and can also dehumidify — it's the most effective way to cool a room below outdoor temperature. A thermostat set to 65–67°F before bed, then raising slightly during early morning, mirrors the natural room-temperature curve that supports sleep.</p>
 <p>A <strong>fan</strong> doesn't cool the air but increases evaporative cooling from your skin — particularly helpful for hot sleepers. The white noise a fan produces also masks environmental sounds, adding an independent sleep benefit. The downside: fans can dry out nasal passages at high settings and may be insufficient in humid climates where evaporation is slow. If you share a bed, a directional fan aimed away from both partners avoids the "too hot / too cold" conflict while still providing airflow.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'sleep-hygiene-calculator', name: 'Sleep hygiene audit', description: '20-item checklist across 5 categories' },
+  { slug: 'sleep-score-calculator', name: 'Sleep quality score', description: 'PSQI-based sleep quality assessment' },
+  { slug: 'chronotype-quiz', name: 'Chronotype quiz', description: 'Lion, bear, wolf, or dolphin?' }
 ];
 ---
 
@@ -269,6 +277,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Temperature is one variable in a good sleep environment:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

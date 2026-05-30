@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Seasonal variation in light exposure is one of the most powerful drivers of circadian and mood dysregulation in humans living above mid-latitudes. In summer, sunrise occurs early (often before 5–6 AM), days are long, and most people receive ample morning light naturally. In winter, sunrise is delayed to 7–8 AM or later, days are short, sun angle is low (meaning less UV and less intensity even at solar noon), and many people commute in darkness both ways. The result is a systematic reduction in total daily light exposure that blunts the morning entrainment signal, delays circadian timing, and in susceptible individuals triggers Seasonal Affective Disorder. Even in people without clinical SAD, winter is associated with longer sleep duration, increased sleep inertia, and lower daytime energy.</p>
 <p>The practical implication is that light therapy needs scale with latitude and season. At 35° latitude (roughly Los Angeles or Barcelona), winter sunrise is around 7 AM — slightly inconvenient but manageable with outdoor light. At 55° latitude (Stockholm, Moscow), winter sunrise may be after 9 AM, making a light box essentially mandatory for anyone who wakes before 8 AM. Duration should also increase in winter: <strong>Terman &amp; Terman (2005)</strong> found that 30 minutes at 10,000 lux was sufficient in mild cases, but 45–60 minutes produced better outcomes for patients with severe winter SAD. This calculator adjusts recommendations based on your latitude and season to account for actual solar availability at your location and time of year.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'circadian-rhythm-calculator', name: 'Circadian rhythm map', description: 'Map your personal 24-hour body clock' },
+  { slug: 'screen-time-cutoff-calculator', name: 'Screen time cutoff', description: 'When to stop screens before bed' },
+  { slug: 'melatonin-calculator', name: 'Melatonin guide', description: 'Evidence-based dosage and timing by age' }
 ];
 ---
 
@@ -311,6 +319,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Light is your most powerful circadian tool — explore further:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

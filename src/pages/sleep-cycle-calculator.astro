@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -38,6 +40,12 @@ const faqs: FAQItem[] = [
     answer: `<p>The 90-minute figure is an <strong>average across the population</strong>, not a fixed biological law. Individual cycle length varies from roughly 70 to 110 minutes and can shift even within the same person based on age, sleep debt, alcohol consumption, medications, and stress levels. Children have shorter cycles (50–60 minutes); elderly adults often have cycles closer to 70–80 minutes; deep sleep decreases with age while lighter NREM stages increase.</p>
 <p>This means the calculator's results are best treated as targets rather than precise times. In practice, most people find that aiming for a wake time near a 90-minute boundary feels noticeably better than arbitrary wake times — even if their personal cycle is 80 or 95 minutes. If you consistently feel groggy at the calculator's suggested times, your cycle may be shorter or longer than 90 minutes; try adjusting by ±15 minutes to find your personal rhythm. Wearable devices that track heart rate variability and movement can help identify your specific cycle length over time.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'wake-time-calculator', name: 'Wake time optimiser', description: 'Get the best alarm times aligned to your cycles' },
+  { slug: 'nap-calculator', name: 'Nap calculator', description: 'Should you nap? How long? When?' },
+  { slug: 'chronotype-quiz', name: 'Chronotype quiz', description: 'Lion, bear, wolf, or dolphin?' }
 ];
 ---
 
@@ -190,6 +198,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Once you know your ideal wake time, these tools help you use it:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

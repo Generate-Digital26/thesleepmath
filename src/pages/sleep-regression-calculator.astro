@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -32,6 +34,12 @@ const faqs: FAQItem[] = [
     question: 'What is the sleep regression ages timeline?',
     answer: `<p>The <strong>sleep regression ages</strong> that are most widely documented in pediatric sleep literature are: <strong>4 months</strong> (sleep cycle maturation, the most universal regression), <strong>6 months</strong> (separation anxiety onset, teething, increased motor activity), <strong>8–10 months</strong> (crawling, pulling to stand, intensified separation anxiety), <strong>12 months</strong> (walking and associated neurodevelopmental leap), <strong>18 months</strong> (toddler independence drive, vocabulary explosion), and <strong>24 months</strong> (big life transitions, increased awareness, possible nap resistance). <strong>Galland et al. (2012)</strong> confirmed in their systematic review that normative infant sleep patterns show predictable disruption peaks at these age windows.</p><p>Not every baby will experience every regression with equal intensity — some sail through the 12-month window while struggling significantly at 18 months, and vice versa. Individual temperament, the consistency of sleep habits, and environmental factors all modulate severity. It is also worth noting that some commonly cited regressions like the <strong>"3-week" or "6-week" newborn cluster</strong> represent feeding and growth spurts rather than true sleep architecture regressions. <strong>Henderson et al. (2010)</strong> distinguished between developmental sleep disruptions (regression) and feeding-driven wakings, both of which are normal but require different management approaches.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'baby-sleep-calculator', name: 'Baby sleep needs', description: 'Age-based schedule with nap windows' },
+  { slug: 'nap-calculator', name: 'Nap calculator', description: 'Should you nap? How long? When?' },
+  { slug: 'sleep-debt-calculator', name: 'Sleep debt calculator', description: 'See your total debt and the cognitive hit' }
 ];
 ---
 
@@ -237,6 +245,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Regressions are temporary — here’s how to manage the rest:" tools={relatedTools} />
 
   <FAQ items={faqs} />
 

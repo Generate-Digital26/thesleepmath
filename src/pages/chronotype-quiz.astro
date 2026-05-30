@@ -6,6 +6,8 @@ import Breadcrumb from '@/components/Breadcrumb.astro';
 import CalcSchema from '@/components/CalcSchema.astro';
 import FAQ from '@/components/FAQ.astro';
 import type { FAQItem } from '@/components/FAQ.astro';
+import RelatedTools from '@/components/RelatedTools.astro';
+
 
 const faqs: FAQItem[] = [
   {
@@ -42,6 +44,12 @@ const faqs: FAQItem[] = [
     answer: `<p>Online <strong>chronotype tests</strong> like this one are useful screening tools, but they have real limitations. The gold standard is a multi-week sleep diary on free days or, more precisely, actigraphy (wrist-worn motion tracking). Lab-based DLMO (dim-light melatonin onset) testing is the most accurate but impractical for everyday use.</p>
 <p>Validated questionnaire-based chronotype tests — including the MCTQ and the Morningness-Eveningness Questionnaire (MEQ) — show good correlation with objective measures in research settings. Self-report accuracy drops when people have significant sleep debt, irregular schedules, or consume caffeine or alcohol regularly. For the most reliable result: answer based on how you <em>naturally</em> feel on completely free, unscheduled days — not your weekday pattern driven by alarms.</p>`,
   },
+];
+
+const relatedTools = [
+  { slug: 'circadian-rhythm-calculator', name: 'Circadian rhythm map', description: 'Map your personal 24-hour body clock' },
+  { slug: 'sleep-cycle-calculator', name: 'Sleep cycle calculator', description: 'Find the best times to sleep or wake up' },
+  { slug: 'exercise-timing-calculator', name: 'Exercise timing', description: 'Best time to work out for better sleep' }
 ];
 ---
 
@@ -183,6 +191,8 @@ const faqs: FAQItem[] = [
       </div>
     </div>
   </div>
+
+  <RelatedTools leadIn="Now that you know your type, put it to work:" tools={relatedTools} />
 
   <FAQ items={faqs} />
   <CalcSchema name="Chronotype Quiz" description="Discover your chronotype in 3 minutes. Science-based quiz using the Roenneberg MCTQ framework. Find out if you're a Lion, Bear, Wolf, or Dolphin — and get your personalized daily schedule." slug="chronotype-quiz" />

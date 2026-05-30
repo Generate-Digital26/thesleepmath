@@ -1,0 +1,125 @@
+---
+export interface ToolLink {
+  slug: string;
+  name: string;
+  description: string;
+}
+
+interface Props {
+  leadIn: string;
+  tools: ToolLink[];
+}
+
+const { leadIn, tools } = Astro.props;
+---
+
+<section class="related-tools-section">
+  <div class="related-tools-inner">
+    <p class="related-tools-lead">{leadIn}</p>
+    <div class="related-tools-grid">
+      {tools.map((tool) => (
+        <a href={`/${tool.slug}`} class="related-tool-card">
+          <div class="related-tool-name">{tool.name}</div>
+          <div class="related-tool-desc">{tool.description}</div>
+          <div class="related-tool-cta">
+            Try it
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .related-tools-section {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 2rem 2.5rem;
+  }
+
+  .related-tools-inner {
+    background: var(--card, #fff);
+    border: 1.5px solid var(--border, #e4e1ec);
+    border-radius: var(--radius, 14px);
+    padding: 1.75rem;
+  }
+
+  .related-tools-lead {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-mid, #4a4560);
+    margin-bottom: 1.1rem;
+    line-height: 1.5;
+  }
+
+  .related-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+  }
+
+  .related-tool-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    background: var(--bg, #faf9f7);
+    border: 1.5px solid var(--border, #e4e1ec);
+    border-radius: var(--radius-sm, 10px);
+    padding: 1rem 1.1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .related-tool-card:hover {
+    border-color: var(--primary, #7c6aff);
+    box-shadow: 0 0 0 3px rgba(124, 106, 255, 0.08);
+  }
+
+  .related-tool-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text, #1e1b2e);
+    line-height: 1.3;
+  }
+
+  .related-tool-desc {
+    font-size: 0.78rem;
+    color: var(--text-soft, #7c778e);
+    line-height: 1.45;
+    flex: 1;
+  }
+
+  .related-tool-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary, #7c6aff);
+    margin-top: 0.25rem;
+  }
+
+  .related-tool-cta svg {
+    width: 13px;
+    height: 13px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .related-tools-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .related-tools-section {
+      padding: 0 1.25rem 2rem;
+    }
+
+    .related-tools-inner {
+      padding: 1.35rem;
+    }
+  }
+</style>
