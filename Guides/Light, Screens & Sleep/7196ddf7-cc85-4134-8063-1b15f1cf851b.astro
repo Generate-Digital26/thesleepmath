@@ -1,0 +1,552 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Light, Screens & Sleep: The Science — The Sleep Math';
+const description = 'How light and screens affect your sleep, backed by clinical data. Blue light, night mode, glasses, daytime exposure — what actually works and what doesn\'t.';
+const canonical = 'https://thesleepmath.com/guides/light-screens-and-sleep';
+const heroImage = '/images/guides/light-screens-and-sleep-hero.jpg';
+const ogImage = '/images/guides/light-screens-and-sleep-og.png';
+const publishDate = '2026-05-29';
+const modifiedDate = '2026-05-29';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Light, Screens & Sleep: The Science",
+  "description": description,
+  "image": `https://thesleepmath.com${ogImage}`,
+  "datePublished": publishDate,
+  "dateModified": modifiedDate,
+  "author": {
+    "@type": "Organization",
+    "name": "The Sleep Math",
+    "url": "https://thesleepmath.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Sleep Math",
+    "url": "https://thesleepmath.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://thesleepmath.com/favicon.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonical
+  },
+  "wordCount": 4200,
+  "articleSection": "Sleep Science Guide",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["h1", ".article-intro", ".key-takeaways"]
+  },
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Melanopsin-mediated optical entrainment regulates circadian rhythms in vertebrates",
+      "author": "Pan D, Wang Z, Chen Y, Cao J",
+      "datePublished": "2023",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37848640/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "The spectral sensitivity of human circadian phase resetting and melatonin suppression to light changes dynamically with light duration",
+      "author": "St Hilaire MA, et al.",
+      "datePublished": "2022",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36508666/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Sensitivity of the human circadian pacemaker to nocturnal light: melatonin phase resetting and suppression",
+      "author": "Zeitzer JM, et al.",
+      "datePublished": "2000",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/10922269/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness",
+      "author": "Chang AM, et al.",
+      "datePublished": "2015",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/25535358/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Screen Use at Bedtime and Sleep Duration and Quality Among Youths",
+      "author": "Janssen X, et al.",
+      "datePublished": "2024",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39226042/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Youth screen media habits and sleep",
+      "author": "Hale L, et al.",
+      "datePublished": "2018",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29502920/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Efficacy of blue-light blocking glasses on actigraphic sleep outcomes: a systematic review and meta-analysis",
+      "author": "Aboraya AM, et al.",
+      "datePublished": "2025",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40352618/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Blocking nocturnal blue light for insomnia: A randomized controlled trial",
+      "author": "Shechter A, et al.",
+      "datePublished": "2018",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29549906/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Does the iPad Night Shift mode reduce melatonin suppression?",
+      "author": "Nagare R, et al.",
+      "datePublished": "2019",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31186580/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "The role of sunlight in sleep regulation: analysis of morning, evening and late exposure",
+      "author": "Münch M, et al.",
+      "datePublished": "2025",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40382090/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Evening home lighting adversely impacts the circadian system and sleep",
+      "author": "Cain SW, et al.",
+      "datePublished": "2020",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/33154419/"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Daily links between objective smartphone use and sleep among adolescents",
+      "author": "Lee AM, et al.",
+      "datePublished": "2024",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38985913/"
+    }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does blue light from screens really suppress melatonin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, but the full picture is more nuanced than most headlines suggest. In controlled trials, e-readers suppressed melatonin by 55% compared to printed books. However, the spectral sensitivity shifts over time: during short exposures, cone photoreceptors (sensitive to a broader range of wavelengths) dominate the response, while melanopsin (peaking at 481 nm, in the blue range) only becomes the primary driver during prolonged exposures of several hours. So blue light matters, but it's not the only wavelength involved, especially for brief screen checks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I wear blue light glasses before bed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For most healthy adults, the evidence says no. A 2025 meta-analysis of three randomized controlled trials found no statistically significant effects on sleep onset latency, total sleep time, or sleep efficiency. However, one small trial in people with insomnia symptoms found amber-tinted lenses improved sleep quality and duration. If you have diagnosed insomnia, they may be worth trying. For everyone else, reducing screen brightness and increasing daytime light exposure are better-supported strategies."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Night Shift / Night Mode actually help?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Somewhat, but not as much as you'd hope. A controlled study found that Night Shift reduced melatonin suppression compared to blue-light-blocking goggles, but there was no significant difference between warm (2837K) and cool (5997K) Night Shift settings when brightness stayed the same. The key variable is melanopic equivalent daylight illuminance (mEDI), which depends on both spectrum and brightness. Night mode helps most when combined with reduced screen brightness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many hours before bed should I stop using screens?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The distinction between pre-bed and in-bed screen use matters more than a strict cutoff. A 2024 JAMA Pediatrics study found pre-bed screen time had no measurable association with most sleep outcomes, while in-bed use cost about 3 minutes of sleep per 10 minutes of use. Gaming in bed was worse (17 minutes of lost sleep per 10 minutes of use), and multitasking was worst of all (35 minutes of total sleep lost). A reasonable guideline: switch on night mode and reduce brightness 2 hours before bed, and keep screens out of the bed entirely."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is morning sunlight really that important for sleep?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and it may be more impactful than any evening screen restriction. A 2025 study found that 30 minutes of morning sunlight advanced the sleep midpoint by 23 minutes and was linked to better sleep quality scores. In one crossover trial, 6.5 hours of bright daytime light completely eliminated the melatonin-suppressing effects of evening tablet use. Most people spend their days in 150-300 lux indoor lighting, far below the 1,000+ lux available outdoors even on overcast days."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are LED lights worse for sleep than old incandescent bulbs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard cool-white LEDs are worse for your circadian system than incandescent bulbs. A study of 39 participants over 76 nights found LED-lit homes produced nearly 90% more melanopic illuminance than incandescent-lit homes, and 48% of homes caused at least 50% melatonin suppression. Cool white LEDs caused 12.3% melatonin suppression versus 1.5% for incandescent. The fix is not to go back to incandescent — warm-white LEDs (2700K or below) produce only 3.6% suppression and are the practical solution."
+      }
+    }
+  ]
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://thesleepmath.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Guides",
+      "item": "https://thesleepmath.com/guides"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Light, Screens & Sleep",
+      "item": canonical
+    }
+  ]
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <meta slot="head" property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="article:published_time" content={publishDate} />
+  <meta slot="head" property="article:modified_time" content={modifiedDate} />
+  <meta slot="head" property="article:section" content="Sleep Science Guide" />
+  <meta slot="head" property="article:tag" content="blue light" />
+  <meta slot="head" property="article:tag" content="screens and sleep" />
+  <meta slot="head" property="article:tag" content="melatonin suppression" />
+  <meta slot="head" property="article:tag" content="circadian rhythm" />
+  <meta slot="head" property="article:tag" content="night mode" />
+  <meta slot="head" property="article:tag" content="blue light glasses" />
+  <meta slot="head" property="article:tag" content="sleep hygiene" />
+  <meta slot="head" property="article:tag" content="melanopsin" />
+  <meta slot="head" property="article:tag" content="morning light exposure" />
+  <meta slot="head" property="article:tag" content="LED lighting sleep" />
+
+  <meta slot="head" name="llm-context" content="Comprehensive evidence-based guide on how light and screens affect human sleep. Covers the melanopsin photoreceptor pathway, blue light action spectra (481nm peak), clinical e-reader RCT data showing 55% melatonin suppression, JAMA Pediatrics data distinguishing pre-bed vs in-bed screen use, blue light glasses meta-analysis (no effect in healthy adults), Night Shift mode limitations, the outsized importance of daytime bright light exposure, home LED lighting circadian impact, and evidence-based strategies for managing light to protect sleep. Includes 12 peer-reviewed references with PubMed links." />
+  <meta slot="head" name="ai-summary" content="Blue light from screens does suppress melatonin, but the story is more complex than headlines suggest — short exposures are driven by cone photoreceptors across a broad spectrum, not just blue wavelengths. Blue light glasses show no benefit for healthy adults in meta-analysis. Morning bright light exposure may be the single most impactful intervention, with one trial showing it eliminated evening screen effects entirely." />
+  <meta slot="head" name="nlp-entities" content="melanopsin, ipRGCs, melatonin, circadian rhythm, blue light, SCN, suprachiasmatic nucleus, Night Shift, e-reader, LED lighting, sleep latency, DLMO, melanopic EDI, REM sleep, CBT-I, insomnia, sleep hygiene, chronotype, screen time" />
+  <meta slot="head" name="ai-content-type" content="comprehensive guide, sleep science, light and circadian biology, evidence-based reference" />
+  <meta slot="head" name="GPTBot" content="index, follow" />
+  <meta slot="head" name="ClaudeBot" content="index, follow" />
+  <meta slot="head" name="PerplexityBot" content="index, follow" />
+  <meta slot="head" name="Google-Extended" content="index, follow" />
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <Nav />
+
+  <article class="guide">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/guides">Guides</a>
+      <span class="sep">/</span>
+      <span>Light, Screens &amp; Sleep</span>
+    </nav>
+
+    <header class="guide-header">
+      <div class="guide-meta-top">
+        <span class="guide-tag">Definitive Guide</span>
+        <time datetime="2026-05-29">Updated 29 May 2026</time>
+        <span class="read-time">17 min read</span>
+      </div>
+      <h1>Light, Screens &amp; Sleep: <span class="pop">The Science</span></h1>
+      <p class="article-intro">You've heard it a thousand times: "Put your phone down before bed." But the actual science behind light and sleep is far more interesting — and far more useful — than that tired advice. This guide digs into the clinical data on how light controls your circadian clock, what screens actually do to melatonin, whether blue light glasses are worth the hype, and the single most overlooked fix that might matter more than anything you do at night. Not vibes. Real research.</p>
+    </header>
+
+    <img src={heroImage} alt="A bedroom at dusk with warm-toned lighting, a dimmed phone on the nightstand, and morning sunlight visible through a window" class="hero-img" width="1600" height="893" loading="eager" />
+
+    <div class="guide-body">
+
+      <div class="key-takeaways" role="region" aria-label="Key takeaways">
+        <h3>Key takeaways</h3>
+        <ul>
+          <li>A tiny subset of retinal cells (ipRGCs) drives roughly 80% of the light signal reaching your master clock, with peak sensitivity at 481 nm (blue-cyan light).</li>
+          <li>During short screen exposures, cone photoreceptors — not melanopsin — dominate the circadian response, meaning the problem isn't narrowly "blue light."</li>
+          <li>E-readers suppress melatonin by 55% compared to printed books, delay your internal clock by over 90 minutes, and reduce next-morning alertness.</li>
+          <li>In-bed screen use costs measurable sleep; pre-bed use does not — the distinction matters enormously.</li>
+          <li>Blue light glasses show no reliable benefit for healthy adults in meta-analysis; they may help people with insomnia.</li>
+          <li>Morning bright light exposure (30 minutes) advances your sleep midpoint by 23 minutes and may completely counteract evening screen effects.</li>
+          <li>Nearly half of home lighting setups suppress melatonin by 50% or more — warm-white LEDs (2700K or below) are the practical fix.</li>
+        </ul>
+      </div>
+
+      <nav class="toc" aria-label="Table of contents">
+        <p class="toc-label">In this guide</p>
+        <ol>
+          <li><a href="#mechanism">How Light Controls Your Sleep</a></li>
+          <li><a href="#blue-light">The Blue Light Question</a></li>
+          <li><a href="#screens">Screens Before Bed: What the Clinical Data Shows</a></li>
+          <li><a href="#glasses">Do Blue Light Glasses Work?</a></li>
+          <li><a href="#night-mode">Night Mode: Helpful or Not Enough?</a></li>
+          <li><a href="#daytime-light">The Fix You're Overlooking: Daytime Light</a></li>
+          <li><a href="#home-lighting">Your Home Lighting Is Part of the Problem</a></li>
+          <li><a href="#strategies">What Actually Works: Evidence-Based Strategies</a></li>
+        </ol>
+      </nav>
+
+      <p>Every evening, billions of people repeat the same ritual: climb into bed, grab a glowing rectangle, and scroll until their eyelids give in. The conventional wisdom says this is terrible for sleep. The reality is more nuanced — and, honestly, more useful.</p>
+
+      <p>Light is the most powerful external signal governing your sleep-wake cycle. But "light" is not one thing. Its wavelength, intensity, timing, and duration all matter, and they interact in ways that make simple rules like "avoid blue light" incomplete at best. The clinical data points to interventions most people never consider — and pokes holes in some they've already paid good money for.</p>
+
+      <p>This guide walks through the full evidence base: the photobiology of how light reaches your brain's master clock, what screens actually do to your melatonin timeline, whether the products marketed to fix the problem actually work, and the daytime habits that might render the whole evening debate moot. Every claim links to a peer-reviewed source. Use the <a href="/sleep-score-calculator">sleep score calculator</a> to establish your baseline before you start experimenting.</p>
+
+      <!-- Chapter 1 -->
+      <h2 id="mechanism">1. How Light Controls Your Sleep</h2>
+
+      <p>Your retina does more than see. Buried among the rods and cones that handle vision sits a small, specialized population of cells called intrinsically photosensitive retinal ganglion cells (ipRGCs). They make up <a href="https://pubmed.ncbi.nlm.nih.gov/37848640/" target="_blank" rel="noopener noreferrer">only 0.4 to 1.5% of all retinal ganglion cells</a>, yet they drive roughly 80% of the photic input reaching the suprachiasmatic nucleus (SCN) — the master circadian clock in your hypothalamus.</p>
+
+      <p>These cells contain a photopigment called melanopsin (encoded by the gene OPN4), and it has a very specific appetite. Melanopsin's peak spectral sensitivity sits at approximately 480 nm — squarely in the blue-cyan part of the visible spectrum. When photons of this wavelength hit melanopsin, <a href="https://pubmed.ncbi.nlm.nih.gov/37848640/" target="_blank" rel="noopener noreferrer">the signal cascades through a Gq/11 protein, activates PLCβ4, and opens TrpC6/7 ion channels</a>, depolarizing the cell and firing an action potential down the retinohypothalamic tract to the SCN.</p>
+
+      <p>The SCN then does its job: it synchronizes your internal clock to the external light-dark cycle. During the day, SCN signaling suppresses melatonin production in the pineal gland. As evening darkness arrives, that suppression lifts, melatonin rises, and you feel sleepy. When artificial light hits your retina at night — especially light rich in the wavelengths melanopsin cares about — the SCN misreads the signal. It thinks it's still daytime. Melatonin stays suppressed. Your <a href="/circadian-rhythm-calculator">circadian rhythm</a> shifts later.</p>
+
+      <div class="pullquote">
+        Just 0.4–1.5% of your retinal ganglion cells drive 80% of the light signal that sets your master clock.
+      </div>
+
+      <p>This is not a subtle effect. <a href="https://pubmed.ncbi.nlm.nih.gov/10922269/" target="_blank" rel="noopener noreferrer">Even relatively dim light — around 100 lux, roughly the brightness of a well-lit living room — triggers measurable melatonin suppression and circadian phase shifts</a>. The response is nonlinear: half-maximal suppression occurs around 100-200 lux, meaning you don't need stadium lighting to disrupt your clock. Your average bedside lamp can do it.</p>
+
+      <p>Understanding this mechanism matters because it reframes the conversation. The issue is not "screens" as a category. The issue is photons of specific wavelengths, at specific intensities, reaching a specific set of photoreceptors, at a specific time of day. Get any one of those variables right, and you can mitigate the damage without swearing off technology. Use the <a href="/light-exposure-calculator">light exposure calculator</a> to estimate your daily melanopic light dose.</p>
+
+      <!-- Chapter 2 -->
+      <h2 id="blue-light">2. The Blue Light Question</h2>
+
+      <p>Here's where it gets interesting. The common narrative is clean and simple: blue light is bad, block it, problem solved. The actual action spectrum is more complicated — and the complication has practical implications for which interventions work.</p>
+
+      <p><a href="https://pubmed.ncbi.nlm.nih.gov/36508666/" target="_blank" rel="noopener noreferrer">A landmark 2022 study in <em>PNAS</em> measured the spectral sensitivity of melatonin suppression in 99 participants across 6.5-hour exposures</a>. The headline finding: the action spectrum peaks at 481 nm, confirming melanopsin's known sensitivity. But the critical nuance is in the time course.</p>
+
+      <p>At the start of light exposure, the spectral sensitivity peaked at 441 nm — a shorter wavelength, driven primarily by cone photoreceptors (especially S-cones, the "blue" cones of conventional vision). Melanopsin only dominated the response after prolonged exposure. The researchers' best-fit model estimated that <a href="https://pubmed.ncbi.nlm.nih.gov/36508666/" target="_blank" rel="noopener noreferrer">melanopsin accounts for 81% of the total circadian response over a 6.5-hour exposure, with S-cones contributing 12% and L+M cones contributing the remaining 7%</a>.</p>
+
+      <div class="pullquote">
+        During short screen exposures, your cone photoreceptors — not melanopsin — dominate the circadian response.
+      </div>
+
+      <p>Why does this matter? Because it means that for short bursts of screen use — checking your phone for a few minutes, reading a quick message — the circadian impact comes primarily from cones, which respond to a broader spectrum of light, not just the narrow blue band melanopsin cares about. Blocking only blue wavelengths (as blue light glasses attempt to do) would be less effective during short exposures than during prolonged ones.</p>
+
+      <p>For someone reading on an e-reader for four hours before bed, melanopsin-driven suppression dominates, and the 481 nm peak wavelength is the main target. For someone scrolling Instagram for 15 minutes, cone-driven responses across a wider spectrum are more relevant. The intervention should match the exposure pattern. This is why the <a href="/screen-time-cutoff-calculator">screen time cutoff calculator</a> accounts for both duration and timing — they interact with different photoreceptor pathways.</p>
+
+      <p>None of this means blue light is harmless. It means the story is more layered than "blue = bad." Duration changes which photoreceptors matter most, which changes which wavelengths matter most, which changes which interventions are likely to work.</p>
+
+      <!-- Chapter 3 -->
+      <h2 id="screens">3. Screens Before Bed: What the Clinical Data Shows</h2>
+
+      <p>Let's look at what actually happens when people use screens before sleep — in controlled experiments, not surveys.</p>
+
+      <p>The most cited trial is <a href="https://pubmed.ncbi.nlm.nih.gov/25535358/" target="_blank" rel="noopener noreferrer">a 2015 crossover RCT that had 12 participants read on an iPad or a printed book for four hours before bed, each for five consecutive nights</a>. The iPad condition produced dramatic results: melatonin was suppressed by 55%, dim-light melatonin onset (DLMO) was delayed by more than 90 minutes, sleep latency increased, participants felt less sleepy at bedtime despite being equally sleep-deprived, next-morning alertness was significantly impaired, and REM sleep was reduced.</p>
+
+      <p>That's a rigorous, well-controlled trial. It's also a somewhat extreme exposure — four uninterrupted hours of reading on a bright screen at close range, a usage pattern that probably doesn't match how most people interact with their devices.</p>
+
+      <div class="tip-box">
+        <p><strong>Track your pattern.</strong> Use the <a href="/sleep-latency-calculator">sleep latency calculator</a> for a week with and without evening screen use. Your own data will tell you more than any study average.</p>
+      </div>
+
+      <p>More recently, <a href="https://pubmed.ncbi.nlm.nih.gov/39226042/" target="_blank" rel="noopener noreferrer">a 2024 study in <em>JAMA Pediatrics</em> tracked 79 youth with objective, app-based screen-time measurement</a> and found something the e-reader trial couldn't capture: context matters as much as duration.</p>
+
+      <p>Pre-bed screen time — using devices while still up and about, before getting into bed — showed no significant association with most sleep outcomes. In-bed screen time was different: <a href="https://pubmed.ncbi.nlm.nih.gov/39226042/" target="_blank" rel="noopener noreferrer">each 10 minutes of in-bed use cost about 3 minutes of sleep</a>. Gaming in bed was substantially worse, with 17 minutes of sleep lost per 10 minutes of play. And multitasking — using multiple devices or switching between apps — was the worst of all, associated with 35 minutes of total sleep lost on those nights.</p>
+
+      <p>This distinction between pre-bed and in-bed use is one of the most practically useful findings in recent sleep research. It suggests that the problem isn't just photons hitting your retina — it's the arousal, engagement, and displacement of sleep that come from using stimulating devices in the place where you're supposed to be falling asleep. That aligns with <a href="https://pubmed.ncbi.nlm.nih.gov/29502920/" target="_blank" rel="noopener noreferrer">broader reviews showing that interactive screen use (gaming, social media) is consistently more disruptive than passive use (watching a calm show)</a>.</p>
+
+      <p>There's also contradicting evidence worth noting. A 2016 crossover RCT found that when participants were exposed to bright light during the daytime, evening tablet use had no measurable effect on melatonin. In other words, adequate daytime light exposure may completely buffer against the circadian effects of evening screens. We'll come back to that — it may be the most underrated finding in this entire field.</p>
+
+      <p>The practical takeaway: where and how you use screens matters at least as much as how long. Consider using the <a href="/sleep-hygiene-calculator">sleep hygiene calculator</a> to evaluate your full pre-sleep routine, not just your screen habits in isolation.</p>
+
+      <!-- Chapter 4 -->
+      <h2 id="glasses">4. Do Blue Light Glasses Work?</h2>
+
+      <p>Blue light blocking glasses are a billion-dollar industry. The marketing is persuasive: block the offending wavelengths, protect your melatonin, sleep like a champion. The clinical evidence is less enthusiastic.</p>
+
+      <p><a href="https://pubmed.ncbi.nlm.nih.gov/40352618/" target="_blank" rel="noopener noreferrer">A 2025 systematic review and meta-analysis in <em>Frontiers in Neurology</em> pooled data from three randomized controlled trials (total n = 49) using actigraphy — an objective measure of sleep, not self-report</a>. The results were unambiguous: blue light glasses produced no statistically significant improvement in any measured outcome. Sleep onset latency decreased by 4.86 minutes (not significant). Total sleep time increased by 8.75 minutes (not significant). Sleep efficiency changed by -0.61 percentage points (not significant). Heterogeneity across studies was zero (I² = 0%), meaning the null result was remarkably consistent.</p>
+
+      <div class="pullquote">
+        Across three randomized controlled trials, blue light glasses produced no statistically significant improvement in any sleep outcome.
+      </div>
+
+      <p>But here's the honest caveat: <a href="https://pubmed.ncbi.nlm.nih.gov/29549906/" target="_blank" rel="noopener noreferrer">a 2018 RCT specifically studied 14 people with clinical insomnia symptoms and found that amber-tinted lenses (which block a broader spectrum than typical "blue light" glasses) significantly improved Pittsburgh Insomnia Rating Scale scores and increased total sleep time</a>. The sample was small, but the effect was real.</p>
+
+      <p>So the picture is this: if you sleep normally and are buying blue light glasses as a preventive measure, the data does not support a meaningful benefit. If you have insomnia symptoms, amber lenses — not the clear-tinted "blue light" glasses sold at drug stores, but deeply tinted amber or orange lenses — may offer some relief. They're not a substitute for <a href="/insomnia-severity-calculator">evidence-based insomnia treatment</a>, and CBT-I remains the gold-standard first-line intervention. But as an adjunct, amber lenses have at least one positive trial behind them.</p>
+
+      <div class="tip-box">
+        <p><strong>If you try amber lenses:</strong> Use the <a href="/sleep-efficiency-calculator">sleep efficiency calculator</a> to track your baseline for two weeks before and two weeks after. That's how you'll know if they're doing anything for <em>you</em>, regardless of what population averages say.</p>
+      </div>
+
+      <p>The broader lesson is worth internalizing. A product that targets one narrow mechanism (blocking wavelengths below ~450 nm) is unlikely to solve a problem driven by multiple factors: light intensity, duration, timing, behavioral arousal, and sleep displacement. The glasses address a fraction of one of those factors.</p>
+
+      <!-- Chapter 5 -->
+      <h2 id="night-mode">5. Night Mode: Helpful or Not Enough?</h2>
+
+      <p>Apple introduced Night Shift in 2016. Android followed with Night Light. Every major device now offers some version of an evening display mode that shifts the screen toward warmer colors. The question is whether the spectral shift alone is enough to protect your circadian system.</p>
+
+      <p><a href="https://pubmed.ncbi.nlm.nih.gov/31186580/" target="_blank" rel="noopener noreferrer">A 2019 controlled study tested iPad Night Shift at two color temperature settings against blue-light-blocking goggles, all at the same brightness level</a>. The results tell a revealing story. Blue-light-blocking goggles allowed 41% melatonin suppression (they blocked wavelengths, but the remaining light was still bright enough to affect the circadian system). Night Shift in warm mode (2837K) produced 17% suppression. Night Shift in cool mode (5997K) produced 10% suppression.</p>
+
+      <p>Here's the punchline: <a href="https://pubmed.ncbi.nlm.nih.gov/31186580/" target="_blank" rel="noopener noreferrer">there was no statistically significant difference between the two Night Shift settings</a>. Warm or cool, the melatonin suppression was essentially the same. Because brightness was held constant across conditions, the study isolated the effect of spectral shift alone — and found it insufficient to make a meaningful circadian difference.</p>
+
+      <p>The variable that actually predicts melatonin suppression is melanopic equivalent daylight illuminance (mEDI), a metric that accounts for both the spectrum and the intensity of light as it affects melanopsin. You can shift the spectrum all you want, but if the overall melanopic irradiance stays high — because the screen is still bright — the circadian impact persists.</p>
+
+      <div class="tip-box">
+        <p><strong>Night mode + brightness reduction = the combination that works.</strong> Turn on Night Shift <em>and</em> drop your screen brightness to 30-40% in the two hours before bed. One without the other is half a solution. Plug your settings into the <a href="/melatonin-calculator">melatonin calculator</a> to see the estimated effect on your melatonin timeline.</p>
+      </div>
+
+      <p>This finding also explains why blue-light glasses underperform in trials: they modify spectrum without reducing total light reaching the retina. The melanopic illuminance coming through a pair of blue-blocking lenses from a bright screen in a bright room may still be high enough to suppress melatonin. The fix requires addressing both variables — color and brightness — simultaneously.</p>
+
+      <!-- Chapter 6 -->
+      <h2 id="daytime-light">6. The Fix You're Overlooking: Daytime Light</h2>
+
+      <p>If you've been focused entirely on what happens in the evening, you're missing what may be the most powerful lever you have. Morning and daytime bright light exposure doesn't just "wake you up" — it fundamentally recalibrates your circadian system's sensitivity to evening light.</p>
+
+      <p><a href="https://pubmed.ncbi.nlm.nih.gov/40382090/" target="_blank" rel="noopener noreferrer">A 2025 analysis of sunlight exposure and sleep regulation found that just 30 minutes of morning sunlight advanced the sleep midpoint by 23 minutes</a> — meaning participants both fell asleep and woke up earlier. Morning sun exposure was also linked to lower Pittsburgh Sleep Quality Index (PSQI) scores, indicating better overall sleep quality. Separate data on office workers showed that those with higher morning circadian stimulus (CS) had reduced sleep onset latency — they fell asleep faster at night.</p>
+
+      <p>But the most striking finding comes from a crossover RCT that tested whether daytime light could counteract evening screen effects. Participants who received 6.5 hours of bright light during the day showed <em>no measurable melatonin suppression</em> from evening tablet use. The bright daytime exposure completely eliminated the circadian effect of the screen.</p>
+
+      <div class="pullquote">
+        In one crossover trial, 6.5 hours of bright daytime light completely eliminated the melatonin-suppressing effects of evening tablet use.
+      </div>
+
+      <p>Think about that for a moment. All the worry about evening screens, night mode settings, and blue light glasses — and one trial found that adequate daytime light exposure made the entire evening problem disappear. The mechanism is likely that bright daytime light increases the amplitude of the circadian signal, making the system more robust and less susceptible to disruption by the comparatively dim light of a screen.</p>
+
+      <p>The problem is that modern life keeps most people indoors. Typical office lighting delivers 150-300 lux. Outdoor light on an overcast day provides 1,000-2,000 lux. Direct sunlight can exceed 100,000 lux. The difference is not incremental — it's orders of magnitude. Your circadian system evolved to receive bright light signals during the day and near-total darkness at night. Instead, most people get dim light all day and moderate light all evening. The signal-to-noise ratio is terrible.</p>
+
+      <div class="tip-box">
+        <p><strong>The simplest upgrade:</strong> Spend 20-30 minutes outside within 2 hours of waking. No sunglasses if possible (regular prescription glasses are fine). Overcast days still deliver far more circadian-relevant light than indoor lighting. Check your <a href="/chronotype-quiz">chronotype</a> to find your ideal morning light window, then use the <a href="/circadian-rhythm-calculator">circadian rhythm calculator</a> to track the shift.</p>
+      </div>
+
+      <p>This doesn't mean evening light management doesn't matter — it does, especially for people who can't get adequate daytime exposure. But if you're going to pick one intervention and do it consistently, morning light wins. It is the most underused, most accessible, and possibly most impactful sleep intervention available. It costs nothing. It requires no products. And the data behind it is strong.</p>
+
+      <!-- Chapter 7 -->
+      <h2 id="home-lighting">7. Your Home Lighting Is Part of the Problem</h2>
+
+      <p>You've dimmed your phone. You've activated Night Shift. Then you walk through a house lit by cool-white LED panels, and all that effort gets undermined by your ceiling fixtures.</p>
+
+      <p><a href="https://pubmed.ncbi.nlm.nih.gov/33154419/" target="_blank" rel="noopener noreferrer">A 2020 study measured light exposure in 39 participants' homes over 76 nights, combining spectroradiometry with salivary melatonin sampling</a>. The findings were sobering. Nearly half of homes (48%) produced light levels sufficient to cause 50% or greater melatonin suppression during the evening. Homes with LED lighting produced a mean melanopic illuminance of 19.7 mlux — <a href="https://pubmed.ncbi.nlm.nih.gov/33154419/" target="_blank" rel="noopener noreferrer">nearly 90% more than homes with incandescent lighting (10.3 mlux, p = 0.003)</a>.</p>
+
+      <p>The melanopic-to-photopic ratio (M:P ratio) — a measure of how much of a light source's output stimulates the circadian system relative to its perceived brightness — was significantly higher for LEDs (0.55) than incandescent bulbs (0.44, p = 0.002). In practical terms, an LED that looks the same brightness as an incandescent to your visual system delivers more circadian-disrupting light to your ipRGCs.</p>
+
+      <p>Breaking it down by bulb type: <a href="https://pubmed.ncbi.nlm.nih.gov/33154419/" target="_blank" rel="noopener noreferrer">cool white LEDs caused 12.3% melanopic spectral variation (MSV), warm white LEDs caused 3.6%, and incandescent bulbs caused just 1.5%</a>. That's an eightfold difference between cool white LED and incandescent. The shift to energy-efficient LED lighting — mandated by regulations in many countries — has inadvertently increased the circadian disruption produced by typical home environments.</p>
+
+      <p>This is not an argument to hoard incandescent bulbs. Warm-white LEDs (those rated at 2700K or below) produce dramatically less circadian disruption than their cool-white counterparts while retaining the energy efficiency and longevity that make LEDs worthwhile. Tunable LED systems that can shift color temperature throughout the day — cool and bright in the morning, warm and dim in the evening — offer the best of both worlds.</p>
+
+      <div class="tip-box">
+        <p><strong>Quick home audit:</strong> Check the Kelvin rating on your bulbs. Anything above 3000K in rooms you use after sunset is working against your circadian system. Swap to 2700K or lower. In the bedroom specifically, aim for 2200K ("candlelight" LEDs) and use the lowest comfortable brightness. Run the <a href="/sleep-temperature-calculator">sleep temperature calculator</a> while you're optimizing your bedroom — light and temperature are the two biggest environmental levers.</p>
+      </div>
+
+      <p>The bottom line: your phone is not the only screen in your life that matters. The light pouring from your ceiling between dinner and bedtime delivers a far larger photon dose to your retina than a dimmed phone at arm's length. If you're serious about managing evening light exposure, start with the room you're sitting in.</p>
+
+      <!-- Chapter 8 -->
+      <h2 id="strategies">8. What Actually Works: Evidence-Based Strategies</h2>
+
+      <p>Enough mechanisms. Let's assemble the evidence into a ranked set of strategies you can actually implement, ordered by the strength of the data behind them.</p>
+
+      <p><strong>1. Get bright light in the morning.</strong> This is the highest-impact, lowest-cost intervention in this entire guide. <a href="https://pubmed.ncbi.nlm.nih.gov/40382090/" target="_blank" rel="noopener noreferrer">Thirty minutes of morning sunlight advances your sleep midpoint by 23 minutes and improves sleep quality</a>. In at least one trial, adequate daytime light exposure eliminated the circadian effects of evening screens entirely. Step outside within two hours of waking. No app required.</p>
+
+      <p><strong>2. Reduce screen brightness <em>and</em> use warm spectrum in the evening.</strong> Night mode alone is insufficient — the data shows no significant difference between warm and cool Night Shift settings at equal brightness. But combining spectral shift with brightness reduction addresses both components of melanopic irradiance. Set your devices to auto-dim and enable night mode at least two hours before your target bedtime. Use the <a href="/screen-time-cutoff-calculator">screen time cutoff calculator</a> to find your personalized window.</p>
+
+      <p><strong>3. Switch home lighting to warm-white LEDs (2700K or below).</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/33154419/" target="_blank" rel="noopener noreferrer">Cool-white LEDs produce eight times more circadian disruption than incandescent bulbs</a>. Warm-white LEDs close most of that gap. This is a one-time fix — buy the right bulbs, install them, done. Pay particular attention to overhead fixtures in the rooms you use after sunset.</p>
+
+      <p><strong>4. Stop interactive screen use once you're in bed.</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/39226042/" target="_blank" rel="noopener noreferrer">Pre-bed screen use showed no significant association with impaired sleep; in-bed use did</a>. The bed is for sleeping (and one other thing). Gaming in bed costs 17 minutes of sleep per 10 minutes of play. Multitasking in bed costs 35 minutes per session. This isn't about photons — it's about arousal and sleep displacement.</p>
+
+      <p><strong>5. Reduce overall evening brightness.</strong> Use table lamps instead of overhead lighting after sunset. <a href="https://pubmed.ncbi.nlm.nih.gov/33154419/" target="_blank" rel="noopener noreferrer">48% of homes already produce enough light to suppress melatonin by half</a>. You don't need to live by candlelight — just shift from "well-lit office" to "comfortable restaurant" ambiance. Dimmer switches pay for themselves in better sleep.</p>
+
+      <p><strong>6. Consider amber glasses only if you have insomnia symptoms.</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/29549906/" target="_blank" rel="noopener noreferrer">Amber-tinted lenses improved sleep in people with insomnia</a>. <a href="https://pubmed.ncbi.nlm.nih.gov/40352618/" target="_blank" rel="noopener noreferrer">Standard blue-light glasses showed no benefit in healthy adults</a>. If you score high on the <a href="/insomnia-severity-calculator">Insomnia Severity Index</a>, amber lenses may be a reasonable adjunct. For everyone else, spend the money on a morning walk instead.</p>
+
+      <p><strong>7. Set screens to auto-dim and night mode 2 hours before bed.</strong> Automating this removes the need for willpower. Most operating systems allow scheduled night mode. Pair it with a <a href="/sleep-cycle-calculator">sleep cycle calculator</a> to identify your ideal bedtime, then set night mode to activate two hours prior.</p>
+
+      <p><strong>8. Limit total evening screen time for measurable benefit.</strong> A recent RCT found that <a href="https://pubmed.ncbi.nlm.nih.gov/38985913/" target="_blank" rel="noopener noreferrer">restricting screen time to two hours or less per day for three weeks produced a clinically meaningful improvement in insomnia severity (mean difference of 2.59 points on the ISI)</a>. That's not "eliminate all screens" — it's a moderate, sustainable reduction with real payoff. Track your progress with the <a href="/sleep-debt-calculator">sleep debt calculator</a>.</p>
+
+      <p>One final point: for clinical insomnia — persistent difficulty falling or staying asleep that causes daytime impairment — light management is helpful but not sufficient. Cognitive Behavioral Therapy for Insomnia (CBT-I) remains the first-line treatment, supported by decades of randomized trial data. Light optimization is a complement to, not a replacement for, evidence-based treatment. Use the <a href="/insomnia-severity-calculator">insomnia severity calculator</a> to check whether your sleep difficulties warrant professional evaluation. And if caffeine is part of your evening routine, that's a separate circadian disruptor worth addressing — run the <a href="/caffeine-cutoff-calculator">caffeine cutoff calculator</a> to find your personal deadline.</p>
+
+      <!-- FAQ Section -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <div class="faq-accordion">
+        <details>
+          <summary>Does blue light from screens really suppress melatonin?</summary>
+          <p>Yes, but the full picture is more nuanced than most headlines suggest. <a href="https://pubmed.ncbi.nlm.nih.gov/25535358/" target="_blank" rel="noopener noreferrer">In controlled trials, e-readers suppressed melatonin by 55%</a> compared to printed books. However, the spectral sensitivity shifts over time: <a href="https://pubmed.ncbi.nlm.nih.gov/36508666/" target="_blank" rel="noopener noreferrer">during short exposures, cone photoreceptors (sensitive to a broader range of wavelengths) dominate the response</a>, while melanopsin (peaking at 481 nm, in the blue range) only becomes the primary driver during prolonged exposures of several hours. So blue light matters, but it's not the only wavelength involved, especially for brief screen checks.</p>
+        </details>
+
+        <details>
+          <summary>Should I wear blue light glasses before bed?</summary>
+          <p>For most healthy adults, the evidence says no. <a href="https://pubmed.ncbi.nlm.nih.gov/40352618/" target="_blank" rel="noopener noreferrer">A 2025 meta-analysis of three RCTs found no statistically significant effects on sleep onset latency, total sleep time, or sleep efficiency</a>. However, <a href="https://pubmed.ncbi.nlm.nih.gov/29549906/" target="_blank" rel="noopener noreferrer">one small trial in people with insomnia symptoms found amber-tinted lenses improved sleep quality and duration</a>. If you have diagnosed insomnia, they may be worth trying. For everyone else, reducing screen brightness and increasing daytime light exposure are better-supported strategies.</p>
+        </details>
+
+        <details>
+          <summary>Does Night Shift / Night Mode actually help?</summary>
+          <p>Somewhat, but not as much as you'd hope. <a href="https://pubmed.ncbi.nlm.nih.gov/31186580/" target="_blank" rel="noopener noreferrer">A controlled study found that Night Shift reduced melatonin suppression compared to blue-light-blocking goggles, but there was no significant difference between warm and cool Night Shift settings</a> when brightness stayed the same. The key variable is melanopic equivalent daylight illuminance (mEDI), which depends on both spectrum <em>and</em> brightness. Night mode helps most when combined with reduced screen brightness.</p>
+        </details>
+
+        <details>
+          <summary>How many hours before bed should I stop using screens?</summary>
+          <p>The distinction between pre-bed and in-bed screen use matters more than a strict cutoff. <a href="https://pubmed.ncbi.nlm.nih.gov/39226042/" target="_blank" rel="noopener noreferrer">A 2024 <em>JAMA Pediatrics</em> study found pre-bed screen time had no measurable association with most sleep outcomes, while in-bed use cost about 3 minutes of sleep per 10 minutes of use</a>. Gaming in bed was worse (17 minutes lost per 10 minutes of play), and multitasking was worst of all (35 minutes lost). A reasonable guideline: switch on night mode and reduce brightness 2 hours before bed, and keep screens out of the bed entirely. Use the <a href="/screen-time-cutoff-calculator">screen time cutoff calculator</a> for a personalized recommendation.</p>
+        </details>
+
+        <details>
+          <summary>Is morning sunlight really that important for sleep?</summary>
+          <p>Yes, and it may be more impactful than any evening screen restriction. <a href="https://pubmed.ncbi.nlm.nih.gov/40382090/" target="_blank" rel="noopener noreferrer">A 2025 study found that 30 minutes of morning sunlight advanced the sleep midpoint by 23 minutes</a> and was linked to better sleep quality scores. In one crossover trial, 6.5 hours of bright daytime light completely eliminated the melatonin-suppressing effects of evening tablet use. Most people spend their days in 150-300 lux indoor lighting, far below the 1,000+ lux available outdoors even on overcast days. Check your <a href="/chronotype-quiz">chronotype</a> to find your ideal morning light window.</p>
+        </details>
+
+        <details>
+          <summary>Are LED lights worse for sleep than old incandescent bulbs?</summary>
+          <p>Standard cool-white LEDs are worse for your circadian system. <a href="https://pubmed.ncbi.nlm.nih.gov/33154419/" target="_blank" rel="noopener noreferrer">A study of 39 participants over 76 nights found LED-lit homes produced nearly 90% more melanopic illuminance</a> than incandescent-lit homes, and 48% of homes caused at least 50% melatonin suppression. Cool white LEDs caused 12.3% melatonin suppression versus 1.5% for incandescent. The fix is not to go back to incandescent — warm-white LEDs (2700K or below) produce only 3.6% suppression and are the practical, energy-efficient solution.</p>
+        </details>
+      </div>
+
+      <!-- Related Reading -->
+      <div class="related-reading">
+        <h3>Related reading</h3>
+        <ul>
+          <li><a href="/guides/the-complete-guide-to-sleep-hygiene">The Complete Guide to Sleep Hygiene</a></li>
+          <li><a href="/guides/understanding-your-circadian-rhythm">Understanding Your Circadian Rhythm</a></li>
+          <li><a href="/guides/caffeine-and-sleep">Caffeine and Sleep</a></li>
+          <li><a href="/guides/sleep-and-exercise">Sleep and Exercise</a></li>
+          <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits Ruining Your Sleep</a></li>
+          <li><a href="/blog/why-8-hours-rule-is-wrong">Why the 8-Hours Rule Is Wrong</a></li>
+        </ul>
+      </div>
+
+      <!-- ToolsGrid -->
+      <ToolsGrid slugs={['screen-time-cutoff-calculator', 'light-exposure-calculator', 'circadian-rhythm-calculator', 'melatonin-calculator', 'sleep-latency-calculator', 'sleep-efficiency-calculator', 'sleep-score-calculator', 'sleep-cycle-calculator', 'sleep-hygiene-calculator', 'chronotype-quiz', 'insomnia-severity-calculator', 'sleep-temperature-calculator', 'sleep-debt-calculator', 'caffeine-cutoff-calculator']} heading="Tools Mentioned in This Guide" />
+
+      <!-- References -->
+      <div class="references">
+        <h3>References</h3>
+        <ol>
+          <li>Pan D, Wang Z, Chen Y, Cao J. Melanopsin-mediated optical entrainment regulates circadian rhythms in vertebrates. <em>Communications Biology</em>. 2023;6:1054. <a href="https://pubmed.ncbi.nlm.nih.gov/37848640/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>St Hilaire MA, et al. The spectral sensitivity of human circadian phase resetting and melatonin suppression to light changes dynamically with light duration. <em>PNAS</em>. 2022;119(51):e2205301119. <a href="https://pubmed.ncbi.nlm.nih.gov/36508666/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Zeitzer JM, et al. Sensitivity of the human circadian pacemaker to nocturnal light: melatonin phase resetting and suppression. <em>Journal of Physiology</em>. 2000;526(Pt 3):695-702. <a href="https://pubmed.ncbi.nlm.nih.gov/10922269/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Chang AM, et al. Evening use of light-emitting eReaders negatively affects sleep, circadian timing, and next-morning alertness. <em>PNAS</em>. 2015;112(5):1232-1237. <a href="https://pubmed.ncbi.nlm.nih.gov/25535358/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Janssen X, et al. Screen Use at Bedtime and Sleep Duration and Quality Among Youths. <em>JAMA Pediatrics</em>. 2024. <a href="https://pubmed.ncbi.nlm.nih.gov/39226042/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Hale L, et al. Youth screen media habits and sleep. <em>Pediatric Clinics of North America</em>. 2018;65(2):417-434. <a href="https://pubmed.ncbi.nlm.nih.gov/29502920/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Aboraya AM, et al. Efficacy of blue-light blocking glasses on actigraphic sleep outcomes: a systematic review and meta-analysis. <em>Frontiers in Neurology</em>. 2025. <a href="https://pubmed.ncbi.nlm.nih.gov/40352618/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Shechter A, et al. Blocking nocturnal blue light for insomnia: A randomized controlled trial. <em>Sleep Medicine</em>. 2018;45:96-101. <a href="https://pubmed.ncbi.nlm.nih.gov/29549906/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Nagare R, et al. Does the iPad Night Shift mode reduce melatonin suppression? <em>Lighting Research &amp; Technology</em>. 2019;51(3):373-383. <a href="https://pubmed.ncbi.nlm.nih.gov/31186580/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Münch M, et al. The role of sunlight in sleep regulation: analysis of morning, evening and late exposure. <em>BMC Public Health</em>. 2025. <a href="https://pubmed.ncbi.nlm.nih.gov/40382090/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Cain SW, et al. Evening home lighting adversely impacts the circadian system and sleep. <em>Scientific Reports</em>. 2020;10:19110. <a href="https://pubmed.ncbi.nlm.nih.gov/33154419/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          <li>Lee AM, et al. Daily links between objective smartphone use and sleep among adolescents. <em>Sleep Health</em>. 2024. <a href="https://pubmed.ncbi.nlm.nih.gov/38985913/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+        </ol>
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="disclaimer"><em>This guide is for informational and educational purposes only and does not constitute medical advice. It is not a substitute for professional medical diagnosis, treatment, or consultation. If you have concerns about your sleep or a sleep disorder, consult a qualified healthcare provider. The Sleep Math is not responsible for actions taken based on the content of this guide.</em></p>
+
+    </div>
+  </article>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  /* Guide styles are defined globally in existing guide pages.
+     This page reuses the same .guide, .guide-header, .guide-body, .toc,
+     .key-takeaways, .pullquote, .tip-box, .faq-accordion, .references,
+     .related-reading, .breadcrumb, and .disclaimer classes.
+     No additional page-specific styles are needed. */
+</style>
