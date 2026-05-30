@@ -1,0 +1,865 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'What Is the Ideal Sleep Temperature? &#8212; The Sleep Math';
+const description = 'Your bedroom temperature directly controls how fast you fall asleep and how long you stay there. Here\'s the exact range, backed by 3.75 million nights of data.';
+const canonical = 'https://thesleepmath.com/blog/ideal-sleep-temperature';
+const heroImage = '/images/blog/ideal-sleep-temperature-hero.jpg';
+const ogImage = '/images/blog/ideal-sleep-temperature-og.png';
+const publishDate = '2026-05-30';
+const modifiedDate = '2026-05-30';
+
+const toolsMentioned = [
+  'sleep-temperature-calculator',
+  'sleep-latency-calculator',
+  'circadian-rhythm-calculator',
+  'sleep-cycle-calculator',
+  'sleep-hygiene-calculator',
+  'melatonin-calculator',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="sleep temperature" />
+    <meta property="article:tag" content="thermoregulation" />
+    <meta property="article:tag" content="bedroom temperature" />
+    <meta property="article:tag" content="sleep onset" />
+    <meta property="article:tag" content="sleep quality" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Evidence-based sleep science article on the optimal bedroom temperature for sleep. Covers the biological mechanism by which core body temperature decline triggers sleep onset, the distal-to-proximal skin temperature gradient (DPG) effect on sleep latency (Raymann et al., 2008), the thermoregulatory role of REM sleep as a temperature-regulation dead zone (Okamoto-Mizuno &amp; Mizuno, 2012), a large-scale dataset of 3.75 million nights showing sleep efficiency declines with each 1°F increase above 68°F, and the special case for older adults (optimal range 68–75°F / 20–24°C). Includes an interactive temperature finder calculator. Links to thesleepmath.com calculators for sleep temperature, sleep latency, circadian rhythm, sleep cycles, sleep hygiene, and melatonin timing." />
+    <meta name="ai-summary" content="The ideal bedroom temperature for sleep is 65–68°F (18–20°C) for most healthy adults. This range supports the core body temperature decline — typically 1–2°F — that the body needs to initiate sleep. A dataset of 3.75 million nights confirmed sleep efficiency decreases measurably with each degree above the optimal range. Older adults may need a slightly warmer 68–75°F. REM sleep is a thermoregulatory dead zone; ambient temperature becomes the only control during those phases." />
+    <meta name="nlp-entities" content="sleep temperature, thermoregulation, core body temperature, sleep onset, REM sleep, slow-wave sleep, distal skin temperature, proximal skin temperature, vasodilation, circadian rhythm, bedroom temperature, sleep efficiency, sleep latency, warm bath effect, older adults, melatonin, hypothalamus, heat exposure, cold exposure, sleep architecture" />
+    <meta name="ai-content-type" content="health article, sleep science, evidence-based guide" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "What Is the Ideal Sleep Temperature?",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "wordCount": 1920,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "ideal sleep temperature, bedroom temperature for sleep, thermoregulation and sleep, sleep onset temperature, REM sleep temperature, best temperature for sleep",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".article-intro", ".bottom-line"]
+          },
+          "citation": [
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Effects of thermal environment on sleep and circadian rhythm",
+              "author": "Okamoto-Mizuno K, Mizuno K",
+              "datePublished": "2012",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/22738673/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Higher Bedroom Temperature Associated With Poorer Sleep: Data From Over 3.75 Million Nights",
+              "author": "Havas M et al.",
+              "datePublished": "2020",
+              "url": "https://academic.oup.com/sleep/article-abstract/43/Supplement_1/A464/5847198"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Diminished Capability to Recognize the Optimal Temperature for Sleep Initiation May Contribute to Poor Sleep in Elderly People",
+              "author": "Raymann RJEM, Swaab DF, Van Someren EJW",
+              "datePublished": "2008",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2542970/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Nighttime Ambient Temperature and Sleep in Older Adults",
+              "author": "Baniassadi A et al.",
+              "datePublished": "2023",
+              "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10529213/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Thermoregulatory changes around the time of sleep onset",
+              "author": "Kr&#228;uchi K",
+              "datePublished": "2007",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/17197000/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Association between circadian skin temperature rhythms and actigraphic sleep measures in real-life settings",
+              "author": "Llorens-Mart&#237;n M et al.",
+              "datePublished": "2023",
+              "url": "https://jcsm.aasm.org/doi/10.5664/jcsm.10590"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the ideal bedroom temperature for sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For most healthy adults, the ideal bedroom temperature for sleep is 65–68°F (18–20°C). This range supports the core body temperature decline that the body needs to initiate and maintain sleep. An analysis of over 3.75 million nights of objective sleep data confirmed that sleep efficiency declines measurably with each degree above this range. Older adults typically sleep best at a slightly warmer 68–75°F (20–24°C)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why does the body cool down before sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Core body temperature drops 1–2°F as part of the biological switch from wakefulness to sleep. The body initiates this by shunting blood to the hands, feet, and face — a process called peripheral vasodilation — which radiates heat outward and accelerates the core cooling. This thermoregulatory change is not a side effect of sleep but a prerequisite for it. Rooms that are too warm slow or block this process and delay sleep onset."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does sleeping in a hot room hurt sleep quality?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, significantly. A 2012 review found that heat exposure in real-life sleeping conditions — where bedding and nightwear are used — increases wakefulness and decreases both slow-wave sleep and REM sleep. REM sleep is particularly vulnerable because the body suspends active thermoregulation during that stage, making brain temperature directly dependent on ambient room temperature. A hot room means a hot brain during your most restorative sleep phase."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is it better to sleep in a cold room?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cooler is better than warmer for most adults, but there is a floor. Temperatures below 60°F (15°C) can trigger compensatory vasoconstriction — the body pulling blood away from the skin to conserve core heat — which disrupts sleep in the same way as warmth, by interfering with the thermoregulatory signaling that maintains sleep stages. The 65–68°F range is optimal precisely because it is cool enough to support core temperature decline without triggering cold-defense responses."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does a warm bath before bed help you sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Paradoxically, yes. A warm bath (104°F / 40°C) taken 1–2 hours before bed forces peripheral vasodilation — the same mechanism the body uses to shed core heat before sleep. When you exit the bath, the increased blood flow to the skin radiates heat rapidly, accelerating the core temperature decline that triggers sleep onset. Meta-analyses of this effect consistently show reductions of 10 minutes or more in sleep onset latency when the bath is timed correctly."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "What Is the Ideal Sleep Temperature?",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">Ideal Sleep Temperature</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Sleep Science</span>
+        <h1>What Is the Ideal Sleep Temperature? <span class="pop">The Number, the Mechanism, and the Data</span></h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>30 May 2026</time> &#183; 8 min read
+        </p>
+        <p class="article-intro">
+          Your thermostat is one of the most effective sleep interventions available to you. The optimal range is 65&#8211;68&#176;F (18&#8211;20&#176;C). Here is the science behind why the number is that specific, and what happens when you miss it in either direction.
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="Softly lit bedroom at night with a white duvet and a digital thermostat on the wall showing 67 degrees"
+        width="1600"
+        height="900"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>The ideal bedroom temperature for most adults is <strong>65&#8211;68&#176;F (18&#8211;20&#176;C)</strong> &#8212; the range that supports the core body temperature decline required to initiate and maintain sleep.</li>
+            <li>Your core temperature must drop 1&#8211;2&#176;F before sleep onset. A warm room slows or blocks that decline and delays how quickly you fall asleep.</li>
+            <li>An analysis of <strong>3.75 million nights</strong> of objective sleep data found sleep efficiency decreases measurably with each degree above the optimal range.</li>
+            <li>During REM sleep, your body stops thermoregulating entirely. Whatever your room temperature is, that becomes your brain temperature &#8212; which is why heat destroys REM.</li>
+            <li>Older adults sleep best at a slightly warmer <strong>68&#8211;75&#176;F (20&#8211;24&#176;C)</strong> as thermoregulatory capacity declines with age.</li>
+            <li>A warm bath 1&#8211;2 hours before bed paradoxically improves sleep by accelerating the same core cooling your body needs at sleep onset.</li>
+            <li>Use the calculator below to find your personalized target range.</li>
+          </ul>
+        </div>
+
+        <p>
+          Temperature is among the most powerful environmental variables controlling your sleep &#8212; more controllable than light, more quantifiable than stress, and more immediately actionable than any supplement. Sleep scientists keep arriving at the same answer from independent study designs: a bedroom of 65&#8211;68&#176;F (18&#8211;20&#176;C) is where most healthy adults sleep best. The question worth understanding is <em>why</em>. Because once you understand the mechanism, the practical decisions &#8212; how cold is too cold, whether a fan counts, whether the warm bath trick is real &#8212; all follow logically.
+        </p>
+
+        <h2>1. The Number: 65&#8211;68&#176;F (18&#8211;20&#176;C)</h2>
+
+        <p>
+          The 65&#8211;68&#176;F recommendation is not arbitrary. It maps onto a physiological constraint: your core body temperature follows a circadian rhythm, peaking in the late afternoon, then declining through the evening. Sleep onset does not trigger that decline &#8212; the decline triggers sleep. <a href="https://pubmed.ncbi.nlm.nih.gov/17197000/" target="_blank" rel="noopener noreferrer">Thermoregulatory changes in the hour before sleep onset &#8212; specifically a core temperature drop of 1&#8211;2&#176;F &#8212; are part of the biological machinery that switches the brain from wakefulness to sleep</a>. A bedroom too warm slows that transition. A bedroom in the 65&#8211;68&#176;F range allows it.
+        </p>
+        <p>
+          Our <a href="/sleep-temperature-calculator">sleep temperature calculator</a> uses these thresholds alongside your age and typical sleep profile to output a personalized target range. The number it produces for most adults will land in this window &#8212; because the constraint is biological, not cultural.
+        </p>
+
+        <h2>2. Why Your Core Temperature Must Fall to Sleep</h2>
+
+        <p>
+          The mechanism is peripheral vasodilation. As your circadian clock moves into the evening phase, the body begins routing blood toward the extremities &#8212; hands, feet, face &#8212; to radiate heat outward. Core temperature falls as the periphery warms. This is why your hands and feet often feel warmer than usual in the half-hour before you fall asleep. That warmth is heat leaving your body, not accumulating in it.
+        </p>
+        <p>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2542970/" target="_blank" rel="noopener noreferrer">The distal-to-proximal skin temperature gradient &#8212; the difference between the temperature of your extremities and your trunk &#8212; is one of the most reliable predictors of how quickly you will fall asleep</a>. Raymann and colleagues showed that manipulating skin temperature within the comfortable thermoneutral zone by changes as small as 0.4&#176;C reliably shifted sleep onset latency in healthy adults. The sleeping brain is exquisitely sensitive to these peripheral signals.
+        </p>
+        <p>
+          A bedroom at 65&#8211;68&#176;F creates the right thermal gradient: cool enough that the air acts as a heat sink, pulling warmth away from the skin surface and accelerating core cooling. A bedroom at 75&#176;F blunts that gradient. A bedroom at 58&#176;F may overcorrect it, triggering cold-defense vasoconstriction that delays sleep onset from the other direction. Your <a href="/sleep-latency-calculator">sleep latency data</a> &#8212; the time between lights out and sleep onset &#8212; is the most sensitive downstream indicator of whether your room temperature is working for or against you.
+        </p>
+
+        <div class="tip-box">
+          <strong>The gradient signal:</strong> Your distal skin temperature (hands and feet) should be <em>rising</em> in the 30&#8211;60 minutes before bed as core temperature falls. If your hands are cold, your body may be vasoconstricting rather than vasodilating. Lightweight bed socks on cold nights can actually help &#8212; not by warming you up overall, but by kickstarting peripheral vasodilation.
+        </div>
+
+        <h2>3. What Heat Does to Your Sleep Architecture</h2>
+
+        <p>
+          The most consequential effect of a warm bedroom is not on how quickly you fall asleep &#8212; it is on what happens to your sleep stages once you are there.
+        </p>
+        <p>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/22738673/" target="_blank" rel="noopener noreferrer">A 2012 systematic review of the effects of thermal environment on sleep found that in real-life conditions &#8212; where people use bedding and nightwear &#8212; heat exposure increases wakefulness and decreases both slow-wave sleep and REM sleep</a>. Both are stages your brain cannot afford to lose. Slow-wave sleep (SWS) is when physical restoration happens: growth hormone release, tissue repair, immune consolidation. REM is when the brain processes emotional memory, clears metabolic waste via the glymphatic system, and consolidates the day&#8217;s learning.
+        </p>
+        <p>
+          REM sleep is disproportionately vulnerable for a specific reason: during REM, your hypothalamus suspends active thermoregulation. You stop sweating. You stop shivering. Your body temperature becomes a near-passive function of ambient room temperature. In a room at 75&#176;F, your brain runs warmer during REM than it should, and the nervous system responds with an arousal &#8212; typically a brief waking you do not remember, but one that fragments the REM episode and resets the stage. In a room at 65&#176;F, the REM architecture completes undisturbed.
+        </p>
+        <p>
+          This matters most in the second half of the night. <a href="/sleep-cycle-calculator">Sleep cycles</a> are front-loaded with SWS and back-loaded with REM. The deepest, longest REM episodes &#8212; the ones most critical for emotional regulation and memory consolidation &#8212; occur in the final 90&#8211;120 minutes before your alarm. An overheated room is most damaging precisely when sleep architecture needs the most protection.
+        </p>
+
+        <h2>4. The 3.75 Million Nights Dataset</h2>
+
+        <p>
+          Individual polysomnography studies measure tens or hundreds of subjects in controlled laboratory conditions. They are rigorous but artificial. A different class of evidence comes from large-scale observational data collected in real homes.
+        </p>
+        <p>
+          <a href="https://academic.oup.com/sleep/article-abstract/43/Supplement_1/A464/5847198" target="_blank" rel="noopener noreferrer">An analysis of over 3.75 million nights of objective sleep data found that for every 1&#176;F increase in bedroom temperature above the optimal range, sleep efficiency declined, and participants experienced longer sleep onset latency, shorter total sleep time, and more wake time after sleep onset</a>. The dose-response relationship held across the sample: the effect was not a threshold but a gradient. Every degree above the optimal range cost something. The study confirmed what smaller controlled trials had suggested: there is no &#8220;good enough&#8221; at 72&#176;F. The penalty is real, it is measurable, and it compounds across nights.
+        </p>
+        <p>
+          If you have been tracking your <a href="/sleep-hygiene-calculator">sleep hygiene score</a>, bedroom temperature is one of the variables most likely to explain persistent low scores that resist other interventions. It is also one of the most underrated, because the effect is invisible &#8212; you do not feel the REM fragmentation in real time. You feel it as a groggy morning, reduced concentration by noon, and a pull toward caffeine that begins earlier than it should. Our <a href="/sleep-score-calculator" aria-label="Sleep score calculator">sleep score calculator</a> treats bedroom temperature as a modifiable variable with one of the highest effect sizes in the hygiene stack.
+        </p>
+
+        <h2>5. The Exception: Older Adults</h2>
+
+        <p>
+          Thermoregulatory capacity declines with age. Older adults produce less metabolic heat, have reduced peripheral blood flow responsiveness, and are less sensitive to the skin temperature signals that trigger the sleep-onset cascade. This does not mean they need a warmer room because they &#8220;feel cold&#8221; &#8212; it means the biology of their thermoregulatory system operates at a different setpoint.
+        </p>
+        <p>
+          <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10529213/" target="_blank" rel="noopener noreferrer">A longitudinal study monitoring 50 community-dwelling older adults (average age 79) across 18 months found that sleep was most efficient when nighttime ambient temperature was between 20&#8211;25&#176;C (68&#8211;77&#176;F), with a clinically relevant 5&#8211;10% drop in sleep efficiency when temperature exceeded this range by 5&#176;C</a>. The optimal zone for older adults is therefore shifted warmer relative to the 65&#8211;68&#176;F recommendation for younger and middle-aged adults.
+        </p>
+        <p>
+          This is also why the standard advice &#8212; &#8220;keep your room at 65&#176;F&#8221; &#8212; does not universally apply. A 75-year-old may genuinely sleep better at 70&#176;F than at 65&#176;F. The <a href="/circadian-rhythm-calculator">circadian rhythm calculator</a> accounts for age-related phase shifts when generating sleep timing recommendations, and the same logic applies to temperature: the optimal target moves as the thermoregulatory system ages.
+        </p>
+
+        <h2>6. The Warm Bath Paradox</h2>
+
+        <p>
+          Here is a counterintuitive finding that has now been replicated across multiple meta-analyses: a warm bath at approximately 104&#176;F (40&#176;C), taken 1&#8211;2 hours before your intended sleep time, measurably improves sleep onset latency and subjective sleep quality. This seems wrong &#8212; you are adding heat to a system that needs to cool down.
+        </p>
+        <p>
+          The mechanism explains the paradox. The warm water forces aggressive peripheral vasodilation: blood rushes to the skin surface, your hands and face flush, and your extremities become excellent radiators. When you exit the bath, that peripheral blood flow continues for 30&#8211;60 minutes, radiating accumulated heat into the cooler air of your bedroom. The result is an accelerated core temperature decline &#8212; faster than the body would achieve through natural circadian cooling alone. You have used heat to produce cold, at a rate that mimics and amplifies the thermoregulatory signal your brain is waiting for.
+        </p>
+        <p>
+          The timing window matters: the bath needs to occur 1&#8211;2 hours before bed, not immediately before. Immediately before bed, your core is still elevated and the post-bath cooling is incomplete. At 90 minutes out, the core temperature decline aligns with the circadian nadir and the melatonin rise. Our <a href="/melatonin-calculator">melatonin timing calculator</a> can help you identify that window precisely based on your chronotype and typical sleep schedule.
+        </p>
+
+        <div class="tip-box">
+          <strong>The warm bath checklist:</strong> Water temperature 104&#176;F (40&#176;C) &#8212; hot but not scalding. Duration 10&#8211;20 minutes &#8212; enough to raise peripheral skin temperature noticeably. Timing 60&#8211;90 minutes before your target sleep time. Bedroom pre-cooled to 65&#8211;68&#176;F before you exit the bath. The contrast between the warm bath and the cool room is what drives the accelerated cooling.
+        </div>
+
+        <h2>7. Find Your Target Temperature Range</h2>
+
+        <p>
+          The 65&#8211;68&#176;F consensus is a starting point for healthy adults, not a universal prescription. Use the tool below to narrow it based on your profile, or go to the full <a href="/sleep-temperature-calculator">sleep temperature calculator</a> for a more detailed output.
+        </p>
+
+        <div class="temp-calc" id="tempCalc">
+          <h3 class="temp-calc-title">Sleep Temperature Finder</h3>
+          <p class="temp-calc-subtitle">Three questions. One recommended range.</p>
+
+          <div class="calc-field">
+            <label for="ageGroup">Age range</label>
+            <select id="ageGroup">
+              <option value="young">18&#8211;39</option>
+              <option value="middle" selected>40&#8211;64</option>
+              <option value="older">65+</option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label for="tempPref">How do you typically sleep?</label>
+            <select id="tempPref">
+              <option value="hot">I run hot &#8212; I often kick off covers or sweat at night</option>
+              <option value="average" selected>Average &#8212; comfortable in a typical bedroom</option>
+              <option value="cold">I run cold &#8212; I pile on blankets and still feel chilly</option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label for="currentTemp">What is your current bedroom temperature at night?</label>
+            <select id="currentTemp">
+              <option value="too_cold">Below 62&#176;F / 17&#176;C</option>
+              <option value="cool">62&#8211;66&#176;F / 17&#8211;19&#176;C</option>
+              <option value="ideal" selected>67&#8211;70&#176;F / 19&#8211;21&#176;C</option>
+              <option value="warm">71&#8211;74&#176;F / 22&#8211;23&#176;C</option>
+              <option value="hot">75&#176;F+ / 24&#176;C+</option>
+            </select>
+          </div>
+
+          <button class="calc-btn" onclick="calculateSleepTemp()">Find my range</button>
+
+          <div class="calc-result" id="tempCalcResult">
+            <div class="result-temp-badge" id="resultTemp"></div>
+            <div id="resultSummary"></div>
+            <div id="resultAction"></div>
+          </div>
+        </div>
+
+        <h2 class="bottom-line">The Bottom Line</h2>
+
+        <p>
+          Temperature is not a comfort variable &#8212; it is a biological control lever. The 65&#8211;68&#176;F (18&#8211;20&#176;C) range exists because sleep onset is thermoregulatory, REM sleep is thermoregulatory, and the sleeping brain is genuinely at the mercy of ambient temperature during its most critical phases. The 3.75 million night dataset confirms that the dose-response relationship is real: every degree above the optimal range costs measurable sleep efficiency. Every degree below roughly 62&#176;F risks the opposite problem.
+        </p>
+        <p>
+          The practical prescription is simpler than most sleep interventions: set your thermostat to 66&#8211;68&#176;F before bed, use a fan if you cannot air-condition, take a warm bath 90 minutes out if you want to accelerate onset, and give the room 20 minutes to pre-cool before you get in. If you are over 65, bump the target 3&#8211;4 degrees warmer. That is the whole protocol. The science is complicated; the application is not.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid slugs={toolsMentioned} heading="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/brown-noise-for-sleep">Brown Noise for Sleep: What the Science Actually Says</a></li>
+            <li><a href="/blog/blue-light-and-melatonin-what-the-research-actually-shows">Blue Light and Melatonin: What the Research Actually Shows</a></li>
+            <li><a href="/blog/why-you-wake-up-tired-even-after-8-hours">Why You Wake Up Tired (Even After 8 Hours)</a></li>
+            <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Okamoto-Mizuno, K., &amp; Mizuno, K. (2012). Effects of thermal environment on sleep and circadian rhythm. <em>Journal of Physiological Anthropology</em>, 31(1), 14. <a href="https://pubmed.ncbi.nlm.nih.gov/22738673/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Havas, M. et al. (2020). Higher Bedroom Temperature Associated With Poorer Sleep: Data From Over 3.75 Million Nights. <em>SLEEP</em>, 43(Supplement_1), A464. <a href="https://academic.oup.com/sleep/article-abstract/43/Supplement_1/A464/5847198" target="_blank" rel="noopener noreferrer">Oxford Academic</a></li>
+            <li>Raymann, R. J. E. M., Swaab, D. F., &amp; Van Someren, E. J. W. (2008). Diminished Capability to Recognize the Optimal Temperature for Sleep Initiation May Contribute to Poor Sleep in Elderly People. <em>Sleep</em>, 31(9), 1301&#8211;1309. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2542970/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Baniassadi, A. et al. (2023). Nighttime Ambient Temperature and Sleep in Community-Dwelling Older Adults. <em>Science of the Total Environment</em>. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10529213/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Kr&#228;uchi, K. (2007). Thermoregulatory changes around the time of sleep onset. <em>Sleep Medicine Reviews</em>, 11(6), 429&#8211;437. <a href="https://pubmed.ncbi.nlm.nih.gov/17197000/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Llorens-Mart&#237;n, M. et al. (2023). Association between circadian skin temperature rhythms and actigraphic sleep measures in real-life settings. <em>Journal of Clinical Sleep Medicine</em>. <a href="https://jcsm.aasm.org/doi/10.5664/jcsm.10590" target="_blank" rel="noopener noreferrer">JCSM</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary, #7c6aff);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    margin-bottom: 1rem;
+  }
+
+  .article-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-muted, #374151);
+    margin: 0.5rem 0 0;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr > strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  .tip-box {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .tip-box strong {
+    color: var(--primary, #7c3aed);
+  }
+
+  /* ── Temperature Finder Calculator ── */
+  .temp-calc {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    margin: 2rem 0;
+  }
+
+  .temp-calc-title {
+    font-size: 1.25rem !important;
+    margin: 0 0 0.25rem !important;
+    color: var(--text, #111827) !important;
+  }
+
+  .temp-calc-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted, #6b7280);
+    margin: 0 0 1.5rem !important;
+  }
+
+  .calc-field {
+    margin-bottom: 1.25rem;
+  }
+
+  .calc-field label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text, #111827);
+    margin-bottom: 0.4rem;
+  }
+
+  .calc-field select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border, #d1d5db);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--text, #111827);
+    background: var(--card, #fff);
+    appearance: auto;
+  }
+
+  .calc-field select:focus {
+    outline: 2px solid var(--primary, #7c6aff);
+    outline-offset: 1px;
+  }
+
+  .calc-btn {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.25rem;
+    transition: opacity 0.15s;
+  }
+
+  .calc-btn:hover {
+    opacity: 0.88;
+  }
+
+  .calc-result {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .calc-result.visible {
+    display: block;
+  }
+
+  .result-temp-badge {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 700;
+    padding: 0.4rem 1.1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .result-detail-block {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text, #111827);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-detail-block strong {
+    color: var(--primary, #7c6aff);
+  }
+
+  .calc-nudge {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.4rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: #92400e;
+    margin-top: 0.5rem;
+  }
+
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  .disclaimer p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .post-body {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  function calculateSleepTemp() {
+    var age = document.getElementById('ageGroup').value;
+    var pref = document.getElementById('tempPref').value;
+    var current = document.getElementById('currentTemp').value;
+
+    var minF, maxF, minC, maxC;
+
+    if (age === 'older') {
+      minF = 68; maxF = 75; minC = 20; maxC = 24;
+    } else if (pref === 'hot') {
+      minF = 63; maxF = 66; minC = 17; maxC = 19;
+    } else if (pref === 'cold') {
+      minF = 67; maxF = 70; minC = 19; maxC = 21;
+    } else {
+      minF = 65; maxF = 68; minC = 18; maxC = 20;
+    }
+
+    var rangeText = minF + '–' + maxF + '°F (' + minC + '–' + maxC + '°C)';
+    document.getElementById('resultTemp').textContent = 'Target: ' + rangeText;
+
+    var summary = '';
+    if (age === 'older') {
+      summary = '<p class="result-detail-block"><strong>Why slightly warmer:</strong> Thermoregulatory capacity declines with age. Older adults produce less metabolic heat and have reduced peripheral vasodilation responsiveness, shifting the optimal window 3–4°F warmer than younger adults.</p>';
+    } else if (pref === 'hot') {
+      summary = '<p class="result-detail-block"><strong>For hot sleepers:</strong> You likely generate more metabolic heat during sleep or have naturally higher nocturnal skin temperature. The lower end of the range gives your body more thermal gradient to work with.</p>';
+    } else if (pref === 'cold') {
+      summary = '<p class="result-detail-block"><strong>For cold sleepers:</strong> You may have slower peripheral vasodilation, which delays the distal skin warming that signals sleep onset. A slightly warmer room prevents the compensatory vasoconstriction that makes this worse.</p>';
+    } else {
+      summary = '<p class="result-detail-block"><strong>The standard range:</strong> 65–68°F is the evidence-backed consensus for healthy adults with typical thermoregulation. This range supports core temperature decline without triggering cold-defense responses.</p>';
+    }
+
+    var action = '';
+    if (current === 'hot' || current === 'warm') {
+      action = '<p class="calc-nudge">⚠️ Your current room is above the recommended range. Each degree above 68°F measurably reduces sleep efficiency. Pre-cool your room 20–30 minutes before bed and consider a fan at minimum.</p>';
+    } else if (current === 'too_cold') {
+      action = '<p class="calc-nudge">⚠️ Below 62°F risks triggering vasoconstriction — the cold-defense response that can delay sleep onset. Add a light layer and raise the thermostat slightly toward your target range.</p>';
+    } else if (current === 'ideal' || current === 'cool') {
+      action = '<p class="result-detail-block"><strong>You’re close:</strong> Fine-tune within your target range and note whether sleep onset feels faster or slower at the cooler vs warmer end. Individual variation within the recommended window is real.</p>';
+    }
+
+    document.getElementById('resultSummary').innerHTML = summary;
+    document.getElementById('resultAction').innerHTML = action;
+
+    var resultEl = document.getElementById('tempCalcResult');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
