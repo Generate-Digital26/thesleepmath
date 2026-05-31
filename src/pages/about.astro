@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.astro';
 
 <BaseLayout
   title="About The Sleep Math — Science-Based Sleep Tools"
-  description="The Sleep Math builds free calculators from peer-reviewed sleep research. No wellness fluff, no affiliate links — 26 tools designed to help you sleep better."
+  description="The Sleep Math builds free calculators from peer-reviewed sleep research. No wellness fluff — 26 tools designed to help you sleep better."
   canonical="https://thesleepmath.com/about"
 >
   <Nav />
@@ -101,55 +101,6 @@ import Footer from '@/components/Footer.astro';
     </div>
   </section>
 
-  <!-- ===== What We Don't Do ===== -->
-  <section class="section section-tint">
-    <div class="about-container prose">
-      <div class="section-label">What we don't do</div>
-      <h2>No mattresses. No supplements. No BS.</h2>
-      <p>
-        This site has a business model that is embarrassingly simple: it doesn't have one yet.
-        There are no affiliate links. No sponsored calculator results. No "our partner mattress
-        brand recommends..." anywhere on this site.
-      </p>
-      <div class="dont-list">
-        <div class="dont-item">
-          <span class="dont-x">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </span>
-          <span>Sell mattresses or sleep products</span>
-        </div>
-        <div class="dont-item">
-          <span class="dont-x">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </span>
-          <span>Take sponsorships from supplement brands</span>
-        </div>
-        <div class="dont-item">
-          <span class="dont-x">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </span>
-          <span>Feature a "medical advisory board" of Instagram doctors</span>
-        </div>
-        <div class="dont-item">
-          <span class="dont-x">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </span>
-          <span>Recommend products based on who paid us</span>
-        </div>
-        <div class="dont-item">
-          <span class="dont-x">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </span>
-          <span>Invent formulas and cite "experts" instead of papers</span>
-        </div>
-      </div>
-      <p>
-        We cite the paper. We link the paper. We build the calculator from the paper.
-        That's the whole thing.
-      </p>
-    </div>
-  </section>
-
   <!-- ===== Stats Grid ===== -->
   <section class="section">
     <div class="about-container">
@@ -170,11 +121,6 @@ import Footer from '@/components/Footer.astro';
           <div class="stat-num" style="color: var(--mint);">100%</div>
           <div class="stat-label">free to use</div>
           <div class="stat-sub">no account, no paywall, no email required — ever</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num" style="color: var(--text);">0</div>
-          <div class="stat-label">affiliate links</div>
-          <div class="stat-sub">nothing on this site earns a commission if you click it</div>
         </div>
       </div>
     </div>
@@ -363,39 +309,6 @@ import Footer from '@/components/Footer.astro';
     margin-top: 1.5rem !important;
   }
 
-  /* ===== Don't list ===== */
-  .dont-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin: 1.75rem 0;
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.4rem 1.5rem;
-  }
-
-  .dont-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 0.93rem;
-    color: var(--text-mid);
-    font-weight: 500;
-  }
-
-  .dont-x {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(255, 107, 82, 0.12);
-    color: var(--coral);
-    flex-shrink: 0;
-  }
-
   /* ===== Stats grid ===== */
   h2.centered {
     font-size: 1.75rem;
@@ -407,7 +320,7 @@ import Footer from '@/components/Footer.astro';
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
 
