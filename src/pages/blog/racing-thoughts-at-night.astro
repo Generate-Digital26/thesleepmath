@@ -1,0 +1,873 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Racing Thoughts at Night: The Science &#8212; The Sleep Math';
+const description = 'Racing thoughts at night are hyperarousal, not habit. Here\'s the cortisol loop and default mode network science behind sleep anxiety — and how to fix it.';
+const canonical = 'https://thesleepmath.com/blog/racing-thoughts-at-night';
+const heroImage = '/images/blog/racing-thoughts-at-night-hero.jpg';
+const ogImage = '/images/blog/racing-thoughts-at-night-og.png';
+const publishDate = '2026-06-01';
+const modifiedDate = '2026-06-01';
+
+const toolsMentioned = [
+  'insomnia-severity-calculator',
+  'sleep-latency-calculator',
+  'sleep-score-calculator',
+  'sleep-efficiency-calculator',
+  'sleep-hygiene-calculator',
+  'circadian-rhythm-calculator',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="racing thoughts at night" />
+    <meta property="article:tag" content="sleep anxiety" />
+    <meta property="article:tag" content="cortisol and sleep" />
+    <meta property="article:tag" content="insomnia" />
+    <meta property="article:tag" content="hyperarousal" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Evidence-based sleep science article on racing thoughts at night and sleep anxiety. Covers the hyperarousal model of insomnia (Vgontzas et al.) — chronic insomnia as a 24-hour disorder of CNS hyperarousal with elevated cortisol and ACTH secretion. Explains the bidirectional HPA axis and sleep relationship: deep sleep inhibits cortisol; disrupted sleep elevates cortisol; elevated cortisol disrupts sleep. Details the default mode network (DMN) mechanism — unconstrained self-referential processing at bedtime — and links poor DMN connectivity to anxiety severity. Distinguishes cognitive pre-sleep arousal (racing thoughts) from somatic arousal (racing heart, muscle tension). Explains why anxiety symptoms are worse in the evening per circadian symptom fluctuation research. Includes protocol based on CBT-I: scheduled worry time, cognitive restructuring, stimulus control, progressive muscle relaxation. Links to insomnia severity, sleep latency, sleep score, sleep efficiency, sleep hygiene, and circadian rhythm calculators at thesleepmath.com." />
+    <meta name="ai-summary" content="Racing thoughts at night are a symptom of hyperarousal — a 24-hour state of CNS overactivation driven by an abnormally elevated HPA axis. Elevated nocturnal cortisol disrupts sleep; disrupted sleep prevents the deep-sleep inhibition of the HPA axis, sustaining the cycle. The default mode network fires without competition at bedtime, generating self-referential thought (worry, replay, planning). Pre-sleep arousal divides into cognitive and somatic components; cognitive arousal is the stronger predictor. CBT-I — stimulus control, sleep restriction, cognitive restructuring, scheduled worry time — addresses the arousal mechanism rather than masking symptoms." />
+    <meta name="nlp-entities" content="racing thoughts, sleep anxiety, hyperarousal, HPA axis, cortisol, ACTH, default mode network, DMN, pre-sleep arousal, cognitive arousal, somatic arousal, insomnia, CBT-I, cortisol awakening response, amygdala, prefrontal cortex, stimulus control, sleep restriction, progressive muscle relaxation, sleep latency, sleep efficiency, circadian rhythm, cortisol feedback loop, rumination, worry" />
+    <meta name="ai-content-type" content="health article, sleep science, evidence-based guide" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Racing Thoughts at Night: The Science of Why Your Brain Won't Shut Off",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "wordCount": 1950,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "racing thoughts at night, sleep anxiety, can't sleep because of anxiety, how to stop overthinking at night, cortisol and sleep, hyperarousal insomnia",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".article-intro", ".bottom-line"]
+          },
+          "citation": [
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Chronic Insomnia and Stress System",
+              "author": "Vgontzas AN et al.",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2128619/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Impact of Sleep and Its Disturbances on Hypothalamo-Pituitary-Adrenal Axis Activity",
+              "author": "Buckley TM, Schatzberg AF",
+              "datePublished": "2010",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2902103/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Hyperarousal in Insomnia: Pre-sleep and Diurnal Cortisol Levels in Response to Chronic Zolpidem Treatment",
+              "author": "Riemann D et al.",
+              "datePublished": "2019",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6721980/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Functional connectivity of the default mode network predicts subsequent polysomnographically measured sleep in people with symptoms of insomnia",
+              "author": "Dong D et al.",
+              "datePublished": "2023",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10470430/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Sleep Reactivity Amplifies the Impact of Pre-Sleep Cognitive Arousal on Sleep Disturbances",
+              "author": "Suh S et al.",
+              "datePublished": "2025",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12927662/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Circadian symptom fluctuations in people with anxiety disorders",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/2951408/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Why do racing thoughts get worse at night?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "During the day, task demands, social interactions, and sensory input compete with self-referential thought, effectively suppressing the default mode network — the brain circuit responsible for worry and rumination. In bed, in the dark, with no external demands, that competition disappears. Simultaneously, people with insomnia tend to have chronically elevated cortisol across the full 24-hour period. This hyperarousal state was present all day, but daytime activity masked it. Remove the distractions and the arousal becomes the loudest thing in the room."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the connection between cortisol and insomnia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cortisol follows a circadian rhythm, peaking in the early morning and declining through the evening. In people with chronic insomnia, that evening decline is blunted — nocturnal cortisol is measurably elevated relative to good sleepers. The relationship is bidirectional: deep sleep inhibits the HPA axis that produces cortisol, so disrupted sleep prevents the inhibitory signal, keeping cortisol elevated. Elevated cortisol then impairs subsequent sleep. Research describes this as a self-perpetuating vicious cycle that drives the chronicity of insomnia."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the default mode network and how does it cause overthinking at night?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The default mode network (DMN) is a set of brain regions that activates during internal thought — self-reflection, memory replay, future planning, and worry. It normally deactivates when attention is directed outward at a task or external stimulus. At bedtime, with no external demands, the DMN fires without constraint. Research has found that greater pre-sleep DMN functional connectivity predicts worse subsequent objective sleep quality measured by polysomnography. In people with sleep anxiety, this keeps the brain in a self-referential processing loop precisely when it should be disengaging."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the difference between cognitive and somatic pre-sleep arousal?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Cognitive pre-sleep arousal is the mental component: racing thoughts, repetitive worry, replay of past events, planning, and catastrophizing. Somatic pre-sleep arousal is the physical component: racing heart, muscle tension, shallow breathing, and a general feeling of being physically wired. Both predict insomnia, but cognitive arousal is the stronger predictor of sleep onset latency and overall sleep disturbance. The distinction matters because effective interventions differ: cognitive arousal responds better to thought-restructuring techniques, while somatic arousal responds better to body-based deactivation approaches like progressive muscle relaxation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I stop overthinking at night?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The evidence-based approach targets the arousal mechanism, not the symptom. Key techniques from CBT-I include: (1) Scheduled worry time — a dedicated 15–20 minute window at least 2 hours before bed where you write concerns and next actions, training the brain to defer rather than process in bed; (2) Cognitive restructuring — identifying and challenging catastrophic beliefs about sleep that activate the stress response; (3) Stimulus control — using the bed only for sleep so the bedroom stops being a conditioned arousal cue; (4) Progressive muscle relaxation for somatic arousal. CBT-I consistently outperforms sleep medication across meta-analyses and produces durable effects after treatment ends."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Racing Thoughts at Night: The Science of Why Your Brain Won't Shut Off",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">Racing Thoughts at Night</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Sleep Science</span>
+        <h1>Racing Thoughts at Night: <span class="pop">The Science of Why Your Brain Won&#8217;t Shut Off</span></h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>1 June 2026</time> &#183; 8 min read
+        </p>
+        <p class="article-intro">
+          Lying awake with your mind running at full speed is not a willpower problem &#8212; it&#8217;s hyperarousal. Your nervous system is stuck in alert mode when it should be disengaging. Here&#8217;s the cortisol loop, the default mode network, and the specific protocol that addresses the mechanism rather than masking it.
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="Person lying awake in a dimly lit bedroom, eyes open, staring at the ceiling with soft ambient light casting shadows across white bedsheets"
+        width="1600"
+        height="900"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>Racing thoughts at night are a symptom of <strong>hyperarousal</strong> &#8212; a 24-hour state of CNS overactivation, not a bedtime-only problem.</li>
+            <li>People with chronic insomnia have measurably <strong>elevated cortisol across the full day and night</strong>. Disrupted sleep prevents the HPA axis inhibition that would lower it, sustaining the cycle.</li>
+            <li>The <strong>default mode network</strong> &#8212; your brain&#8217;s rumination circuit &#8212; fires without competition in a dark, stimulus-free bedroom. That&#8217;s not bad luck; it&#8217;s anatomy.</li>
+            <li>Pre-sleep arousal has <strong>two distinct forms</strong>: cognitive (racing thoughts) and somatic (racing heart, muscle tension). Cognitive arousal is the stronger predictor of insomnia &#8212; and requires different treatment than somatic arousal.</li>
+            <li>The <strong>3am awakening</strong> is typically the body&#8217;s normal pre-dawn cortisol rise triggering wakefulness in a nervous system that is already running hot.</li>
+            <li>Anxiety symptoms are <strong>consistently worse in the evening</strong> due to weakened prefrontal regulation and accumulated unprocessed emotional load from the day.</li>
+            <li>CBT-I &#8212; not sleep medication &#8212; is the evidence-based treatment. It addresses the arousal system rather than suppressing its output.</li>
+          </ul>
+        </div>
+
+        <p>
+          You&#8217;re lying in bed, the room is dark, and your brain decides it&#8217;s the perfect moment to draft a difficult conversation you haven&#8217;t had yet, replay a meeting from three days ago, and wonder whether you responded to that email. You&#8217;re exhausted. You&#8217;re not close to sleep. If this is familiar, you are not experiencing a willpower failure or a character flaw. You are experiencing hyperarousal &#8212; a chronic state of nervous system overactivation where your brain remains in alert mode when it should be transitioning to sleep. The racing thoughts are a symptom. The elevated cortisol is the cause. And both have well-documented biology behind them.
+        </p>
+
+        <h2>1. The Hyperarousal Model: Insomnia Is an Arousal Problem</h2>
+
+        <p>
+          The dominant scientific model of chronic insomnia does not describe it as a deficit of sleep. It describes it as an excess of wakefulness. The hyperarousal hypothesis holds that <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2128619/" target="_blank" rel="noopener noreferrer">insomnia is associated with a 24-hour increase in cortisol and ACTH secretion &#8212; consistent with a disorder of central nervous system hyperarousal</a>, not a disorder of the sleep system specifically. People with chronic insomnia show measurably elevated stress hormones not just at night, but across the entire day.
+        </p>
+        <p>
+          Night is when you notice it most because daytime provides suppression. Task demands, social interactions, physical movement, and environmental stimulation occupy your attentional bandwidth and compete with the arousal signal. Get into bed, remove the external demands, turn off the lights &#8212; and the hyperarousal becomes the loudest signal in the room. The exhaustion you feel all day is real. The alertness you feel in bed is also real. They coexist because this is a 24-hour condition running below your detection threshold until the room goes quiet.
+        </p>
+        <p>
+          If you&#8217;re uncertain whether what you&#8217;re experiencing qualifies as clinical insomnia, the <a href="/insomnia-severity-calculator">Insomnia Severity Index</a> is a validated 7-item assessment that captures exactly this pattern. It&#8217;s a better starting point than guessing.
+        </p>
+
+        <h2>2. Why Nights Are Worse: The Distractor Problem</h2>
+
+        <p>
+          To understand why the bedroom specifically triggers racing thoughts, you need to know what the brain&#8217;s default mode network is and what it does.
+        </p>
+        <p>
+          The default mode network (DMN) is a set of interconnected brain regions that activate during internal thought: self-reflection, memory replay, future planning, worry, and rumination. When your attention is directed outward &#8212; at a task, a conversation, a screen, a problem &#8212; the DMN deactivates. It competes with the task-positive network, and when external demands are present, the DMN quiets. When external demands disappear, it fires unchecked.
+        </p>
+        <p>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10470430/" target="_blank" rel="noopener noreferrer">Greater pre-sleep default mode network functional connectivity predicts worse subsequent sleep quality measured by polysomnography</a>. For most people, healthy sleep onset involves a gradual quieting of DMN activity as sleep pressure accumulates and the brain disengages from self-referential processing. For people with insomnia and sleep anxiety, that disengagement doesn&#8217;t happen cleanly. The network stays active, feeding the brain a continuous stream of social and self-referential content &#8212; unresolved conflicts, unfinished tasks, perceived threats &#8212; precisely when it should be winding down.
+        </p>
+        <p>
+          The content of the thoughts isn&#8217;t random. The DMN specializes in exactly the categories that feel most urgent at 11pm when nothing else is competing for your attention: status, relationships, future risk, and everything that remains unresolved.
+        </p>
+
+        <h2>3. The Cortisol Circuit</h2>
+
+        <p>
+          Cortisol follows a strict circadian rhythm. It peaks in the early morning &#8212; the cortisol awakening response &#8212; then declines through the afternoon and evening, reaching its circadian nadir in the first half of the night. That nocturnal trough is part of what makes sleep architecturally possible: the HPA axis goes quiet, and the brain can proceed through sleep stages without stress-hormone interference.
+        </p>
+        <p>
+          In people with insomnia, that evening decline is blunted. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6721980/" target="_blank" rel="noopener noreferrer">Nocturnal cortisol levels are measurably higher in people with insomnia compared to normal sleepers, with the degree of elevation correlating with the amount of nighttime wakefulness</a>. This is not simply a consequence of lost sleep &#8212; it is a bidirectional relationship. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2902103/" target="_blank" rel="noopener noreferrer">Deep sleep has an inhibitory influence on the HPA axis, while activation of the HPA axis causes arousal and sleeplessness</a>. Disrupted sleep prevents the inhibitory signal that would lower cortisol. Elevated cortisol then promotes arousal that disrupts the next night&#8217;s sleep. The cycle is self-sustaining, which is why short-term sleep problems so often become chronic ones.
+        </p>
+        <p>
+          Your <a href="/circadian-rhythm-calculator">circadian timing profile</a> determines when the pre-dawn cortisol rise occurs and how steeply it climbs &#8212; which has direct implications for the 3am awakening pattern.
+        </p>
+
+        <div class="tip-box">
+          <strong>The 3am awakening, explained:</strong> Cortisol begins its natural pre-dawn rise approximately 3&#8211;4 hours before the scheduled wake time, ahead of the full cortisol awakening response. In people with a chronically primed HPA axis, this normal pre-dawn inflection is enough to tip the system into full wakefulness. You wake not because something went wrong &#8212; but because a stress system running hot responded to a signal it was already oversensitive to. <a href="/sleep-latency-calculator">Tracking when your wakings occur</a> helps identify whether cortisol timing is driving them.
+        </div>
+
+        <h2>4. Why Anxiety Gets Worse After Dark</h2>
+
+        <p>
+          The worsening of anxiety symptoms in the evening is not purely subjective. <a href="https://pubmed.ncbi.nlm.nih.gov/2951408/" target="_blank" rel="noopener noreferrer">In patients with anxiety disorders, symptom severity is consistently higher in the afternoon and evening than in the morning</a>. Two mechanisms converge to produce this pattern.
+        </p>
+        <p>
+          First, top-down regulation weakens through the day. The prefrontal cortex maintains executive control over the amygdala &#8212; the brain&#8217;s threat-detection center &#8212; through active inhibitory signaling. That regulation is metabolically expensive and gradually depletes through waking hours. By late evening, the prefrontal cortex&#8217;s regulatory grip on threat processing has loosened. The amygdala responds to incoming stimuli with proportionally more activation. Things that felt manageable at 9am feel genuinely threatening at 11pm.
+        </p>
+        <p>
+          Second, the day&#8217;s emotional load hasn&#8217;t been discharged. REM sleep is the brain&#8217;s primary system for emotional memory consolidation and threat-response dampening &#8212; but REM occurs during sleep, not before it. Everything from the day that remained emotionally unresolved arrives at bedtime unprocessed. Your brain is not being irrational when it chews on these things at night. It is doing exactly what it was built to do, at the worst possible time. The <a href="/sleep-score-calculator">sleep quality score</a> often reflects this pattern &#8212; lower scores on nights following high-stress days even when total sleep time is unchanged.
+        </p>
+
+        <h2>5. Two Types of Pre-Sleep Arousal</h2>
+
+        <p>
+          Sleep researchers divide pre-sleep arousal into two empirically distinct components, each predicting insomnia through a different pathway and each requiring a different primary intervention.
+        </p>
+        <p>
+          <strong>Cognitive arousal</strong> is the mental component: racing thoughts, intrusive worry, repetitive replay of past events, future planning, catastrophizing. This is what most people mean when they say their brain won&#8217;t shut off. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12927662/" target="_blank" rel="noopener noreferrer">Cognitive pre-sleep arousal is the stronger predictor of sleep onset latency and overall sleep disturbance</a> &#8212; and its effect is amplified in people with high sleep reactivity, meaning those whose sleep is most disrupted by stress.
+        </p>
+        <p>
+          <strong>Somatic arousal</strong> is the physical component: a racing or pounding heart, muscle tension, feeling physically wired or jittery, shallow breathing. This is the body&#8217;s stress response expressing itself through the sleep context. It often co-occurs with cognitive arousal &#8212; an anxious mind tends to produce an anxious body &#8212; but each can dominate independently.
+        </p>
+        <p>
+          The distinction matters because the effective interventions differ. Cognitive arousal responds better to thought-restructuring and deferral techniques. Somatic arousal responds better to body-based deactivation approaches. Treating one without addressing the other leaves the arousal cycle partially intact. The tool below identifies your dominant type.
+        </p>
+
+        <div class="arousal-calc" id="arousalCalc">
+          <h3 class="arousal-calc-title">Pre-Sleep Arousal Profiler</h3>
+          <p class="arousal-calc-subtitle">Three questions. One targeted protocol.</p>
+
+          <div class="calc-field">
+            <label for="arousalType">When you&#8217;re lying in bed, what&#8217;s most disruptive?</label>
+            <select id="arousalType">
+              <option value="cognitive">Racing or repetitive thoughts, worry, or mental replay</option>
+              <option value="somatic">Physical tension, racing heart, or feeling physically wired</option>
+              <option value="mixed">Both &#8212; mental and physical in roughly equal measure</option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label for="timingType">When does the sleep problem typically occur?</label>
+            <select id="timingType">
+              <option value="onset">Falling asleep &#8212; it takes a long time to get there</option>
+              <option value="maintenance">Staying asleep &#8212; I wake up and can&#8217;t return</option>
+              <option value="both">Both &#8212; trouble falling and staying asleep</option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label for="durationType">How long have you been experiencing this?</label>
+            <select id="durationType">
+              <option value="acute">A few weeks, often linked to a specific stressor</option>
+              <option value="chronic">More than 3 months, fairly consistently</option>
+              <option value="varies">It comes and goes &#8212; worse during stressful periods</option>
+            </select>
+          </div>
+
+          <button class="calc-btn" onclick="calculateArousal()">Identify my arousal type</button>
+
+          <div class="calc-result" id="arousalCalcResult">
+            <div class="result-type-badge" id="resultType"></div>
+            <div id="resultMechanism"></div>
+            <div id="resultProtocol"></div>
+            <div id="resultNudge"></div>
+          </div>
+        </div>
+
+        <h2>6. Breaking the Cycle: What Actually Works</h2>
+
+        <p>
+          The evidence-based treatment for chronic insomnia &#8212; including the racing-thoughts and sleep anxiety presentations &#8212; is cognitive behavioral therapy for insomnia (CBT-I). Across multiple meta-analyses, CBT-I consistently outperforms sleep medication and produces durable improvements that persist after treatment ends. Sleep medication suppresses the output. CBT-I addresses the arousal system generating it.
+        </p>
+        <p>
+          The core techniques map directly onto the mechanisms above.
+        </p>
+        <p>
+          <strong>Scheduled worry time</strong> addresses cognitive DMN activation directly. Set a fixed 15&#8211;20 minute window each day &#8212; at least 2 hours before bed &#8212; for intentional, structured worry. Write down what&#8217;s on your mind, note a next action where one exists, then close the notebook. The purpose is to give the brain a designated processing window so it no longer needs to do that work in bed. This trains deferral rather than suppression: you&#8217;re not telling yourself not to worry, you&#8217;re relocating when you do it.
+        </p>
+        <p>
+          <strong>Cognitive restructuring</strong> targets the catastrophic beliefs about sleep that keep the HPA axis primed. "If I don&#8217;t sleep tonight, tomorrow will be ruined" is the kind of thought that registers as a genuine threat and triggers cortisol release. Identifying and testing these beliefs &#8212; asking what the evidence actually is, what you&#8217;d think in the morning &#8212; reduces the subjective threat value of sleeplessness and lowers the arousal baseline.
+        </p>
+        <p>
+          <strong>Stimulus control</strong> breaks conditioned arousal. If you frequently lie awake in bed, the bed itself acquires arousal properties via classical conditioning &#8212; it becomes a cue for frustrated alertness rather than sleep. The rule: use the bed only for sleep. If sleep hasn&#8217;t arrived after approximately 20 minutes, leave the bed and return only when genuinely sleepy. This feels wrong and is uncomfortable initially. It is also one of the highest-effect-size components of CBT-I.
+        </p>
+        <p>
+          <strong>Progressive muscle relaxation (PMR)</strong> targets somatic arousal. Systematically tensing and releasing muscle groups achieves a physical deactivation that cognitive techniques cannot reach. This is the appropriate first-line intervention when the dominant symptom is a racing heart or muscle tension rather than racing thoughts.
+        </p>
+        <p>
+          For tracking whether any of this is working: <a href="/sleep-efficiency-calculator">sleep efficiency</a> &#8212; the ratio of time asleep to time in bed &#8212; is a more objective metric than asking yourself how you slept. Subjective sleep estimates in people with insomnia are systematically inaccurate. The <a href="/sleep-hygiene-calculator">sleep hygiene calculator</a> identifies behavioral contributors that may be sustaining the arousal cycle alongside the psychological ones.
+        </p>
+
+        <h2 class="bottom-line">The Bottom Line</h2>
+
+        <p>
+          Racing thoughts at night are not a reflection of weakness or a failure to relax. They are the output of a nervous system primed for alertness, running in a brain that has lost its daytime distractors and a body whose cortisol hasn&#8217;t received the clearance that normal sleep would provide. The mechanisms are specific. The interventions are specific. The hard part of CBT-I is that some techniques &#8212; sleep restriction and stimulus control especially &#8212; feel counterproductive before they work. They are effective precisely because they address the arousal system rather than bypassing it.
+        </p>
+        <p>
+          The practical starting point is measurement. Use the <a href="/insomnia-severity-calculator">Insomnia Severity Index</a> to establish your baseline, track your <a href="/sleep-latency-calculator">time to fall asleep</a> over a week to identify patterns, and measure your <a href="/sleep-efficiency-calculator">sleep efficiency</a> to separate time in bed from time actually sleeping. You cannot optimize what you have not measured &#8212; and in insomnia, the gap between what people think is happening and what the data shows is consistently large.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid slugs={toolsMentioned} heading="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/why-you-wake-up-tired-even-after-8-hours">Why You Wake Up Tired (Even After 8 Hours)</a></li>
+            <li><a href="/blog/blue-light-and-melatonin-what-the-research-actually-shows">Blue Light and Melatonin: What the Research Actually Shows</a></li>
+            <li><a href="/blog/ideal-sleep-temperature">What Is the Ideal Sleep Temperature?</a></li>
+            <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Vgontzas, A. N. et al. Chronic insomnia and stress system. <em>Sleep Medicine Clinics</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2128619/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Buckley, T. M., &amp; Schatzberg, A. F. (2010). Impact of sleep and its disturbances on hypothalamo-pituitary-adrenal axis activity. <em>International Journal of Endocrinology</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2902103/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Riemann, D. et al. (2019). Hyperarousal in insomnia: pre-sleep and diurnal cortisol levels in response to chronic zolpidem treatment. <em>Journal of Psychiatric Research</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6721980/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Dong, D. et al. (2023). Functional connectivity of the default mode network predicts subsequent polysomnographically measured sleep in people with symptoms of insomnia. <em>Sleep Medicine</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10470430/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Suh, S. et al. (2025). Sleep reactivity amplifies the impact of pre-sleep cognitive arousal on sleep disturbances. <em>Journal of Sleep Research</em>. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12927662/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Circadian symptom fluctuations in people with anxiety disorders. <em>PubMed</em>. <a href="https://pubmed.ncbi.nlm.nih.gov/2951408/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary, #7c6aff);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    margin-bottom: 1rem;
+  }
+
+  .article-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-muted, #374151);
+    margin: 0.5rem 0 0;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr > strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  .tip-box {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.9375rem;
+  }
+
+  .tip-box strong {
+    color: var(--primary, #7c3aed);
+  }
+
+  /* ── Pre-Sleep Arousal Profiler Calculator ── */
+  .arousal-calc {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    margin: 2rem 0;
+  }
+
+  .arousal-calc-title {
+    font-size: 1.25rem !important;
+    margin: 0 0 0.25rem !important;
+    color: var(--text, #111827) !important;
+  }
+
+  .arousal-calc-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted, #6b7280);
+    margin: 0 0 1.5rem !important;
+  }
+
+  .calc-field {
+    margin-bottom: 1.25rem;
+  }
+
+  .calc-field label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text, #111827);
+    margin-bottom: 0.4rem;
+  }
+
+  .calc-field select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border, #d1d5db);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--text, #111827);
+    background: var(--card, #fff);
+    appearance: auto;
+  }
+
+  .calc-field select:focus {
+    outline: 2px solid var(--primary, #7c6aff);
+    outline-offset: 1px;
+  }
+
+  .calc-btn {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.25rem;
+    transition: opacity 0.15s;
+  }
+
+  .calc-btn:hover {
+    opacity: 0.88;
+  }
+
+  .calc-result {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .calc-result.visible {
+    display: block;
+  }
+
+  .result-type-badge {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.4rem 1.1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .result-detail-block {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text, #111827);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-detail-block strong {
+    color: var(--primary, #7c6aff);
+  }
+
+  .calc-nudge {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.4rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: #92400e;
+    margin-top: 0.5rem;
+  }
+
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  .disclaimer p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .post-body {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  function calculateArousal() {
+    var arousal = document.getElementById('arousalType').value;
+    var timing = document.getElementById('timingType').value;
+    var duration = document.getElementById('durationType').value;
+
+    var typeLabel = '';
+    var mechanism = '';
+    var protocol = '';
+    var nudge = '';
+
+    if (arousal === 'cognitive' && timing === 'onset') {
+      typeLabel = 'Cognitive Onset Arousal';
+      mechanism = '<p class="result-detail-block"><strong>What\'s happening:</strong> Your default mode network is staying active when it should be disengaging. Racing thoughts at sleep onset are the clearest expression of the pre-sleep cognitive hyperarousal pattern identified in insomnia research — the brain hasn\'t received a reliable cue that it\'s safe to stop processing.</p>';
+      protocol = '<p class="result-detail-block"><strong>First-line protocol:</strong> Scheduled worry time (15–20 min, 2+ hours before bed) + cognitive restructuring to reduce sleep-catastrophizing + stimulus control (leave the bed if not asleep in ~20 min). This combination directly targets DMN overactivation and conditioned arousal.</p>';
+    } else if (arousal === 'cognitive' && timing === 'maintenance') {
+      typeLabel = 'Cognitive Maintenance Arousal';
+      mechanism = '<p class="result-detail-block"><strong>What\'s happening:</strong> You\'re likely experiencing the pre-dawn cortisol rise triggering wakefulness in a hyperaroused HPA axis — then cognitive arousal takes over and keeps you awake. The cortisol spike is normal in timing; the sensitivity to it is not.</p>';
+      protocol = '<p class="result-detail-block"><strong>First-line protocol:</strong> Stimulus control for nighttime wakings (leave bed after 20 min awake, return when sleepy) + passive cognitive defusion — observing thoughts without engaging them. Sleep restriction therapy to increase sleep pressure and reduce the number of wakings over time.</p>';
+    } else if (arousal === 'somatic' && timing === 'onset') {
+      typeLabel = 'Somatic Onset Arousal';
+      mechanism = '<p class="result-detail-block"><strong>What\'s happening:</strong> The physical symptoms — racing heart, tension, being wired — are your sympathetic nervous system running in activation mode at bedtime. This is the somatic arm of the hyperarousal model, often present without prominent racing thoughts.</p>';
+      protocol = '<p class="result-detail-block"><strong>First-line protocol:</strong> Progressive muscle relaxation (PMR) or 4-7-8 breathing (inhale 4, hold 7, exhale 8) to activate the parasympathetic system. Consider a warm bath 60–90 min before bed to accelerate peripheral vasodilation. Body-first approaches outperform cognitive techniques when somatic arousal dominates.</p>';
+    } else if (arousal === 'somatic' && timing === 'maintenance') {
+      typeLabel = 'Somatic Maintenance Arousal';
+      mechanism = '<p class="result-detail-block"><strong>What\'s happening:</strong> Physical activation during nighttime wakings suggests ongoing sympathetic nervous system activity during sleep. This may include elevated nocturnal cortisol maintaining a baseline of bodily arousal that is easily tipped into wakefulness.</p>';
+      protocol = '<p class="result-detail-block"><strong>First-line protocol:</strong> Body scan during wakings (systematic attention to each body part without trying to change anything), diaphragmatic breathing to lower heart rate, and a cooler bedroom environment (65–68°F) to reduce thermal arousal. Track waking patterns with a sleep latency log.</p>';
+    } else if (arousal === 'mixed') {
+      typeLabel = 'Mixed Cognitive + Somatic Arousal';
+      mechanism = '<p class="result-detail-block"><strong>What\'s happening:</strong> You have both arms of the hyperarousal response active — the mental and physical components amplifying each other. This is the most common presentation of chronic insomnia and typically requires a combined intervention approach.</p>';
+      protocol = '<p class="result-detail-block"><strong>First-line protocol:</strong> Start with the physical (PMR or breathing) to lower the somatic floor, then address cognitive arousal with scheduled worry time and cognitive restructuring. Stimulus control is essential for both. This is the full CBT-I stack — consider working with a CBT-I therapist if self-guided hasn\'t moved the needle.</p>';
+    } else {
+      typeLabel = 'Mixed Presentation';
+      mechanism = '<p class="result-detail-block"><strong>What\'s happening:</strong> Your pattern suggests elements of both cognitive and somatic arousal across different sleep phases. This variability is common in stress-reactive insomnia where the dominant symptom shifts depending on what\'s happening in your life.</p>';
+      protocol = '<p class="result-detail-block"><strong>First-line protocol:</strong> A sleep diary for 1–2 weeks will clarify whether onset or maintenance is the primary issue. In the meantime: stimulus control (bed only for sleep) applies universally, and scheduled worry time reduces the cognitive load arriving at bedtime regardless of when it activates.</p>';
+    }
+
+    if (duration === 'acute') {
+      nudge = '<p class="calc-nudge">⚠️ Acute insomnia (under 3 months) is common after a specific stressor and often resolves when the stressor passes. The most important thing at this stage is not to develop conditioned arousal — avoid staying in bed awake for long periods, which is how short-term insomnia becomes chronic.</p>';
+    } else if (duration === 'chronic') {
+      nudge = '<p class="calc-nudge">⚠️ At 3+ months, the original stressor is often no longer the primary driver — the conditioned arousal and cortisol feedback loop have become self-sustaining. This is where the CBT-I techniques are most important and where professional support (a trained CBT-I therapist or a structured program) produces the best outcomes.</p>';
+    }
+
+    document.getElementById('resultType').textContent = typeLabel;
+    document.getElementById('resultMechanism').innerHTML = mechanism;
+    document.getElementById('resultProtocol').innerHTML = protocol;
+    document.getElementById('resultNudge').innerHTML = nudge;
+
+    var resultEl = document.getElementById('arousalCalcResult');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
