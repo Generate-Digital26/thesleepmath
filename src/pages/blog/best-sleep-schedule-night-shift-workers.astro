@@ -1,0 +1,902 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Best Sleep Schedule for Night Shift Workers &#8212; The Sleep Math';
+const description = 'Shift work fights circadian biology, not bad habits. Learn the anchor sleep system, strategic light timing, and caffeine schedule for night shift workers.';
+const canonical = 'https://thesleepmath.com/blog/best-sleep-schedule-night-shift-workers';
+const heroImage = '/images/blog/best-sleep-schedule-night-shift-workers-hero.jpg';
+const ogImage = '/images/blog/best-sleep-schedule-night-shift-workers-og.png';
+const publishDate = '2026-06-05';
+const modifiedDate = '2026-06-05';
+
+const toolsMentioned = [
+  'shift-work-calculator',
+  'caffeine-cutoff-calculator',
+  'light-exposure-calculator',
+  'circadian-rhythm-calculator',
+  'nap-calculator',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="night shift sleep schedule" />
+    <meta property="article:tag" content="shift work sleep" />
+    <meta property="article:tag" content="anchor sleep" />
+    <meta property="article:tag" content="rotating shift schedule" />
+    <meta property="article:tag" content="circadian rhythm shift work" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Evidence-based sleep science article on the best sleep schedule for night shift workers. Covers anchor sleep — a fixed 4–5 hour core block maintained consistently to preserve circadian alignment even on days off (Boivin & Boudreau, 2014). Distinguishes fixed night shift workers (partial circadian adaptation achievable over weeks) from rotating shift workers (adaptation not possible; focus on minimising misalignment). Explains strategic light exposure: bright light at shift start to accelerate adaptation, wraparound sunglasses on the morning commute home to block the counter-signal. Covers caffeine half-life framework for shift workers: pre-shift dose, optional mid-shift top-up, cutoff 4–5 hours before sleep window. Includes brief guidance on meal timing — avoiding large meals during the biological night (2–4am) when insulin sensitivity is lowest. Links to Shift Work Planner, Caffeine Cutoff Calculator, Light Exposure Calculator, Circadian Rhythm Calculator, and Nap Calculator at thesleepmath.com." />
+    <meta name="ai-summary" content="Shift work disrupts sleep via circadian misalignment, not bad habits. The core strategy is anchor sleep — a consistent 4–5 hour block at the same time daily — combined with strategic light exposure (bright light at shift start, sunglasses on the commute home) and timed caffeine with cutoff 4–5 hours before the sleep window. Fixed night shift workers can partially adapt over weeks; rotating shift workers cannot, and need anchor sleep and proactive napping more urgently. A personalised schedule requires knowing the individual's specific shift times." />
+    <meta name="nlp-entities" content="anchor sleep, night shift, shift work, circadian rhythm, circadian pacemaker, suprachiasmatic nucleus, melatonin, light exposure, blue-blocking glasses, caffeine half-life, caffeine cutoff, rotating shift, fixed night shift, social jet lag, sleep debt, sleep window, pre-shift nap, meal timing, insulin sensitivity, biological night, zeitgeber, Boivin, Boudreau, Eastman, Drake" />
+    <meta name="ai-content-type" content="health article, sleep science, evidence-based guide" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Best Sleep Schedule for Night Shift Workers",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "wordCount": 2250,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "best sleep schedule for night shift, night shift sleep tips, rotating shift sleep schedule, how to sleep after night shift, 12 hour night shift sleep schedule, anchor sleep, shift work circadian rhythm",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".article-intro", ".bottom-line"]
+          },
+          "citation": [
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Impacts of shift work on sleep and circadian rhythms",
+              "author": "Boivin DB, Boudreau P",
+              "datePublished": "2014",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/25246026/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Dark goggles and bright light improve circadian rhythm adaptation to night-shift work",
+              "author": "Eastman CI, Stewart KT, Mahoney MP, Liu L, Fogg LF",
+              "datePublished": "1994",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/7973321/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Caffeine effects on sleep taken 0, 3, or 6 hours before going to bed",
+              "author": "Drake CL, Roehrs T, Shambroom J, Roth T",
+              "datePublished": "2013",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/23204306/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Sleep loss and fatigue in shift work and shift work disorder",
+              "author": "Akerstedt T, Wright KP Jr",
+              "datePublished": "2009",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/20640236/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Role of sleep and circadian disruption on energy expenditure and in metabolic predisposition to human obesity and metabolic disease",
+              "author": "McHill AW, Wright KP Jr",
+              "datePublished": "2017",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/28164449/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is the best sleep schedule for night shift workers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The most effective approach is anchor sleep — a fixed 4–5 hour core block at the same time each day, including days off. For workers finishing a night shift at 7am, the anchor window is typically 9am–1pm. This consistent timing gives the circadian pacemaker a stable cue, limiting the fragmentation that occurs when shift workers sleep at different times each day. The anchor is supplemented with strategic light management and timed caffeine. A personalised schedule based on your specific shift pattern will be more effective than a generic sample timetable."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is anchor sleep and how does it work for shift workers?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Anchor sleep is a consistent 4–5 hour core sleep block that occurs at the same time every day regardless of shift schedule or days off. It works by providing the circadian pacemaker in the suprachiasmatic nucleus with a reliable timing signal even when the total sleep period varies. Research by Boivin and Boudreau (2014) shows this approach maintains partial circadian alignment and limits the multi-organ clock desynchronisation that occurs in workers who sleep at irregular times. The anchor is not the total sleep period — it is the protected minimum that holds the rhythm in place."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Should night shift workers sleep immediately after their shift ends?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, for most fixed night shift workers, sleeping as soon as possible after the shift ends is the best approach. Delaying sleep extends the time spent awake during the biological morning, when cortisol is rising and the pressure to be awake is greatest — making it harder to fall asleep and shortening the sleep period. The critical habit on the commute home is wearing wraparound sunglasses to block morning sunlight, which would otherwise send a powerful 'wake up' signal to the circadian clock and make initiating sleep much harder."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How should night shift workers time their caffeine?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Shift workers should take caffeine strategically rather than reactively. A dose of 100–200mg 30–60 minutes before the shift starts provides peak alertness for the first few hours. An optional second dose at the shift midpoint (e.g., 1–2am for a 10pm–6am shift) extends coverage. The cutoff should fall 4–5 hours before the planned sleep window — so for a worker sleeping at 9am, nothing after 3–4am. This is much later than the standard advice for day workers, because the sleep window is much later. The caffeine half-life framework means a dose at 5am is still 50% active at 10–11am."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can night shift workers fully adapt their circadian rhythm to working nights?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Fixed night shift workers can achieve partial circadian adaptation over 2–3 weeks on a consistent roster, particularly with strategic light management — bright light at shift start, darkness on the commute home, and maintaining the same sleep timing on days off. Full adaptation is rare because social schedules and weekend behaviour introduce counter-signals. Rotating shift workers cannot adapt at all — the clock requires 2–3 weeks of consistent timing signals, and by the time adaptation begins the shift has rotated. For rotating shift workers, the goal is minimising misalignment rather than achieving adaptation."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Best Sleep Schedule for Night Shift Workers",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">Night Shift Sleep Schedule</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Shift Work</span>
+        <h1>Best Sleep Schedule for <span class="pop">Night Shift Workers</span></h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>5 June 2026</time> &#183; 9 min read
+        </p>
+        <p class="article-intro">
+          Night shift workers are the one group for whom almost every mainstream sleep article is useless. The advice was written for people sleeping when it&#8217;s dark. Here&#8217;s the system that accounts for the biology you&#8217;re actually dealing with &#8212; anchor sleep, strategic light, and timed caffeine.
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="A nurse in scrubs sitting quietly in a break room at 3am, a coffee cup on the table and soft institutional lighting overhead, looking tired but composed"
+        width="1600"
+        height="900"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>Night shift workers face <strong>circadian misalignment</strong>, not bad habits. Generic sleep hygiene advice doesn&#8217;t translate.</li>
+            <li><strong>Anchor sleep</strong> &#8212; a fixed 4&#8211;5 hour core block at the same time daily, including days off &#8212; is the most evidence-supported strategy for maintaining some circadian consistency.</li>
+            <li><strong>Fixed night shift workers</strong> can partially adapt their circadian rhythm over weeks. <strong>Rotating shift workers</strong> cannot adapt &#8212; and need a different approach built around minimising misalignment.</li>
+            <li><strong>Light exposure timing</strong> is the single most powerful lever. Bright light at shift start accelerates adaptation; wearing sunglasses on the drive home blocks the morning signal that resets your clock back to day mode.</li>
+            <li><strong>Caffeine cutoff</strong> is much later for shift workers than for day workers &#8212; use the half-life framework to calculate yours, not generic advice.</li>
+            <li><strong>Meal timing</strong> affects alertness and metabolic health on shift. Avoid large meals during the biological night (2&#8211;4am); eat moderately before your shift instead.</li>
+            <li>A personalised schedule based on your specific hours is more useful than a generic sample. The <a href="/shift-work-calculator">Shift Work Planner</a> builds one for you.</li>
+          </ul>
+        </div>
+
+        <p>
+          Night shift workers are the one group for whom almost every mainstream sleep article is useless. The advice &#8212; &#8220;establish a consistent bedtime routine,&#8221; &#8220;avoid screens before bed,&#8221; &#8220;get morning sunlight&#8221; &#8212; assumes the reader goes to sleep when it&#8217;s dark and wakes when it&#8217;s light. For a nurse finishing a 12-hour shift at 7am, or a paramedic rotating between day and night weeks, that guidance is not just unhelpful &#8212; it&#8217;s actively working against you.
+        </p>
+        <p>
+          The problem isn&#8217;t discipline. It&#8217;s biology. Night shift work asks your circadian clock to function in opposition to its strongest external cue: light. The system doesn&#8217;t cooperate cleanly, and tips designed for 9-to-5 workers don&#8217;t account for that conflict. What works is a structured approach built around three levers you actually control: <strong>when you sleep</strong> (anchor sleep), <strong>when you use light strategically</strong>, and <strong>when you time caffeine and meals</strong>. The <a href="/shift-work-calculator">Shift Work Planner</a> takes your actual shift pattern and builds a personalised schedule across all four dimensions &#8212; enter your hours and it maps out your sleep, light, meal, and caffeine windows automatically. This article explains the system behind it.
+        </p>
+
+        <h2>1. Why Generic Sleep Advice Fails Shift Workers</h2>
+
+        <p>
+          Standard sleep advice is calibrated for people sleeping in biological alignment with their environment &#8212; dark at night, light during the day. For them, the rules are relatively simple nudges: don&#8217;t use screens before bed, keep a consistent schedule, get morning sunlight. These work because they&#8217;re reinforcing a naturally aligned system.
+        </p>
+        <p>
+          Night shift workers aren&#8217;t nudging a misaligned system &#8212; they&#8217;re trying to run it in direct opposition to its strongest input. The circadian pacemaker in the suprachiasmatic nucleus resets primarily to light, with sensitivity that peaks in the morning hours. Every morning, as natural light fills the commute home from a night shift, that system receives a powerful biological signal to be awake. Fighting it with blackout curtains and earplugs helps, but it&#8217;s fighting biology with furniture.
+        </p>
+        <p>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/20640236/" target="_blank" rel="noopener noreferrer">Shift work consistently reduces total sleep time, degrades sleep quality, and elevates fatigue</a> relative to day workers, with the largest gap in rotating shift workers who can never allow their clock to settle. Fixed night shift workers, over several weeks on the same schedule, can achieve partial circadian adaptation &#8212; but full adaptation is rare because social schedules and weekend behaviour introduce counter-signals that interrupt the process. If you&#8217;ve tried the standard advice and it hasn&#8217;t helped, that&#8217;s not a personal failure. The advice was designed for a different sleep problem.
+        </p>
+        <p>
+          Your baseline circadian profile &#8212; whether you&#8217;re naturally a morning or evening type &#8212; also interacts with shift work tolerance. The <a href="/circadian-rhythm-calculator">Circadian Rhythm Calculator</a> identifies where your natural rhythm sits, which has direct implications for which shift type is most disruptive for you and how quickly you can adapt.
+        </p>
+
+        <h2>2. Anchor Sleep: The Core Strategy</h2>
+
+        <p>
+          The most important concept in shift work sleep management is <strong>anchor sleep</strong>: a fixed 4&#8211;5 hour core block that occurs at the same time every day, regardless of whether you&#8217;ve just come off a shift or are on a day off. The anchor window is not your total sleep &#8212; it&#8217;s the guaranteed, non-negotiable block around which everything else is organised.
+        </p>
+        <p>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/25246026/" target="_blank" rel="noopener noreferrer">Anchor sleep maintains partial circadian alignment by providing the suprachiasmatic nucleus with a consistent timing cue even when the full sleep period varies</a>. Without any anchor, irregular schedules produce near-total circadian fragmentation &#8212; a state where the body&#8217;s organ clocks (liver, gut, cardiovascular system) desynchronise from each other as well as from the environment. Anchor sleep limits this damage, even if it doesn&#8217;t eliminate it.
+        </p>
+
+        <div class="tip-box">
+          <strong>Setting your anchor window:</strong>
+          <br /><br />
+          For a <strong>fixed night shift</strong> ending at 7am: anchor window is <strong>9am&#8211;1pm</strong>. If you need more sleep, extend to 3pm or add a pre-shift nap. The anchor holds on days off &#8212; shift it by no more than 1 hour.
+          <br /><br />
+          For a <strong>rotating shift worker</strong>: night-shift anchor is <strong>9am&#8211;1pm</strong> (post-night); day-shift anchor is <strong>11pm&#8211;3am</strong> (overnight). The anchor should fall in the same biological window across both shift types where possible.
+          <br /><br />
+          The one thing to resist on days off: sleeping in by 2&#8211;3 hours. It shifts the anchor and partially undoes any adaptation accumulated across your working week. Consistency across all days is the mechanism.
+        </div>
+
+        <p>
+          Use the inline calculator below to find your anchor window based on your shift end time, or use the full <a href="/shift-work-calculator">Shift Work Planner</a> for a complete schedule including light, caffeine, and meal windows.
+        </p>
+
+        <div class="anchor-calc" id="anchorCalc">
+          <h3 class="anchor-calc-title">Anchor Sleep Window Calculator</h3>
+          <p class="anchor-calc-subtitle">Enter your shift end time and shift type.</p>
+
+          <div class="calc-field">
+            <label for="shiftEnd">When does your shift end?</label>
+            <select id="shiftEnd">
+              <option value="5">5:00am</option>
+              <option value="6">6:00am</option>
+              <option value="7" selected>7:00am</option>
+              <option value="8">8:00am</option>
+              <option value="9">9:00am</option>
+              <option value="10">10:00am</option>
+              <option value="23">11:00pm (evening shift)</option>
+              <option value="0">Midnight</option>
+              <option value="1">1:00am</option>
+              <option value="2">2:00am</option>
+              <option value="3">3:00am</option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label for="shiftType">Shift type</label>
+            <select id="shiftType">
+              <option value="fixed">Fixed night shift (same nights each week)</option>
+              <option value="rotating">Rotating shift (nights and days alternate)</option>
+            </select>
+          </div>
+
+          <button class="calc-btn" onclick="calculateAnchor()">Calculate my anchor window</button>
+
+          <div class="calc-result" id="anchorCalcResult">
+            <div class="result-anchor-badge" id="anchorBadge"></div>
+            <div id="anchorDetails"></div>
+            <div id="anchorNudge"></div>
+          </div>
+        </div>
+
+        <h2>3. Fixed Night Shift vs. Rotating Shifts</h2>
+
+        <p>
+          These two situations require genuinely different strategies, and conflating them is one reason most shift work sleep articles fall short.
+        </p>
+        <p>
+          <strong>Fixed night shift workers</strong> &#8212; the same shift pattern each week &#8212; can achieve partial circadian adaptation. Over 2&#8211;3 weeks on a consistent schedule, the circadian pacemaker begins to shift later: melatonin onset moves toward morning, core body temperature minimum shifts, and daytime sleep quality improves incrementally. This adaptation accelerates significantly with strategic light management (below). The critical constraint is weekend and day-off behaviour: reverting to a conventional sleep schedule on days off &#8212; social jet lag &#8212; disrupts the adaptation and requires the clock to restart the process each working week.
+        </p>
+        <p>
+          If you have the social flexibility to maintain your night-schedule sleep pattern on days off (sleeping 9am&#8211;3pm even on Saturdays), meaningful circadian adaptation is achievable over a month or more on a consistent roster. Without that consistency, you&#8217;re spending every week re-adapting rather than maintaining progress. Our <a href="/blog/why-you-wake-up-tired-even-after-8-hours">explainer on why you wake up tired despite sleeping enough</a> covers how circadian misalignment degrades sleep quality even when total sleep time is adequate.
+        </p>
+        <p>
+          <strong>Rotating shift workers</strong> face a fundamentally different problem. The biological clock cannot meaningfully adapt to a schedule that changes every week or two. Circadian adaptation requires consistent timing signals over at least 2&#8211;3 weeks; by the time adaptation begins, the shift has rotated. For rotating shift workers, the goal is not adaptation &#8212; it&#8217;s minimising misalignment and managing alertness and recovery within an inherently disrupted system. Anchor sleep is more important here, not less, because it provides the one timing constant in an otherwise variable schedule.
+        </p>
+        <p>
+          One practical implication for rotating shift workers: treat napping as a deliberate strategy, not a sign of exhaustion. A 20&#8211;30 minute nap 1&#8211;2 hours before a night shift begins reliably improves alertness across the shift and limits accumulated sleep debt. The <a href="/nap-calculator">Nap Calculator</a> finds the optimal nap length and timing based on your next shift start and current sleep pressure.
+        </p>
+
+        <h2>4. Light Exposure: The Master Switch</h2>
+
+        <p>
+          Light is the primary signal that sets the circadian clock. Getting the timing of light exposure right &#8212; both seeking it and avoiding it &#8212; is the highest-leverage intervention available to shift workers. Nothing else in this list comes close.
+        </p>
+        <p>
+          <a href="https://pubmed.ncbi.nlm.nih.gov/7973321/" target="_blank" rel="noopener noreferrer">Strategic bright light exposure during night shift hours, combined with wearing dark goggles on the morning commute home, significantly accelerates circadian adaptation to night work</a>. The mechanism: bright light (especially blue-rich light above 1,000 lux) suppresses melatonin and sends an activating signal to the suprachiasmatic nucleus. Timed correctly, it shifts the phase of the circadian clock toward the desired direction. Blocking morning light on the commute home prevents the counter-signal that would undo it.
+        </p>
+
+        <div class="tip-box">
+          <strong>Practical light protocol for fixed night shift workers:</strong>
+          <br /><br />
+          <strong>Start of night shift (9&#8211;10pm):</strong> Seek bright light. If your workplace is dim, use a bright light therapy lamp at your workstation for 30&#8211;60 minutes at shift start. This sends a &#8220;day begin&#8221; signal at the desired new phase.
+          <br /><br />
+          <strong>Driving home (6&#8211;8am):</strong> Wear wraparound sunglasses the moment you step outside. This is the single most practical intervention in the entire system. Morning sunlight on the commute is a powerful reset signal &#8212; blocking it protects the adaptation you&#8217;ve built.
+          <br /><br />
+          <strong>Daytime sleep environment:</strong> Blackout curtains plus an eye mask. Both. Light leaking around curtains is enough to fragment sleep.
+          <br /><br />
+          <strong>After your sleep window (2&#8211;5pm):</strong> Expose yourself to natural outdoor light. This maintains a light-dark cycle &#8212; just phase-shifted relative to conventional.
+        </div>
+
+        <p>
+          For rotating shift workers, the adaptation goal doesn&#8217;t apply &#8212; but bright light at the start of a night shift still improves alertness independently of circadian adaptation. Use it as an alertness tool rather than a phase-shifting tool. Our guide to <a href="/guides/light-screens-and-sleep">light, screens, and sleep</a> covers the underlying photobiology in more detail. The <a href="/light-exposure-calculator">Light Exposure Calculator</a> maps your optimal light and dark windows based on your specific shift times.
+        </p>
+
+        <h2>5. Caffeine Scheduling for Shift Workers</h2>
+
+        <p>
+          Caffeine is well-established as an alertness tool &#8212; but most shift workers use it reactively rather than strategically. The key insight is the half-life: caffeine has a half-life of approximately 5&#8211;6 hours, meaning half of a dose consumed at midnight is still active at 5&#8211;6am. <a href="https://pubmed.ncbi.nlm.nih.gov/23204306/" target="_blank" rel="noopener noreferrer">Caffeine consumed six hours before bed measurably reduces total sleep time and sleep quality</a> &#8212; and for a night worker trying to sleep at 9am, that means anything consumed after 3&#8211;4am is working against your sleep window.
+        </p>
+        <p>
+          The framework for shift workers is significantly different from the standard &#8220;no caffeine after 2pm&#8221; advice:
+        </p>
+        <ul class="shift-list">
+          <li><strong>Pre-shift dose (100&#8211;200mg):</strong> 30&#8211;60 minutes before the shift starts. Peak effect at 60&#8211;90 minutes, sustained for 4&#8211;5 hours.</li>
+          <li><strong>Mid-shift top-up (optional, 100mg):</strong> At the shift midpoint &#8212; e.g., 1&#8211;2am for a 10pm&#8211;6am shift. This timing allows the caffeine to clear before the sleep window.</li>
+          <li><strong>Hard cutoff:</strong> No caffeine in the final 4&#8211;5 hours before your planned sleep window. For a 7am finish with a 9am sleep window, cutoff is approximately 3&#8211;4am.</li>
+        </ul>
+        <p>
+          The <a href="/caffeine-cutoff-calculator">Caffeine Cutoff Calculator</a> takes your sleep window start time and caffeine sensitivity and calculates your personal cutoff. For the full science behind caffeine&#8217;s effect on sleep architecture, see our <a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">deep-dive on the Drake et al. research</a> &#8212; the same paper that quantified the six-hour effect.
+        </p>
+
+        <h2>6. Meal Timing on Shift</h2>
+
+        <p>
+          Meal timing is the most underrated variable in shift work performance. Eating aligns peripheral clocks in organs including the liver, pancreas, and gut. Misaligning meal timing with the biological night disrupts this synchronisation and has measurable metabolic consequences: <a href="https://pubmed.ncbi.nlm.nih.gov/28164449/" target="_blank" rel="noopener noreferrer">circadian disruption from shift work impairs metabolic function and predisposes to weight gain and metabolic disease</a>, in part because eating during the biological night raises insulin resistance compared to the same meal eaten during the day.
+        </p>
+        <p>
+          Practically, the advice for alertness and sleep quality is straightforward:
+        </p>
+        <ul class="shift-list">
+          <li><strong>Pre-shift meal (1&#8211;2 hours before shift start):</strong> A moderate, protein-rich meal. This stabilises blood glucose for the first half of the shift and reduces the need for mid-shift snacking.</li>
+          <li><strong>Mid-shift (shift midpoint, optional):</strong> A light meal or snack &#8212; not a full meal. A large meal during the 2&#8211;4am window, when insulin sensitivity is at its lowest and the digestive system least prepared, tends to produce pronounced post-meal sluggishness.</li>
+          <li><strong>Post-shift:</strong> Eat lightly if at all. Going to sleep on a full stomach impairs sleep quality for most people. A small, low-glycaemic snack is fine if needed; a full meal is not.</li>
+        </ul>
+        <p>
+          This is a secondary lever compared to light and anchor sleep, but it compounds the other strategies. If workplace constraints make strict meal timing difficult, prioritising the pre-shift meal and avoiding the heavy 2&#8211;4am meal is the minimum effective version.
+        </p>
+
+        <h2 class="bottom-line">The System</h2>
+
+        <p>
+          Shift work is a genuinely hard sleep problem &#8212; not because shift workers lack discipline, but because they&#8217;re fighting one of the strongest biological signals in the human body. The evidence points to a layered system: anchor sleep provides timing consistency, strategic light manages circadian phase, and timed caffeine protects the sleep window you&#8217;ve created. Meal timing limits the metabolic cost of working against your biology.
+        </p>
+        <p>
+          No single intervention fixes shift work sleep. The system works when the layers compound: a consistent anchor window plus correct light management plus a caffeine cutoff calibrated to your actual sleep time. The <a href="/shift-work-calculator">Shift Work Planner</a> builds a customised version of this schedule based on your exact shift pattern, outputting your anchor window, light exposure timing, caffeine windows, and meal recommendations in one place. Start there, establish the anchor first, and add the light and caffeine strategies once the core sleep window is stable.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid slugs={toolsMentioned} heading="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/why-you-wake-up-tired-even-after-8-hours">Why You Wake Up Tired (Even After 8 Hours)</a></li>
+            <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+            <li><a href="/guides/understanding-your-circadian-rhythm">Understanding Your Circadian Rhythm</a></li>
+            <li><a href="/guides/light-screens-and-sleep">Light, Screens &amp; Sleep</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Boivin, D. B., &amp; Boudreau, P. (2014). Impacts of shift work on sleep and circadian rhythms. <em>Pathologie Biologie</em>, 62(5), 292&#8211;301. <a href="https://pubmed.ncbi.nlm.nih.gov/25246026/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Eastman, C. I., Stewart, K. T., Mahoney, M. P., Liu, L., &amp; Fogg, L. F. (1994). Dark goggles and bright light improve circadian rhythm adaptation to night-shift work. <em>Sleep</em>, 17(6), 535&#8211;543. <a href="https://pubmed.ncbi.nlm.nih.gov/7973321/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Drake, C. L., Roehrs, T., Shambroom, J., &amp; Roth, T. (2013). Caffeine effects on sleep taken 0, 3, or 6 hours before going to bed. <em>Journal of Clinical Sleep Medicine</em>, 9(11), 1195&#8211;1200. <a href="https://pubmed.ncbi.nlm.nih.gov/23204306/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Akerstedt, T., &amp; Wright, K. P. Jr. (2009). Sleep loss and fatigue in shift work and shift work disorder. <em>Sleep Medicine Clinics</em>, 4(2), 257&#8211;271. <a href="https://pubmed.ncbi.nlm.nih.gov/20640236/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>McHill, A. W., &amp; Wright, K. P. Jr. (2017). Role of sleep and circadian disruption on energy expenditure and in metabolic predisposition to human obesity and metabolic disease. <em>Obesity Reviews</em>, 18(S1), 15&#8211;24. <a href="https://pubmed.ncbi.nlm.nih.gov/28164449/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary, #7c6aff);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    margin-bottom: 1rem;
+  }
+
+  .article-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-muted, #374151);
+    margin: 0.5rem 0 0;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr > strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  .tip-box {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .tip-box strong {
+    color: var(--primary, #7c3aed);
+  }
+
+  .shift-list {
+    margin: 0 0 1.25rem 1.25rem;
+    padding: 0;
+  }
+
+  .shift-list li {
+    margin-bottom: 0.6rem;
+    line-height: 1.7;
+  }
+
+  .shift-list li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  /* ── Anchor Sleep Calculator ── */
+  .anchor-calc {
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    margin: 2rem 0;
+  }
+
+  .anchor-calc-title {
+    font-size: 1.25rem !important;
+    margin: 0 0 0.25rem !important;
+    color: var(--text, #111827) !important;
+  }
+
+  .anchor-calc-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted, #6b7280);
+    margin: 0 0 1.5rem !important;
+  }
+
+  .calc-field {
+    margin-bottom: 1.25rem;
+  }
+
+  .calc-field label {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text, #111827);
+    margin-bottom: 0.4rem;
+  }
+
+  .calc-field select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border, #d1d5db);
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--text, #111827);
+    background: var(--card, #fff);
+    appearance: auto;
+  }
+
+  .calc-field select:focus {
+    outline: 2px solid var(--primary, #7c6aff);
+    outline-offset: 1px;
+  }
+
+  .calc-btn {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.25rem;
+    transition: opacity 0.15s;
+  }
+
+  .calc-btn:hover {
+    opacity: 0.88;
+  }
+
+  .calc-result {
+    display: none;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .calc-result.visible {
+    display: block;
+  }
+
+  .result-anchor-badge {
+    display: inline-block;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.4rem 1.1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .result-detail-block {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text, #111827);
+    margin-bottom: 0.75rem;
+  }
+
+  .result-detail-block strong {
+    color: var(--primary, #7c6aff);
+  }
+
+  .calc-nudge {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-radius: 0.4rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    color: #92400e;
+    margin-top: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  .disclaimer p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .post-body {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  function formatHour(h) {
+    var hour = h % 24;
+    var suffix = hour >= 12 ? 'pm' : 'am';
+    var display = hour % 12 === 0 ? 12 : hour % 12;
+    return display + ':00' + suffix;
+  }
+
+  function calculateAnchor() {
+    var shiftEndRaw = parseInt(document.getElementById('shiftEnd').value, 10);
+    var shiftType = document.getElementById('shiftType').value;
+
+    var anchorStart, anchorEnd, caffeineStart, caffeineEnd, lightNote, dayOffNote;
+
+    if (shiftEndRaw <= 12) {
+      anchorStart = shiftEndRaw + 2;
+      anchorEnd = anchorStart + 4;
+      caffeineEnd = anchorStart - 5;
+      if (caffeineEnd < 0) caffeineEnd += 24;
+      lightNote = 'Wear sunglasses on the commute home. Seek bright light at shift start the following evening.';
+      dayOffNote = shiftType === 'fixed'
+        ? 'On days off, maintain this anchor window (shift by no more than 1 hour). Avoiding morning light will protect your adaptation.'
+        : 'On days off, keep this anchor window. Rotating shift workers can\'t adapt their clock, so consistency is your only stability lever.';
+    } else {
+      anchorStart = shiftEndRaw + 1;
+      if (anchorStart >= 24) anchorStart -= 24;
+      anchorEnd = anchorStart + 4;
+      if (anchorEnd >= 24) anchorEnd -= 24;
+      caffeineEnd = shiftEndRaw - 3;
+      if (caffeineEnd < 0) caffeineEnd += 24;
+      lightNote = 'Your shift ends before sunrise — morning darkness helps. Still use blackout curtains and an eye mask for your sleep window.';
+      dayOffNote = 'Maintain this anchor on days off for maximum consistency.';
+    }
+
+    var badge = formatHour(anchorStart) + ' – ' + formatHour(anchorEnd);
+
+    var details = '<p class="result-detail-block"><strong>Anchor window:</strong> ' + badge + ' &#8212; protect this block every day, including days off.</p>' +
+      '<p class="result-detail-block"><strong>Caffeine cutoff:</strong> No caffeine after ' + formatHour(caffeineEnd) + ' to protect this sleep window (5-hour clearance).</p>' +
+      '<p class="result-detail-block"><strong>Light note:</strong> ' + lightNote + '</p>';
+
+    var nudge = '<p class="calc-nudge">' + dayOffNote + ' For a full schedule including meal windows and light exposure timing, use the <a href="/shift-work-calculator" style="color:#92400e;font-weight:600;">Shift Work Planner</a>.</p>';
+
+    document.getElementById('anchorBadge').textContent = 'Anchor: ' + badge;
+    document.getElementById('anchorDetails').innerHTML = details;
+    document.getElementById('anchorNudge').innerHTML = nudge;
+
+    var resultEl = document.getElementById('anchorCalcResult');
+    resultEl.classList.add('visible');
+    resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
