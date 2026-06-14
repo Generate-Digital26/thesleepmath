@@ -1,0 +1,835 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'How to Calculate Your Sleep Debt | The Sleep Math';
+const description = 'Sleep debt is the gap between the sleep you need and the sleep you get — and it compounds. Use our free calculator to find your exact weekly deficit in under 60 seconds.';
+const canonical = 'https://thesleepmath.com/blog/how-to-calculate-sleep-debt';
+const heroImage = '/images/blog/how-to-calculate-sleep-debt-hero.jpg';
+const ogImage = '/images/blog/how-to-calculate-sleep-debt-og.png';
+const publishDate = '2026-06-14';
+const modifiedDate = '2026-06-14';
+
+const toolsMentioned = [
+  'sleep-debt-calculator',
+  'sleep-efficiency-calculator',
+  'sleep-hygiene-calculator',
+  'sleep-score-calculator',
+  'nap-calculator',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to Calculate Your Sleep Debt — Free Calculator | The Sleep Math" />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="sleep debt" />
+    <meta property="article:tag" content="calculate sleep debt" />
+    <meta property="article:tag" content="sleep deficit" />
+    <meta property="article:tag" content="sleep science" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="How to Calculate Your Sleep Debt — Free Calculator | The Sleep Math" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Practical how-to guide on calculating sleep debt at TheSleepMath.com. Covers the sleep debt formula (weekly debt = sleep need × 7 − total sleep), three methods for estimating personal sleep need (free-run method, age-based NSF ranges, performance proxy), and a four-tier interpretive framework (0–2 hours minimal; 2–5 moderate; 5–10 high; 10+ severe). Explains recovery via consistent nightly extension rather than single lie-ins, citing Banks & Dinges (2010). Includes FAQ schema for five questions: how to calculate sleep debt, normal amounts, recovery time, sleep tracker use, and difference from sleep deprivation. Links to TheSleepMath calculators: sleep-debt, sleep-efficiency, sleep-hygiene, sleep-score, nap. Cross-links to companion science post /blog/sleep-debt-is-real-heres-the-math for peer-reviewed evidence." />
+    <meta name="ai-summary" content="Sleep debt = (sleep need × 7) − total sleep across 7 nights. Personal sleep need is estimated via free-run method, age-based NSF guidelines (7–9 hours for adults), or a caffeine-free performance proxy. Debt under 2 hours/week: low impact. 2–5 hours: measurable cognitive and mood effects. 5–10 hours: significant impairment, multiple recovery nights needed. 10+ hours: severe impairment. Recovery requires adding 60–90 minutes per night consistently, not a single long lie-in (Banks & Dinges 2010)." />
+    <meta name="nlp-entities" content="sleep debt, sleep deficit, calculate sleep debt, sleep need, sleep restriction, weekly sleep debt, sleep debt formula, sleep debt calculator, sleep deprivation, Banks and Dinges 2010, Van Dongen 2003, NSF sleep guidelines, free-run method, sleep need estimation, cognitive impairment, sleep recovery, sleep efficiency, sleep hygiene" />
+    <meta name="ai-content-type" content="health article, sleep science, how-to guide, practical calculator guide" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "How to Calculate Your Sleep Debt (And What to Do About It)",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "wordCount": 2050,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "how to calculate sleep debt, calculate sleep debt, calculating sleep debt, sleep debt calculator, sleep deficit calculator, how much sleep debt do i have, sleep debt formula, weekly sleep debt",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".article-intro", ".bottom-line"]
+          },
+          "citation": [
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Neurobehavioral Dynamics Following Chronic Sleep Restriction: Dose-Response Effects of One Night for Recovery",
+              "author": "Banks S, Van Dongen HP, Maislin G, Dinges DF",
+              "datePublished": "2010",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/20815182/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "The Cumulative Cost of Additional Wakefulness: Dose-Response Effects on Neurobehavioral Functions and Sleep Physiology From Chronic Sleep Restriction and Total Sleep Deprivation",
+              "author": "Van Dongen HP, Maislin G, Mullington JM, Dinges DF",
+              "datePublished": "2003",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/12683469/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "National Sleep Foundation's Sleep Time Duration Recommendations: Methodology and Results Summary",
+              "author": "Hirshkowitz M, Whiton K, et al.",
+              "datePublished": "2015",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/26350345/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do you calculate sleep debt?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sleep debt = (your nightly sleep need × number of nights) minus total actual sleep across those nights. For a week: multiply your sleep need by 7, then subtract the total hours you actually slept. The Sleep Debt Calculator does this automatically from your daily bedtime and wake time logs."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is a normal amount of sleep debt?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Most adults carry some sleep debt — occasional nights under your baseline are normal. Weekly debt under 2 hours is generally low-impact. Consistent debt of 5+ hours per week produces measurable cognitive and health effects. There is no universally safe level of chronic debt."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long does it take to recover from sleep debt?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Research suggests recovery from moderate sleep restriction takes multiple nights of extended sleep, not a single long lie-in. A rough model: debt hours ÷ 1.5 extra hours per night = recovery nights needed. Someone with 7.5 hours of debt adding 90 minutes per night would need roughly 5 nights to clear it."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can a sleep tracker calculate my sleep debt?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Some wearables (Oura, Whoop) estimate sleep need and track debt automatically. If you have one, use that data as input to the calculator — it's more accurate than manual log estimates. If you don't have a tracker, the manual log method is close enough to be practically useful."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is sleep debt the same as sleep deprivation?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sleep debt is the cumulative effect of chronic partial sleep restriction — consistently sleeping 1–2 hours less than your need. Sleep deprivation typically refers to acute total or near-total sleep loss (pulling an all-nighter). Sleep debt can produce equivalent or worse impairment than acute deprivation because it compounds over time."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "How to Calculate Your Sleep Debt (And What to Do About It)",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">How to Calculate Your Sleep Debt</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Sleep Science</span>
+        <h1>How to Calculate Your Sleep Debt <span class="pop">(And What to Do About It)</span></h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>14 June 2026</time> &#183; 8 min read
+        </p>
+        <p class="article-intro">
+          Most people guess at whether they&#8217;re sleep-deprived. They feel &#8220;a bit tired&#8221; or &#8220;fine, actually&#8221; &#8212; and neither tells you anything useful. Sleep debt is measurable. There&#8217;s a formula. The number it produces is more revealing than how you feel, because the research shows that how you feel is the last thing to accurately track your actual deficit. Here&#8217;s how to calculate yours.
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="Handwritten sleep log notebook next to an alarm clock in early morning light"
+        width="1600"
+        height="900"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>Sleep debt = <strong>(sleep need &times; 7) &minus; total hours slept</strong> across the week. It&#8217;s arithmetic, not a feeling.</li>
+            <li>Your personal sleep need &#8212; not 8 hours, <em>your</em> number &#8212; is the essential input. Three methods to find it are covered below.</li>
+            <li>Weekly debt under 2 hours: low-impact. 2&#8211;5 hours: measurable cognitive and mood effects. 5&#8211;10 hours: significant impairment. 10+: severe.</li>
+            <li>One long lie-in <strong>does not clear the debt</strong>. Recovery requires adding 60&#8211;90 minutes per night consistently over several days.</li>
+            <li>The <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> does all of this automatically from your bedtime and wake time logs.</li>
+          </ul>
+        </div>
+
+        <h2>What is sleep debt, exactly?</h2>
+
+        <p>
+          Sleep debt is the cumulative gap between the sleep you need and the sleep you actually get, summed across multiple nights. It is not how you feel &#8212; it is arithmetic. A person who needs 8 hours and gets 6 for five nights carries 10 hours of debt by Friday, regardless of whether they feel &#8220;okay.&#8221;
+        </p>
+        <p>
+          The reason your subjective sense of tiredness is an unreliable guide is well-documented: after a few days of restricted sleep, self-reported sleepiness flatlines while objective performance continues to deteriorate. You adapt to feeling impaired without the impairment resolving. If you want the peer-reviewed evidence for why that number matters &#8212; including what it does to your reaction time and cardiovascular risk &#8212; the <a href="/blog/sleep-debt-is-real-heres-the-math">Sleep Debt Is Real &#8212; Here&#8217;s the Math</a> post covers it in full.
+        </p>
+
+        <h2>The sleep debt formula</h2>
+
+        <p>The arithmetic is straightforward:</p>
+
+        <div class="formula-block">
+          <strong>Weekly sleep debt = (sleep need &times; 7) &minus; total hours slept across the week</strong>
+        </div>
+
+        <p>Breaking it into steps:</p>
+
+        <p><strong>Step 1: Find your sleep need.</strong> Not 8 hours &#8212; your number. Sleep need varies by age, genetics, and individual biology. The NSF range for adults is 7&#8211;9 hours, but most people have a specific number within that range. The simplest proxy: how many hours do you sleep naturally when unalarmed, after a few nights of unconstrained sleep? That&#8217;s your baseline.</p>
+
+        <p><strong>Step 2: Log your actual sleep for the past 7 days.</strong> Bedtime to wake time &#8212; not time in bed. If you lay awake for 45 minutes before falling asleep, that doesn&#8217;t count.</p>
+
+        <p><strong>Step 3: Run the arithmetic.</strong> Example: sleep need of 8 hours; actual sleep across the week &#8212; 7h, 6.5h, 7h, 6h, 6.5h, 8h, 7.5h &#8212; totals 48.5 hours. Sleep need for 7 nights = 56 hours. Sleep debt = 7.5 hours.</p>
+
+        <p>
+          The <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> does this automatically &#8212; enter your bedtime and wake time for each day of the last week and get your deficit, cognitive impact score, and recovery timeline in under 60 seconds.
+        </p>
+
+        <!-- Calculator CTA -->
+        <div class="calc-cta">
+          <p class="calc-cta-heading">Calculate your sleep debt now</p>
+          <p class="calc-cta-body">Enter last week&#8217;s sleep log and get your deficit, cognitive impact, and recovery plan.</p>
+          <a href="/sleep-debt-calculator" class="calc-cta-link">
+            Open the Sleep Debt Calculator
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <h2>What counts as your sleep need?</h2>
+
+        <p>
+          Most people assume 8 hours. The research says 7&#8211;9 hours for adults is the range, but the individual number is what matters for an accurate debt calculation. Here are three ways to estimate yours:
+        </p>
+
+        <p><strong>The free-run method.</strong> Track how much you sleep naturally for 3&#8211;4 nights in a row when you have no alarm, no obligations, and no accumulated debt to repay. The hours you converge on are close to your baseline need. Caveat: the first 1&#8211;2 nights will be longer than usual if you&#8217;re already carrying debt &#8212; don&#8217;t count those.</p>
+
+        <p><strong>Age-based baseline.</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/26350345/" target="_blank" rel="noopener noreferrer">NSF guidelines put the adult range at 7&#8211;9 hours for ages 18&#8211;64, 7&#8211;8 hours for ages 65+, and 8&#8211;10 hours for teenagers</a>. Use this if you can&#8217;t run the free-run method &#8212; it gets you in the right range, if not your exact number.</p>
+
+        <p><strong>Performance proxy.</strong> If you feel fully alert and don&#8217;t need caffeine to function normally by mid-morning, your sleep the previous night was probably sufficient. If you&#8217;re relying on coffee to be functional, you probably didn&#8217;t hit your need.</p>
+
+        <p>
+          The Sleep Debt Calculator offers 7h, 7.5h, 8h, 8.5h, and 9h as baseline options. If you&#8217;re uncertain, start with 8 hours &#8212; the research-recommended default for most adults.
+        </p>
+
+        <h2>How to interpret your number</h2>
+
+        <p>Once you have a weekly sleep debt figure, here&#8217;s a rough interpretive framework:</p>
+
+        <div class="debt-table-wrap">
+          <table class="debt-table">
+            <thead>
+              <tr>
+                <th>Weekly sleep debt</th>
+                <th>Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0&#8211;2 hours</td>
+                <td>Minimal &#8212; within normal variation</td>
+              </tr>
+              <tr>
+                <td>2&#8211;5 hours</td>
+                <td>Moderate &#8212; measurable cognitive and mood effects</td>
+              </tr>
+              <tr>
+                <td>5&#8211;10 hours</td>
+                <td>High &#8212; significant impairment likely; recovery requires multiple nights</td>
+              </tr>
+              <tr>
+                <td>10+ hours</td>
+                <td>Severe &#8212; equivalent cognitive impairment to extended sleep deprivation</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Two important caveats:</p>
+
+        <p>
+          First, the number is only as accurate as your inputs. Estimating sleep times rather than logging them introduces error. A sleep tracker &#8212; Oura, Whoop, Apple Watch &#8212; gives more precise data, but the basic log method is close enough to be useful.
+        </p>
+        <p>
+          Second, sleep debt is cumulative, and a 7-day snapshot doesn&#8217;t capture debt accumulated over the last month or year. The calculator gives you a recent picture, not a lifetime total.
+        </p>
+        <p>
+          If you&#8217;re regularly in bed for 8 hours but still accumulating debt, <a href="/sleep-efficiency-calculator">sleep efficiency</a> &#8212; the ratio of time asleep to time in bed &#8212; might be what&#8217;s off, not the hours. Someone who spends 8 hours in bed but takes 45 minutes to fall asleep and wakes twice in the night is getting considerably less than 8 hours of actual sleep.
+        </p>
+
+        <h2>Can you pay off sleep debt?</h2>
+
+        <p>
+          Yes &#8212; but not the way most people try.
+        </p>
+
+        <p>
+          <strong>One long lie-in doesn&#8217;t clear the debt.</strong> <a href="https://pubmed.ncbi.nlm.nih.gov/20815182/" target="_blank" rel="noopener noreferrer">Banks &amp; Dinges (2010) showed that recovery from 5 nights of sleep restriction required multiple nights of extended sleep, not a single catch-up night</a>. Cognitive deficits were still detectable after one recovery night, even a generous 10-hour one.
+        </p>
+
+        <p>
+          <strong>Consistent extension is what works.</strong> Adding 60&#8211;90 minutes per night over several nights is more effective than occasional 10-hour nights. The calculator&#8217;s recovery timeline estimate uses this model: debt &divide; ~1.5 extra hours per night = recovery nights needed.
+        </p>
+
+        <p>What to do:</p>
+        <ul class="action-list">
+          <li>Go to bed 60&#8211;90 minutes earlier than usual for several nights in a row</li>
+          <li>Don&#8217;t rely on weekend lie-ins as your only recovery strategy</li>
+          <li>If you&#8217;re consistently accumulating debt faster than you can repay it, the <a href="/sleep-hygiene-calculator">Sleep Hygiene Audit</a> is worth working through</li>
+        </ul>
+
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-block">
+          <div class="faq-item">
+            <h3>How do you calculate sleep debt?</h3>
+            <p>Sleep debt = (your nightly sleep need &times; number of nights) minus total actual sleep across those nights. For a week: multiply your sleep need by 7, then subtract the total hours you actually slept. The <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> does this automatically from your daily bedtime and wake time logs.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What is a normal amount of sleep debt?</h3>
+            <p>Most adults carry some sleep debt &#8212; occasional nights under your baseline are normal. Weekly debt under 2 hours is generally low-impact. Consistent debt of 5+ hours per week produces measurable cognitive and health effects. There is no universally &#8220;safe&#8221; level of chronic debt.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How long does it take to recover from sleep debt?</h3>
+            <p>Research suggests recovery from moderate sleep restriction takes multiple nights of extended sleep, not a single long lie-in. A rough model: debt hours &divide; 1.5 extra hours per night = recovery nights needed. Someone with 7.5 hours of debt adding 90 minutes per night would need roughly 5 nights to clear it.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Can a sleep tracker calculate my sleep debt?</h3>
+            <p>Some wearables &#8212; Oura, Whoop &#8212; estimate sleep need and track debt automatically. If you have one, use that data as input to the calculator &#8212; it&#8217;s more accurate than manual log estimates. If you don&#8217;t have a tracker, the manual log method is close enough to be practically useful.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is sleep debt the same as sleep deprivation?</h3>
+            <p>Related but different. Sleep deprivation typically refers to acute, total, or near-total sleep loss &#8212; pulling an all-nighter. Sleep debt is the cumulative effect of chronic, partial sleep restriction: consistently sleeping 1&#8211;2 hours less than your need. Sleep debt can produce equivalent or worse impairment than acute deprivation because it compounds over time.</p>
+          </div>
+        </div>
+
+        <h2 class="bottom-line">The bottom line</h2>
+
+        <p>
+          Sleep debt is measurable, reversible, and most people have more of it than they think. The most useful thing you can do right now is find your actual number. The <a href="/sleep-debt-calculator">Sleep Debt Calculator</a> takes under a minute. If your debt is consistently high, the <a href="/sleep-hygiene-calculator">Sleep Hygiene Audit</a> and the full <a href="/guides/understanding-your-circadian-rhythm">Understanding Your Circadian Rhythm</a> guide are good next steps.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid slugs={toolsMentioned} heading="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/sleep-debt-is-real-heres-the-math">Sleep Debt Is Real &#8212; Here&#8217;s the Math</a></li>
+            <li><a href="/blog/why-8-hours-rule-is-wrong">Why the &#8216;8 Hours&#8217; Rule Is Wrong</a></li>
+            <li><a href="/blog/why-you-wake-up-tired-even-after-8-hours">Why You Wake Up Tired (Even After 8 Hours)</a></li>
+            <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Banks, S., Van Dongen, H. P. A., Maislin, G., &amp; Dinges, D. F. (2010). Neurobehavioral dynamics following chronic sleep restriction: Dose-response effects of one night for recovery. <em>Sleep</em>, 33(8):1013&#8211;1026. <a href="https://pubmed.ncbi.nlm.nih.gov/20815182/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Van Dongen, H. P. A., Maislin, G., Mullington, J. M., &amp; Dinges, D. F. (2003). The cumulative cost of additional wakefulness: Dose-response effects on neurobehavioral functions and sleep physiology from chronic sleep restriction and total sleep deprivation. <em>Sleep</em>, 26(2):117&#8211;126. <a href="https://pubmed.ncbi.nlm.nih.gov/12683469/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Hirshkowitz, M., Whiton, K., Albert, S. M., et al. (2015). National Sleep Foundation&#8217;s sleep time duration recommendations: Methodology and results summary. <em>Sleep Health</em>, 1(1):40&#8211;43. <a href="https://pubmed.ncbi.nlm.nih.gov/26350345/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary, #7c6aff);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    margin-bottom: 1rem;
+  }
+
+  .article-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-muted, #374151);
+    margin: 0.5rem 0 0;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  /* TL;DR */
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr > strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  /* Formula block */
+  .formula-block {
+    background: var(--surface, #f9fafb);
+    border: 2px solid var(--primary, #7c6aff);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    margin: 0 0 1.5rem;
+    font-size: 1.0625rem;
+    color: var(--text, #111827);
+    text-align: center;
+  }
+
+  /* Calculator CTA card */
+  .calc-cta {
+    background: #1a1a2e;
+    border-radius: 0.75rem;
+    padding: 1.75rem 2rem;
+    margin: 2rem 0;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .calc-cta-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+  }
+
+  .calc-cta-body {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .calc-cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    transition: opacity 0.15s;
+  }
+
+  .calc-cta-link:hover {
+    opacity: 0.88;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  /* Debt interpretation table */
+  .debt-table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .debt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .debt-table th {
+    background: var(--surface, #f9fafb);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border, #e5e7eb);
+    color: var(--text, #111827);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .debt-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border, #e5e7eb);
+    color: var(--text, #111827);
+    vertical-align: top;
+  }
+
+  .debt-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .debt-table tr:nth-child(even) td {
+    background: var(--bg-tint, #fafafa);
+  }
+
+  /* Action list */
+  .action-list {
+    padding-left: 1.25rem;
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  .action-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+
+  .action-list li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  /* FAQ block */
+  .faq-block {
+    margin: 1rem 0 2rem;
+  }
+
+  .faq-item {
+    border-top: 1px solid var(--border, #e5e7eb);
+    padding: 1.25rem 0;
+  }
+
+  .faq-item:last-child {
+    border-bottom: 1px solid var(--border, #e5e7eb);
+  }
+
+  .faq-item h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: var(--text, #111827);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.4;
+  }
+
+  .faq-item p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-muted, #374151);
+    margin: 0;
+  }
+
+  /* Bottom line heading */
+  .bottom-line {
+    color: var(--primary, #7c6aff) !important;
+  }
+
+  /* Related reading */
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  /* References */
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .calc-cta {
+      padding: 1.25rem 1.25rem;
+    }
+
+    .formula-block {
+      font-size: 0.9375rem;
+    }
+  }
+</style>

@@ -6,7 +6,7 @@ import Footer from '@/components/Footer.astro';
 
 <BaseLayout
   title="Sleep Science Blog — The Sleep Math"
-  description="Sleep science deep-dives, calculator guides, and research breakdowns from The Sleep Math. Articles on circadian rhythm, insomnia, and more coming soon."
+  description="Sleep science deep-dives, calculator guides, and research breakdowns from The Sleep Math. Evidence-based articles on circadian rhythm, caffeine, insomnia, chronotype, and more."
 >
   <Nav />
 
@@ -42,6 +42,23 @@ import Footer from '@/components/Footer.astro';
 
         <!-- Published articles -->
         <section class="posts-grid" aria-label="Published articles">
+          <a href="/blog/how-to-calculate-sleep-debt" class="post-card">
+            <div class="post-card-img">
+              <img src="/images/blog/how-to-calculate-sleep-debt-hero.jpg" alt="Handwritten sleep log notebook next to an alarm clock in early morning light" loading="lazy" />
+            </div>
+            <div class="post-card-body">
+              <div class="post-card-meta">
+                <span class="post-tag">Sleep Science</span>
+                <span class="post-date">Jun 14, 2026</span>
+              </div>
+              <h2 class="post-card-title">How to Calculate Your Sleep Debt (And What to Do About It)</h2>
+              <p class="post-card-excerpt">Sleep debt is the gap between the sleep you need and the sleep you get &#8212; and it compounds. Here&#8217;s the formula, how to find your personal sleep need, and how to interpret what your number means.</p>
+              <span class="post-card-cta">
+                Read article
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </span>
+            </div>
+          </a>
           <a href="/blog/liminal-space-sleep" class="post-card">
             <div class="post-card-img">
               <img src="/images/blog/liminal-space-sleep-hero.jpg" alt="A person lying in bed in near-darkness, eyes softly closed, one hand resting open on the pillow, with a thin line of warm amber light crossing the wall" loading="lazy" />
@@ -137,7 +154,7 @@ import Footer from '@/components/Footer.astro';
                 <span class="post-date">May 30, 2026</span>
               </div>
               <h2 class="post-card-title">Brown Noise for Sleep: What the Science Actually Says (And a Calculator to Find Your Optimal Volume)</h2>
-              <p class="post-card-excerpt">Brown noise isn&#8217;t magic &#8212; it&#8217;s masking. A 2017 Harvard-affiliated RCT found it cut sleep onset time by 38%, but only for the right kind of sleeper. Here&#8217;s what the science shows, plus a calculator for your optimal volume.</p>
+              <p class="post-card-excerpt">Brown noise isn&#8217;t magic &#8212; it&#8217;s masking. A 2017 Harvard-affiliated RCT found broadband noise cut sleep onset time by 38%, but only for the right kind of sleeper. Here&#8217;s what four peer-reviewed studies show, plus a calculator for your optimal volume.</p>
               <span class="post-card-cta">
                 Read article
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -263,37 +280,6 @@ import Footer from '@/components/Footer.astro';
               </span>
             </div>
           </a>
-        </section>
-
-        <!-- Upcoming articles -->
-        <section class="upcoming" aria-label="Upcoming articles">
-          <p class="upcoming-label">Coming next</p>
-          <ul class="article-list">
-            <li class="article-item">
-              <span class="article-dot" aria-hidden="true"></span>
-              <span class="article-title">Alcohol and Sleep: What One Drink Actually Does</span>
-            </li>
-            <li class="article-item">
-              <span class="article-dot" aria-hidden="true"></span>
-              <span class="article-title">Napping Science: When It Helps and When It Backfires</span>
-            </li>
-            <li class="article-item">
-              <span class="article-dot" aria-hidden="true"></span>
-              <span class="article-title">Exercise and Sleep: What Time You Train Actually Matters</span>
-            </li>
-            <li class="article-item">
-              <span class="article-dot" aria-hidden="true"></span>
-              <span class="article-title">Social Jet Lag: The Weekend Sleep Pattern Wrecking Your Week</span>
-            </li>
-            <li class="article-item">
-              <span class="article-dot" aria-hidden="true"></span>
-              <span class="article-title">Melatonin: What the Research Actually Says About Dose and Timing</span>
-            </li>
-            <li class="article-item">
-              <span class="article-dot" aria-hidden="true"></span>
-              <span class="article-title">The Science of REM Sleep: What Actually Happens and Why It Matters</span>
-            </li>
-          </ul>
         </section>
 
         <!-- Newsletter CTA -->
