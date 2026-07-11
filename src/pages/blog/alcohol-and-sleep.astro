@@ -1,0 +1,765 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+import ToolsGrid from '@/components/ToolsGrid.astro';
+
+const title = 'Alcohol and Sleep: What One Drink Actually Does | The Sleep Math';
+const description = 'One drink feels relaxing, but it fragments REM sleep, triggers 3am wake-ups, and raises sleep apnea risk 25%. Here’s what alcohol actually does to sleep.';
+const canonical = 'https://thesleepmath.com/blog/alcohol-and-sleep';
+const heroImage = '/images/blog/alcohol-and-sleep-hero.jpg';
+const ogImage = '/images/blog/alcohol-and-sleep-og.png';
+const publishDate = '2026-07-10';
+const modifiedDate = '2026-07-10';
+
+const toolsMentioned = [
+  'alcohol-sleep-calculator',
+  'sleep-score-calculator',
+  'sleep-efficiency-calculator',
+  'sleep-apnea-risk-calculator',
+  'sleep-cycle-calculator',
+  'sleep-hygiene-calculator',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+>
+  <Fragment slot="head">
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Alcohol and Sleep: What One Drink Actually Does | The Sleep Math" />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`https://thesleepmath.com${ogImage}`} />
+    <meta property="article:published_time" content={publishDate} />
+    <meta property="article:modified_time" content={modifiedDate} />
+    <meta property="article:section" content="Sleep Science" />
+    <meta property="article:tag" content="alcohol and sleep" />
+    <meta property="article:tag" content="REM sleep" />
+    <meta property="article:tag" content="sleep architecture" />
+    <meta property="article:tag" content="sleep apnea" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Alcohol and Sleep: What One Drink Actually Does | The Sleep Math" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`https://thesleepmath.com${ogImage}`} />
+
+    <!-- AI / LLM meta tags -->
+    <meta name="llm-context" content="Evidence-based explainer on TheSleepMath.com about how alcohol affects sleep. Covers the biphasic effect (sedation in the first half of the night, fragmentation in the second), the dose-response REM suppression shown in Gardiner et al.'s 2024 meta-analysis of 27 studies, the rebound-arousal mechanism behind 3am wake-ups (Colrain, Nicholas & Baker 2014), real-world wearable data from Grosicki et al.'s 2026 PLOS Digital Health study of ~21,000 adults showing even one drink measurably raises overnight heart rate and lowers heart rate variability, and the 25% increased risk of obstructive sleep apnea associated with alcohol consumption (Simou, Britton & Leonardi-Bee 2018). Includes FAQ schema for five questions: does alcohol help you fall asleep, why you wake up at 3am after drinking, how much alcohol disrupts sleep, does alcohol worsen sleep apnea, and how long to wait before bed after drinking. Links to TheSleepMath calculators: alcohol-sleep, sleep-score, sleep-efficiency, sleep-apnea-risk, sleep-cycle, sleep-hygiene." />
+    <meta name="ai-summary" content="Alcohol is biphasic: it sedates and consolidates sleep in the first half of the night, then fragments it in the second half as blood alcohol clears and the nervous system rebounds into a hyperaroused state. REM sleep is suppressed in a dose-dependent way starting at roughly two standard drinks, and total REM can be delayed and shortened even after moderate intake. Real-world wearable data shows even one drink measurably raises overnight heart rate and lowers heart rate variability. Alcohol relaxes upper-airway muscles, raising obstructive sleep apnea risk by about 25%. The safest approach is stopping alcohol at least 3-4 hours before bed and limiting intake to 1-2 standard drinks." />
+    <meta name="nlp-entities" content="alcohol and sleep, REM sleep suppression, sleep architecture, biphasic effect, rebound arousal, blood alcohol concentration, obstructive sleep apnea, snoring, heart rate variability, sleep fragmentation, Ebrahim 2013, Gardiner 2024, Colrain 2014, Grosicki 2026, Simou 2018, nightcap, sleep onset latency" />
+    <meta name="ai-content-type" content="health article, sleep science, evidence-based guide" />
+    <meta name="GPTBot" content="index, follow" />
+    <meta name="ClaudeBot" content="index, follow" />
+    <meta name="PerplexityBot" content="index, follow" />
+    <meta name="Google-Extended" content="index, follow" />
+
+    <link rel="canonical" href={canonical} />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Alcohol and Sleep: What One Drink Actually Does",
+          "description": description,
+          "image": `https://thesleepmath.com${heroImage}`,
+          "datePublished": publishDate,
+          "dateModified": modifiedDate,
+          "wordCount": 1950,
+          "author": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "The Sleep Math",
+            "url": "https://thesleepmath.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://thesleepmath.com/images/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonical
+          },
+          "url": canonical,
+          "keywords": "alcohol and sleep, does alcohol help you sleep, alcohol REM sleep, wake up 3am after drinking, alcohol sleep apnea, nightcap sleep, alcohol before bed",
+          "speakable": {
+            "@type": "SpeakableSpecification",
+            "cssSelector": ["h1", ".article-intro", ".bottom-line"]
+          },
+          "citation": [
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Alcohol and Sleep I: Effects on Normal Sleep",
+              "author": "Ebrahim IO, Shapiro CM, Williams AJ, Fenwick PB",
+              "datePublished": "2013",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/23347102/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "The effect of alcohol on subsequent sleep in healthy adults: A systematic review and meta-analysis",
+              "author": "Gardiner CL, Weakley J, Burke LM, et al.",
+              "datePublished": "2024",
+              "url": "https://www.sciencedirect.com/science/article/pii/S1087079224001345"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Alcohol and the Sleeping Brain",
+              "author": "Colrain IM, Nicholas CL, Baker FC",
+              "datePublished": "2014",
+              "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5821259/"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Real-world effects of alcohol on heart rate, sleep, and physical activity by age and sex",
+              "author": "Grosicki GJ, Robinson AT, Joyner MJ, et al.",
+              "datePublished": "2026",
+              "url": "https://journals.plos.org/digitalhealth/article?id=10.1371%2Fjournal.pdig.0001284"
+            },
+            {
+              "@type": "ScholarlyArticle",
+              "name": "Alcohol and the risk of sleep apnoea: a systematic review and meta-analysis",
+              "author": "Simou E, Britton J, Leonardi-Bee J",
+              "datePublished": "2018",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/29458744/"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Does alcohol help you fall asleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, briefly. Alcohol shortens sleep onset latency and increases slow-wave sleep in the first half of the night, which is why it feels sedating. But that effect reverses as blood alcohol clears — the second half of the night becomes fragmented and lighter, so total sleep quality is worse, not better."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why do I wake up at 3am after drinking?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "As your body finishes metabolizing alcohol, your nervous system rebounds into a hyperaroused state — cortisol and heart rate rise and sleep becomes easy to interrupt. This rebound effect typically lands 3 to 5 hours after your last drink, which for an evening drinker is squarely in the early-morning hours."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How much alcohol disrupts sleep?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A 2024 meta-analysis of 27 studies found measurable REM sleep disruption starting at roughly two standard drinks, worsening with each additional drink. Real-world wearable data from over 21,000 adults shows even a single drink measurably raises overnight heart rate and lowers heart rate variability, so there isn't a dose that improves sleep quality — only a threshold at which the damage becomes obvious."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does alcohol make sleep apnea worse?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Alcohol relaxes the muscles that hold your upper airway open, and a systematic review found it increases the risk of obstructive sleep apnea by roughly 25%. In people who already have OSA, alcohol can lengthen and worsen individual breathing events, particularly in the first half of the night."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long should you wait to sleep after drinking?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A common guideline is roughly one hour per standard drink, aiming to get your blood alcohol concentration below about 0.05 before lights out. For two drinks that's 2–3 hours; for four drinks, 4–5 hours. The Alcohol & Sleep Calculator estimates your personal clearance window using the Widmark formula."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://thesleepmath.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://thesleepmath.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Alcohol and Sleep: What One Drink Actually Does",
+              "item": canonical
+            }
+          ]
+        }
+      ]
+    })} />
+  </Fragment>
+
+  <Nav />
+
+  <main class="blog-post">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li aria-current="page">Alcohol and Sleep</li>
+      </ol>
+    </nav>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Sleep Science</span>
+        <h1>Alcohol and Sleep <span class="pop">(What One Drink Actually Does)</span></h1>
+        <p class="post-meta">
+          <time datetime={publishDate}>10 July 2026</time> &#183; 8 min read
+        </p>
+        <p class="article-intro">
+          A glass of wine to unwind, a nightcap to switch off &#8212; it feels like it helps. And for the first hour or two, it does. The problem is everything that happens after you fall asleep. Not vibes. Real research. Here&#8217;s the dose-response curve, the 3am rebound, and why your smartwatch already knows something is off.
+        </p>
+      </header>
+
+      <img
+        class="hero-img"
+        src={heroImage}
+        alt="A glass of red wine on a bedside table next to a dimly lit lamp in the evening"
+        width="1376"
+        height="768"
+        loading="eager"
+      />
+
+      <div class="post-body">
+
+        <div class="tldr">
+          <strong>TL;DR</strong>
+          <ul>
+            <li>Alcohol is <strong>biphasic</strong>: sedating and sleep-consolidating for the first half of the night, then fragmenting and arousing for the second.</li>
+            <li>REM sleep suppression is dose-dependent, starting at roughly <strong>two standard drinks</strong>, and gets worse from there.</li>
+            <li>The 3am wake-up isn&#8217;t bad luck &#8212; it&#8217;s a rebound arousal as your body finishes clearing the alcohol.</li>
+            <li>Real-world wearable data from over 21,000 adults shows <strong>even one drink</strong> measurably raises overnight heart rate and lowers heart rate variability.</li>
+            <li>Alcohol relaxes upper-airway muscles and raises obstructive sleep apnea risk by roughly <strong>25%</strong>.</li>
+            <li>Stopping alcohol 3&#8211;4 hours before bed, and capping intake at 1&#8211;2 drinks, preserves most of your sleep architecture.</li>
+            <li>The <a href="/alcohol-sleep-calculator">Alcohol &amp; Sleep Calculator</a> estimates your personal clearance window before bed.</li>
+          </ul>
+        </div>
+
+        <h2>The biphasic effect: why it feels like it helps</h2>
+
+        <p>
+          Alcohol is a central nervous system depressant, and its sedative action on GABA-A receptors is genuinely calming &#8212; that&#8217;s not in dispute. <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">Ebrahim et al. (2013) reviewed decades of sleep-lab studies and confirmed that alcohol reliably shortens sleep onset latency and consolidates the first half of the night</a>, increasing slow-wave sleep and reducing the number of early awakenings. If you only measured the first three hours of sleep, alcohol would look like a legitimate sleep aid.
+        </p>
+
+        <p>
+          The trouble is what happens next. As your body metabolizes the alcohol and blood levels fall, the sedative effect doesn&#8217;t just wear off &#8212; it reverses. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5821259/" target="_blank" rel="noopener noreferrer">Colrain, Nicholas &amp; Baker (2014) describe this as a withdrawal-like rebound</a>: the same neurochemical systems that were suppressed swing the other way, producing a lighter, more fragmented, more easily interrupted second half of the night. You get a good first act and a rough second one, and the second one is longer.
+        </p>
+
+        <h2>The REM sleep tax</h2>
+
+        <p>
+          The clearest, most consistent casualty is REM sleep &#8212; the stage tied to memory consolidation, emotional processing, and the feeling of having actually rested. A 2024 systematic review pooling <a href="https://www.sciencedirect.com/science/article/pii/S1087079224001345" target="_blank" rel="noopener noreferrer">27 controlled studies found a clear dose-response relationship: REM sleep was measurably delayed and shortened starting at doses as low as roughly two standard drinks, and the disruption worsened progressively with each additional drink</a>. Total sleep time barely changed in the pooled data &#8212; the damage isn&#8217;t about hours in bed, it&#8217;s about what kind of sleep fills those hours.
+        </p>
+
+        <p>
+          This matters because REM doesn&#8217;t simply get skipped and made up later. It gets pushed later into the night and compressed, and because REM periods lengthen toward morning, a night cut short by an early alarm loses a disproportionate share of it. Pair a late nightcap with an early wake-up and you&#8217;ve stacked two REM-suppressing factors on top of each other.
+        </p>
+
+        <!-- Calculator CTA -->
+        <div class="calc-cta">
+          <p class="calc-cta-heading">Find your personal clearance window</p>
+          <p class="calc-cta-body">Enter your drinks and bedtime to see roughly when your BAC drops low enough for sleep to recover.</p>
+          <a href="/alcohol-sleep-calculator" class="calc-cta-link">
+            Open the Alcohol &amp; Sleep Calculator
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <h2>Why you wake up at 3am</h2>
+
+        <p>
+          This is the rebound effect in practice. Alcohol suppresses your nervous system while your blood alcohol concentration (BAC) is rising or elevated. But once your liver finishes clearing it &#8212; typically 3 to 5 hours after your last drink &#8212; your body swings into a hyperaroused state to compensate. Cortisol rises, heart rate increases, and you become far easier to wake. For an evening drinker, that clearance window lands squarely in the early-morning hours, which is why the 3am wake-up after a few drinks feels so specific and so reliable.
+        </p>
+
+        <p>
+          It compounds with a second mechanism: REM sleep suppressed early in the night tends to rebound once the sedative effect fades, producing more vivid dreams and lighter, more easily broken sleep in the back half of the night. If you want the full mechanics of why fragmented sleep leaves you exhausted even after a technically full night in bed, <a href="/blog/why-you-wake-up-tired-even-after-8-hours">the fragmentation deep-dive covers the rest of the causes</a>, from noise to <a href="/sleep-apnea-risk-calculator">undiagnosed breathing disturbances</a>.
+        </p>
+
+        <h2>What your smartwatch already knows</h2>
+
+        <p>
+          You don&#8217;t need a sleep lab to see this &#8212; wearables have made it visible at scale. A 2026 study in <em>PLOS Digital Health</em> analyzed <a href="https://journals.plos.org/digitalhealth/article?id=10.1371%2Fjournal.pdig.0001284" target="_blank" rel="noopener noreferrer">real-world data from nearly 21,000 adults and found alcohol consumption produced a dose-dependent hit to overnight recovery metrics: higher resting heart rate during sleep, lower heart rate variability, less total sleep, and reduced activity the following day</a>. The effect wasn&#8217;t confined to heavy drinking sessions &#8212; even a single drink produced a measurable change.
+        </p>
+
+        <p>
+          If you track your own numbers, this is exactly what shows up as a lower <a href="/sleep-score-calculator">sleep score</a> or a dip in <a href="/sleep-efficiency-calculator">sleep efficiency</a> the morning after drinking, even on nights when you technically got a normal number of hours. The gap between time in bed and time actually, restoratively asleep is where alcohol does its damage.
+        </p>
+
+        <h2>Alcohol, snoring, and sleep apnea</h2>
+
+        <p>
+          There&#8217;s a mechanical problem layered on top of the neurochemical one. Alcohol relaxes the muscles of the soft palate, tongue, and throat &#8212; the same muscles responsible for keeping your airway open while you sleep. <a href="https://pubmed.ncbi.nlm.nih.gov/29458744/" target="_blank" rel="noopener noreferrer">A systematic review and meta-analysis found that alcohol consumption increases the risk of obstructive sleep apnea by approximately 25%</a>, and in people who already have OSA, it can increase the frequency and duration of breathing events, particularly during the alcohol-heavy first half of the night.
+        </p>
+
+        <p>
+          Alcohol also raises your arousal threshold &#8212; the amount of airway obstruction required before your brain wakes you up to resume breathing. That means events can run longer and drop oxygen saturation further before you&#8217;re roused, which is part of why bed partners often report louder, more irregular snoring on nights you&#8217;ve been drinking. If snoring, gasping, or unexplained daytime fatigue are recurring themes for you regardless of drinking, it&#8217;s worth running the <a href="/sleep-apnea-risk-calculator">Sleep Apnea Risk Calculator</a> to see whether it&#8217;s worth a conversation with a doctor.
+        </p>
+
+        <h2>So does alcohol help you sleep, or not?</h2>
+
+        <p>
+          It helps you fall asleep. It does not help you sleep well. That distinction is the entire story: faster sleep onset and a more consolidated first sleep cycle, traded for REM suppression, rebound arousal, and a fragmented back half of the night. Tolerance also builds &#8212; the sedative dose that worked last month stops working as well, which is how a single nightly glass of wine quietly becomes two.
+        </p>
+
+        <p>
+          None of this means an occasional drink will wreck your sleep permanently. It means the honest trade is worse than it feels in the moment, and the feeling of drowsiness is not a reliable signal of the sleep quality you&#8217;re about to get. If you&#8217;re trying to understand your own <a href="/sleep-cycle-calculator">sleep cycle</a> timing to plan around a night out, that&#8217;s a more useful lever than hoping the alcohol sorts itself out.
+        </p>
+
+        <h2>How long to wait before bed after drinking</h2>
+
+        <p>
+          The practical guideline researchers and clinicians use is roughly <strong>one hour per standard drink</strong>, with the goal of getting your BAC below about 0.05 before lights out &#8212; the point at which the sedative effect is minimal and sleep architecture is largely preserved. For two drinks, that&#8217;s 2&#8211;3 hours. For four, 4&#8211;5 hours. Body weight, sex, food intake, and metabolism all shift this window, which is why a flat rule of thumb only gets you so far.
+        </p>
+
+        <p>What actually helps:</p>
+        <ul class="action-list">
+          <li>Finish your last drink at least 3&#8211;4 hours before bed, not immediately before</li>
+          <li>Cap intake at 1&#8211;2 standard drinks on nights you care about sleep quality</li>
+          <li>Eat food alongside alcohol &#8212; it slows absorption and lowers peak BAC</li>
+          <li>If you snore or wake gasping after drinking, treat that as a signal worth investigating, not a normal side effect</li>
+          <li>Rebuild consistency with your <a href="/sleep-hygiene-calculator">sleep hygiene</a> basics rather than treating alcohol timing as the only lever</li>
+        </ul>
+
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-block">
+          <div class="faq-item">
+            <h3>Does alcohol help you fall asleep?</h3>
+            <p>Yes, briefly. Alcohol shortens sleep onset latency and increases slow-wave sleep in the first half of the night, which is why it feels sedating. But that effect reverses as blood alcohol clears &#8212; the second half of the night becomes fragmented and lighter, so total sleep quality is worse, not better.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Why do I wake up at 3am after drinking?</h3>
+            <p>As your body finishes metabolizing alcohol, your nervous system rebounds into a hyperaroused state &#8212; cortisol and heart rate rise and sleep becomes easy to interrupt. This rebound effect typically lands 3 to 5 hours after your last drink, which for an evening drinker is squarely in the early-morning hours.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How much alcohol disrupts sleep?</h3>
+            <p>A 2024 meta-analysis of 27 studies found measurable REM sleep disruption starting at roughly two standard drinks, worsening with each additional drink. Real-world wearable data from over 21,000 adults shows even a single drink measurably raises overnight heart rate and lowers heart rate variability, so there isn&#8217;t a dose that improves sleep quality &#8212; only a threshold at which the damage becomes obvious.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Does alcohol make sleep apnea worse?</h3>
+            <p>Yes. Alcohol relaxes the muscles that hold your upper airway open, and a systematic review found it increases the risk of obstructive sleep apnea by roughly 25%. In people who already have OSA, alcohol can lengthen and worsen individual breathing events, particularly in the first half of the night.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>How long should you wait to sleep after drinking?</h3>
+            <p>A common guideline is roughly one hour per standard drink, aiming to get your blood alcohol concentration below about 0.05 before lights out. For two drinks that&#8217;s 2&#8211;3 hours; for four drinks, 4&#8211;5 hours. The Alcohol &amp; Sleep Calculator estimates your personal clearance window using the Widmark formula.</p>
+          </div>
+        </div>
+
+        <h2 class="bottom-line">The bottom line</h2>
+
+        <p>
+          Alcohol trades a faster, easier sleep onset for a worse second half of the night &#8212; suppressed REM, rebound arousal, and a higher chance of snoring or breathing disruptions. The effect is dose-dependent but starts showing up at just one or two drinks. If you drink in the evening, the single highest-leverage change is timing: stop 3&#8211;4 hours before bed rather than right before it. The <a href="/alcohol-sleep-calculator">Alcohol &amp; Sleep Calculator</a> turns that guideline into a specific time for your own night.
+        </p>
+
+        <!-- TOOLS MENTIONED -->
+        <ToolsGrid slugs={toolsMentioned} heading="Tools Mentioned in This Article" />
+
+        <!-- RELATED READING -->
+        <div class="related-reading">
+          <h2>Related Reading</h2>
+          <ul>
+            <li><a href="/blog/why-you-wake-up-tired-even-after-8-hours">Why You Wake Up Tired (Even After 8 Hours)</a></li>
+            <li><a href="/blog/5-bedtime-habits-ruining-your-sleep">5 Bedtime Habits That Are Ruining Your Sleep</a></li>
+            <li><a href="/blog/caffeine-half-life-what-drake-et-al-actually-found">Caffeine Half-Life: What Drake et al. Actually Found</a></li>
+            <li><a href="/blog/racing-thoughts-at-night">Racing Thoughts at Night: The Science of Why Your Brain Won&#8217;t Shut Off</a></li>
+          </ul>
+        </div>
+
+        <!-- REFERENCES -->
+        <div class="references">
+          <h2>References</h2>
+          <ol>
+            <li>Ebrahim, I. O., Shapiro, C. M., Williams, A. J., &amp; Fenwick, P. B. (2013). Alcohol and sleep I: Effects on normal sleep. <em>Alcoholism: Clinical and Experimental Research</em>, 37(4):539&#8211;549. <a href="https://pubmed.ncbi.nlm.nih.gov/23347102/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+            <li>Gardiner, C. L., Weakley, J., Burke, L. M., et al. (2024). The effect of alcohol on subsequent sleep in healthy adults: A systematic review and meta-analysis. <em>Sleep Medicine Reviews</em>, 80:102030. <a href="https://www.sciencedirect.com/science/article/pii/S1087079224001345" target="_blank" rel="noopener noreferrer">ScienceDirect</a></li>
+            <li>Colrain, I. M., Nicholas, C. L., &amp; Baker, F. C. (2014). Alcohol and the sleeping brain. <em>Handbook of Clinical Neurology</em>, 125:415&#8211;431. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5821259/" target="_blank" rel="noopener noreferrer">PMC</a></li>
+            <li>Grosicki, G. J., Robinson, A. T., Joyner, M. J., et al. (2026). Real-world effects of alcohol on heart rate, sleep, and physical activity by age and sex. <em>PLOS Digital Health</em>, 5(3):e0001284. <a href="https://journals.plos.org/digitalhealth/article?id=10.1371%2Fjournal.pdig.0001284" target="_blank" rel="noopener noreferrer">PLOS Digital Health</a></li>
+            <li>Simou, E., Britton, J., &amp; Leonardi-Bee, J. (2018). Alcohol and the risk of sleep apnoea: A systematic review and meta-analysis. <em>Sleep Medicine</em>, 42:38&#8211;46. <a href="https://pubmed.ncbi.nlm.nih.gov/29458744/" target="_blank" rel="noopener noreferrer">PubMed</a></li>
+          </ol>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="disclaimer">
+          <p>
+            <strong>Medical disclaimer:</strong> This article is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions you may have regarding a medical condition or sleep disorder. Never disregard professional medical advice or delay seeking it because of something you have read on this website.
+          </p>
+        </div>
+
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .blog-post {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--border, #d1d5db);
+  }
+
+  .breadcrumb a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .post-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-tag {
+    display: inline-block;
+    background: var(--primary, #7c3aed);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 1rem;
+  }
+
+  .post-header h1 {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+    color: var(--text, #111827);
+  }
+
+  .post-header h1 .pop {
+    color: var(--primary, #7c6aff);
+  }
+
+  .post-meta {
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    margin-bottom: 1rem;
+  }
+
+  .article-intro {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-muted, #374151);
+    margin: 0.5rem 0 0;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin-bottom: 2.5rem;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .post-body {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text, #111827);
+  }
+
+  .post-body h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text, #111827);
+    line-height: 1.3;
+  }
+
+  .post-body p {
+    margin: 0 0 1.25rem;
+  }
+
+  .post-body a {
+    color: var(--primary, #7c3aed);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .post-body a:hover {
+    color: var(--primary-dark, #6d28d9);
+  }
+
+  .post-body strong {
+    color: var(--text, #111827);
+  }
+
+  .post-body em {
+    font-style: italic;
+  }
+
+  /* TL;DR */
+  .tldr {
+    background: var(--surface, #f9fafb);
+    border-left: 4px solid var(--primary, #7c3aed);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0 0 2rem;
+  }
+
+  .tldr > strong {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary, #7c3aed);
+  }
+
+  .tldr ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .tldr li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .tldr li:last-child {
+    margin-bottom: 0;
+  }
+
+  .tldr li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  /* Calculator CTA card */
+  .calc-cta {
+    background: var(--primary-soft, #ede9ff);
+    border: 2px solid var(--primary, #7c6aff);
+    border-radius: 0.75rem;
+    padding: 1.75rem 2rem;
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .calc-cta-heading {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text, #111827);
+    margin: 0;
+  }
+
+  .calc-cta-body {
+    font-size: 0.9375rem;
+    color: var(--text-muted, #374151);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .post-body .calc-cta-link,
+  .post-body .calc-cta-link:hover {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .calc-cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    background: var(--primary, #7c6aff);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.5rem;
+    width: fit-content;
+    transition: opacity 0.15s;
+  }
+
+  .calc-cta-link:hover {
+    opacity: 0.88;
+  }
+
+  /* Action list */
+  .action-list {
+    padding-left: 1.25rem;
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  .action-list li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+
+  .action-list li::marker {
+    color: var(--primary, #7c6aff);
+  }
+
+  /* FAQ block */
+  .faq-block {
+    margin: 1rem 0 2rem;
+  }
+
+  .faq-item {
+    border-top: 1px solid var(--border, #e5e7eb);
+    padding: 1.25rem 0;
+  }
+
+  .faq-item:last-child {
+    border-bottom: 1px solid var(--border, #e5e7eb);
+  }
+
+  .faq-item h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: var(--text, #111827);
+    font-family: 'Space Grotesk', sans-serif;
+    line-height: 1.4;
+  }
+
+  .faq-item p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-muted, #374151);
+    margin: 0;
+  }
+
+  /* Bottom line heading */
+  .bottom-line {
+    color: var(--primary, #7c6aff) !important;
+  }
+
+  /* Related reading */
+  .related-reading {
+    margin: 3rem 0 2rem;
+    padding: 1.5rem;
+    background: var(--surface, #f9fafb);
+    border-radius: 0.75rem;
+    border: 1px solid var(--border, #e5e7eb);
+  }
+
+  .related-reading h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .related-reading ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .related-reading li {
+    margin-bottom: 0.5rem;
+  }
+
+  .related-reading li:last-child {
+    margin-bottom: 0;
+  }
+
+  .related-reading a {
+    color: var(--primary, #7c3aed);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .related-reading a:hover {
+    text-decoration: underline;
+  }
+
+  /* References */
+  .references {
+    margin: 2.5rem 0 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border, #e5e7eb);
+  }
+
+  .references h2 {
+    font-size: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .references ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .references li {
+    margin-bottom: 0.75rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--text-muted, #6b7280);
+  }
+
+  .references a {
+    color: var(--primary, #7c3aed);
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface, #f9fafb);
+    border: 1px solid var(--border, #e5e7eb);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-muted, #6b7280);
+    line-height: 1.6;
+  }
+
+  .disclaimer strong {
+    color: var(--text, #111827);
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .blog-post {
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    .post-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .calc-cta {
+      padding: 1.25rem 1.25rem;
+    }
+  }
+</style>
