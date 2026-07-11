@@ -69,11 +69,17 @@ Target ~1,800-2,000 words. Required elements:
 - 16:9, high quality
 - After generation, resize to max 1600px wide, JPEG quality 82. Target final file size <= 200 KB.
 
-**OG card** (`{slug}-og.png`):
-- Clean editorial design with title overlay
-- 16:9, 1200x630
-- Cream off-white background (#FAF8F4), Space Grotesk-style typography, primary accent on a 1-2 word focal phrase, small wordmark bottom-right
-- Resize to 1200px wide, PNG-optimize. Target <= 800 KB.
+**OG card** (`{slug}-og.png`) — this site has one locked brand template; every published post's OG card uses it verbatim with only text/photo changed. Before generating, open 2-3 existing `*-og.png` files in `public/images/blog/` to confirm you're matching the real template, not this written description from memory. The template, top to bottom:
+- Top-left: purple rounded-square logo (white crescent-moon face) + "The Sleep Math" wordmark in bold black
+- Below it: a light-purple pill badge, bold uppercase dark-purple text, the post's category (e.g. "SLEEP SCIENCE", "SHIFT WORK")
+- Below that: a bold black 2-line headline (short version of the title, not the full title verbatim)
+- Below that: one subtitle line with exactly one word/phrase in the purple accent (#7c6aff), rest black — e.g. "The **truth** about your nightcap.", "What the research **actually** says."
+- Below that: a smaller gray line of 2-3 short facts/terms separated by " · "
+- Bottom-left: "thesleepmath.com" in bold purple, then " · Free {calculator} inside →" in gray
+- Right ~35% of the card: a real topic-relevant photo bleeding to the right/bottom edge with a rounded top-left corner, cream (#FAF8F4) background showing through the left ~65%
+- Exactly 1200x630px, genuine PNG (verify with `sips -g pixelWidth -g pixelHeight` and `file` — some image tools silently save JPEG bytes under a `.png` name). Target <= 800 KB; a naive re-save of a photo-heavy 1200x630 PNG can land over budget, so PNG-optimize (e.g. `optimize=True, compress_level=9` if using PIL) rather than shipping unoptimized.
+- If generating with an image-editing tool that accepts a reference image, use an existing OG card as the structural reference (and the post's own hero image as a photo/style reference) rather than describing the template in a fresh text prompt — much higher fidelity to the exact layout, logo, and typography.
+- Never reuse the same photo as a previous post's OG card or hero — the template itself is intentionally identical every time; only the photo, headline, badge, subtitle, facts, and CTA text should differ.
 
 ### 7. Add Backlinks from Existing Pages
 
